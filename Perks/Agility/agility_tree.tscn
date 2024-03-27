@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://demnmt3wbgfxq"]
+
+[ext_resource type="PackedScene" uid="uid://g8g2afkn8gqj" path="res://Perks/perk_tree.tscn" id="1_3qfcy"]
+[ext_resource type="Texture2D" uid="uid://s0vsgi3metbt" path="res://impact_mine_thing-01.png" id="2_thh5p"]
+[ext_resource type="Texture2D" uid="uid://m7v2oqk0s026" path="res://speed-01.png" id="2_wlgm6"]
+
+[node name="PerkTree" instance=ExtResource("1_3qfcy")]
+
+[node name="PerkButton" parent="." index="0"]
+icon = ExtResource("2_wlgm6")
+perk_name = "MoveSpeed"
+
+[node name="PerkButton2" parent="." index="1"]
+perk_name = "Acceleration"
+
+[node name="PerkButton3" parent="." index="2"]
+perk_name = "Tenacity"
+
+[node name="PerkButton4" parent="." index="3"]
+perk_name = "SpeedToDamage"
+
+[node name="PerkButton5" parent="." index="4"]
+icon = ExtResource("2_thh5p")
+perk_name = "SpeedImpact"

@@ -1,0 +1,165 @@
+[gd_scene load_steps=5 format=3 uid="uid://busuulbp1ogsk"]
+
+[ext_resource type="Script" path="res://Scenes/fight_scene.gd" id="1_x8404"]
+[ext_resource type="PackedScene" uid="uid://rur6sjmg2o3g" path="res://Units/Enemy/enemy.tscn" id="2_0ukyi"]
+[ext_resource type="Script" path="res://Scenes/game_state.gd" id="3_10aaw"]
+[ext_resource type="PackedScene" uid="uid://lugeysu4ryx3" path="res://Units/Player/player.tscn" id="3_supv1"]
+
+[node name="FightScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_x8404")
+enemy_scene = ExtResource("2_0ukyi")
+
+[node name="Player" parent="." instance=ExtResource("3_supv1")]
+
+[node name="SpawnTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 408.0
+offset_right = 491.0
+offset_bottom = 26.0
+text = "You've run"
+
+[node name="Distance" type="Label" parent="."]
+layout_mode = 0
+offset_left = 491.0
+offset_right = 574.0
+offset_bottom = 26.0
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 574.0
+offset_right = 657.0
+offset_bottom = 26.0
+text = "meters"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 408.0
+offset_top = 40.0
+offset_right = 596.0
+offset_bottom = 66.0
+text = "Chance of enemy spawn"
+
+[node name="Chance" type="Label" parent="."]
+layout_mode = 0
+offset_left = 600.0
+offset_top = 40.0
+offset_right = 619.0
+offset_bottom = 66.0
+text = "10"
+
+[node name="Label5" type="Label" parent="."]
+layout_mode = 0
+offset_left = 619.0
+offset_top = 40.0
+offset_right = 638.0
+offset_bottom = 66.0
+text = "%"
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 408.0
+offset_top = 64.0
+offset_right = 640.0
+offset_bottom = 91.0
+
+[node name="Label4" type="Label" parent="."]
+layout_mode = 0
+offset_left = 408.0
+offset_top = 24.0
+offset_right = 557.0
+offset_bottom = 50.0
+text = "Your current speed"
+
+[node name="Speed" type="Label" parent="."]
+layout_mode = 0
+offset_left = 560.0
+offset_top = 26.0
+offset_right = 600.0
+offset_bottom = 49.0
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label6" type="Label" parent="."]
+layout_mode = 0
+offset_left = 600.0
+offset_top = 24.0
+offset_right = 640.0
+offset_bottom = 50.0
+text = "m/s"
+
+[node name="GameOver" type="VBoxContainer" parent="."]
+process_mode = 2
+visible = false
+layout_mode = 0
+offset_left = 408.0
+offset_top = 384.0
+offset_right = 704.0
+offset_bottom = 560.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOver"]
+layout_mode = 2
+
+[node name="PlayerLevel" type="Label" parent="GameOver/HBoxContainer"]
+layout_mode = 2
+text = "Player level placeholder"
+
+[node name="LevelUp" type="Label" parent="GameOver/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "LEVEL_UP"
+
+[node name="XPKills" type="Label" parent="GameOver"]
+layout_mode = 2
+text = "XP from kills placeholder"
+
+[node name="XPRun" type="Label" parent="GameOver"]
+layout_mode = 2
+text = "XP from run placeholder"
+
+[node name="XPCount" type="Label" parent="GameOver"]
+layout_mode = 2
+text = "XPCount / needed xp"
+horizontal_alignment = 1
+
+[node name="XPProgress" type="ProgressBar" parent="GameOver"]
+layout_mode = 2
+show_percentage = false
+
+[node name="Button" type="Button" parent="GameOver"]
+layout_mode = 2
+text = "Open tree"
+
+[node name="Button2" type="Button" parent="GameOver"]
+layout_mode = 2
+text = "Main menu"
+
+[node name="Button3" type="Button" parent="GameOver"]
+layout_mode = 2
+text = "Restart
+"
+
+[node name="GameState" type="Node" parent="."]
+script = ExtResource("3_10aaw")
+
+[node name="GameOverPosition" type="Marker2D" parent="."]
+position = Vector2(408, 384)
+
+[connection signal="encounter_ended" from="." to="Player" method="_on_fight_scene_encounter_ended"]
+[connection signal="encounter_started" from="." to="Player" method="_on_fight_scene_encounter_started"]
+[connection signal="unit_died" from="Player" to="." method="_on_player_unit_died"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="pressed" from="GameOver/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="GameOver/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="GameOver/Button3" to="." method="_on_button_3_pressed"]

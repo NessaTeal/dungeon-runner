@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://rur6sjmg2o3g"]
+
+[ext_resource type="Script" path="res://Units/Enemy/enemy.gd" id="1_ggqo2"]
+[ext_resource type="PackedScene" uid="uid://b45y6qw1y818h" path="res://Units/BaseUnit/base_unit.tscn" id="2_5guo4"]
+
+[node name="Enemy" instance=ExtResource("2_5guo4")]
+script = ExtResource("1_ggqo2")
+max_hp = 10.0
+hp_regen = 0.0

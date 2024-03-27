@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://c65tlx11pnwdf"]
+
+[ext_resource type="Script" path="res://Perks/perk_button.gd" id="1_uk0tp"]
+[ext_resource type="Texture2D" uid="uid://c3nfce77dbucm" path="res://ui_icon_empty_white.png" id="1_wm748"]
+[ext_resource type="Texture2D" uid="uid://s0vsgi3metbt" path="res://impact_mine_thing-01.png" id="2_6kgf3"]
+
+[node name="PerkButton" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 400.0
+offset_bottom = 426.0
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_uk0tp")
+
+[node name="Button" type="Button" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+offset_top = 26.0
+offset_right = 400.0
+offset_bottom = 426.0
+toggle_mode = true
+icon = ExtResource("1_wm748")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 26.0
+text = "Perk name"
+horizontal_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 90.0
+offset_right = 336.0
+offset_bottom = 362.0
+mouse_filter = 2
+texture = ExtResource("2_6kgf3")
+expand_mode = 1
+
+[connection signal="toggled" from="Button" to="." method="_on_button_toggled"]

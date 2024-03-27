@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://8751f467lmpg"]
+
+[ext_resource type="PackedScene" uid="uid://b45y6qw1y818h" path="res://Units/BaseUnit/base_unit.tscn" id="2_5guo4"]
+
+[sub_resource type="GDScript" id="GDScript_csx7m"]
+script/source = "extends Control
+
+@onready var hp_bar: ColorRect = $\"HP bar\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+func _on_hp_updated(current_hp: float, max_hp: float):
+	hp_bar.set_size(Vector2(400 * current_hp / max_hp, 40))
+"
+
+[node name="Enemy" instance=ExtResource("2_5guo4")]
+
+[node name="HPBar" parent="." index="0"]
+offset_top = 0.0
+offset_right = 384.0
+offset_bottom = 40.0
+script = SubResource("GDScript_csx7m")

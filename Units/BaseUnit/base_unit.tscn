@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://b45y6qw1y818h"]
+
+[ext_resource type="Script" path="res://Units/BaseUnit/base_unit.gd" id="1_eslch"]
+[ext_resource type="PackedScene" uid="uid://ci5kuql6uof" path="res://Units/hp_bar.tscn" id="2_yqxca"]
+[ext_resource type="Texture2D" uid="uid://c3r80g2mb46qi" path="res://icon.svg" id="3_adl05"]
+
+[node name="Unit" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 384.0
+offset_bottom = 192.0
+script = ExtResource("1_eslch")
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 0
+offset_right = 384.0
+offset_bottom = 26.0
+text = "Placeholder unit name"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 64.0
+offset_right = 256.0
+offset_bottom = 192.0
+texture = ExtResource("3_adl05")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="HPBar" parent="." instance=ExtResource("2_yqxca")]
+layout_mode = 0
+offset_top = 24.0
+offset_bottom = 24.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_unit_attacking"]
