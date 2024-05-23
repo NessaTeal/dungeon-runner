@@ -1,9 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://busuulbp1ogsk"]
+[gd_scene load_steps=11 format=3 uid="uid://busuulbp1ogsk"]
 
 [ext_resource type="Script" path="res://Scenes/fight_scene.gd" id="1_x8404"]
 [ext_resource type="PackedScene" uid="uid://rur6sjmg2o3g" path="res://Units/Enemy/enemy.tscn" id="2_0ukyi"]
 [ext_resource type="Script" path="res://Scenes/game_state.gd" id="3_10aaw"]
 [ext_resource type="PackedScene" uid="uid://lugeysu4ryx3" path="res://Units/Player/player.tscn" id="3_supv1"]
+[ext_resource type="Texture2D" uid="uid://b0unkgk7ra08n" path="res://Frame 3.svg" id="5_mh5tv"]
+[ext_resource type="Texture2D" uid="uid://bars7fblgbr34" path="res://Frame 2.svg" id="6_a0s6h"]
+[ext_resource type="Texture2D" uid="uid://l3slf6ciflwu" path="res://Frame 1.svg" id="7_tkspj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trrdp"]
 content_margin_left = 2.0
@@ -181,6 +184,38 @@ text = "Restart
 
 [node name="GameOverPosition" type="Marker2D" parent="."]
 position = Vector2(408, 384)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_offset = Vector2(2.08165e-12, 2.08165e-12)
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.25, 0.25)
+motion_mirroring = Vector2(1415, 2.08165e-12)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer3"]
+offset_right = 1415.0
+offset_bottom = 476.0
+texture = ExtResource("5_mh5tv")
+stretch_mode = 1
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(1415, 2.08165e-12)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer2"]
+offset_right = 1415.0
+offset_bottom = 476.0
+texture = ExtResource("6_a0s6h")
+stretch_mode = 1
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1415, 2.08165e-12)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer"]
+offset_right = 1415.0
+offset_bottom = 476.0
+texture = ExtResource("7_tkspj")
+stretch_mode = 1
 
 [connection signal="encounter_ended" from="." to="Player" method="_on_fight_scene_encounter_ended"]
 [connection signal="encounter_started" from="." to="Player" method="_on_fight_scene_encounter_started"]

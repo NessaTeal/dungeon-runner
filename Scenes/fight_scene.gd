@@ -8,6 +8,7 @@ extends Control
 @onready var progress_bar: ProgressBar = $ProgressBar
 @onready var game_state: GameState = $GameState
 @onready var game_over: Control = $GameOver
+@onready var parallax: ParallaxBackground = $ParallaxBackground
 
 @export var enemy_scene: PackedScene
 
@@ -32,8 +33,12 @@ func _process(delta):
 	
 	speed_label.text = "%.01f" % game_state.modified_move_speed
 	
+	if game_state.modified_move_speed > 0:
+		parallax.scroll_offset += Vector2(-game_state.modified_move_speed * delta, 0)
+	
 	if !game_state.fighting:
 		progress_bar.value = (1 - spawn_timer.time_left) * 100
+		
 
 func _on_spawn_timer_timeout():
 	if !game_state.fighting:
