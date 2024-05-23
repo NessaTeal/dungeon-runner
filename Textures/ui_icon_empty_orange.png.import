@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://s0vsgi3metbt"
-path="res://.godot/imported/impact_mine_thing-01.png-8f091ad94c641bf65979efc105a1b00b.ctex"
+uid="uid://bc4x1so7x7njw"
+path="res://.godot/imported/ui_icon_empty_orange.png-d520f2f1499e3a17a4dde73554ee7430.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://impact_mine_thing-01.png"
-dest_files=["res://.godot/imported/impact_mine_thing-01.png-8f091ad94c641bf65979efc105a1b00b.ctex"]
+source_file="res://Textures/ui_icon_empty_orange.png"
+dest_files=["res://.godot/imported/ui_icon_empty_orange.png-d520f2f1499e3a17a4dde73554ee7430.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://m7v2oqk0s026"
-path="res://.godot/imported/speed-01.png-a878c9a219587759677f4ad26c06ac2e.ctex"
+uid="uid://b0unkgk7ra08n"
+path="res://.godot/imported/Frame 3.svg-f2be3222d5e5ccdf7851d97b2651ecba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://speed-01.png"
-dest_files=["res://.godot/imported/speed-01.png-a878c9a219587759677f4ad26c06ac2e.ctex"]
+source_file="res://Textures/Frame 3.svg"
+dest_files=["res://.godot/imported/Frame 3.svg-f2be3222d5e5ccdf7851d97b2651ecba.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

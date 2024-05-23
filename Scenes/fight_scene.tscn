@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://rur6sjmg2o3g" path="res://Units/Enemy/enemy.tscn" id="2_0ukyi"]
 [ext_resource type="Script" path="res://Scenes/game_state.gd" id="3_10aaw"]
 [ext_resource type="PackedScene" uid="uid://lugeysu4ryx3" path="res://Units/Player/player.tscn" id="3_supv1"]
-[ext_resource type="Texture2D" uid="uid://b0unkgk7ra08n" path="res://Frame 3.svg" id="5_mh5tv"]
-[ext_resource type="Texture2D" uid="uid://bars7fblgbr34" path="res://Frame 2.svg" id="6_a0s6h"]
-[ext_resource type="Texture2D" uid="uid://l3slf6ciflwu" path="res://Frame 1.svg" id="7_tkspj"]
+[ext_resource type="Texture2D" uid="uid://b0unkgk7ra08n" path="res://Textures/Frame 3.svg" id="5_mh5tv"]
+[ext_resource type="Texture2D" uid="uid://bars7fblgbr34" path="res://Textures/Frame 2.svg" id="6_a0s6h"]
+[ext_resource type="Texture2D" uid="uid://l3slf6ciflwu" path="res://Textures/Frame 1.svg" id="7_tkspj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trrdp"]
 content_margin_left = 2.0

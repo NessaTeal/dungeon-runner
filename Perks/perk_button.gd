@@ -11,8 +11,8 @@ class_name PerkButton
 
 signal perks_point_changed
 
-var halo_normal = preload("res://ui_icon_empty_white.png")
-var halo_golden = preload("res://ui_icon_empty_orange.png")
+var halo_normal = preload("res://Textures/ui_icon_empty_white.png")
+var halo_golden = preload("res://Textures/ui_icon_empty_orange.png")
 
 
 # Called when the node enters the scene tree for the first time.
