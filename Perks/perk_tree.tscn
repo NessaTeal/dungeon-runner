@@ -5,59 +5,47 @@
 
 [node name="ColorRect" type="ColorRect"]
 process_mode = 3
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_right = 1148.0
+offset_bottom = 647.0
 color = Color(0.458824, 0.447059, 0.286275, 1)
 script = ExtResource("1_shrwa")
 
-[node name="PerkButton" parent="." instance=ExtResource("1_4sv20")]
+[node name="PerkButtons" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PerkButton" parent="PerkButtons" instance=ExtResource("1_4sv20")]
 layout_mode = 1
 offset_top = 200.0
 offset_bottom = 200.0
 
-[node name="PerkButton2" parent="." instance=ExtResource("1_4sv20")]
+[node name="PerkButton2" parent="PerkButtons" instance=ExtResource("1_4sv20")]
 layout_mode = 1
 offset_left = 352.0
 offset_right = 352.0
 
-[node name="PerkButton3" parent="." instance=ExtResource("1_4sv20")]
+[node name="PerkButton3" parent="PerkButtons" instance=ExtResource("1_4sv20")]
 layout_mode = 1
 offset_left = 352.0
 offset_top = 360.0
 offset_right = 352.0
 offset_bottom = 360.0
 
-[node name="PerkButton4" parent="." instance=ExtResource("1_4sv20")]
+[node name="PerkButton4" parent="PerkButtons" instance=ExtResource("1_4sv20")]
 layout_mode = 1
 offset_left = 704.0
 offset_top = 336.0
 offset_right = 704.0
 offset_bottom = 336.0
 
-[node name="PerkButton5" parent="." instance=ExtResource("1_4sv20")]
+[node name="PerkButton5" parent="PerkButtons" instance=ExtResource("1_4sv20")]
 layout_mode = 1
 offset_left = 704.0
 offset_right = 704.0
 
-[node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_left = 968.0
-offset_top = 448.0
-offset_right = 1120.0
-offset_bottom = 568.0
-text = "Close menu"
-
-[node name="PerkPointsLabel" type="Label" parent="."]
-layout_mode = 0
-offset_left = 86.0
-offset_top = 68.0
-offset_right = 304.0
-offset_bottom = 104.0
-text = "Perk points text"
-
-[connection signal="perks_point_changed" from="PerkButton" to="." method="_on_perk_button_perks_point_changed"]
-[connection signal="perks_point_changed" from="PerkButton2" to="." method="_on_perk_button_perks_point_changed"]
-[connection signal="perks_point_changed" from="PerkButton3" to="." method="_on_perk_button_perks_point_changed"]
-[connection signal="perks_point_changed" from="PerkButton4" to="." method="_on_perk_button_perks_point_changed"]
-[connection signal="perks_point_changed" from="PerkButton5" to="." method="_on_perk_button_perks_point_changed"]
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="perks_point_changed" from="PerkButtons/PerkButton" to="." method="_on_perk_button_perks_point_changed"]
+[connection signal="perks_point_changed" from="PerkButtons/PerkButton2" to="." method="_on_perk_button_perks_point_changed"]
+[connection signal="perks_point_changed" from="PerkButtons/PerkButton3" to="." method="_on_perk_button_perks_point_changed"]
+[connection signal="perks_point_changed" from="PerkButtons/PerkButton4" to="." method="_on_perk_button_perks_point_changed"]
+[connection signal="perks_point_changed" from="PerkButtons/PerkButton5" to="." method="_on_perk_button_perks_point_changed"]

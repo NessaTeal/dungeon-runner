@@ -25,8 +25,7 @@ offset_left = 470.0
 offset_top = 445.0
 offset_right = 1032.0
 offset_bottom = 576.0
-text = "Check agility tree
-"
+text = "PERK_TREE_BUTTON"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]

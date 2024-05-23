@@ -15,6 +15,7 @@ var hp: float
 
 signal hp_updated(current_hp, max_hp)
 signal unit_attacking(damage)
+signal unit_attacked(damage)
 signal unit_died
 
 # Called when the node enters the scene tree for the first time.
@@ -23,11 +24,6 @@ func _ready():
 	timer.wait_time = attack_speed
 	unit_name_label.text = unit_name
 	timer.start()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float):
-	hp = min(hp + hp_regen * delta, max_hp)
-	update_hp()
 
 func update_hp():
 	hp_bar.set_size(Vector2(384 * hp / max_hp, 40))
@@ -39,6 +35,7 @@ func apply_damage(damage: float):
 	update_hp()
 
 func _on_unit_attacked(damage):
+	unit_attacked.emit(damage)
 	apply_damage(damage)
 
 func _on_unit_attacking():

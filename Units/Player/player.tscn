@@ -7,6 +7,9 @@
 script = ExtResource("1_2e63y")
 max_hp = 40.0
 hp_regen = 1.0
+attack = null
+unit_name = null
+attack_speed = null
 
 [node name="SpeedToDamageTimer" type="Timer" parent="." index="4"]
 wait_time = 0.25

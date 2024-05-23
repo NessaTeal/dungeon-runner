@@ -1,9 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://busuulbp1ogsk"]
+[gd_scene load_steps=8 format=3 uid="uid://busuulbp1ogsk"]
 
 [ext_resource type="Script" path="res://Scenes/fight_scene.gd" id="1_x8404"]
 [ext_resource type="PackedScene" uid="uid://rur6sjmg2o3g" path="res://Units/Enemy/enemy.tscn" id="2_0ukyi"]
 [ext_resource type="Script" path="res://Scenes/game_state.gd" id="3_10aaw"]
 [ext_resource type="PackedScene" uid="uid://lugeysu4ryx3" path="res://Units/Player/player.tscn" id="3_supv1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trrdp"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_abg2n"]
+bg_color = Color(0.385967, 0.660907, 0.607137, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[sub_resource type="Theme" id="Theme_41rs1"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_trrdp")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_abg2n")
 
 [node name="FightScene" type="Control"]
 layout_mode = 3
@@ -12,6 +36,9 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_x8404")
 enemy_scene = ExtResource("2_0ukyi")
+
+[node name="GameState" type="Node" parent="."]
+script = ExtResource("3_10aaw")
 
 [node name="Player" parent="." instance=ExtResource("3_supv1")]
 
@@ -69,6 +96,8 @@ offset_left = 408.0
 offset_top = 64.0
 offset_right = 640.0
 offset_bottom = 91.0
+theme = SubResource("Theme_41rs1")
+value = 50.0
 
 [node name="Label4" type="Label" parent="."]
 layout_mode = 0
@@ -149,9 +178,6 @@ text = "Main menu"
 layout_mode = 2
 text = "Restart
 "
-
-[node name="GameState" type="Node" parent="."]
-script = ExtResource("3_10aaw")
 
 [node name="GameOverPosition" type="Marker2D" parent="."]
 position = Vector2(408, 384)

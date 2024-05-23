@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://t4byww4nf3xs"]
+
+[ext_resource type="Script" path="res://Perks/Effects/retaliate_effect.gd" id="1_p8ub1"]
+
+[node name="RetaliateEffect" type="Node"]
+script = ExtResource("1_p8ub1")

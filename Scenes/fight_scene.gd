@@ -73,7 +73,7 @@ func spawn_enemy():
 	
 
 func _on_button_pressed():
-	get_parent().add_child(load("res://Perks/Agility/agility_tree.tscn").instantiate())
+	get_parent().add_child(load("res://Scenes/perks_scene.tscn").instantiate())
 
 
 func _on_button_2_pressed():
