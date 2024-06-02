@@ -14,7 +14,6 @@ signal perks_point_changed
 var halo_normal = preload("res://Textures/ui_icon_empty_white.png")
 var halo_golden = preload("res://Textures/ui_icon_empty_orange.png")
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	icon_component.texture = icon
@@ -49,3 +48,12 @@ func recalculate():
 	var lock_perks = Perks.active_perks[perk_name].locked_by
 
 	button.disabled = !unlock_perks.all(func(perk): return perk.state) or !lock_perks.all(func(perk): return !perk.state)
+
+
+func _on_mouse_entered():
+	HoverBox.reset()
+	HoverBox.add_line(Perks.active_perks[perk_name].description)
+	HoverBox.visible = true
+
+func _on_mouse_exited():
+	HoverBox.visible = false

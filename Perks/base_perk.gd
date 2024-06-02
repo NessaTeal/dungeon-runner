@@ -2,5 +2,6 @@ extends Node
 
 class_name BasePerk
 
-static func apply(game_state: GameState):
+static func apply(_game_state: GameState):
 	pass
+

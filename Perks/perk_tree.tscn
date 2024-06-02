@@ -12,35 +12,36 @@ script = ExtResource("1_shrwa")
 
 [node name="PerkButtons" type="Control" parent="."]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1150.0
+offset_bottom = 649.0
+mouse_filter = 2
 
 [node name="PerkButton" parent="PerkButtons" instance=ExtResource("1_4sv20")]
-layout_mode = 1
+layout_mode = 2
 offset_top = 200.0
-offset_bottom = 200.0
+offset_bottom = 624.0
 
 [node name="PerkButton2" parent="PerkButtons" instance=ExtResource("1_4sv20")]
-layout_mode = 1
+layout_mode = 2
 offset_left = 352.0
 offset_right = 352.0
 
 [node name="PerkButton3" parent="PerkButtons" instance=ExtResource("1_4sv20")]
-layout_mode = 1
+layout_mode = 2
 offset_left = 352.0
 offset_top = 360.0
 offset_right = 352.0
 offset_bottom = 360.0
 
 [node name="PerkButton4" parent="PerkButtons" instance=ExtResource("1_4sv20")]
-layout_mode = 1
+layout_mode = 2
 offset_left = 704.0
 offset_top = 336.0
 offset_right = 704.0
 offset_bottom = 336.0
 
 [node name="PerkButton5" parent="PerkButtons" instance=ExtResource("1_4sv20")]
-layout_mode = 1
+layout_mode = 2
 offset_left = 704.0
 offset_right = 704.0
 

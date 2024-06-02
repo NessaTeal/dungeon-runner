@@ -11,6 +11,7 @@ offset_right = 400.0
 offset_bottom = 426.0
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_uk0tp")
+perk_name = "Acceleration"
 
 [node name="Button" type="Button" parent="."]
 texture_filter = 1
@@ -19,6 +20,7 @@ anchors_preset = -1
 offset_top = 26.0
 offset_right = 400.0
 offset_bottom = 426.0
+mouse_filter = 1
 toggle_mode = true
 icon = ExtResource("2_h28ac")
 icon_alignment = 1
@@ -41,4 +43,6 @@ mouse_filter = 2
 texture = ExtResource("3_dcr0i")
 expand_mode = 1
 
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="toggled" from="Button" to="." method="_on_button_toggled"]
