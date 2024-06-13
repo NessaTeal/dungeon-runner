@@ -6,5 +6,3 @@ func get_value():
 func apply(game_state: GameState):
 	game_state.acceleration += get_value()
 	
-#func get_description():
-	
