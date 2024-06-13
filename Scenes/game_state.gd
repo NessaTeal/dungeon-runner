@@ -33,3 +33,7 @@ func _ready():
 	for perk_key in Perks.active_perks:
 		if Perks.active_perks[perk_key].state:
 			Perks.active_perks[perk_key].script.apply(self)
+	
+	for stone in Inventory.slots.filter(func(slot): return slot.item).map(func(slot): return slot.item.stone):
+		for affix in stone.get_children():
+			affix.apply(self)

@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://b15a53d7gu5mb"]
+
+[ext_resource type="Texture2D" uid="uid://bc4x1so7x7njw" path="res://Textures/ui_icon_empty_orange.png" id="1_qgpoq"]
+[ext_resource type="Script" path="res://Inventory/item_slot.gd" id="2_isl4b"]
+
+[node name="ItemSlot" type="Control"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_isl4b")
+
+[node name="Border" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_qgpoq")
+stretch_mode = 4
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

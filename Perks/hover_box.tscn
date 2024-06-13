@@ -4,19 +4,22 @@
 [ext_resource type="Texture2D" uid="uid://bc4x1so7x7njw" path="res://Textures/ui_icon_empty_orange.png" id="2_b64bh"]
 [ext_resource type="PackedScene" uid="uid://4pxjsoxdwpko" path="res://Perks/perks_tooltip_line.tscn" id="3_omyib"]
 
-[node name="HoverBox" type="MarginContainer"]
-process_mode = 3
-z_index = 1000
-offset_right = 73.0
-offset_bottom = 49.0
-mouse_filter = 2
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 129.0
+offset_bottom = 73.0
 script = ExtResource("1_blqyw")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="HoverBox" type="PanelContainer" parent="."]
+offset_right = 129.0
+offset_bottom = 73.0
+
+[node name="ColorRect" type="ColorRect" parent="HoverBox"]
 layout_mode = 2
 color = Color(0.1176, 0.28, 0.185267, 1)
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
+[node name="NinePatchRect" type="NinePatchRect" parent="HoverBox"]
 layout_mode = 2
 texture = ExtResource("2_b64bh")
 draw_center = false
@@ -26,24 +29,24 @@ patch_margin_top = 4
 patch_margin_right = 4
 patch_margin_bottom = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="HoverBox"]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HoverBox/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Header" type="Label" parent="MarginContainer/VBoxContainer2"]
+[node name="Header" type="Label" parent="HoverBox/MarginContainer/VBoxContainer2"]
 layout_mode = 2
 text = "Header"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HoverBox/MarginContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="PerksTooltipLine" parent="MarginContainer/VBoxContainer2/VBoxContainer" instance=ExtResource("3_omyib")]
+[node name="PerksTooltipLine3" parent="HoverBox/MarginContainer/VBoxContainer2/VBoxContainer" instance=ExtResource("3_omyib")]
 layout_mode = 2

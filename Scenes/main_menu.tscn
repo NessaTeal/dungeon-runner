@@ -27,5 +27,14 @@ offset_right = 1032.0
 offset_bottom = 576.0
 text = "PERK_TREE_BUTTON"
 
+[node name="Button3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 348.0
+offset_right = 257.0
+offset_bottom = 566.0
+text = "Generate stone"
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_on_button_3_pressed"]

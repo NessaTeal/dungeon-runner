@@ -1,7 +1,7 @@
 extends Control
 
-@onready var tips = $MarginContainer/VBoxContainer2/VBoxContainer
-@onready var header = $MarginContainer/VBoxContainer2/Header
+@onready var tips = $HoverBox/MarginContainer/VBoxContainer2/VBoxContainer
+@onready var header = $HoverBox/MarginContainer/VBoxContainer2/Header
 
 var tooltip_line = preload("res://Perks/perks_tooltip_line.tscn")
 
@@ -13,7 +13,7 @@ func _process(_delta):
 
 func reset():
 	for child in tips.get_children():
-		child.free()
+		child.queue_free()
 
 func add_line(text: String):
 	var new_tooltip = tooltip_line.instantiate()

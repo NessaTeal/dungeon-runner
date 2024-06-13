@@ -19,6 +19,8 @@ config/icon="res://Textures/icon.svg"
 
 Perks="*res://Perks/perks.gd"
 Meta="*res://meta.gd"
+Inventory="*res://Inventory/inventory.tscn"
+HeldItem="*res://Inventory/held_item.tscn"
 HoverBox="*res://Perks/hover_box.tscn"
 
 [input]
