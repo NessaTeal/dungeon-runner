@@ -12,6 +12,7 @@ offset_bottom = 73.0
 script = ExtResource("1_blqyw")
 
 [node name="HoverBox" type="PanelContainer" parent="."]
+layout_mode = 0
 offset_right = 129.0
 offset_bottom = 73.0
 

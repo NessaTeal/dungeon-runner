@@ -1,4 +1,4 @@
-extends Node
+extends Object
 
 static func first_element_which(array, callback):
 	for element in array:

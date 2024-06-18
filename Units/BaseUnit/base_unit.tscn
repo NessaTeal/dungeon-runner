@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b45y6qw1y818h"]
+[gd_scene load_steps=4 format=3 uid="uid://b45y6qw1y818h"]
 
 [ext_resource type="Script" path="res://Units/BaseUnit/base_unit.gd" id="1_eslch"]
-[ext_resource type="PackedScene" uid="uid://ci5kuql6uof" path="res://Units/hp_bar.tscn" id="2_yqxca"]
 [ext_resource type="Texture2D" uid="uid://c3r80g2mb46qi" path="res://Textures/icon.svg" id="3_adl05"]
-[ext_resource type="PackedScene" uid="uid://b4pjg8f0bgfey" path="res://Perks/Effects/hp_regen_effect.tscn" id="4_du1nj"]
+[ext_resource type="PackedScene" uid="uid://dp1aer0epf235" path="res://Units/Components/health_component.tscn" id="5_p8ab6"]
 
 [node name="Unit" type="Control"]
 layout_mode = 3
@@ -30,11 +29,10 @@ texture = ExtResource("3_adl05")
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
-[node name="HPBar" parent="." instance=ExtResource("2_yqxca")]
+[node name="HealthComponent" parent="." instance=ExtResource("5_p8ab6")]
 layout_mode = 0
 offset_top = 24.0
-offset_bottom = 24.0
-
-[node name="HpRegenEffect" parent="." instance=ExtResource("4_du1nj")]
+offset_right = 384.0
+offset_bottom = 64.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_unit_attacking"]

@@ -9,7 +9,6 @@ signal encounter_started
 
 func _ready():
 	game_state = get_parent().get_node("GameState") as GameState
-	max_hp = game_state.player_hp
 	super._ready()
 
 	if game_state.immolate > 0:

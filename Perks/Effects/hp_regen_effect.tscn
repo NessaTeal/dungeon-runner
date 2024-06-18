@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4pjg8f0bgfey"]
-
-[ext_resource type="Script" path="res://Perks/Effects/hp_regen_effect.gd" id="1_ieigj"]
-
-[node name="HPRegenEffect" type="Node"]
-script = ExtResource("1_ieigj")

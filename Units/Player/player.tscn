@@ -5,11 +5,10 @@
 
 [node name="Player" instance=ExtResource("2_qs5w3")]
 script = ExtResource("1_2e63y")
-max_hp = 40.0
-hp_regen = 1.0
-attack = null
-unit_name = null
-attack_speed = null
+
+[node name="HealthComponent" parent="." index="3"]
+max_hp = 100
+hp_regen = 1
 
 [node name="SpeedToDamageTimer" type="Timer" parent="." index="4"]
 wait_time = 0.25

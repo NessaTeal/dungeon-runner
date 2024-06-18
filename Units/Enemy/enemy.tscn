@@ -5,5 +5,6 @@
 
 [node name="Enemy" instance=ExtResource("2_5guo4")]
 script = ExtResource("1_ggqo2")
-max_hp = 10.0
-hp_regen = 0.0
+
+[node name="HealthComponent" parent="." index="3"]
+max_hp = 20

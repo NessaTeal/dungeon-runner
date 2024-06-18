@@ -21,6 +21,9 @@ var time_passed = 0
 signal encounter_started
 signal encounter_ended
 
+func _ready():
+	player.health_component.hp_depleted.connect(_on_player_unit_died)
+
 func _process(delta):
 	if Input.is_action_pressed("SpeeHack"):
 		Engine.time_scale = 5
@@ -59,19 +62,15 @@ func spawn_enemy():
 	spawn_timer.stop()
 	progress_bar.value = 0
 	enemy = enemy_scene.instantiate()
+	add_child(enemy)
+	enemy.scale_enemy(1 + time_passed / 10)
 	
 	enemy.set_position(Vector2(700, 0));
-	player.unit_attacking.connect(Callable(enemy, '_on_unit_attacked'))
-	enemy.unit_attacking.connect(Callable(player, '_on_unit_attacked'))
-	enemy.unit_died.connect(_on_enemy_died)
+	player.unit_attacking.connect(enemy.health_component._on_receive_damage)
+	enemy.unit_attacking.connect(player.health_component._on_receive_damage)
+	enemy.health_component.hp_depleted.connect(_on_enemy_died)
 	game_state.encounter_chance = game_state.base_encounter_chance
 	chance_label.text = "%d" % (game_state.encounter_chance * 100)
-	
-	var enemy_ready = func():
-		enemy.scale_enemy(1 + time_passed / 10)
-	enemy.ready.connect(enemy_ready)
-	
-	add_child(enemy)
 	
 	encounter_started.emit()
 	game_state.fighting = true

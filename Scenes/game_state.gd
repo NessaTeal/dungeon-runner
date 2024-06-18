@@ -3,8 +3,6 @@ extends Node
 class_name GameState
 
 var player_level: int = 1
-var player_hp: float = 200
-var player_hp_regen: float = 10
 var current_move_speed: float = 10
 var modified_move_speed: float = 10
 
@@ -15,7 +13,6 @@ var speed_during_fight: float = 0
 var speed_to_damage_multiplier: float = 0
 var speed_impact: float = 0
 # Vitality
-var player_hp_regen_from_missing_hp: float = 0
 var immolate: float = 0
 var immolate_storage: float = 0
 var retaliate: float = 0
