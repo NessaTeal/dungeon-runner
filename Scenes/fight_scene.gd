@@ -17,6 +17,7 @@ var main_menu: PackedScene = load("res://Scenes/main_menu.tscn")
 var enemy: Enemy
 
 var time_passed = 0
+var fighting = false
 
 signal encounter_started
 signal encounter_ended
@@ -29,19 +30,21 @@ func _process(delta):
 	
 	time_passed += delta
 	
-	distance_label.text = "%.02f" % game_state.distance
+	distance_label.text = "%.02f" % player.movement_component.distance
 	
-	speed_label.text = "%.01f" % game_state.modified_move_speed
+	var current_speed = player.movement_component.get_current_speed()
 	
-	if game_state.modified_move_speed > 0:
-		parallax.scroll_offset += Vector2(-game_state.modified_move_speed * delta, 0)
+	speed_label.text = "%.01f" % player.movement_component.get_current_speed()
 	
-	if !game_state.fighting:
+	if current_speed > 0:
+		parallax.scroll_offset += Vector2(-current_speed * delta, 0)
+	
+	if !fighting:
 		progress_bar.value = (1 - spawn_timer.time_left) * 100
 		
 
 func _on_spawn_timer_timeout():
-	if !game_state.fighting:
+	if !fighting:
 		if randf() < game_state.encounter_chance:
 			spawn_enemy()
 		else:
@@ -51,7 +54,7 @@ func _on_spawn_timer_timeout():
 func _on_enemy_died():
 	game_state.fight_xp += 50
 	encounter_ended.emit()
-	game_state.fighting = false
+	fighting = false
 	enemy.queue_free()
 	spawn_timer.start()
 
@@ -70,7 +73,7 @@ func spawn_enemy():
 	chance_label.text = "%d" % (game_state.encounter_chance * 100)
 	
 	encounter_started.emit()
-	game_state.fighting = true
+	fighting = true
 	
 
 func _on_button_pressed():
@@ -85,7 +88,7 @@ func _on_button_2_pressed():
 
 func _on_player_unit_died():
 	get_tree().paused = true
-	var distance_xp: float = game_state.distance ** 1.1
+	var distance_xp: float = player.movement_component.distance ** 1.1
 	var total_xp: float = distance_xp + game_state.fight_xp
 	var leveled_up: bool = false
 	

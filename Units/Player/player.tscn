@@ -1,16 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://lugeysu4ryx3"]
+[gd_scene load_steps=5 format=3 uid="uid://lugeysu4ryx3"]
 
 [ext_resource type="Script" path="res://Units/Player/player.gd" id="1_2e63y"]
 [ext_resource type="PackedScene" uid="uid://b45y6qw1y818h" path="res://Units/BaseUnit/base_unit.tscn" id="2_qs5w3"]
+[ext_resource type="PackedScene" uid="uid://by12r5p8vqs7i" path="res://Units/Components/movement_component.tscn" id="3_b5npy"]
+[ext_resource type="PackedScene" uid="uid://bsnykfsfud0qu" path="res://Units/Components/fighting_component.tscn" id="4_hm4al"]
 
 [node name="Player" instance=ExtResource("2_qs5w3")]
 script = ExtResource("1_2e63y")
+unit_name = null
 
-[node name="HealthComponent" parent="." index="3"]
+[node name="HealthComponent" parent="." index="2"]
 max_hp = 100
 hp_regen = 1
 
 [node name="SpeedToDamageTimer" type="Timer" parent="." index="4"]
 wait_time = 0.25
+
+[node name="MovementComponent" parent="." index="5" node_paths=PackedStringArray("fighting_component") instance=ExtResource("3_b5npy")]
+layout_mode = 1
+fighting_component = NodePath("../FightingComponent")
+
+[node name="FightingComponent" parent="." index="6" node_paths=PackedStringArray("attack_component") instance=ExtResource("4_hm4al")]
+layout_mode = 1
+attack_component = NodePath("../AttackComponent")
 
 [connection signal="timeout" from="SpeedToDamageTimer" to="." method="_on_speed_to_damage_timer_timeout"]

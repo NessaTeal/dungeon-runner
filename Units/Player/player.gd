@@ -5,6 +5,9 @@ class_name Player
 @onready var speed_to_damage_timer: Timer = $SpeedToDamageTimer
 var game_state: GameState
 
+@onready var movement_component: MovementComponent = $MovementComponent
+@onready var fighting_component: FightingComponent = $FightingComponent
+
 signal encounter_started
 
 func _ready():
@@ -20,20 +23,6 @@ func _ready():
 		var retaliate_effect = preload("res://Perks/Effects/retaliate_effect.tscn").instantiate()
 		#unit_attacked.connect(retaliate_effect._on_unit_attacked)
 		add_child(retaliate_effect)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	var speed_multiplier = game_state.speed_during_fight if game_state.fighting else 1.0
-	
-	if !game_state.fighting:
-		game_state.move_speed_from_acceleration += game_state.acceleration * delta
-	else:
-		game_state.move_speed_from_acceleration -= game_state.move_speed_from_acceleration / 20 * delta
-		
-	game_state.modified_move_speed = (game_state.current_move_speed + game_state.move_speed_from_acceleration) * speed_multiplier
-	
-	game_state.distance += game_state.modified_move_speed * delta
-	
 
 func _on_speed_to_damage_timer_timeout():
 	if game_state.fighting:

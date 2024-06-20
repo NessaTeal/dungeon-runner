@@ -3,22 +3,11 @@ extends Node
 class_name GameState
 
 var player_level: int = 1
-var current_move_speed: float = 10
-var modified_move_speed: float = 10
 
-# Agility
-var move_speed_from_acceleration: float = 0
-var acceleration: float = 0
-var speed_during_fight: float = 0
-var speed_to_damage_multiplier: float = 0
-var speed_impact: float = 0
 # Vitality
 var immolate: float = 0
 var immolate_storage: float = 0
 var retaliate: float = 0
-
-var fighting: bool = false
-var distance: float = 0
 
 var base_encounter_chance: float = 1.0/10
 var encounter_chance: float = 1.0/10
