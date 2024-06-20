@@ -219,7 +219,10 @@ stretch_mode = 1
 
 [connection signal="encounter_ended" from="." to="Player" method="_on_fight_scene_encounter_ended"]
 [connection signal="encounter_started" from="." to="Player" method="_on_fight_scene_encounter_started"]
+[connection signal="hp_depleted" from="Player/HealthComponent" to="." method="_on_player_unit_died"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="pressed" from="GameOver/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="GameOver/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="GameOver/Button3" to="." method="_on_button_3_pressed"]
+
+[editable path="Player"]
