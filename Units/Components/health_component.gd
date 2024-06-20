@@ -7,6 +7,7 @@ var hp = 0
 @export var missing_hp_regen = 0
 
 signal hp_depleted
+signal damage_received(damage)
 
 func _ready():
 	hp = max_hp
@@ -19,6 +20,7 @@ func _process(delta):
 
 func _on_receive_damage(damage):
 	hp -= damage
+	damage_received.emit(damage)
 	self.value = max(hp, 0)
 	
 	if hp <= 0:

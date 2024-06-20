@@ -1,13 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://lugeysu4ryx3"]
+[gd_scene load_steps=7 format=3 uid="uid://lugeysu4ryx3"]
 
 [ext_resource type="Script" path="res://Units/Player/player.gd" id="1_2e63y"]
 [ext_resource type="PackedScene" uid="uid://b45y6qw1y818h" path="res://Units/BaseUnit/base_unit.tscn" id="2_qs5w3"]
 [ext_resource type="PackedScene" uid="uid://by12r5p8vqs7i" path="res://Units/Components/movement_component.tscn" id="3_b5npy"]
 [ext_resource type="PackedScene" uid="uid://bsnykfsfud0qu" path="res://Units/Components/fighting_component.tscn" id="4_hm4al"]
+[ext_resource type="PackedScene" uid="uid://t4byww4nf3xs" path="res://Units/Components/retaliate_component.tscn" id="5_yv3g7"]
+[ext_resource type="PackedScene" uid="uid://bc1cjji0pmjrh" path="res://Units/Components/immolation_component.tscn" id="6_tjpjd"]
 
 [node name="Player" instance=ExtResource("2_qs5w3")]
 script = ExtResource("1_2e63y")
-unit_name = null
 
 [node name="HealthComponent" parent="." index="2"]
 max_hp = 100
@@ -24,4 +25,15 @@ fighting_component = NodePath("../FightingComponent")
 layout_mode = 1
 attack_component = NodePath("../AttackComponent")
 
+[node name="RetaliateEffect" parent="." index="7" node_paths=PackedStringArray("health_component", "attack_component") instance=ExtResource("5_yv3g7")]
+health_component = NodePath("../HealthComponent")
+attack_component = NodePath("../AttackComponent")
+
+[node name="ImmolationComponent" parent="." index="8" node_paths=PackedStringArray("fighting_component", "health_component", "attack_component") instance=ExtResource("6_tjpjd")]
+immolation = 5.0
+fighting_component = NodePath("../FightingComponent")
+health_component = NodePath("../HealthComponent")
+attack_component = NodePath("../AttackComponent")
+
+[connection signal="damage_received" from="HealthComponent" to="RetaliateEffect" method="_on_unit_attacked"]
 [connection signal="timeout" from="SpeedToDamageTimer" to="." method="_on_speed_to_damage_timer_timeout"]
