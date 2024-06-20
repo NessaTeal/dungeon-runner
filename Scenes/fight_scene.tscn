@@ -44,7 +44,6 @@ enemy_scene = ExtResource("2_0ukyi")
 script = ExtResource("3_10aaw")
 
 [node name="Player" parent="." instance=ExtResource("3_supv1")]
-unit_name = "Unit Name"
 
 [node name="SpawnTimer" type="Timer" parent="."]
 autostart = true

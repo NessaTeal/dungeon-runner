@@ -30,7 +30,6 @@ health_component = NodePath("../HealthComponent")
 attack_component = NodePath("../AttackComponent")
 
 [node name="ImmolationComponent" parent="." index="8" node_paths=PackedStringArray("fighting_component", "health_component", "attack_component") instance=ExtResource("6_tjpjd")]
-immolation = 5.0
 fighting_component = NodePath("../FightingComponent")
 health_component = NodePath("../HealthComponent")
 attack_component = NodePath("../AttackComponent")
