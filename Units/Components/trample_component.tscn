@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgruckc6ybglp"]
+
+[ext_resource type="Script" path="res://Units/Components/trample_component.gd" id="1_m6x3n"]
+
+[node name="TrampleComponent" type="Node"]
+script = ExtResource("1_m6x3n")

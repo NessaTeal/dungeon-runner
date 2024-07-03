@@ -4,11 +4,13 @@ var item
 
 var mouse_inside: bool = false
 
+var equip_slot: bool = true
+
 func _process(_delta):
 	if mouse_inside:
 		if !HoverBox.visible && item:
 			HoverBox.reset()
-			for affix in item.stone.get_children():
+			for affix in item.stone.affixes:
 				HoverBox.add_line(affix.get_description())
 			HoverBox.visible = true
 		elif HoverBox.visible && !item:
@@ -24,6 +26,8 @@ func _on_mouse_exited():
 func set_item(new_item):
 	item = new_item
 	add_child(new_item)
+	if equip_slot:
+		Inventory.equip_changed.emit(new_item.stone.affixes)
 
 func pick_up_item():
 	var tmp = item

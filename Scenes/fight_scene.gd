@@ -13,6 +13,8 @@ extends Control
 @export var enemy_scene: PackedScene
 
 var main_menu: PackedScene = load("res://Scenes/main_menu.tscn")
+var item: PackedScene = load("res://Inventory/item.tscn")
+var affix_generator = preload("res://Affixes/affix_stone_generator.gd").new()
 
 var enemy: Enemy
 
@@ -21,6 +23,11 @@ var fighting = false
 
 signal encounter_started
 signal encounter_ended
+
+func _ready():
+	encounter_started.connect(player.fighting_component.start_fight)
+	encounter_ended.connect(player.fighting_component.stop_fight)
+	player.health_component.hp_depleted.connect(_on_player_unit_died)
 
 func _process(delta):
 	if Input.is_action_pressed("SpeeHack"):
@@ -57,24 +64,28 @@ func _on_enemy_died():
 	fighting = false
 	enemy.queue_free()
 	spawn_timer.start()
+	var new_item = item.instantiate()
+	new_item.stone = affix_generator.generate_stone()
+	new_item.texture = preload("res://Textures/06_t.PNG")
+	Inventory.add_item(new_item)
 
 func spawn_enemy():
 	spawn_timer.stop()
 	progress_bar.value = 0
 	enemy = enemy_scene.instantiate()
 	add_child(enemy)
+	enemy.fighting_component.start_fight()
 	enemy.scale_enemy(1 + time_passed / 10)
 	
 	enemy.set_position(Vector2(700, 0));
 	player.attack_component.attack_happened.connect(enemy.health_component._on_receive_damage)
 	enemy.attack_component.attack_happened.connect(player.health_component._on_receive_damage)
-	enemy.health_component.hp_depleted.connect(_on_enemy_died)
+	enemy.health_component.hp_depleted.connect(_on_enemy_died, CONNECT_ONE_SHOT)
 	game_state.encounter_chance = game_state.base_encounter_chance
 	chance_label.text = "%d" % (game_state.encounter_chance * 100)
 	
-	encounter_started.emit()
 	fighting = true
-	
+	encounter_started.emit()
 
 func _on_button_pressed():
 	get_parent().add_child(load("res://Scenes/perks_scene.tscn").instantiate())

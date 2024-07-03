@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cq4cc8o653a3s"]
+
+[ext_resource type="Script" path="res://Units/Components/Slingshot/slingshot_projectile.gd" id="1_fkgc6"]
+[ext_resource type="Texture2D" uid="uid://c33lsow4ltk57" path="res://Textures/slingshot_projectile.png" id="1_tqgoj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v7ojv"]
+
+[node name="SlingshotProjectile" type="Area2D"]
+script = ExtResource("1_fkgc6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(10, 10)
+shape = SubResource("CircleShape2D_v7ojv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(10, 10)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_tqgoj")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

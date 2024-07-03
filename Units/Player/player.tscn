@@ -1,38 +1,45 @@
-[gd_scene load_steps=7 format=3 uid="uid://lugeysu4ryx3"]
+[gd_scene load_steps=8 format=3 uid="uid://lugeysu4ryx3"]
 
 [ext_resource type="Script" path="res://Units/Player/player.gd" id="1_2e63y"]
 [ext_resource type="PackedScene" uid="uid://b45y6qw1y818h" path="res://Units/BaseUnit/base_unit.tscn" id="2_qs5w3"]
 [ext_resource type="PackedScene" uid="uid://by12r5p8vqs7i" path="res://Units/Components/movement_component.tscn" id="3_b5npy"]
-[ext_resource type="PackedScene" uid="uid://bsnykfsfud0qu" path="res://Units/Components/fighting_component.tscn" id="4_hm4al"]
-[ext_resource type="PackedScene" uid="uid://t4byww4nf3xs" path="res://Units/Components/retaliate_component.tscn" id="5_yv3g7"]
+[ext_resource type="PackedScene" uid="uid://t4byww4nf3xs" path="res://Units/Components/retaliation_component.tscn" id="5_cj3yk"]
+[ext_resource type="PackedScene" uid="uid://dgruckc6ybglp" path="res://Units/Components/trample_component.tscn" id="6_2m6yc"]
 [ext_resource type="PackedScene" uid="uid://bc1cjji0pmjrh" path="res://Units/Components/immolation_component.tscn" id="6_tjpjd"]
+[ext_resource type="PackedScene" uid="uid://dyvw3nfsvi107" path="res://Units/Components/Slingshot/slingshot_component.tscn" id="7_v1crv"]
 
 [node name="Player" instance=ExtResource("2_qs5w3")]
 script = ExtResource("1_2e63y")
 
 [node name="HealthComponent" parent="." index="2"]
-max_hp = 100
-hp_regen = 1
+base_hp = 40.0
+base_hp_regen = 1
 
-[node name="SpeedToDamageTimer" type="Timer" parent="." index="4"]
-wait_time = 0.25
-
-[node name="MovementComponent" parent="." index="5" node_paths=PackedStringArray("fighting_component") instance=ExtResource("3_b5npy")]
+[node name="MovementComponent" parent="." index="4" node_paths=PackedStringArray("fighting_component") instance=ExtResource("3_b5npy")]
 layout_mode = 1
 fighting_component = NodePath("../FightingComponent")
 
-[node name="FightingComponent" parent="." index="6" node_paths=PackedStringArray("attack_component") instance=ExtResource("4_hm4al")]
-layout_mode = 1
-attack_component = NodePath("../AttackComponent")
-
-[node name="RetaliateEffect" parent="." index="7" node_paths=PackedStringArray("health_component", "attack_component") instance=ExtResource("5_yv3g7")]
+[node name="RetaliationComponent" parent="." index="5" node_paths=PackedStringArray("health_component", "attack_component") instance=ExtResource("5_cj3yk")]
 health_component = NodePath("../HealthComponent")
 attack_component = NodePath("../AttackComponent")
 
-[node name="ImmolationComponent" parent="." index="8" node_paths=PackedStringArray("fighting_component", "health_component", "attack_component") instance=ExtResource("6_tjpjd")]
+[node name="ImmolationComponent" parent="." index="6" node_paths=PackedStringArray("fighting_component", "health_component", "attack_component") instance=ExtResource("6_tjpjd")]
 fighting_component = NodePath("../FightingComponent")
 health_component = NodePath("../HealthComponent")
 attack_component = NodePath("../AttackComponent")
 
-[connection signal="damage_received" from="HealthComponent" to="RetaliateEffect" method="_on_unit_attacked"]
-[connection signal="timeout" from="SpeedToDamageTimer" to="." method="_on_speed_to_damage_timer_timeout"]
+[node name="TrampleComponent" parent="." index="8" node_paths=PackedStringArray("attack_component", "movement_component") instance=ExtResource("6_2m6yc")]
+attack_component = NodePath("../AttackComponent")
+movement_component = NodePath("../MovementComponent")
+
+[node name="SlingshotComponent" parent="." index="9" node_paths=PackedStringArray("attack_component", "movement_component") instance=ExtResource("7_v1crv")]
+offset_left = 256.0
+offset_top = 132.0
+offset_right = 256.0
+offset_bottom = 132.0
+attack_component = NodePath("../AttackComponent")
+movement_component = NodePath("../MovementComponent")
+
+[connection signal="damage_received" from="HealthComponent" to="RetaliationComponent" method="_on_unit_attacked"]
+[connection signal="fight_ended" from="FightingComponent" to="AttackComponent" method="reset_bar"]
+[connection signal="fight_started" from="FightingComponent" to="SlingshotComponent" method="perform_bonk"]

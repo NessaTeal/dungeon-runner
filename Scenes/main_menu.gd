@@ -7,7 +7,8 @@ var item: PackedScene = load("res://Inventory/item.tscn")
 var affix_generator = preload("res://Affixes/affix_stone_generator.gd").new()
 
 func _on_button_pressed():
-	get_parent().add_child(fight_scene.instantiate())
+	var a = fight_scene.instantiate()
+	get_parent().add_child(a)
 	queue_free()
 
 

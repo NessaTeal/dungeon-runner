@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://busuulbp1ogsk"]
+[gd_scene load_steps=12 format=3 uid="uid://busuulbp1ogsk"]
 
 [ext_resource type="Script" path="res://Scenes/fight_scene.gd" id="1_x8404"]
 [ext_resource type="PackedScene" uid="uid://rur6sjmg2o3g" path="res://Units/Enemy/enemy.tscn" id="2_0ukyi"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b0unkgk7ra08n" path="res://Textures/Frame 3.svg" id="5_mh5tv"]
 [ext_resource type="Texture2D" uid="uid://bars7fblgbr34" path="res://Textures/Frame 2.svg" id="6_a0s6h"]
 [ext_resource type="Texture2D" uid="uid://l3slf6ciflwu" path="res://Textures/Frame 1.svg" id="7_tkspj"]
+[ext_resource type="Script" path="res://Scenes/affix_applier.gd" id="8_6leyg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trrdp"]
 content_margin_left = 2.0
@@ -217,12 +218,11 @@ offset_bottom = 476.0
 texture = ExtResource("7_tkspj")
 stretch_mode = 1
 
-[connection signal="encounter_ended" from="." to="Player/FightingComponent" method="stop_fight"]
-[connection signal="encounter_started" from="." to="Player/FightingComponent" method="start_fight"]
-[connection signal="hp_depleted" from="Player/HealthComponent" to="." method="_on_player_unit_died"]
+[node name="AffixApplier" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("8_6leyg")
+player = NodePath("../Player")
+
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="pressed" from="GameOver/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="GameOver/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="GameOver/Button3" to="." method="_on_button_3_pressed"]
-
-[editable path="Player"]

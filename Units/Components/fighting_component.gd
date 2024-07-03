@@ -4,11 +4,13 @@ class_name FightingComponent
 @export var attack_component: AttackComponent
 
 var fighting = false
+signal fight_started
+signal fight_ended
 
 func start_fight():
 	fighting = true
-	attack_component.start()
+	fight_started.emit()
 
 func stop_fight():
 	fighting = false
-	attack_component.stop()
+	fight_ended.emit()

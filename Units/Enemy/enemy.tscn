@@ -1,10 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://rur6sjmg2o3g"]
+[gd_scene load_steps=5 format=3 uid="uid://rur6sjmg2o3g"]
 
 [ext_resource type="Script" path="res://Units/Enemy/enemy.gd" id="1_ggqo2"]
 [ext_resource type="PackedScene" uid="uid://b45y6qw1y818h" path="res://Units/BaseUnit/base_unit.tscn" id="2_5guo4"]
+[ext_resource type="PackedScene" uid="uid://c2vxov4p8viua" path="res://Units/Components/hitbox_component.tscn" id="3_6v5jt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkn4l"]
+size = Vector2(50.6091, 49.157)
 
 [node name="Enemy" instance=ExtResource("2_5guo4")]
 script = ExtResource("1_ggqo2")
 
-[node name="HealthComponent" parent="." index="2"]
-max_hp = 20
+[node name="HitboxComponent" parent="." index="0" instance=ExtResource("3_6v5jt")]
+position = Vector2(192, 133)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
+position = Vector2(0.5, -3.5)
+scale = Vector2(2.54895, 2.62425)
+shape = SubResource("RectangleShape2D_qkn4l")
+
+[node name="HealthComponent" parent="." index="3"]
+base_hp = 20.0

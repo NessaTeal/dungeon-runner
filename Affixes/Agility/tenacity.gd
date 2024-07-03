@@ -1,7 +1,10 @@
 extends BaseAffix
 
+func _init():
+	component = MovementComponent
+
 func get_value():
 	return power / 200.0
 
-func apply(game_state: GameState):
-	game_state.speed_during_fight += get_value()
+func apply(actual_component: MovementComponent):
+	actual_component.fight_speed += get_value()

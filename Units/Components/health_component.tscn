@@ -24,4 +24,5 @@ theme_override_styles/background = SubResource("StyleBoxFlat_4dg02")
 theme_override_styles/fill = SubResource("StyleBoxFlat_5v6hu")
 step = 0.0
 value = 50.0
+show_percentage = false
 script = ExtResource("1_piyrs")

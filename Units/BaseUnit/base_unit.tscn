@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b45y6qw1y818h"]
+[gd_scene load_steps=6 format=3 uid="uid://b45y6qw1y818h"]
 
 [ext_resource type="Script" path="res://Units/BaseUnit/base_unit.gd" id="1_eslch"]
 [ext_resource type="Texture2D" uid="uid://c3r80g2mb46qi" path="res://Textures/icon.svg" id="3_adl05"]
 [ext_resource type="PackedScene" uid="uid://j3ao1w64e7ie" path="res://Units/Components/attack_component.tscn" id="4_x2grr"]
+[ext_resource type="PackedScene" uid="uid://bsnykfsfud0qu" path="res://Units/Components/fighting_component.tscn" id="5_ib6wf"]
 [ext_resource type="PackedScene" uid="uid://dp1aer0epf235" path="res://Units/Components/health_component.tscn" id="5_p8ab6"]
 
 [node name="Unit" type="Control"]
@@ -33,5 +34,14 @@ offset_top = 24.0
 offset_right = 384.0
 offset_bottom = 64.0
 
-[node name="AttackComponent" parent="." instance=ExtResource("4_x2grr")]
-autostart = true
+[node name="AttackComponent" parent="." node_paths=PackedStringArray("fighting_component") instance=ExtResource("4_x2grr")]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 200.0
+offset_right = 256.0
+offset_bottom = 227.0
+fighting_component = NodePath("../FightingComponent")
+
+[node name="FightingComponent" parent="." node_paths=PackedStringArray("attack_component") instance=ExtResource("5_ib6wf")]
+layout_mode = 1
+attack_component = NodePath("../AttackComponent")
