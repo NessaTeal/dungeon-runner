@@ -4,7 +4,7 @@ var item
 
 var mouse_inside: bool = false
 
-var equip_slot: bool = true
+@export var equip_slot: bool = false
 
 func _process(_delta):
 	if mouse_inside:
@@ -33,19 +33,21 @@ func pick_up_item():
 	var tmp = item
 	remove_child(item)
 	item = null
+	if equip_slot:
+		Inventory.equip_changed.emit(tmp.stone.affixes)
 	return tmp
 	
 func _on_gui_input(event):
 	if event is InputEventMouseButton && event.pressed:
 		if item:
-			if HeldItem.item:
-				var held_item = HeldItem.stop_holding()
+			if Inventory.held_item.item:
+				var held_item = Inventory.held_item.stop_holding()
 				var slot_item = pick_up_item()
-				HeldItem.start_holding(slot_item)
+				Inventory.held_item.start_holding(slot_item)
 				set_item(held_item)
 			else:
 				var slot_item = pick_up_item()
-				HeldItem.start_holding(slot_item)
-		elif HeldItem.item:
-			var held_item = HeldItem.stop_holding()
+				Inventory.held_item.start_holding(slot_item)
+		elif Inventory.held_item.item:
+			var held_item = Inventory.held_item.stop_holding()
 			set_item(held_item)

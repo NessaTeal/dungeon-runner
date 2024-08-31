@@ -10,7 +10,7 @@ func _ready():
 			affix.apply(component)
 
 func get_all_affixes():
-	return Utils.flatmap(Inventory.slots.filter(func(slot): return slot.item), func(slot): return slot.item.stone.affixes)
+	return Utils.flatmap(Inventory.equipment.get_children().filter(func(slot): return slot.item), func(slot): return slot.item.stone.affixes)
 
 func affixes_changed(affixes: Array[BaseAffix]):
 	for affix in affixes:

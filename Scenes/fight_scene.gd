@@ -127,3 +127,7 @@ func _on_button_3_pressed():
 	get_parent().add_child((load("res://Scenes/fight_scene.tscn").instantiate()))
 	queue_free()
 	get_tree().paused = false
+
+
+func _on_show_inventory_button_pressed() -> void:
+	Inventory.show()

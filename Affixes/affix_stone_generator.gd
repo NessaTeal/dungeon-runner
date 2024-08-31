@@ -8,10 +8,11 @@ static var all_affixes = [
 	#preload("res://Affixes/Agility/trample.gd"),
 	#preload("res://Affixes/Agility/acceleration.gd"),
 	#preload("res://Affixes/Agility/move_speed.gd"),
-	preload("res://Affixes/Agility/slingshot.gd")
+	#preload("res://Affixes/Agility/slingshot.gd")
 	#preload("res://Affixes/Agility/tenacity.gd"),
 	#preload("res://Affixes/Vitality/hp_regen.gd"),
 	#preload("res://Affixes/Vitality/toughness.gd")
+	preload("res://Affixes/Vitality/immolation.gd")
 ]
 
 var stone_script = preload("res://Affixes/stone.gd")

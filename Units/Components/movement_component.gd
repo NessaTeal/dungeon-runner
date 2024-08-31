@@ -6,8 +6,8 @@ var current_speed = 0
 var fight_speed = 0.0
 var acceleration = 0
 var speed_from_acceleration = 0.0
-@export var base_speed = 10
 
+@export var base_speed = 10
 @export var fighting_component: FightingComponent
 
 func _ready():

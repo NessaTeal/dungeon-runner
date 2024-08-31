@@ -45,6 +45,10 @@ enemy_scene = ExtResource("2_0ukyi")
 script = ExtResource("3_10aaw")
 
 [node name="Player" parent="." instance=ExtResource("3_supv1")]
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 385.0
+offset_bottom = 193.0
 
 [node name="SpawnTimer" type="Timer" parent="."]
 autostart = true
@@ -222,7 +226,17 @@ stretch_mode = 1
 script = ExtResource("8_6leyg")
 player = NodePath("../Player")
 
+[node name="ShowInventoryButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1004.0
+offset_top = 20.0
+offset_right = 1133.0
+offset_bottom = 51.0
+text = "Show inventory
+"
+
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="pressed" from="GameOver/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="GameOver/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="GameOver/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="ShowInventoryButton" to="." method="_on_show_inventory_button_pressed"]

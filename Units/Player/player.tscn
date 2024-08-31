@@ -24,6 +24,7 @@ health_component = NodePath("../HealthComponent")
 attack_component = NodePath("../AttackComponent")
 
 [node name="ImmolationComponent" parent="." index="6" node_paths=PackedStringArray("fighting_component", "health_component", "attack_component") instance=ExtResource("6_tjpjd")]
+position = Vector2(189, 131)
 fighting_component = NodePath("../FightingComponent")
 health_component = NodePath("../HealthComponent")
 attack_component = NodePath("../AttackComponent")
@@ -42,4 +43,6 @@ movement_component = NodePath("../MovementComponent")
 
 [connection signal="damage_received" from="HealthComponent" to="RetaliationComponent" method="_on_unit_attacked"]
 [connection signal="fight_ended" from="FightingComponent" to="AttackComponent" method="reset_bar"]
+[connection signal="fight_ended" from="FightingComponent" to="ImmolationComponent" method="_on_encounter_ended"]
+[connection signal="fight_started" from="FightingComponent" to="ImmolationComponent" method="_on_encounter_started"]
 [connection signal="fight_started" from="FightingComponent" to="SlingshotComponent" method="perform_bonk"]

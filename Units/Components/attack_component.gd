@@ -28,7 +28,7 @@ func _process(delta):
 		value = count_up
 		while count_up >= 100:
 			count_up -= 100
-			perform_attack(damage)
+			#perform_attack(damage)
 
 func perform_attack(attack_damage):
 	if attack_damage <= 0:
