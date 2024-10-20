@@ -1,4 +1,3 @@
-@tool
 extends PanelContainer
 
 @export var item_slot = preload("res://Inventory/item_slot.tscn") 

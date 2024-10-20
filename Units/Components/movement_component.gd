@@ -1,27 +1,10 @@
-extends Control
+extends Node
 class_name MovementComponent
 
-var distance = 0
-var current_speed = 0
-var fight_speed = 0.0
-var acceleration = 0
-var speed_from_acceleration = 0.0
+@export var direction_component: DirectionComponent
+@export var speed_component: SpeedComponent
+@export var player: Player
 
-@export var base_speed = 10
-@export var fighting_component: FightingComponent
-
-func _ready():
-	current_speed = base_speed
-
-func _process(delta):
-	distance += get_current_speed() * delta
-	speed_from_acceleration += acceleration * delta
-
-func get_current_speed():
-	var speed_multiplier = fight_speed if fighting_component.fighting else 1.0
-	return (current_speed + speed_from_acceleration) * speed_multiplier
-
-func reset():
-	current_speed = base_speed
-	acceleration = 0
-	fight_speed = 0
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	player.position += direction_component.direction * speed_component.get_current_speed() * delta

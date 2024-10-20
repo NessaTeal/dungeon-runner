@@ -2,7 +2,7 @@ extends Node
 class_name TrampleComponent
 
 @export var attack_component: AttackComponent
-@export var movement_component: MovementComponent
+@export var movement_component: SpeedComponent
 
 var coefficient = 0
 

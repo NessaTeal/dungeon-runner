@@ -1,13 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://busuulbp1ogsk"]
+[gd_scene load_steps=11 format=3 uid="uid://busuulbp1ogsk"]
 
 [ext_resource type="Script" path="res://Scenes/fight_scene.gd" id="1_x8404"]
 [ext_resource type="PackedScene" uid="uid://rur6sjmg2o3g" path="res://Units/Enemy/enemy.tscn" id="2_0ukyi"]
+[ext_resource type="Texture2D" uid="uid://2yillyvclfgh" path="res://Textures/SpellBook02_10.png" id="3_0wtwe"]
 [ext_resource type="Script" path="res://Scenes/game_state.gd" id="3_10aaw"]
 [ext_resource type="PackedScene" uid="uid://lugeysu4ryx3" path="res://Units/Player/player.tscn" id="3_supv1"]
-[ext_resource type="Texture2D" uid="uid://b0unkgk7ra08n" path="res://Textures/Frame 3.svg" id="5_mh5tv"]
-[ext_resource type="Texture2D" uid="uid://bars7fblgbr34" path="res://Textures/Frame 2.svg" id="6_a0s6h"]
-[ext_resource type="Texture2D" uid="uid://l3slf6ciflwu" path="res://Textures/Frame 1.svg" id="7_tkspj"]
 [ext_resource type="Script" path="res://Scenes/affix_applier.gd" id="8_6leyg"]
+
+[sub_resource type="Curve2D" id="Curve2D_6tbwp"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1329, -1323, 0, 0, 0, 0, 1402, -1175, 0, 0, 0, 0, 1584, 1129, 0, 0, 0, 0, -1413, 1145, 0, 0, 0, 0, -1295, -1327)
+}
+point_count = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trrdp"]
 content_margin_left = 2.0
@@ -41,16 +45,29 @@ offset_bottom = 40.0
 script = ExtResource("1_x8404")
 enemy_scene = ExtResource("2_0ukyi")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -607.0
+offset_top = -550.0
+offset_right = 2028.0
+offset_bottom = 1400.0
+texture = ExtResource("3_0wtwe")
+
 [node name="GameState" type="Node" parent="."]
 script = ExtResource("3_10aaw")
 
 [node name="Player" parent="." instance=ExtResource("3_supv1")]
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 385.0
-offset_bottom = 193.0
+position = Vector2(577, 324)
+
+[node name="EnemySpawnPath" type="Path2D" parent="Player"]
+curve = SubResource("Curve2D_6tbwp")
+
+[node name="EnemySpawnPoint" type="PathFollow2D" parent="Player/EnemySpawnPath"]
+position = Vector2(-1329, -1323)
+rotation = 0.0541396
 
 [node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 0.2
 autostart = true
 
 [node name="Label" type="Label" parent="."]
@@ -187,47 +204,13 @@ layout_mode = 2
 text = "Restart
 "
 
-[node name="GameOverPosition" type="Marker2D" parent="."]
-position = Vector2(408, 384)
-
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-scroll_offset = Vector2(2.08165e-12, 2.08165e-12)
-
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.25, 0.25)
-motion_mirroring = Vector2(1415, 2.08165e-12)
-
-[node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer3"]
-offset_right = 1415.0
-offset_bottom = 476.0
-texture = ExtResource("5_mh5tv")
-stretch_mode = 1
-
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.5, 0.5)
-motion_mirroring = Vector2(1415, 2.08165e-12)
-
-[node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer2"]
-offset_right = 1415.0
-offset_bottom = 476.0
-texture = ExtResource("6_a0s6h")
-stretch_mode = 1
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_mirroring = Vector2(1415, 2.08165e-12)
-
-[node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer"]
-offset_right = 1415.0
-offset_bottom = 476.0
-texture = ExtResource("7_tkspj")
-stretch_mode = 1
-
 [node name="AffixApplier" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("8_6leyg")
 player = NodePath("../Player")
 
-[node name="ShowInventoryButton" type="Button" parent="."]
-layout_mode = 0
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ShowInventoryButton" type="Button" parent="UI"]
 offset_left = 1004.0
 offset_top = 20.0
 offset_right = 1133.0
@@ -239,4 +222,4 @@ text = "Show inventory
 [connection signal="pressed" from="GameOver/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="GameOver/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="GameOver/Button3" to="." method="_on_button_3_pressed"]
-[connection signal="pressed" from="ShowInventoryButton" to="." method="_on_show_inventory_button_pressed"]
+[connection signal="pressed" from="UI/ShowInventoryButton" to="." method="_on_show_inventory_button_pressed"]

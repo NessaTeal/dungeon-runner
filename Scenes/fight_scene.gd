@@ -8,7 +8,7 @@ extends Control
 @onready var progress_bar: ProgressBar = $ProgressBar
 @onready var game_state: GameState = $GameState
 @onready var game_over: Control = $GameOver
-@onready var parallax: ParallaxBackground = $ParallaxBackground
+@onready var enemy_spawn_point: PathFollow2D = $Player/EnemySpawnPath/EnemySpawnPoint
 
 @export var enemy_scene: PackedScene
 
@@ -37,14 +37,11 @@ func _process(delta):
 	
 	time_passed += delta
 	
-	distance_label.text = "%.02f" % player.movement_component.distance
+	#distance_label.text = "%.02f" % player.movement_component.distance
 	
-	var current_speed = player.movement_component.get_current_speed()
+	var current_speed = player.speed_component.get_current_speed()
 	
-	speed_label.text = "%.01f" % player.movement_component.get_current_speed()
-	
-	if current_speed > 0:
-		parallax.scroll_offset += Vector2(-current_speed * delta, 0)
+	speed_label.text = "%.01f" % player.speed_component.get_current_speed()
 	
 	if !fighting:
 		progress_bar.value = (1 - spawn_timer.time_left) * 100
@@ -70,22 +67,23 @@ func _on_enemy_died():
 	Inventory.add_item(new_item)
 
 func spawn_enemy():
-	spawn_timer.stop()
+	#spawn_timer.stop()
 	progress_bar.value = 0
 	enemy = enemy_scene.instantiate()
 	add_child(enemy)
 	enemy.fighting_component.start_fight()
 	enemy.scale_enemy(1 + time_passed / 10)
 	
-	enemy.set_position(Vector2(700, 0));
+	enemy_spawn_point.progress_ratio = randf()
+	enemy.set_position(enemy_spawn_point.global_position);
 	player.attack_component.attack_happened.connect(enemy.health_component._on_receive_damage)
 	enemy.attack_component.attack_happened.connect(player.health_component._on_receive_damage)
 	enemy.health_component.hp_depleted.connect(_on_enemy_died, CONNECT_ONE_SHOT)
 	game_state.encounter_chance = game_state.base_encounter_chance
 	chance_label.text = "%d" % (game_state.encounter_chance * 100)
 	
-	fighting = true
-	encounter_started.emit()
+	#fighting = true
+	#encounter_started.emit()
 
 func _on_button_pressed():
 	get_parent().add_child(load("res://Scenes/perks_scene.tscn").instantiate())

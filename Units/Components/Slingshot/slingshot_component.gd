@@ -2,7 +2,7 @@ extends Control
 class_name SlingshotComponent
 
 @export var attack_component: AttackComponent
-@export var movement_component: MovementComponent
+@export var movement_component: SpeedComponent
 
 var slingshot_projectile_script = preload("res://Units/Components/Slingshot/slingshot_projectile.tscn")
 

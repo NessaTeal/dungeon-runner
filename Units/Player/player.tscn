@@ -1,45 +1,55 @@
-[gd_scene load_steps=8 format=3 uid="uid://lugeysu4ryx3"]
+[gd_scene load_steps=10 format=3 uid="uid://lugeysu4ryx3"]
 
 [ext_resource type="Script" path="res://Units/Player/player.gd" id="1_2e63y"]
 [ext_resource type="PackedScene" uid="uid://b45y6qw1y818h" path="res://Units/BaseUnit/base_unit.tscn" id="2_qs5w3"]
-[ext_resource type="PackedScene" uid="uid://by12r5p8vqs7i" path="res://Units/Components/movement_component.tscn" id="3_b5npy"]
+[ext_resource type="PackedScene" uid="uid://by12r5p8vqs7i" path="res://Units/Components/speed_component.tscn" id="3_b5npy"]
 [ext_resource type="PackedScene" uid="uid://t4byww4nf3xs" path="res://Units/Components/retaliation_component.tscn" id="5_cj3yk"]
 [ext_resource type="PackedScene" uid="uid://dgruckc6ybglp" path="res://Units/Components/trample_component.tscn" id="6_2m6yc"]
 [ext_resource type="PackedScene" uid="uid://bc1cjji0pmjrh" path="res://Units/Components/immolation_component.tscn" id="6_tjpjd"]
 [ext_resource type="PackedScene" uid="uid://dyvw3nfsvi107" path="res://Units/Components/Slingshot/slingshot_component.tscn" id="7_v1crv"]
+[ext_resource type="PackedScene" uid="uid://cy8kx26eiqrfw" path="res://Units/Components/direction_component.tscn" id="8_yhya8"]
+[ext_resource type="PackedScene" uid="uid://ngkegcjskgw1" path="res://Units/Components/movement_component.tscn" id="9_104p0"]
 
 [node name="Player" instance=ExtResource("2_qs5w3")]
 script = ExtResource("1_2e63y")
 
-[node name="HealthComponent" parent="." index="2"]
+[node name="HealthComponent" parent="." index="0"]
 base_hp = 40.0
 base_hp_regen = 1
 
-[node name="MovementComponent" parent="." index="4" node_paths=PackedStringArray("fighting_component") instance=ExtResource("3_b5npy")]
-layout_mode = 1
+[node name="SpeedComponent" parent="." index="3" node_paths=PackedStringArray("fighting_component") instance=ExtResource("3_b5npy")]
 fighting_component = NodePath("../FightingComponent")
 
-[node name="RetaliationComponent" parent="." index="5" node_paths=PackedStringArray("health_component", "attack_component") instance=ExtResource("5_cj3yk")]
+[node name="RetaliationComponent" parent="." index="4" node_paths=PackedStringArray("health_component", "attack_component") instance=ExtResource("5_cj3yk")]
 health_component = NodePath("../HealthComponent")
 attack_component = NodePath("../AttackComponent")
 
-[node name="ImmolationComponent" parent="." index="6" node_paths=PackedStringArray("fighting_component", "health_component", "attack_component") instance=ExtResource("6_tjpjd")]
+[node name="ImmolationComponent" parent="." index="5" node_paths=PackedStringArray("fighting_component", "health_component", "attack_component") instance=ExtResource("6_tjpjd")]
 position = Vector2(189, 131)
 fighting_component = NodePath("../FightingComponent")
 health_component = NodePath("../HealthComponent")
 attack_component = NodePath("../AttackComponent")
 
-[node name="TrampleComponent" parent="." index="8" node_paths=PackedStringArray("attack_component", "movement_component") instance=ExtResource("6_2m6yc")]
+[node name="TrampleComponent" parent="." index="6" node_paths=PackedStringArray("attack_component", "movement_component") instance=ExtResource("6_2m6yc")]
 attack_component = NodePath("../AttackComponent")
-movement_component = NodePath("../MovementComponent")
+movement_component = NodePath("../SpeedComponent")
 
-[node name="SlingshotComponent" parent="." index="9" node_paths=PackedStringArray("attack_component", "movement_component") instance=ExtResource("7_v1crv")]
+[node name="SlingshotComponent" parent="." index="7" node_paths=PackedStringArray("attack_component", "movement_component") instance=ExtResource("7_v1crv")]
 offset_left = 256.0
 offset_top = 132.0
 offset_right = 256.0
 offset_bottom = 132.0
 attack_component = NodePath("../AttackComponent")
-movement_component = NodePath("../MovementComponent")
+movement_component = NodePath("../SpeedComponent")
+
+[node name="Camera2D" type="Camera2D" parent="." index="8"]
+
+[node name="DirectionComponent" parent="." index="9" instance=ExtResource("8_yhya8")]
+
+[node name="MovementComponent" parent="." index="10" node_paths=PackedStringArray("direction_component", "speed_component", "player") instance=ExtResource("9_104p0")]
+direction_component = NodePath("../DirectionComponent")
+speed_component = NodePath("../SpeedComponent")
+player = NodePath("..")
 
 [connection signal="damage_received" from="HealthComponent" to="RetaliationComponent" method="_on_unit_attacked"]
 [connection signal="fight_ended" from="FightingComponent" to="AttackComponent" method="reset_bar"]
