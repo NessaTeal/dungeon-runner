@@ -23,6 +23,12 @@ Inventory="*res://Inventory/inventory.tscn"
 HeldItem="*res://Inventory/held_item.tscn"
 HoverBox="*res://Perks/hover_box.tscn"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/vsync/vsync_mode=0
+
 [input]
 
 SpeeHack={
