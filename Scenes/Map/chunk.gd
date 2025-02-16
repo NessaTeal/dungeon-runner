@@ -2,7 +2,6 @@ extends Node2D
 
 static var SIZE = 32
 var touched_tiles = {}
-var tile_factory = TileFactory.new()
 
 var nodes = []
 
