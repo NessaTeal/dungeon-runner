@@ -1,109 +1,110 @@
-extends TileMapLayer
+extends Node2D
 
-var tiles = []
-static var SIZE = 8
+static var SIZE = 32
 var touched_tiles = {}
+var tile_factory = TileFactory.new()
+
+var nodes = []
+
+# Tiles location in atlas is set using corners as binary counter
+# 1 2
+# 8 4
+# Adding number together and subtracting one would give its location in atlas
+
+@onready var rock: TileMapLayer = $Rock
+@onready var dirt: TileMapLayer = $Dirt
+@onready var sand: TileMapLayer = $Sand
+@onready var grass: TileMapLayer = $Grass
+
+static var PRIO = {"r": 0, "d": 1, "s": 2, "g": 3}
+static var ORIGINS = {
+	"r": 2,
+	"d": 3,
+	"s": 1,
+	"g": 0
+}
+
+var layers = {}
+
+var options = ["d", "r", "s", "g"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	restart()
+	layers = {
+		"r": rock,
+		"d": dirt,
+		"s": sand,
+		"g": grass
+	}
 	
-	#while true:
-		#var stuff = find_smallest_entropy()
-		#
-		#var entropy = stuff.options.size()
-		#
-		#if entropy == 0:
-			#restart()
-			#continue
-		#
-		#if entropy == 9999:
-			#break
-			#
-		#var x = stuff.x
-		#var y = stuff.y
-		#
-		#stuff.selected_option = stuff.options.pick_random()
-		#self.set_cell(Vector2i(x, y), 2, stuff.selected_option.atlas_position)
-		#update_neighbours(x, y)
-		
-	#for x in range(SIZE):
-		#for y in range(SIZE):
-			#self.set_cell(Vector2i(x, y), 2, tiles[x][y].selected_option.atlas_position)
+	restart()
 	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var next_tile = find_smallest_entropy()
-	#print(touched_tiles)
-	#print(next_tile.x)
-	#print(next_tile.y)
-	
-	if next_tile == null:
-		return
-		
-	if next_tile.options.size() == 0:
-		restart()
-		return
-	
-	next_tile.selected_option = next_tile.options.pick_random()
-	self.set_cell(Vector2i(next_tile.x, next_tile.y), 2, next_tile.selected_option.atlas_position)
-	update_neighbours(next_tile.x, next_tile.y)
-	#print(touched_tiles)
-	#set_process(false)
+	pass
 
 func update_neighbours(x, y):
-	var tile = tiles[x][y]
+	var tile = nodes[x][y]
 	
 	if x > 0:
-		var adj = tiles[x - 1][y]
-		if adj.selected_option.is_empty():
-			var possibilities = adj.options
-			var result = []
-			for option in possibilities:
-				if tile.selected_option["left"] == option["right"].reverse():
-					result.push_back(option)
-			adj.options = result
+		var adj = nodes[x - 1][y]
+		if !adj.selected_option:
+			adj.add_half_of_weights(tile.selected_option)
+			#adj.weights[tile.selected_option] += 1
 			touched_tiles[adj] = true
+		#if y > 0:
+			#var adj2 = nodes[x - 1][y - 1]
+			#if !adj2.selected_option:
+				#adj2.add_half_of_weights(tile.selected_option)
+				##adj2.weights[tile.selected_option] += 1
+				#touched_tiles[adj2] = true
+		#if y < SIZE - 1:
+			#var adj2 = nodes[x - 1][y + 1]
+			#if !adj2.selected_option:
+				#adj2.add_half_of_weights(tile.selected_option)
+				##adj2.weights[tile.selected_option] += 1
+				#touched_tiles[adj2] = true
 	if y > 0:
-		var adj = tiles[x][y - 1]
-		if adj.selected_option.is_empty():
-			var possibilities = adj.options
-			var result = []
-			for option in possibilities:
-				if tile.selected_option["top"] == option["bottom"].reverse():
-					result.push_back(option)
-			adj.options = result
+		var adj = nodes[x][y - 1]
+		if !adj.selected_option:
+			adj.add_half_of_weights(tile.selected_option)
+			#adj.weights[tile.selected_option] += 1
 			touched_tiles[adj] = true
+		#if x < SIZE - 1:
+			#var adj2 = nodes[x + 1][y - 1]
+			#if !adj2.selected_option:
+				#adj2.add_half_of_weights(tile.selected_option)
+				##adj2.weights[tile.selected_option] += 1
+				#touched_tiles[adj2] = true
 	if x < SIZE - 1:
-		var adj = tiles[x + 1][y]
-		if adj.selected_option.is_empty():
-			var possibilities = adj.options
-			var result = []
-			for option in possibilities:
-				if tile.selected_option["right"] == option["left"].reverse():
-					result.push_back(option)
-			adj.options = result
+		var adj = nodes[x + 1][y]
+		if !adj.selected_option:
+			adj.add_half_of_weights(tile.selected_option)
+			#adj.weights[tile.selected_option] += 1
 			touched_tiles[adj] = true
+		#if y < SIZE - 1:
+			#var adj2 = nodes[x + 1][y + 1]
+			#if !adj2.selected_option:
+				#adj2.add_half_of_weights(tile.selected_option)
+				##adj2.weights[tile.selected_option] += 1
+				#touched_tiles[adj2] = true
 	if y < SIZE - 1:
-		var adj = tiles[x][y + 1]
-		if adj.selected_option.is_empty():
-			var possibilities = adj.options
-			var result = []
-			for option in possibilities:
-				if tile.selected_option["bottom"] == option["top"].reverse():
-					result.push_back(option)
-			adj.options = result
+		var adj = nodes[x][y + 1]
+		if !adj.selected_option:
+			adj.add_half_of_weights(tile.selected_option)
+			#adj.weights[tile.selected_option] += 1
 			touched_tiles[adj] = true
 
-func find_smallest_entropy():
-	var least_entropy = 9999
+func find_biggest_weight():
+	var most_weight = -2
 	var next_tile = null
 	
 	for tile in touched_tiles.keys():
-		if tile.options.size() < least_entropy:
-			least_entropy = tile.options.size()
+		var wgth = tile.weights["r"] + tile.weights["d"] + tile.weights["g"] + tile.weights["s"]
+		if wgth > most_weight:
+			most_weight = wgth
 			next_tile = tile
 	
 	touched_tiles.erase(next_tile)
@@ -111,14 +112,129 @@ func find_smallest_entropy():
 	return next_tile
 
 func restart():
-	touched_tiles = {}
-	tiles = []
+	nodes = []
 	for x in range(SIZE):
-		tiles.push_back([])
+		nodes.push_back([])
 		for y in range(SIZE):
-			self.set_cell(Vector2i(x, y))
-			tiles[x].push_back(Tile.new(x, y))
+			#self.set_cell(Vector2i(x, y))
+			var tile = Tile.new(x, y)
+			nodes[x].push_back(tile)
 	
-	tiles[0][0].selected_option = tiles[0][0].options.pick_random()
-	self.set_cell(Vector2i(0, 0), 2, tiles[0][0].selected_option.atlas_position)
+	nodes[0][0].selected_option = options.pick_random()
 	update_neighbours(0, 0)
+	
+	while !touched_tiles.is_empty():
+		var nxt = find_biggest_weight()
+		nxt.selected_option = select_weighted_random(nxt.weights)
+		update_neighbours(nxt.x, nxt.y)
+	
+	calculate_confidence()
+	
+	render_generated_chunk()
+	
+func render_generated_chunk():
+	for x in range(1, SIZE):
+		for y in range(1, SIZE):
+			var points = [
+				[
+					nodes[x - 1][y - 1].selected_option,
+				 	get_stronger_terrain([nodes[x - 1][y - 1],nodes[x][y - 1]]),
+				 	nodes[x][y - 1].selected_option
+				],
+				[
+				 	get_stronger_terrain([nodes[x - 1][y - 1],nodes[x - 1][y]]),
+				 	get_stronger_terrain([nodes[x - 1][y - 1],nodes[x][y - 1], nodes[x - 1][y], nodes[x][y]]),
+				 	get_stronger_terrain([nodes[x][y - 1],nodes[x][y]]),
+				],
+				[
+					nodes[x - 1][y].selected_option,
+				 	get_stronger_terrain([nodes[x - 1][y],nodes[x][y]]),
+				 	nodes[x][y].selected_option
+				]
+			]
+			
+			for ter in options:
+				for i in [0, 1]:
+					for j in [0, 1]:
+						if points[i][j] != ter and points[i + 1][j] != ter and points[i][j + 1] != ter and points[i + 1][j + 1] != ter:
+							continue
+						var a = convert_terrain(points[i][j], ter)
+						var b = convert_terrain(points[i + 1][j], ter)
+						var c = convert_terrain(points[i][j + 1], ter)
+						var d = convert_terrain(points[i + 1][j + 1], ter)
+						var total = a + b * 2 + c * 8 + d * 4
+						layers[ter].set_cell(Vector2i((y - 1) * 2 + i, (x - 1) * 2 + j), 0, Vector2i(total - 1, ORIGINS[ter]))
+
+func calculate_confidence():
+	for x in range(SIZE):
+		for y in range(SIZE):
+			var node = nodes[x][y]
+			
+			var nbh = 0
+			var options = []
+			
+			if x > 0:
+				var adj = nodes[x - 1][y]
+				nbh += 1 if adj.selected_option == node.selected_option else 0
+			if y > 0:
+				var adj = nodes[x][y - 1]
+				nbh += 1 if adj.selected_option == node.selected_option else 0
+			if x < SIZE - 1:
+				var adj = nodes[x + 1][y]
+				nbh += 1 if adj.selected_option == node.selected_option else 0
+			if y < SIZE - 1:
+				var adj = nodes[x][y + 1]
+				nbh += 1 if adj.selected_option == node.selected_option else 0
+			
+			node.confidence = nbh
+	
+	for x in range(SIZE):
+		for y in range(SIZE):
+			var node = nodes[x][y]
+			
+			var options = []
+			
+			if node.confidence == 0:
+				if x > 0:
+					var adj = nodes[x - 1][y]
+					if adj.confidence != 0:
+						options.push_back(adj.selected_option)
+				if y > 0:
+					var adj = nodes[x][y - 1]
+					if adj.confidence != 0:
+						options.push_back(adj.selected_option)
+				if x < SIZE - 1:
+					var adj = nodes[x + 1][y]
+					if adj.confidence != 0:
+						options.push_back(adj.selected_option)
+				if y < SIZE - 1:
+					var adj = nodes[x][y + 1]
+					if adj.confidence != 0:
+						options.push_back(adj.selected_option)
+				
+				node.selected_option = options.pick_random()
+
+
+func convert_terrain(source, target):
+	return 1 if PRIO[source] >= PRIO[target] else 0
+	
+func get_stronger_terrain(terrains):
+	return Utils.reduce(terrains.map(func(x): return {"terrain": x.selected_option, "power": PRIO[x.selected_option]}),
+	func(acc, cur): return acc if acc["power"] > cur["power"] else cur, {"power": -1})["terrain"]
+
+func select_weighted_random(weights):
+	var r = weights.r
+	var rd = r + weights.d
+	var rdg = rd + weights.g
+	var rdgs = rdg + weights.s
+	
+	var rnd = randi_range(1, rdgs)
+	
+	if rnd <= r:
+		return "r"
+	elif rnd <= rd:
+		return "d"
+	elif rnd <= rdg:
+		return "g"
+	else:
+		return "s"
