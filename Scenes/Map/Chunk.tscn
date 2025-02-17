@@ -7,17 +7,13 @@
 script = ExtResource("2_rswc8")
 
 [node name="Rock" type="TileMapLayer" parent="."]
-scale = Vector2(0.2, 0.2)
 tile_set = ExtResource("2_1okh8")
 
 [node name="Dirt" type="TileMapLayer" parent="."]
-scale = Vector2(0.2, 0.2)
 tile_set = ExtResource("2_1okh8")
 
 [node name="Sand" type="TileMapLayer" parent="."]
-scale = Vector2(0.2, 0.2)
 tile_set = ExtResource("2_1okh8")
 
 [node name="Grass" type="TileMapLayer" parent="."]
-scale = Vector2(0.2, 0.2)
 tile_set = ExtResource("2_1okh8")

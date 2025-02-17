@@ -1,6 +1,8 @@
 extends Node2D
 
-static var SIZE = 32
+class_name Chunk
+
+static var SIZE = 10
 var touched_tiles = {}
 
 var nodes = []
@@ -27,6 +29,11 @@ var layers = {}
 
 var options = ["d", "r", "s", "g"]
 
+var left = null
+var right = null
+var top = null
+var bottom = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	layers = {
@@ -36,9 +43,48 @@ func _ready() -> void:
 		"g": grass
 	}
 	
-	restart()
+	render_generated_chunk()
 	
-
+func generate_chunk():
+	nodes = []
+	for x in range(SIZE):
+		nodes.push_back([])
+		for y in range(SIZE):
+			var tile = Tile.new(x, y)
+			if x == 0 and left:
+				tile.selected_option = left[y].selected_option
+				tile.confidence = 5
+			if y == 0 and top:
+				tile.selected_option = top[x].selected_option
+				tile.confidence = 5
+			if x == SIZE - 1 and right:
+				tile.selected_option = right[y].selected_option
+				tile.confidence = 5
+			if y == SIZE - 1 and bottom:
+				tile.selected_option = bottom[x].selected_option
+				tile.confidence = 5
+			nodes[x].push_back(tile)
+	
+	if !left and !right and !top and !bottom:
+		nodes[0][0].selected_option = options.pick_random()
+		update_neighbours(0, 0)
+	else:
+		for i in range(SIZE):
+			if left:
+				update_neighbours(0, i)
+			if right:
+				update_neighbours(SIZE - 1, i)
+			if top:
+				update_neighbours(i, 0)
+			if bottom:
+				update_neighbours(i, SIZE - 1)
+	
+	while !touched_tiles.is_empty():
+		var nxt = find_biggest_weight()
+		nxt.selected_option = select_weighted_random(nxt.weights)
+		update_neighbours(nxt.x, nxt.y)
+	
+	calculate_confidence()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -110,44 +156,23 @@ func find_biggest_weight():
 	
 	return next_tile
 
-func restart():
-	nodes = []
-	for x in range(SIZE):
-		nodes.push_back([])
-		for y in range(SIZE):
-			#self.set_cell(Vector2i(x, y))
-			var tile = Tile.new(x, y)
-			nodes[x].push_back(tile)
-	
-	nodes[0][0].selected_option = options.pick_random()
-	update_neighbours(0, 0)
-	
-	while !touched_tiles.is_empty():
-		var nxt = find_biggest_weight()
-		nxt.selected_option = select_weighted_random(nxt.weights)
-		update_neighbours(nxt.x, nxt.y)
-	
-	calculate_confidence()
-	
-	render_generated_chunk()
-	
 func render_generated_chunk():
 	for x in range(1, SIZE):
 		for y in range(1, SIZE):
 			var points = [
 				[
 					nodes[x - 1][y - 1].selected_option,
-				 	get_stronger_terrain([nodes[x - 1][y - 1],nodes[x][y - 1]]),
-				 	nodes[x][y - 1].selected_option
-				],
-				[
 				 	get_stronger_terrain([nodes[x - 1][y - 1],nodes[x - 1][y]]),
-				 	get_stronger_terrain([nodes[x - 1][y - 1],nodes[x][y - 1], nodes[x - 1][y], nodes[x][y]]),
-				 	get_stronger_terrain([nodes[x][y - 1],nodes[x][y]]),
+					nodes[x - 1][y].selected_option
 				],
 				[
-					nodes[x - 1][y].selected_option,
+				 	get_stronger_terrain([nodes[x - 1][y - 1],nodes[x][y - 1]]),
+				 	get_stronger_terrain([nodes[x - 1][y - 1],nodes[x][y - 1], nodes[x - 1][y], nodes[x][y]]),
 				 	get_stronger_terrain([nodes[x - 1][y],nodes[x][y]]),
+				],
+				[
+				 	nodes[x][y - 1].selected_option,
+				 	get_stronger_terrain([nodes[x][y - 1],nodes[x][y]]),
 				 	nodes[x][y].selected_option
 				]
 			]
@@ -162,15 +187,17 @@ func render_generated_chunk():
 						var c = convert_terrain(points[i][j + 1], ter)
 						var d = convert_terrain(points[i + 1][j + 1], ter)
 						var total = a + b * 2 + c * 8 + d * 4
-						layers[ter].set_cell(Vector2i((y - 1) * 2 + i, (x - 1) * 2 + j), 0, Vector2i(total - 1, ORIGINS[ter]))
+						layers[ter].set_cell(Vector2i((x - 1) * 2 + i, (y - 1) * 2 + j), 0, Vector2i(total - 1, ORIGINS[ter]))
 
 func calculate_confidence():
 	for x in range(SIZE):
 		for y in range(SIZE):
 			var node = nodes[x][y]
 			
+			if node.confidence == 5:
+				continue
+			
 			var nbh = 0
-			var options = []
 			
 			if x > 0:
 				var adj = nodes[x - 1][y]
@@ -192,27 +219,35 @@ func calculate_confidence():
 			var node = nodes[x][y]
 			
 			var options = []
+			var incomfidentOptions = []
 			
 			if node.confidence == 0:
 				if x > 0:
 					var adj = nodes[x - 1][y]
+					incomfidentOptions.push_back(adj.selected_option)
 					if adj.confidence != 0:
 						options.push_back(adj.selected_option)
 				if y > 0:
 					var adj = nodes[x][y - 1]
+					incomfidentOptions.push_back(adj.selected_option)
 					if adj.confidence != 0:
 						options.push_back(adj.selected_option)
 				if x < SIZE - 1:
 					var adj = nodes[x + 1][y]
+					incomfidentOptions.push_back(adj.selected_option)
 					if adj.confidence != 0:
 						options.push_back(adj.selected_option)
 				if y < SIZE - 1:
 					var adj = nodes[x][y + 1]
+					incomfidentOptions.push_back(adj.selected_option)
 					if adj.confidence != 0:
 						options.push_back(adj.selected_option)
 				
-				node.selected_option = options.pick_random()
-
+				if options.is_empty():
+					node.selected_option = incomfidentOptions.pick_random()
+				else:
+					node.selected_option = options.pick_random()
+				node.confidence = 5
 
 func convert_terrain(source, target):
 	return 1 if PRIO[source] >= PRIO[target] else 0

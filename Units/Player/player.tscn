@@ -18,6 +18,7 @@ base_hp = 40.0
 base_hp_regen = 1
 
 [node name="SpeedComponent" parent="." index="3" node_paths=PackedStringArray("fighting_component") instance=ExtResource("3_b5npy")]
+base_speed = 2000
 fighting_component = NodePath("../FightingComponent")
 
 [node name="RetaliationComponent" parent="." index="4" node_paths=PackedStringArray("health_component", "attack_component") instance=ExtResource("5_cj3yk")]
