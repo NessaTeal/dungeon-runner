@@ -134,6 +134,4 @@ func _on_show_inventory_button_pressed() -> void:
 
 func _on_player_moved_a_lot() -> void:
 	var player_position = player.position
-	Thread.new().start(
-		func():
-			map.update_map(player_position), Thread.PRIORITY_LOW)
+	map.update_map(player_position)

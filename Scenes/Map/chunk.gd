@@ -2,16 +2,15 @@ extends Node2D
 
 class_name Chunk
 
-static var SIZE = 10
-static var TILE_COUNT = (SIZE - 1) * 2
-static var TILE_SIZE = 128
-static var CHUNK_SIZE = TILE_COUNT * TILE_SIZE
-static var CHUNK_SIZE_SQUARED = CHUNK_SIZE ** 2
+static var SIZE: int = 6
+static var TILE_COUNT: int = (SIZE - 1) * 2
+static var TILE_SIZE: int = 128
+static var CHUNK_SIZE: int = TILE_COUNT * TILE_SIZE
+static var CHUNK_SIZE_SQUARED: int = CHUNK_SIZE ** 2
 var touched_tiles = {}
 
 var nodes = []
-var x
-var y
+var tile_terrain_corners = []
 
 # Tiles location in atlas is set using corners as binary counter
 # 1 2
@@ -33,7 +32,7 @@ static var ORIGINS = {
 
 var layers = {}
 
-var options = ["d", "r", "s", "g"]
+static var TERRAIN_OPTIONS = ["d", "r", "s", "g"]
 
 var left = null
 var right = null
@@ -48,6 +47,9 @@ func _ready() -> void:
 		"s": sand,
 		"g": grass
 	}
+	
+	#print(nodes)
+	#print(tile_terrain_corners)
 	
 	render_generated_chunk()
 	
@@ -72,7 +74,7 @@ func generate_chunk():
 			nodes[x].push_back(tile)
 	
 	if !left and !right and !top and !bottom:
-		nodes[0][0].selected_option = options.pick_random()
+		nodes[0][0].selected_option = TERRAIN_OPTIONS.pick_random()
 		update_neighbours(0, 0)
 	else:
 		for i in range(SIZE):
@@ -91,10 +93,8 @@ func generate_chunk():
 		update_neighbours(nxt.x, nxt.y)
 	
 	calculate_confidence()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	
+	calculate_tile_terrain_corners()
 
 func update_neighbours(x, y):
 	var tile = nodes[x][y]
@@ -161,39 +161,47 @@ func find_biggest_weight():
 	touched_tiles.erase(next_tile)
 	
 	return next_tile
+	
+func calculate_tile_terrain_corners():
+	for x in range(0, SIZE - 1):
+		var top_row = []
+		var bottom_row = []
+		for y in range(0, SIZE - 1):
+			
+			top_row.push_back(nodes[x][y].selected_option)
+			top_row.push_back(get_stronger_terrain([nodes[x][y],nodes[x][y + 1]]))
+			bottom_row.push_back(get_stronger_terrain([nodes[x][y],nodes[x + 1][y]]))
+			bottom_row.push_back(get_stronger_terrain([nodes[x][y],nodes[x + 1][y], nodes[x][y + 1], nodes[x + 1][y + 1]]))
+		
+		# we generate 2n - 1 size array and need to insert last elements manually
+		top_row.push_back(nodes[x][SIZE - 1].selected_option)
+		bottom_row.push_back(get_stronger_terrain([nodes[x][SIZE - 1], nodes[x + 1][SIZE - 1]]))
+		
+		tile_terrain_corners.push_back(top_row)
+		tile_terrain_corners.push_back(bottom_row)
+	
+	# we generate 2n - 1 size array and need to insert last row with last elements manually
+	var last_row = []
+	for y in range(0, SIZE - 1):
+		last_row.push_back(nodes[SIZE - 1][y].selected_option)
+		last_row.push_back(get_stronger_terrain([nodes[SIZE - 1][y], nodes[SIZE - 1][y + 1]]))
+	last_row.push_back(nodes[SIZE - 1][SIZE - 1].selected_option)
+	
+	tile_terrain_corners.push_back(last_row)
 
 func render_generated_chunk():
-	for x in range(1, SIZE):
-		for y in range(1, SIZE):
-			var points = [
-				[
-					nodes[x - 1][y - 1].selected_option,
-				 	get_stronger_terrain([nodes[x - 1][y - 1],nodes[x - 1][y]]),
-					nodes[x - 1][y].selected_option
-				],
-				[
-				 	get_stronger_terrain([nodes[x - 1][y - 1],nodes[x][y - 1]]),
-				 	get_stronger_terrain([nodes[x - 1][y - 1],nodes[x][y - 1], nodes[x - 1][y], nodes[x][y]]),
-				 	get_stronger_terrain([nodes[x - 1][y],nodes[x][y]]),
-				],
-				[
-				 	nodes[x][y - 1].selected_option,
-				 	get_stronger_terrain([nodes[x][y - 1],nodes[x][y]]),
-				 	nodes[x][y].selected_option
-				]
-			]
-			
-			for ter in options:
-				for i in [0, 1]:
-					for j in [0, 1]:
-						if points[i][j] != ter and points[i + 1][j] != ter and points[i][j + 1] != ter and points[i + 1][j + 1] != ter:
-							continue
-						var a = convert_terrain(points[i][j], ter)
-						var b = convert_terrain(points[i + 1][j], ter)
-						var c = convert_terrain(points[i][j + 1], ter)
-						var d = convert_terrain(points[i + 1][j + 1], ter)
-						var total = a + b * 2 + c * 8 + d * 4
-						layers[ter].set_cell(Vector2i((x - 1) * 2 + i, (y - 1) * 2 + j), 0, Vector2i(total - 1, ORIGINS[ter]))
+	for x in range(0, TILE_COUNT):
+		for y in range(0, TILE_COUNT):
+			for ter in TERRAIN_OPTIONS:
+				if tile_terrain_corners[x][y] != ter and tile_terrain_corners[x + 1][y] != ter and tile_terrain_corners[x][y + 1] != ter and tile_terrain_corners[x + 1][y + 1] != ter:
+					continue
+				var a = convert_terrain(tile_terrain_corners[x][y], ter)
+				var b = convert_terrain(tile_terrain_corners[x + 1][y], ter)
+				var c = convert_terrain(tile_terrain_corners[x][y + 1], ter)
+				var d = convert_terrain(tile_terrain_corners[x + 1][y + 1], ter)
+				var total = a + b * 2 + c * 8 + d * 4
+				#layers[ter].call_deferred("set_cell", Vector2i((x - 1) * 2 + i, (y - 1) * 2 + j), 0, Vector2i(total - 1, ORIGINS[ter]))
+				layers[ter].set_cell(Vector2i(x, y), 0, Vector2i(total - 1, ORIGINS[ter]))
 
 func calculate_confidence():
 	for x in range(SIZE):
@@ -259,8 +267,16 @@ func convert_terrain(source, target):
 	return 1 if PRIO[source] >= PRIO[target] else 0
 	
 func get_stronger_terrain(terrains):
-	return Utils.reduce(terrains.map(func(x): return {"terrain": x.selected_option, "power": PRIO[x.selected_option]}),
-	func(acc, cur): return acc if acc["power"] > cur["power"] else cur, {"power": -1})["terrain"]
+	var acc = ""
+	var power = -1
+	for terrain in terrains:
+		if PRIO[terrain.selected_option] > power:
+			acc = terrain.selected_option
+			power = PRIO[terrain.selected_option]
+			
+	return acc
+	#return Utils.reduce(terrains.map(func(x): return {"terrain": x.selected_option, "power": PRIO[x.selected_option]}),
+	#func(acc, cur): return acc if acc["power"] > cur["power"] else cur, {"power": -1})["terrain"]
 
 func select_weighted_random(weights):
 	var r = weights.r

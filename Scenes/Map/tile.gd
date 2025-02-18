@@ -12,6 +12,6 @@ var confidence = -1
 func add_half_of_weights(terrain):
 	weights[terrain] += 5.0 / weights[terrain] + Utils.reduce(weights.values(), func(acc, cur): return acc + cur, 0) / 2
 
-func _init(x, y) -> void:
-	self.x = x
-	self.y = y
+func _init(_x, _y) -> void:
+	x = _x
+	y = _y
