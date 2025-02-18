@@ -9,6 +9,7 @@ extends Control
 @onready var game_state: GameState = $GameState
 @onready var game_over: Control = $GameOver
 @onready var enemy_spawn_point: PathFollow2D = $Player/EnemySpawnPath/EnemySpawnPoint
+@onready var map = $Map
 
 @export var enemy_scene: PackedScene
 
@@ -28,6 +29,7 @@ func _ready():
 	encounter_started.connect(player.fighting_component.start_fight)
 	encounter_ended.connect(player.fighting_component.stop_fight)
 	player.health_component.hp_depleted.connect(_on_player_unit_died)
+	player.movement_component.moved_a_lot.connect(_on_player_moved_a_lot)
 
 func _process(delta):
 	if Input.is_action_pressed("SpeeHack"):
@@ -129,3 +131,9 @@ func _on_button_3_pressed():
 
 func _on_show_inventory_button_pressed() -> void:
 	Inventory.show()
+
+func _on_player_moved_a_lot() -> void:
+	var player_position = player.position
+	Thread.new().start(
+		func():
+			map.update_map(player_position), Thread.PRIORITY_LOW)

@@ -3,9 +3,15 @@ extends Node2D
 class_name Chunk
 
 static var SIZE = 10
+static var TILE_COUNT = (SIZE - 1) * 2
+static var TILE_SIZE = 128
+static var CHUNK_SIZE = TILE_COUNT * TILE_SIZE
+static var CHUNK_SIZE_SQUARED = CHUNK_SIZE ** 2
 var touched_tiles = {}
 
 var nodes = []
+var x
+var y
 
 # Tiles location in atlas is set using corners as binary counter
 # 1 2
