@@ -133,5 +133,4 @@ func _on_show_inventory_button_pressed() -> void:
 	Inventory.show()
 
 func _on_player_moved_a_lot() -> void:
-	var player_position = player.position
-	map.update_map(player_position)
+	map.update_map(player.position)

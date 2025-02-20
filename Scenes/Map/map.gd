@@ -32,8 +32,8 @@ func get_chunk(x, y):
 func update_map(player_position: Vector2):
 	var x = round(player_position.x / Chunk.CHUNK_SIZE)
 	var y = round(player_position.y / Chunk.CHUNK_SIZE)
-	var map_size = 3
+	var map_size = 2
 	
-	for dx in range(-map_size, map_size):
-		for dy in range(-map_size, map_size):
+	for dx in range(-map_size, map_size + 1):
+		for dy in range(-map_size, map_size + 1):
 			get_chunk(x + dx, y + dy)

@@ -2,7 +2,7 @@ extends Node2D
 
 class_name Chunk
 
-static var SIZE: int = 6
+static var SIZE: int = 10
 static var TILE_COUNT: int = (SIZE - 1) * 2
 static var TILE_SIZE: int = 128
 static var CHUNK_SIZE: int = TILE_COUNT * TILE_SIZE
@@ -199,9 +199,9 @@ func render_generated_chunk():
 				var b = convert_terrain(tile_terrain_corners[x + 1][y], ter)
 				var c = convert_terrain(tile_terrain_corners[x][y + 1], ter)
 				var d = convert_terrain(tile_terrain_corners[x + 1][y + 1], ter)
-				var total = a + b * 2 + c * 8 + d * 4
+				var total = a + b * 2 + c * 8 + d * 4 - 1
 				#layers[ter].call_deferred("set_cell", Vector2i((x - 1) * 2 + i, (y - 1) * 2 + j), 0, Vector2i(total - 1, ORIGINS[ter]))
-				layers[ter].set_cell(Vector2i(x, y), 0, Vector2i(total - 1, ORIGINS[ter]))
+				layers[ter].set_cell(Vector2i(x, y), 0, Vector2i(total, ORIGINS[ter]))
 
 func calculate_confidence():
 	for x in range(SIZE):
