@@ -11,6 +11,7 @@ var touched_tiles = {}
 
 var nodes = []
 var tile_terrain_corners = []
+var patterns = []
 
 # Tiles location in atlas is set using corners as binary counter
 # 1 2
@@ -30,7 +31,7 @@ static var ORIGINS = {
 	"g": 0
 }
 
-var layers = {}
+var layers = []
 
 static var TERRAIN_OPTIONS = ["d", "r", "s", "g"]
 
@@ -41,12 +42,7 @@ var bottom = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	layers = {
-		"r": rock,
-		"d": dirt,
-		"s": sand,
-		"g": grass
-	}
+	layers = [rock, dirt, sand, grass]
 	
 	#print(nodes)
 	#print(tile_terrain_corners)
@@ -95,6 +91,8 @@ func generate_chunk():
 	calculate_confidence()
 	
 	calculate_tile_terrain_corners()
+	
+	calculate_layers()
 
 func update_neighbours(x, y):
 	var tile = nodes[x][y]
@@ -189,10 +187,12 @@ func calculate_tile_terrain_corners():
 	
 	tile_terrain_corners.push_back(last_row)
 
-func render_generated_chunk():
-	for x in range(0, TILE_COUNT):
-		for y in range(0, TILE_COUNT):
-			for ter in TERRAIN_OPTIONS:
+func calculate_layers():
+	for ter in TERRAIN_OPTIONS:
+		var layer = TileMapPattern.new()
+		layer.set_size(Vector2i(TILE_COUNT, TILE_COUNT))
+		for x in range(0, TILE_COUNT):
+			for y in range(0, TILE_COUNT):
 				if tile_terrain_corners[x][y] != ter and tile_terrain_corners[x + 1][y] != ter and tile_terrain_corners[x][y + 1] != ter and tile_terrain_corners[x + 1][y + 1] != ter:
 					continue
 				var a = convert_terrain(tile_terrain_corners[x][y], ter)
@@ -200,8 +200,15 @@ func render_generated_chunk():
 				var c = convert_terrain(tile_terrain_corners[x][y + 1], ter)
 				var d = convert_terrain(tile_terrain_corners[x + 1][y + 1], ter)
 				var total = a + b * 2 + c * 8 + d * 4 - 1
-				#layers[ter].call_deferred("set_cell", Vector2i((x - 1) * 2 + i, (y - 1) * 2 + j), 0, Vector2i(total - 1, ORIGINS[ter]))
-				layers[ter].set_cell(Vector2i(x, y), 0, Vector2i(total, ORIGINS[ter]))
+				layer.set_cell(Vector2i(x, y), 0, Vector2i(total, ORIGINS[ter]), 0)
+		
+		patterns.push_back(layer)
+
+func render_generated_chunk():
+	for layer_index in len(patterns):
+		var pattern: TileMapPattern = patterns[layer_index]
+		
+		layers[layer_index].set_pattern(Vector2i(0, 0), pattern)
 
 func calculate_confidence():
 	for x in range(SIZE):

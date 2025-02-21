@@ -4,7 +4,14 @@ extends Node2D
 
 var chunk_map = {}
 
+var thread: Thread
+var semaphore: Semaphore
+var requests: Array[Vector2i] = []
+
 func _ready() -> void:
+	semaphore = Semaphore.new()
+	thread = Thread.new()
+	thread.start(_thread_function)
 	update_map(Vector2(0, 0))
 
 func get_chunk(x, y):
@@ -25,10 +32,19 @@ func get_chunk(x, y):
 		chunk.generate_chunk()
 		
 		chunk.set_position(Vector2(x * Chunk.CHUNK_SIZE, y * Chunk.CHUNK_SIZE))
-		call_deferred("add_child", chunk)
+		add_child.call_deferred(chunk)
 		
 		chunk_map["%d,%d" % [x, y]] = chunk
 		
+func _thread_function():
+	while true:
+		semaphore.wait()
+		
+		for request in requests:
+			get_chunk(request.x, request.y)
+			
+		requests = []
+
 func update_map(player_position: Vector2):
 	var x = round(player_position.x / Chunk.CHUNK_SIZE)
 	var y = round(player_position.y / Chunk.CHUNK_SIZE)
@@ -36,4 +52,6 @@ func update_map(player_position: Vector2):
 	
 	for dx in range(-map_size, map_size + 1):
 		for dy in range(-map_size, map_size + 1):
-			get_chunk(x + dx, y + dy)
+			requests.push_back(Vector2i(x + dx, y + dy))
+	
+	semaphore.post()
