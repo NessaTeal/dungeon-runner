@@ -4,7 +4,7 @@ class_name SpeedComponent
 var distance = 0
 var current_speed = 0
 var fight_speed = 0.0
-var acceleration = 100
+var acceleration = 5
 var speed_from_acceleration = 0.0
 
 @export var base_speed = 500

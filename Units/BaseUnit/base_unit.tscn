@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b45y6qw1y818h"]
+[gd_scene load_steps=7 format=3 uid="uid://b45y6qw1y818h"]
 
 [ext_resource type="Script" path="res://Units/BaseUnit/base_unit.gd" id="1_eslch"]
 [ext_resource type="Texture2D" uid="uid://c3r80g2mb46qi" path="res://Textures/icon.svg" id="3_adl05"]
@@ -6,8 +6,19 @@
 [ext_resource type="PackedScene" uid="uid://bsnykfsfud0qu" path="res://Units/Components/fighting_component.tscn" id="5_ib6wf"]
 [ext_resource type="PackedScene" uid="uid://dp1aer0epf235" path="res://Units/Components/health_component.tscn" id="5_p8ab6"]
 
-[node name="Unit" type="Sprite2D"]
-texture = ExtResource("3_adl05")
+[sub_resource type="SpriteFrames" id="SpriteFrames_xl8r7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_adl05")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Unit" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_xl8r7")
 script = ExtResource("1_eslch")
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_p8ab6")]

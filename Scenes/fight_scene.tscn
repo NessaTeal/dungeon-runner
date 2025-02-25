@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://busuulbp1ogsk"]
+[gd_scene load_steps=12 format=3 uid="uid://busuulbp1ogsk"]
 
 [ext_resource type="Script" path="res://Scenes/fight_scene.gd" id="1_x8404"]
 [ext_resource type="PackedScene" uid="uid://rur6sjmg2o3g" path="res://Units/Enemy/enemy.tscn" id="2_0ukyi"]
 [ext_resource type="Script" path="res://Scenes/game_state.gd" id="3_10aaw"]
 [ext_resource type="PackedScene" uid="uid://lugeysu4ryx3" path="res://Units/Player/player.tscn" id="3_supv1"]
+[ext_resource type="Texture2D" uid="uid://c3r80g2mb46qi" path="res://Textures/icon.svg" id="5_gsu6q"]
 [ext_resource type="PackedScene" uid="uid://ctiw0m8k5sub3" path="res://Scenes/Map/Map.tscn" id="6_48sw3"]
 [ext_resource type="Script" path="res://Scenes/affix_applier.gd" id="8_6leyg"]
 
@@ -51,6 +52,7 @@ script = ExtResource("3_10aaw")
 [node name="Player" parent="." instance=ExtResource("3_supv1")]
 z_index = 100
 position = Vector2(577, 324)
+texture = ExtResource("5_gsu6q")
 
 [node name="EnemySpawnPath" type="Path2D" parent="Player"]
 curve = SubResource("Curve2D_6tbwp")
