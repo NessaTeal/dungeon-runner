@@ -46,6 +46,7 @@ func _ready() -> void:
 	
 	#print(nodes)
 	#print(tile_terrain_corners)
+	generate_chunk()
 	
 	render_generated_chunk()
 	

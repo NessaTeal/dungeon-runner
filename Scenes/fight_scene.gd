@@ -1,6 +1,6 @@
 extends Control
 
-@onready var player: Player = $Player
+@onready var player: Player = $SubViewportContainer/SubViewport/Player
 @onready var distance_label: Label = $Distance
 @onready var speed_label: Label = $Speed
 @onready var chance_label: Label = $Chance
@@ -8,8 +8,8 @@ extends Control
 @onready var progress_bar: ProgressBar = $ProgressBar
 @onready var game_state: GameState = $GameState
 @onready var game_over: Control = $GameOver
-@onready var enemy_spawn_point: PathFollow2D = $Player/EnemySpawnPath/EnemySpawnPoint
-@onready var map = $Map
+@onready var enemy_spawn_point: PathFollow2D = $SubViewportContainer/SubViewport/Player/EnemySpawnPath/EnemySpawnPoint
+@onready var map = $SubViewportContainer/SubViewport/Map
 
 @export var enemy_scene: PackedScene
 
