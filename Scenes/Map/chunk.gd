@@ -2,7 +2,7 @@ extends Node2D
 
 class_name Chunk
 
-static var SIZE: int = 10
+static var SIZE: int = 30
 static var TILE_COUNT: int = (SIZE - 1) * 2
 static var TILE_SIZE: int = 128
 static var CHUNK_SIZE: int = TILE_COUNT * TILE_SIZE
@@ -46,7 +46,7 @@ func _ready() -> void:
 	
 	#print(nodes)
 	#print(tile_terrain_corners)
-	generate_chunk()
+	#generate_chunk()
 	
 	render_generated_chunk()
 	
