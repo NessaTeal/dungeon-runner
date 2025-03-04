@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://g8g2afkn8gqj"]
 
 [ext_resource type="PackedScene" uid="uid://c65tlx11pnwdf" path="res://Perks/perk_button.tscn" id="1_4sv20"]
-[ext_resource type="Script" path="res://Perks/perk_tree.gd" id="1_shrwa"]
+[ext_resource type="Script" uid="uid://bkdqfpeif0shh" path="res://Perks/perk_tree.gd" id="1_shrwa"]
 
 [node name="ColorRect" type="ColorRect"]
 process_mode = 3

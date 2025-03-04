@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bre0gyn7fxjhi"]
 
 [ext_resource type="TileSet" uid="uid://g62unt51muww" path="res://Scenes/Map/tileset.tres" id="2_1okh8"]
-[ext_resource type="Script" path="res://Scenes/Map/chunk.gd" id="2_rswc8"]
+[ext_resource type="Script" uid="uid://c81sd6258u1b1" path="res://Scenes/Map/chunk.gd" id="2_rswc8"]
 
 [node name="Chunk" type="Node2D"]
 script = ExtResource("2_rswc8")

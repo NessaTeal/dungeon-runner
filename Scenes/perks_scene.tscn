@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://8ht8vpsb0vl8"]
 
-[ext_resource type="Script" path="res://Scenes/perks_scene.gd" id="1_xtv0c"]
+[ext_resource type="Script" uid="uid://s8j50tfokgis" path="res://Scenes/perks_scene.gd" id="1_xtv0c"]
 [ext_resource type="PackedScene" uid="uid://demnmt3wbgfxq" path="res://Perks/Agility/agility_tree.tscn" id="2_7pfsv"]
 
 [node name="ColorRect" type="ColorRect"]

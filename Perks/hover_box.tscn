@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dopyrxkigntyo"]
 
-[ext_resource type="Script" path="res://Perks/hover_box.gd" id="1_blqyw"]
+[ext_resource type="Script" uid="uid://dhktvqhymn3pm" path="res://Perks/hover_box.gd" id="1_blqyw"]
 [ext_resource type="Texture2D" uid="uid://bc4x1so7x7njw" path="res://Textures/ui_icon_empty_orange.png" id="2_b64bh"]
 [ext_resource type="PackedScene" uid="uid://4pxjsoxdwpko" path="res://Perks/perks_tooltip_line.tscn" id="3_omyib"]
 

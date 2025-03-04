@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ctiw0m8k5sub3"]
 
-[ext_resource type="Script" path="res://Scenes/Map/map.gd" id="1_drkxu"]
+[ext_resource type="Script" uid="uid://cyedjoacdnds3" path="res://Scenes/Map/map.gd" id="1_drkxu"]
 [ext_resource type="PackedScene" uid="uid://bre0gyn7fxjhi" path="res://Scenes/Map/Chunk.tscn" id="2_x8cmu"]
 
 [node name="Map" type="Node2D"]

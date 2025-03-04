@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://rur6sjmg2o3g"]
 
-[ext_resource type="Script" path="res://Units/Enemy/enemy.gd" id="1_ggqo2"]
+[ext_resource type="Script" uid="uid://c8xt3i725552k" path="res://Units/Enemy/enemy.gd" id="1_ggqo2"]
 [ext_resource type="PackedScene" uid="uid://b45y6qw1y818h" path="res://Units/BaseUnit/base_unit.tscn" id="2_5guo4"]
 [ext_resource type="PackedScene" uid="uid://c2vxov4p8viua" path="res://Units/Components/hitbox_component.tscn" id="3_6v5jt"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dviorygdcabla"]
 
-[ext_resource type="Script" path="res://Inventory/item.gd" id="1_42xcn"]
+[ext_resource type="Script" uid="uid://6ikehb368fjb" path="res://Inventory/item.gd" id="1_42xcn"]
 
 [node name="Item" type="TextureRect"]
 custom_minimum_size = Vector2(28, 28)

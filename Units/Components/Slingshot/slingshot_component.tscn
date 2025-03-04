@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dyvw3nfsvi107"]
 
-[ext_resource type="Script" path="res://Units/Components/Slingshot/slingshot_component.gd" id="1_wpycf"]
+[ext_resource type="Script" uid="uid://ddgeh7c6ndr2h" path="res://Units/Components/Slingshot/slingshot_component.gd" id="1_wpycf"]
 
 [node name="SlingshotComponent" type="Control"]
 layout_mode = 3

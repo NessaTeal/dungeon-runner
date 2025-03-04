@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b15a53d7gu5mb"]
 
 [ext_resource type="Texture2D" uid="uid://bc4x1so7x7njw" path="res://Textures/ui_icon_empty_orange.png" id="1_qgpoq"]
-[ext_resource type="Script" path="res://Inventory/item_slot.gd" id="2_isl4b"]
+[ext_resource type="Script" uid="uid://fik1vcfet172" path="res://Inventory/item_slot.gd" id="2_isl4b"]
 
 [node name="ItemSlot" type="Control"]
 custom_minimum_size = Vector2(40, 40)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://j3ao1w64e7ie"]
 
-[ext_resource type="Script" path="res://Units/Components/attack_component.gd" id="1_8ixl7"]
+[ext_resource type="Script" uid="uid://b7joah5em4d7m" path="res://Units/Components/attack_component.gd" id="1_8ixl7"]
 
 [node name="AttackComponent" type="ProgressBar"]
 offset_right = 4.0
