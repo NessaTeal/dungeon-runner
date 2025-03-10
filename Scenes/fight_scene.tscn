@@ -1,11 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://busuulbp1ogsk"]
+[gd_scene load_steps=15 format=3 uid="uid://busuulbp1ogsk"]
 
 [ext_resource type="Script" uid="uid://lnivdlx0ady1" path="res://Scenes/fight_scene.gd" id="1_x8404"]
 [ext_resource type="PackedScene" uid="uid://rur6sjmg2o3g" path="res://Units/Enemy/enemy.tscn" id="2_0ukyi"]
 [ext_resource type="Script" uid="uid://dcnh6jfowkhy4" path="res://Scenes/game_state.gd" id="3_10aaw"]
 [ext_resource type="PackedScene" uid="uid://lugeysu4ryx3" path="res://Units/Player/player.tscn" id="3_supv1"]
+[ext_resource type="Material" uid="uid://c1hc4v6l8uml4" path="res://Scenes/map_material.tres" id="5_j70gj"]
 [ext_resource type="PackedScene" uid="uid://ctiw0m8k5sub3" path="res://Scenes/Map/Map.tscn" id="6_48sw3"]
-[ext_resource type="Shader" uid="uid://cbp7axkne4kd5" path="res://Scenes/map.gdshader" id="6_nym7o"]
 [ext_resource type="Script" uid="uid://k77suwqe7wdi" path="res://Scenes/affix_applier.gd" id="8_6leyg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trrdp"]
@@ -32,14 +32,18 @@ corner_detail = 6
 ProgressBar/styles/background = SubResource("StyleBoxFlat_trrdp")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_abg2n")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i8ktg"]
-shader = ExtResource("6_nym7o")
-
 [sub_resource type="Curve2D" id="Curve2D_6tbwp"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -1329, -1323, 0, 0, 0, 0, 1402, -1175, 0, 0, 0, 0, 1584, 1129, 0, 0, 0, 0, -1413, 1145, 0, 0, 0, 0, -1295, -1327)
 }
 point_count = 5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mo3wy"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mo3wy"]
+material = SubResource("StandardMaterial3D_mo3wy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j70gj"]
 
 [node name="FightScene" type="Control"]
 layout_mode = 3
@@ -204,7 +208,7 @@ text = "Show inventory
 "
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-material = SubResource("ShaderMaterial_i8ktg")
+material = ExtResource("5_j70gj")
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
@@ -227,6 +231,13 @@ curve = SubResource("Curve2D_6tbwp")
 [node name="EnemySpawnPoint" type="PathFollow2D" parent="SubViewportContainer/SubViewport/Player/EnemySpawnPath"]
 position = Vector2(-1329, -1323)
 rotation = 0.0541396
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_mo3wy")
+surface_material_override/0 = SubResource("StandardMaterial3D_j70gj")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.849193, 0.528083, 0, -0.528083, 0.849193, 0.152518, 1.5866, 1.9807)
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="pressed" from="GameOver/Button" to="." method="_on_button_pressed"]

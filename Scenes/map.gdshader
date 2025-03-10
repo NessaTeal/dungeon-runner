@@ -1,5 +1,10 @@
 shader_type canvas_item;
 
+uniform float angle = 0.0;
+//uniform float FOV = 103.0 / (2.0 * PI);
+//uniform float camera_height = 8.0 / tan(FOV / 2.0);
+uniform vec3 camera_origin = vec3(8.0, 4.5, 6.363487333342628);
+
 
 
 //void fragment() {
@@ -23,13 +28,32 @@ shader_type canvas_item;
 //}
 
 void fragment() {
-	float plane_x = 0.0;
-	float plane_y = -1.0;
-	float plane_z = 5.67128182;
-	float plane_k = 9.0;
+	//float angle = radians(10.0);
+	float FOV = radians(103.0);
+	float OTN = FOV / 2.0;
+	float ON = 8.0;
+	float OT = ON / tan(OTN);
+	float OM = 9.0 / 2.0;
+	float TMO = atan(OT/OM);
+	float KM = 9.0;
+	float MMx_length = KM * sin(angle) / sin(TMO - angle);
+	vec3 TM = vec3(8.0, 0.0, 0.0) - camera_origin;
+	vec3 TM_normal = normalize(TM);
+	vec3 Mx = vec3(8.0, 0.0, 0.0) + MMx_length * TM_normal;
+	
+	vec3 KMx = vec3(8.0, 9.0, 0.0) - Mx;
+	vec3 DMx = vec3(0.0, 9.0, 0.0) - Mx;
+	vec3 plane_normal = cross(KMx, DMx);
+	vec3 aaa = plane_normal * vec3(8.0, 9.0, 0.0);
+	float plane_k = -(aaa.x + aaa.y + aaa.z);
+	
+	float plane_x = plane_normal.x;
+	float plane_y = plane_normal.y;
+	float plane_z = plane_normal.z;
+	//float plane_k = 9.0;
 	vec3 plane = vec3(plane_x, plane_y, plane_z);
-	vec3 camera_origin = vec3(8.0, 4.5, 6.363487333342628);
-	vec3 point = vec3((UV.x * 0.6 + 0.2) * 16.0, (UV.y * 0.6 + 0.2) * 9.0, 0.0);
+	//vec3 point = vec3((UV.x * 0.6 + 0.2) * 16.0, (UV.y * 0.6 + 0.2) * 9.0, 0.0);
+	vec3 point = vec3(UV.x * 16.0, UV.y * 9.0, 0.0);
 	vec3 ray = point - camera_origin;
 	vec3 tmp = ray * plane;
 	float t_mult = tmp.x + tmp.y + tmp.z;
@@ -51,7 +75,7 @@ void fragment() {
 	//float x = UV.x - (UV.x - 0.5) * 0.35 * sin(PI / 4.0 + UV.y * PI / 4.0);
 	//float x = UV.x - (UV.x - 0.5) * 0.5 * UV.y;
 	
-	COLOR = texture(TEXTURE, vec2(x, y));
+	COLOR = texture(TEXTURE, vec2(x * 0.6444659233652351 + (1.0 - 0.6444659233652351) / 2.0, y * 0.78 + 0.22));
 	
 	//COLOR = texture(TEXTURE, vec2(x * 0.5 + 0.25, UV.y * 0.5 + 0.5));
 }
