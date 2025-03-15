@@ -74,8 +74,8 @@ void fragment() {
 	//float x = UV.x;
 	//float x = UV.x - (UV.x - 0.5) * 0.35 * sin(PI / 4.0 + UV.y * PI / 4.0);
 	//float x = UV.x - (UV.x - 0.5) * 0.5 * UV.y;
-	
-	COLOR = texture(TEXTURE, vec2(x * 0.6444659233652351 + (1.0 - 0.6444659233652351) / 2.0, y * 0.78 + 0.22));
+	float vvvv = 0.6644659233652351;
+	COLOR = texture(TEXTURE, vec2(x * vvvv + (1.0 - vvvv) / 2.0, y * 0.78 + 0.22));
 	
 	//COLOR = texture(TEXTURE, vec2(x * 0.5 + 0.25, UV.y * 0.5 + 0.5));
 }

@@ -10,8 +10,6 @@ extends Control
 @onready var game_over: Control = $GameOver
 @onready var enemy_spawn_point: PathFollow2D = $SubViewportContainer/SubViewport/Player/EnemySpawnPath/EnemySpawnPoint
 @onready var map = $SubViewportContainer/SubViewport/Map
-@onready var ddd = $SubViewportContainer/SubViewport
-@onready var mesh: MeshInstance3D = $MeshInstance3D
 
 #@export var shader: Shader
 var materiall: ShaderMaterial = preload("res://Scenes/map_material.tres")
@@ -35,8 +33,6 @@ func _ready():
 	encounter_ended.connect(player.fighting_component.stop_fight)
 	player.health_component.hp_depleted.connect(_on_player_unit_died)
 	player.movement_component.moved_a_lot.connect(_on_player_moved_a_lot)
-	ddd.set_clear_mode(SubViewport.CLEAR_MODE_ONCE)
-	mesh.get_active_material(0).albedo_texture = ddd.get_texture()
 	
 #func _input(event: InputEvent) -> void:
 	#print(angle)
