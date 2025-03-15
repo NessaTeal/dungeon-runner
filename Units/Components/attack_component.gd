@@ -3,7 +3,7 @@ class_name AttackComponent
 
 @export var base_damage = 10
 @export var base_attack_speed = 100
-@export var fighting_component: FightingComponent
+
 var affix_damage = 0
 var affix_attack_speed = 0
 var dynamic_damage = []
@@ -23,12 +23,11 @@ var multiplier = 1
 signal attack_happened(damage)
 
 func _process(delta):
-	if fighting_component.fighting:
-		count_up += delta * attack_speed
-		value = count_up
-		while count_up >= 100:
-			count_up -= 100
-			#perform_attack(damage)
+	count_up += delta * attack_speed
+	value = count_up
+	while count_up >= 100:
+		count_up -= 100
+		perform_attack(damage)
 
 func perform_attack(attack_damage):
 	if attack_damage <= 0:

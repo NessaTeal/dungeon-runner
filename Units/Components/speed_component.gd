@@ -8,7 +8,6 @@ var acceleration = 0
 var speed_from_acceleration = 0.0
 
 @export var base_speed = 500
-@export var fighting_component: FightingComponent
 
 func _ready():
 	current_speed = base_speed
@@ -18,8 +17,7 @@ func _process(delta):
 	speed_from_acceleration += acceleration * delta
 
 func get_current_speed():
-	var speed_multiplier = fight_speed if fighting_component.fighting else 1.0
-	return (current_speed + speed_from_acceleration) * speed_multiplier
+	return current_speed + speed_from_acceleration
 
 func reset():
 	current_speed = base_speed

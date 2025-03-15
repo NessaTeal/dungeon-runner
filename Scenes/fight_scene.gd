@@ -29,8 +29,6 @@ signal encounter_started
 signal encounter_ended
 
 func _ready():
-	encounter_started.connect(player.fighting_component.start_fight)
-	encounter_ended.connect(player.fighting_component.stop_fight)
 	player.health_component.hp_depleted.connect(_on_player_unit_died)
 	player.movement_component.moved_a_lot.connect(_on_player_moved_a_lot)
 	
