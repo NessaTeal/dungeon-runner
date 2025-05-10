@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://by12r5p8vqs7i" path="res://Units/Components/speed_component.tscn" id="3_b5npy"]
 [ext_resource type="PackedScene" uid="uid://t4byww4nf3xs" path="res://Units/Components/retaliation_component.tscn" id="5_cj3yk"]
 [ext_resource type="PackedScene" uid="uid://dgruckc6ybglp" path="res://Units/Components/trample_component.tscn" id="6_2m6yc"]
-[ext_resource type="PackedScene" uid="uid://bc1cjji0pmjrh" path="res://Units/Components/immolation_component.tscn" id="6_tjpjd"]
+[ext_resource type="PackedScene" uid="uid://5peqlemwyg6y" path="res://Units/Components/immolation_component.tscn" id="6_tjpjd"]
 [ext_resource type="PackedScene" uid="uid://dyvw3nfsvi107" path="res://Units/Components/Slingshot/slingshot_component.tscn" id="7_v1crv"]
 [ext_resource type="PackedScene" uid="uid://cy8kx26eiqrfw" path="res://Units/Components/direction_component.tscn" id="8_yhya8"]
 [ext_resource type="PackedScene" uid="uid://ngkegcjskgw1" path="res://Units/Components/movement_component.tscn" id="9_104p0"]
@@ -136,8 +136,6 @@ health_component = NodePath("../HealthComponent")
 attack_component = NodePath("../AttackComponent")
 
 [node name="ImmolationComponent" parent="." index="4" node_paths=PackedStringArray("health_component", "attack_component") instance=ExtResource("6_tjpjd")]
-fixed_fps = 60
-trail_enabled = true
 health_component = NodePath("../HealthComponent")
 attack_component = NodePath("../AttackComponent")
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bc1cjji0pmjrh"]
+[gd_scene load_steps=14 format=3 uid="uid://5peqlemwyg6y"]
 
 [ext_resource type="Texture2D" uid="uid://croil5h7qyx2r" path="res://Textures/immolation.png" id="1_cbqw4"]
 [ext_resource type="Script" uid="uid://no126lo68o43" path="res://Units/Components/immolation_component.gd" id="1_unhsg"]
@@ -67,14 +67,18 @@ alpha_curve = SubResource("CurveTexture_4u4ts")
 emission_curve = SubResource("CurveTexture_b6tfx")
 
 [node name="ImmolationComponent" type="GPUParticles2D"]
-amount = 2000
+z_index = 100
+emitting = false
+amount = 100000
+amount_ratio = 0.1
 texture = ExtResource("1_cbqw4")
-explosiveness = 0.9
+fixed_fps = 165
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_13lr1")
 script = ExtResource("1_unhsg")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.25
+wait_time = 0.5
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timeout"]

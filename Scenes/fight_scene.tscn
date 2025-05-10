@@ -1,7 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://busuulbp1ogsk"]
+[gd_scene load_steps=11 format=3 uid="uid://busuulbp1ogsk"]
 
 [ext_resource type="Script" uid="uid://lnivdlx0ady1" path="res://Scenes/fight_scene.gd" id="1_x8404"]
-[ext_resource type="PackedScene" uid="uid://rur6sjmg2o3g" path="res://Units/Enemy/enemy.tscn" id="2_0ukyi"]
 [ext_resource type="Script" uid="uid://dcnh6jfowkhy4" path="res://Scenes/game_state.gd" id="3_10aaw"]
 [ext_resource type="PackedScene" uid="uid://lugeysu4ryx3" path="res://Units/Player/player.tscn" id="3_supv1"]
 [ext_resource type="Material" uid="uid://c1hc4v6l8uml4" path="res://Scenes/map_material.tres" id="5_j70gj"]
@@ -44,7 +43,6 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_x8404")
-enemy_scene = ExtResource("2_0ukyi")
 
 [node name="GameState" type="Node" parent="."]
 script = ExtResource("3_10aaw")

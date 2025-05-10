@@ -40,13 +40,13 @@ void fragment() {
 	vec3 TM = vec3(8.0, 0.0, 0.0) - camera_origin;
 	vec3 TM_normal = normalize(TM);
 	vec3 Mx = vec3(8.0, 0.0, 0.0) + MMx_length * TM_normal;
-	
+
 	vec3 KMx = vec3(8.0, 9.0, 0.0) - Mx;
 	vec3 DMx = vec3(0.0, 9.0, 0.0) - Mx;
 	vec3 plane_normal = cross(KMx, DMx);
 	vec3 aaa = plane_normal * vec3(8.0, 9.0, 0.0);
 	float plane_k = -(aaa.x + aaa.y + aaa.z);
-	
+
 	float plane_x = plane_normal.x;
 	float plane_y = plane_normal.y;
 	float plane_z = plane_normal.z;
@@ -62,7 +62,7 @@ void fragment() {
 	float t = result / -t_mult;
 	float x = (point.x + ray.x * t) / 16.0;
 	float y = (point.y + ray.y * t) / 9.0;
-	
+
 	//vec4 result = vec3(ray) * plane;
 	//if (UV.x >= 0.5) {
 		//k = -1.0;
@@ -76,6 +76,6 @@ void fragment() {
 	//float x = UV.x - (UV.x - 0.5) * 0.5 * UV.y;
 	float vvvv = 0.6644659233652351;
 	COLOR = texture(TEXTURE, vec2(x * vvvv + (1.0 - vvvv) / 2.0, y * 0.78 + 0.22));
-	
+
 	//COLOR = texture(TEXTURE, vec2(x * 0.5 + 0.25, UV.y * 0.5 + 0.5));
 }
