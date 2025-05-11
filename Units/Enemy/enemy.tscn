@@ -1,22 +1,32 @@
-[gd_scene load_steps=5 format=3 uid="uid://rur6sjmg2o3g"]
+[gd_scene load_steps=6 format=3 uid="uid://rur6sjmg2o3g"]
 
 [ext_resource type="Script" uid="uid://c8xt3i725552k" path="res://Units/Enemy/enemy.gd" id="1_ggqo2"]
 [ext_resource type="PackedScene" uid="uid://b45y6qw1y818h" path="res://Units/BaseUnit/base_unit.tscn" id="2_5guo4"]
-[ext_resource type="PackedScene" uid="uid://c2vxov4p8viua" path="res://Units/Components/hitbox_component.tscn" id="3_6v5jt"]
+[ext_resource type="PackedScene" uid="uid://crmskecpud0sa" path="res://Units/Enemy/enemy_collision_component.tscn" id="4_lu5uc"]
+[ext_resource type="PackedScene" uid="uid://bwm5xuplv36ip" path="res://Units/Enemy/enemy_movement_component.tscn" id="5_ceitq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkn4l"]
-size = Vector2(50.6091, 49.157)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lu5uc"]
+size = Vector2(128, 128)
 
 [node name="Enemy" instance=ExtResource("2_5guo4")]
+z_index = 20
 script = ExtResource("1_ggqo2")
 
-[node name="HitboxComponent" parent="." index="0" instance=ExtResource("3_6v5jt")]
-position = Vector2(192, 133)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
-position = Vector2(0.5, -3.5)
-scale = Vector2(2.54895, 2.62425)
-shape = SubResource("RectangleShape2D_qkn4l")
-
-[node name="HealthComponent" parent="." index="1"]
+[node name="HealthComponent" parent="." index="0"]
 base_hp = 20.0
+
+[node name="AttackComponent" parent="." index="1"]
+base_damage = 0
+
+[node name="EnemyMovementComponent" parent="." index="2" node_paths=PackedStringArray("enemy") instance=ExtResource("5_ceitq")]
+enemy = NodePath("..")
+
+[node name="EnemyCollisionComponent" parent="." index="3" node_paths=PackedStringArray("attack_component", "health_component") instance=ExtResource("4_lu5uc")]
+collision_layer = 2
+attack_component = NodePath("../AttackComponent")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyCollisionComponent" index="0"]
+shape = SubResource("RectangleShape2D_lu5uc")
+
+[connection signal="hp_depleted" from="HealthComponent" to="." method="_on_health_component_hp_depleted"]

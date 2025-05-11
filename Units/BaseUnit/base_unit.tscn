@@ -31,7 +31,3 @@ offset_right = -64.0
 offset_bottom = -111.936
 
 [node name="AttackComponent" parent="." instance=ExtResource("4_x2grr")]
-offset_left = -64.0
-offset_top = 72.0
-offset_right = 64.0
-offset_bottom = 96.0

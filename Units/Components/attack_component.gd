@@ -1,4 +1,4 @@
-extends ProgressBar
+extends Node
 class_name AttackComponent
 
 @export var base_damage = 10
@@ -24,22 +24,17 @@ signal attack_happened(damage)
 
 func _process(delta):
 	count_up += delta * attack_speed
-	value = count_up
 	while count_up >= 100:
 		count_up -= 100
 		perform_attack(damage)
 
 func perform_attack(attack_damage):
-	if attack_damage <= 0:
-		print("Illegal attack")
-		print(get_stack())
+	#if attack_damage <= 0:
+		#print("Illegal attack")
+		#print(get_stack())
 	attack_happened.emit(attack_damage * multiplier)
 
 func reset():
 	affix_damage = 0
 	affix_attack_speed = 0
 	multiplier = 1
-
-func reset_bar():
-	count_up = 0
-	value = 0

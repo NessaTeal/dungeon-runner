@@ -1,41 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://busuulbp1ogsk"]
+[gd_scene load_steps=9 format=3 uid="uid://busuulbp1ogsk"]
 
 [ext_resource type="Script" uid="uid://lnivdlx0ady1" path="res://Scenes/fight_scene.gd" id="1_x8404"]
+[ext_resource type="PackedScene" uid="uid://rur6sjmg2o3g" path="res://Units/Enemy/enemy.tscn" id="2_0ukyi"]
 [ext_resource type="Script" uid="uid://dcnh6jfowkhy4" path="res://Scenes/game_state.gd" id="3_10aaw"]
 [ext_resource type="PackedScene" uid="uid://lugeysu4ryx3" path="res://Units/Player/player.tscn" id="3_supv1"]
 [ext_resource type="Material" uid="uid://c1hc4v6l8uml4" path="res://Scenes/map_material.tres" id="5_j70gj"]
 [ext_resource type="PackedScene" uid="uid://ctiw0m8k5sub3" path="res://Scenes/Map/Map.tscn" id="6_48sw3"]
 [ext_resource type="Script" uid="uid://k77suwqe7wdi" path="res://Scenes/affix_applier.gd" id="8_6leyg"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trrdp"]
-content_margin_left = 2.0
-content_margin_top = 2.0
-content_margin_right = 2.0
-content_margin_bottom = 2.0
-bg_color = Color(0.1, 0.1, 0.1, 0.3)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-corner_detail = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_abg2n"]
-bg_color = Color(0.385967, 0.660907, 0.607137, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-corner_detail = 6
-
-[sub_resource type="Theme" id="Theme_41rs1"]
-ProgressBar/styles/background = SubResource("StyleBoxFlat_trrdp")
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_abg2n")
-
-[sub_resource type="Curve2D" id="Curve2D_6tbwp"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -1329, -1323, 0, 0, 0, 0, 1402, -1175, 0, 0, 0, 0, 1584, 1129, 0, 0, 0, 0, -1413, 1145, 0, 0, 0, 0, -1295, -1327)
-}
-point_count = 5
+[ext_resource type="PackedScene" uid="uid://v5cl4nhy5imd" path="res://Scenes/enemy_spawner_component.tscn" id="8_mo3wy"]
 
 [node name="FightScene" type="Control"]
 layout_mode = 3
@@ -43,146 +15,10 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_x8404")
+enemy_scene = ExtResource("2_0ukyi")
 
 [node name="GameState" type="Node" parent="."]
 script = ExtResource("3_10aaw")
-
-[node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 0.2
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 408.0
-offset_right = 491.0
-offset_bottom = 26.0
-text = "You've run"
-
-[node name="Distance" type="Label" parent="."]
-layout_mode = 0
-offset_left = 491.0
-offset_right = 574.0
-offset_bottom = 26.0
-horizontal_alignment = 1
-
-[node name="Label3" type="Label" parent="."]
-layout_mode = 0
-offset_left = 574.0
-offset_right = 657.0
-offset_bottom = 26.0
-text = "meters"
-
-[node name="Label2" type="Label" parent="."]
-layout_mode = 0
-offset_left = 408.0
-offset_top = 40.0
-offset_right = 596.0
-offset_bottom = 66.0
-text = "Chance of enemy spawn"
-
-[node name="Chance" type="Label" parent="."]
-layout_mode = 0
-offset_left = 600.0
-offset_top = 40.0
-offset_right = 619.0
-offset_bottom = 66.0
-text = "10"
-
-[node name="Label5" type="Label" parent="."]
-layout_mode = 0
-offset_left = 619.0
-offset_top = 40.0
-offset_right = 638.0
-offset_bottom = 66.0
-text = "%"
-
-[node name="ProgressBar" type="ProgressBar" parent="."]
-layout_mode = 0
-offset_left = 408.0
-offset_top = 64.0
-offset_right = 640.0
-offset_bottom = 91.0
-theme = SubResource("Theme_41rs1")
-value = 50.0
-
-[node name="Label4" type="Label" parent="."]
-layout_mode = 0
-offset_left = 408.0
-offset_top = 24.0
-offset_right = 557.0
-offset_bottom = 50.0
-text = "Your current speed"
-
-[node name="Speed" type="Label" parent="."]
-layout_mode = 0
-offset_left = 560.0
-offset_top = 26.0
-offset_right = 600.0
-offset_bottom = 49.0
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label6" type="Label" parent="."]
-layout_mode = 0
-offset_left = 600.0
-offset_top = 24.0
-offset_right = 640.0
-offset_bottom = 50.0
-text = "m/s"
-
-[node name="GameOver" type="VBoxContainer" parent="."]
-process_mode = 2
-visible = false
-layout_mode = 0
-offset_left = 408.0
-offset_top = 384.0
-offset_right = 704.0
-offset_bottom = 560.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GameOver"]
-layout_mode = 2
-
-[node name="PlayerLevel" type="Label" parent="GameOver/HBoxContainer"]
-layout_mode = 2
-text = "Player level placeholder"
-
-[node name="LevelUp" type="Label" parent="GameOver/HBoxContainer"]
-visible = false
-layout_mode = 2
-text = "LEVEL_UP"
-
-[node name="XPKills" type="Label" parent="GameOver"]
-layout_mode = 2
-text = "XP from kills placeholder"
-
-[node name="XPRun" type="Label" parent="GameOver"]
-layout_mode = 2
-text = "XP from run placeholder"
-
-[node name="XPCount" type="Label" parent="GameOver"]
-layout_mode = 2
-text = "XPCount / needed xp"
-horizontal_alignment = 1
-
-[node name="XPProgress" type="ProgressBar" parent="GameOver"]
-layout_mode = 2
-show_percentage = false
-
-[node name="Button" type="Button" parent="GameOver"]
-layout_mode = 2
-text = "Open tree"
-
-[node name="Button2" type="Button" parent="GameOver"]
-layout_mode = 2
-text = "Main menu"
-
-[node name="Button3" type="Button" parent="GameOver"]
-layout_mode = 2
-text = "Restart
-"
 
 [node name="AffixApplier" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("8_6leyg")
@@ -198,6 +34,121 @@ offset_bottom = 51.0
 text = "Show inventory
 "
 
+[node name="Label" type="Label" parent="UI"]
+offset_left = 408.0
+offset_right = 491.0
+offset_bottom = 26.0
+text = "You've run"
+
+[node name="Distance" type="Label" parent="UI"]
+offset_left = 491.0
+offset_right = 574.0
+offset_bottom = 26.0
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="UI"]
+offset_left = 574.0
+offset_right = 657.0
+offset_bottom = 26.0
+text = "meters"
+
+[node name="Label2" type="Label" parent="UI"]
+offset_left = 408.0
+offset_top = 40.0
+offset_right = 596.0
+offset_bottom = 66.0
+text = "Chance of enemy spawn"
+
+[node name="Chance" type="Label" parent="UI"]
+offset_left = 600.0
+offset_top = 40.0
+offset_right = 619.0
+offset_bottom = 66.0
+text = "10"
+
+[node name="Label5" type="Label" parent="UI"]
+offset_left = 619.0
+offset_top = 40.0
+offset_right = 638.0
+offset_bottom = 66.0
+text = "%"
+
+[node name="Label4" type="Label" parent="UI"]
+offset_left = 408.0
+offset_top = 24.0
+offset_right = 557.0
+offset_bottom = 50.0
+text = "Your current speed"
+
+[node name="Speed" type="Label" parent="UI"]
+offset_left = 560.0
+offset_top = 26.0
+offset_right = 600.0
+offset_bottom = 49.0
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label6" type="Label" parent="UI"]
+offset_left = 600.0
+offset_top = 24.0
+offset_right = 640.0
+offset_bottom = 50.0
+text = "m/s"
+
+[node name="GameOver" type="VBoxContainer" parent="UI"]
+process_mode = 3
+visible = false
+offset_left = 408.0
+offset_top = 384.0
+offset_right = 704.0
+offset_bottom = 601.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameOver"]
+layout_mode = 2
+
+[node name="PlayerLevel" type="Label" parent="UI/GameOver/HBoxContainer"]
+layout_mode = 2
+text = "Player level placeholder"
+
+[node name="LevelUp" type="Label" parent="UI/GameOver/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "LEVEL_UP"
+
+[node name="XPKills" type="Label" parent="UI/GameOver"]
+layout_mode = 2
+text = "XP from kills placeholder"
+
+[node name="XPRun" type="Label" parent="UI/GameOver"]
+layout_mode = 2
+text = "XP from run placeholder"
+
+[node name="XPCount" type="Label" parent="UI/GameOver"]
+layout_mode = 2
+text = "XPCount / needed xp"
+horizontal_alignment = 1
+
+[node name="XPProgress" type="ProgressBar" parent="UI/GameOver"]
+layout_mode = 2
+show_percentage = false
+
+[node name="Button" type="Button" parent="UI/GameOver"]
+layout_mode = 2
+text = "Open tree"
+
+[node name="Button2" type="Button" parent="UI/GameOver"]
+layout_mode = 2
+text = "Main menu"
+
+[node name="Button3" type="Button" parent="UI/GameOver"]
+layout_mode = 2
+text = "Restart
+"
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 material = ExtResource("5_j70gj")
 layout_mode = 0
@@ -207,6 +158,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
+msaa_2d = 3
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
@@ -214,17 +166,14 @@ render_target_update_mode = 4
 
 [node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_supv1")]
 z_index = 100
-position = Vector2(1100, 1000)
+position = Vector2(960, 1000)
 
-[node name="EnemySpawnPath" type="Path2D" parent="SubViewportContainer/SubViewport/Player"]
-curve = SubResource("Curve2D_6tbwp")
+[node name="EnemySpawnerComponent" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("8_mo3wy")]
+enemy_scene = ExtResource("2_0ukyi")
+player = NodePath("../SubViewportContainer/SubViewport/Player")
+spawn_node = NodePath("../SubViewportContainer/SubViewport")
 
-[node name="EnemySpawnPoint" type="PathFollow2D" parent="SubViewportContainer/SubViewport/Player/EnemySpawnPath"]
-position = Vector2(-1329, -1323)
-rotation = 0.0541396
-
-[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
-[connection signal="pressed" from="GameOver/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="GameOver/Button2" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="GameOver/Button3" to="." method="_on_button_3_pressed"]
 [connection signal="pressed" from="UI/ShowInventoryButton" to="." method="_on_show_inventory_button_pressed"]
+[connection signal="pressed" from="UI/GameOver/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="UI/GameOver/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="UI/GameOver/Button3" to="." method="_on_button_3_pressed"]

@@ -2,9 +2,5 @@
 
 [ext_resource type="Script" uid="uid://b7joah5em4d7m" path="res://Units/Components/attack_component.gd" id="1_8ixl7"]
 
-[node name="AttackComponent" type="ProgressBar"]
-offset_right = 4.0
-offset_bottom = 27.0
-step = 0.0
-show_percentage = false
+[node name="AttackComponent" type="Node"]
 script = ExtResource("1_8ixl7")

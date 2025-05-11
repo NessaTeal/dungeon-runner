@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://lugeysu4ryx3"]
+[gd_scene load_steps=26 format=3 uid="uid://lugeysu4ryx3"]
 
 [ext_resource type="Script" uid="uid://dfwpwwlvpwdpc" path="res://Units/Player/player.gd" id="1_2e63y"]
 [ext_resource type="Texture2D" uid="uid://bkd6fj1ix0gq8" path="res://Textures/db59w7n-446f642b-063c-45e0-b4fc-57053ffa9417.png" id="2_jn5l2"]
@@ -6,10 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://by12r5p8vqs7i" path="res://Units/Components/speed_component.tscn" id="3_b5npy"]
 [ext_resource type="PackedScene" uid="uid://t4byww4nf3xs" path="res://Units/Components/retaliation_component.tscn" id="5_cj3yk"]
 [ext_resource type="PackedScene" uid="uid://dgruckc6ybglp" path="res://Units/Components/trample_component.tscn" id="6_2m6yc"]
-[ext_resource type="PackedScene" uid="uid://5peqlemwyg6y" path="res://Units/Components/immolation_component.tscn" id="6_tjpjd"]
+[ext_resource type="PackedScene" uid="uid://5peqlemwyg6y" path="res://Units/Components/Immolation/immolation_component.tscn" id="6_tjpjd"]
 [ext_resource type="PackedScene" uid="uid://dyvw3nfsvi107" path="res://Units/Components/Slingshot/slingshot_component.tscn" id="7_v1crv"]
 [ext_resource type="PackedScene" uid="uid://cy8kx26eiqrfw" path="res://Units/Components/direction_component.tscn" id="8_yhya8"]
 [ext_resource type="PackedScene" uid="uid://ngkegcjskgw1" path="res://Units/Components/movement_component.tscn" id="9_104p0"]
+[ext_resource type="PackedScene" uid="uid://c2vxov4p8viua" path="res://Units/Components/hitbox_component.tscn" id="11_urxli"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_puyqk"]
 atlas = ExtResource("2_jn5l2")
@@ -118,6 +119,10 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pxk32"]
+radius = 12.0
+height = 60.0
+
 [node name="Player" instance=ExtResource("2_qs5w3")]
 sprite_frames = SubResource("SpriteFrames_od7bg")
 animation = &"up"
@@ -152,7 +157,7 @@ attack_component = NodePath("../AttackComponent")
 movement_component = NodePath("../SpeedComponent")
 
 [node name="Camera2D" type="Camera2D" parent="." index="7"]
-position = Vector2(0, -300)
+position = Vector2(0, -800)
 ignore_rotation = false
 zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
@@ -169,4 +174,12 @@ direction_component = NodePath("../DirectionComponent")
 speed_component = NodePath("../SpeedComponent")
 player = NodePath("..")
 
+[node name="HitboxComponent" parent="." index="10" instance=ExtResource("11_urxli")]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
+position = Vector2(0, 7)
+shape = SubResource("CapsuleShape2D_pxk32")
+
 [connection signal="damage_received" from="HealthComponent" to="RetaliationComponent" method="_on_unit_attacked"]
+[connection signal="area_entered" from="HitboxComponent" to="HitboxComponent" method="_on_area_entered"]

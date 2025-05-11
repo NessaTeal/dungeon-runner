@@ -14,12 +14,14 @@ var dashing: bool = false
 var dash_speed: float = 1000
 var dash_duration: float = 0.2
 var remaining_dash_duration: float = 0.0
+var distance: float = 0.0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var speed_multiplier = 2 if Input.is_action_pressed("GoUp") else 0.5 if Input.is_action_pressed("GoDown") else 1
-	var delta_movement = direction_component.get_dir() * speed_component.get_current_speed() * delta * speed_multiplier
+	var speed_multiplier: float = 2 if Input.is_action_pressed("GoUp") else 0.5 if Input.is_action_pressed("GoDown") else 1
+	var delta_movement: Vector2 = direction_component.get_dir() * speed_component.get_current_speed() * delta * speed_multiplier
 	
+	distance += delta_movement.length_squared()
 	player.position += delta_movement
 	
 	if dashing:
