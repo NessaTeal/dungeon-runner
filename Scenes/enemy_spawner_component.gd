@@ -11,13 +11,12 @@ extends Node
 func spawn_enemy():
 	var enemy = enemy_scene.instantiate() as Enemy
 	enemy.player = player
+	var angle = randf() * PI - PI / 2
+	enemy.set_position(player.global_position + (player.direction_component.get_dir() * spawn_distance).rotated(angle));
 	spawn_node.add_child(enemy)
 	#enemy.scale_enemy(1 + time_passed / 10)
 	
-	var angle = randf() * TAU
-	
 	#spawn_point.progress_ratio = randf()
-	enemy.set_position(player.global_position + Vector2(spawn_distance, 0).rotated(angle));
 	enemy.attack_component.attack_happened.connect(player.health_component._on_receive_damage)
 	#enemy.setup_enemy(player)
 	#enemy.health_component.hp_depleted.connect(_on_enemy_died, CONNECT_ONE_SHOT)

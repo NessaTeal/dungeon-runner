@@ -14,6 +14,5 @@ func scale_enemy(factor: float):
 func _process(delta: float) -> void:
 	rotation = player.rotation
 
-
 func _on_health_component_hp_depleted() -> void:
 	queue_free()

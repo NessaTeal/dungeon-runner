@@ -25,6 +25,7 @@ enemy = NodePath("..")
 collision_layer = 2
 attack_component = NodePath("../AttackComponent")
 health_component = NodePath("../HealthComponent")
+contact_damage = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyCollisionComponent" index="0"]
 shape = SubResource("RectangleShape2D_lu5uc")
