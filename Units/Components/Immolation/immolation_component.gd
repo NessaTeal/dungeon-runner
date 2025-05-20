@@ -5,6 +5,7 @@ class_name ImmolationComponent
 
 @export var health_component: HealthComponent
 @export var attack_component: AttackComponent
+@export var transformation_component: TransformationComponent
 
 @onready var timer: Timer = $Timer
 
@@ -13,6 +14,7 @@ var immolation_collision: PackedScene = preload("res://Units/Components/Immolati
 func _on_timeout():
 	#amount_ratio += 0.01
 	emitting = true;
+	transformation_component.transform("fire")
 	var new_collision = immolation_collision.instantiate()
 	new_collision.immolation_damage = immolation_damage
 	add_child(new_collision)

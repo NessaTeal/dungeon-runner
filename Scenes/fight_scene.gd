@@ -66,7 +66,7 @@ func _on_button_2_pressed():
 
 func _on_player_unit_died():
 	get_tree().paused = true
-	var distance_xp: float = player.movement_component.distance ** 1.1
+	var distance_xp: float = player.movement_component.total_distance ** 1.1
 	var total_xp: float = distance_xp + game_state.fight_xp
 	var leveled_up: bool = false
 	

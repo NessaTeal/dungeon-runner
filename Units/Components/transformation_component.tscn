@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://b62ds40pxnnai"]
+
+[ext_resource type="Script" uid="uid://b8qpei6m8nlgf" path="res://Units/Components/transformation_component.gd" id="1_vakly"]
+
+[node name="TransformationComponent" type="Node"]
+script = ExtResource("1_vakly")
+
+[node name="ResetTransformationTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="timeout" from="ResetTransformationTimer" to="." method="reset_transform"]

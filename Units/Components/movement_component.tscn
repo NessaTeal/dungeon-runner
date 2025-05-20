@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ngkegcjskgw1"]
-
-[ext_resource type="Script" uid="uid://cxxaro6gpeq2y" path="res://Units/Components/movement_component.gd" id="1_gwnqd"]
-
-[node name="MovementComponent" type="Node"]
-script = ExtResource("1_gwnqd")
-
-[node name="DashCooldown" type="Timer" parent="."]
-one_shot = true

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://by12r5p8vqs7i"]
 
-[ext_resource type="Script" uid="uid://jt1p5vi2k2ox" path="res://Units/Components/speed_component.gd" id="1_gwnqd"]
+[ext_resource type="Script" uid="uid://jt1p5vi2k2ox" path="res://Units/Components/Movement/speed_component.gd" id="1_gwnqd"]
 
 [node name="MovementComponent" type="Control"]
 layout_mode = 3
