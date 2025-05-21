@@ -67,24 +67,25 @@ direction_component = NodePath("../DirectionComponent")
 speed_component = NodePath("../SpeedComponent")
 player = NodePath("..")
 
-[node name="HitboxComponent" parent="." index="10" instance=ExtResource("11_urxli")]
-monitoring = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
-position = Vector2(0, 7)
-shape = SubResource("CapsuleShape2D_pxk32")
-
-[node name="TransformationComponent" parent="." index="11" node_paths=PackedStringArray("sprite") instance=ExtResource("13_6iibj")]
+[node name="TransformationComponent" parent="." index="10" node_paths=PackedStringArray("sprite") instance=ExtResource("13_6iibj")]
 sprite = NodePath("../Sprite")
 
-[node name="DashComponent" parent="." index="12" node_paths=PackedStringArray("movement_component", "transformation_component") instance=ExtResource("14_v6jny")]
+[node name="DashComponent" parent="." index="11" node_paths=PackedStringArray("movement_component", "transformation_component") instance=ExtResource("14_v6jny")]
 movement_component = NodePath("../MovementComponent")
 transformation_component = NodePath("../TransformationComponent")
 
-[node name="Sprite" parent="." index="13"]
+[node name="Sprite" parent="." index="12"]
+scale = Vector2(2.5, 2.5)
 sprite_frames = ExtResource("13_v6jny")
 animation = &"white"
 autoplay = "white"
 
+[node name="HitboxComponent" parent="Sprite" index="0" instance=ExtResource("11_urxli")]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/HitboxComponent" index="0"]
+position = Vector2(0, 7)
+shape = SubResource("CapsuleShape2D_pxk32")
+
 [connection signal="damage_received" from="HealthComponent" to="RetaliationComponent" method="_on_unit_attacked"]
-[connection signal="area_entered" from="HitboxComponent" to="HitboxComponent" method="_on_area_entered"]
+[connection signal="area_entered" from="Sprite/HitboxComponent" to="Sprite/HitboxComponent" method="_on_area_entered"]
