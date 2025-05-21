@@ -12,11 +12,11 @@ size = Vector2(128, 128)
 z_index = 20
 script = ExtResource("1_ggqo2")
 
-[node name="HealthComponent" parent="." index="0"]
-base_hp = 20.0
-
-[node name="AttackComponent" parent="." index="1"]
+[node name="AttackComponent" parent="." index="0"]
 base_damage = 0
+
+[node name="HealthComponent" parent="." index="1"]
+base_hp = 20.0
 
 [node name="EnemyMovementComponent" parent="." index="2" node_paths=PackedStringArray("enemy") instance=ExtResource("5_ceitq")]
 enemy = NodePath("..")
