@@ -20,6 +20,14 @@ func _ready():
 func _process(delta):
 	damaged = max(0, damaged - (hp_regen * delta + (damaged) * missing_hp_regen * delta))
 	self.value = max_hp - damaged
+	
+	var camera: Camera2D = get_parent().get_parent().get_node("Player").get_node("Camera2D")
+	
+	var parent: Node2D = get_parent()
+	rotation = -parent.rotation + camera.get_camera_current_rotation()
+	#rotation = (parent.get_global_transform().inverse() * camera.global_transform).get_rotation()
+	
+	#print(get_parent().get_parent().get_node("Player").get_node("Camera2D"))
 
 func _on_receive_damage(damage):
 	damaged += damage

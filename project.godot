@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Dungeon Runner"
 run/main_scene="res://main.tscn"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://Textures/icon.svg"
 
 [autoload]
@@ -27,6 +27,10 @@ HoverBox="*res://Perks/hover_box.tscn"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+
+[gui]
+
+common/snap_controls_to_pixels=false
 
 [input]
 
