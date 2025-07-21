@@ -7,7 +7,7 @@ class_name MovementComponent
 
 signal moved_a_lot
 
-var last_pos = Vector2.ZERO
+var last_pos = Vector3.ZERO
 var total_distance: float = 0.0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,5 +23,6 @@ func _process(delta: float) -> void:
 		
 func move_forward(distance: float):
 	total_distance += distance
-	player.position += direction_component.get_dir() * distance
-		
+	#player.position += Vector3(0, 0, 1)
+	var direction = direction_component.get_dir()
+	player.position += Vector3(direction.x, 0, direction.y) * distance

@@ -11,8 +11,9 @@ func scale_enemy(factor: float):
 	attack_component.multiplier *= factor
 	xp **= factor
 
-func _process(delta: float) -> void:
-	rotation = player.rotation
+#func _process(delta: float) -> void:
+	#super._process(delta)
+	#rotation = player.rotation
 
 func _on_health_component_hp_depleted() -> void:
 	queue_free()

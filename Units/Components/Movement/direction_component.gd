@@ -12,7 +12,7 @@ static var one_and_three_quarter_pi = quarter_pi * 7
 
 
 func get_dir():
-	return Vector2.UP.rotated(direction)
+	return Vector2.DOWN.rotated(direction)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -72,4 +72,4 @@ func _process(delta: float) -> void:
 		#sprite_direction = Vector2.DOWN
 	
 	#player.set_global_rotation(small_angle)
-	player.set_global_rotation(direction)
+	player.set_global_rotation(Vector3(0, -direction, 0))

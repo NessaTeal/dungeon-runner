@@ -6,6 +6,7 @@ class_name ImmolationComponent
 @export var health_component: HealthComponent
 @export var attack_component: AttackComponent
 @export var transformation_component: TransformationComponent
+@export var _2d_component: Node2D
 
 @onready var timer: Timer = $Timer
 
@@ -17,7 +18,7 @@ func _on_timeout():
 	transformation_component.transform("fire")
 	var new_collision = immolation_collision.instantiate()
 	new_collision.immolation_damage = immolation_damage
-	add_child(new_collision)
+	_2d_component.add_child(new_collision)
 	#for enemy_collision in area.get_overlapping_areas() as Array[EnemyCollisionComponent]:
 		#enemy_collision.receive_attack(immolation_damage)
 	await get_tree().create_timer(0.05).timeout

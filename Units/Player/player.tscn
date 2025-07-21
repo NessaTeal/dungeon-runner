@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://lugeysu4ryx3"]
+[gd_scene load_steps=18 format=3 uid="uid://lugeysu4ryx3"]
 
 [ext_resource type="Script" uid="uid://dfwpwwlvpwdpc" path="res://Units/Player/player.gd" id="1_2e63y"]
 [ext_resource type="PackedScene" uid="uid://b45y6qw1y818h" path="res://Units/BaseUnit/base_unit.tscn" id="2_qs5w3"]
@@ -9,39 +9,51 @@
 [ext_resource type="PackedScene" uid="uid://dyvw3nfsvi107" path="res://Units/Components/Slingshot/slingshot_component.tscn" id="7_v1crv"]
 [ext_resource type="PackedScene" uid="uid://cy8kx26eiqrfw" path="res://Units/Components/Movement/direction_component.tscn" id="8_yhya8"]
 [ext_resource type="PackedScene" uid="uid://ngkegcjskgw1" path="res://Units/Components/Movement/movement_component.tscn" id="9_104p0"]
-[ext_resource type="PackedScene" uid="uid://c2vxov4p8viua" path="res://Units/Components/hitbox_component.tscn" id="11_urxli"]
 [ext_resource type="PackedScene" uid="uid://b62ds40pxnnai" path="res://Units/Components/transformation_component.tscn" id="13_6iibj"]
+[ext_resource type="PackedScene" uid="uid://c2vxov4p8viua" path="res://Units/Components/hitbox_component.tscn" id="13_s6s4v"]
 [ext_resource type="SpriteFrames" uid="uid://hsxkvgltrvmg" path="res://Units/Player/player_sprite_frames.tres" id="13_v6jny"]
 [ext_resource type="PackedScene" uid="uid://c5pj7prhubfjp" path="res://Units/Components/Movement/dash_component.tscn" id="14_v6jny"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pxk32"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kywcc"]
 radius = 12.0
 height = 60.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6iibj"]
+resource_local_to_scene = true
+size = Vector2(60, 60)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6iibj"]
+viewport_path = NodePath("2DComponents/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v6jny"]
+resource_local_to_scene = true
+transparency = 4
+albedo_texture = SubResource("ViewportTexture_6iibj")
 
 [node name="Player" instance=ExtResource("2_qs5w3")]
 script = ExtResource("1_2e63y")
 
 [node name="HealthComponent" parent="." index="1"]
-base_hp = 40.0
+visible = true
+offset_left = 810.0
+offset_top = 600.0
+offset_right = -810.0
+offset_bottom = 280.36
+base_hp = 10000.0
 base_hp_regen = 1
 
 [node name="SpeedComponent" parent="." index="2" instance=ExtResource("3_b5npy")]
-base_speed = 300
+base_speed = 10
 
 [node name="RetaliationComponent" parent="." index="3" node_paths=PackedStringArray("health_component", "attack_component") instance=ExtResource("5_cj3yk")]
 health_component = NodePath("../HealthComponent")
 attack_component = NodePath("../AttackComponent")
 
-[node name="ImmolationComponent" parent="." index="4" node_paths=PackedStringArray("health_component", "attack_component", "transformation_component") instance=ExtResource("6_tjpjd")]
-health_component = NodePath("../HealthComponent")
-attack_component = NodePath("../AttackComponent")
-transformation_component = NodePath("../TransformationComponent")
-
-[node name="TrampleComponent" parent="." index="5" node_paths=PackedStringArray("attack_component", "movement_component") instance=ExtResource("6_2m6yc")]
+[node name="TrampleComponent" parent="." index="4" node_paths=PackedStringArray("attack_component", "movement_component") instance=ExtResource("6_2m6yc")]
 attack_component = NodePath("../AttackComponent")
 movement_component = NodePath("../SpeedComponent")
 
-[node name="SlingshotComponent" parent="." index="6" node_paths=PackedStringArray("attack_component", "movement_component") instance=ExtResource("7_v1crv")]
+[node name="SlingshotComponent" parent="." index="5" node_paths=PackedStringArray("attack_component", "movement_component") instance=ExtResource("7_v1crv")]
 offset_left = 256.0
 offset_top = 132.0
 offset_right = 256.0
@@ -49,43 +61,49 @@ offset_bottom = 132.0
 attack_component = NodePath("../AttackComponent")
 movement_component = NodePath("../SpeedComponent")
 
-[node name="Camera2D" type="Camera2D" parent="." index="7"]
-position = Vector2(0, -800)
-ignore_rotation = false
-zoom = Vector2(0.5, 0.5)
-position_smoothing_enabled = true
-position_smoothing_speed = 7.0
-rotation_smoothing_enabled = true
-rotation_smoothing_speed = 3.0
-editor_draw_drag_margin = true
-
-[node name="DirectionComponent" parent="." index="8" node_paths=PackedStringArray("player") instance=ExtResource("8_yhya8")]
+[node name="DirectionComponent" parent="." index="6" node_paths=PackedStringArray("player") instance=ExtResource("8_yhya8")]
 player = NodePath("..")
 
-[node name="MovementComponent" parent="." index="9" node_paths=PackedStringArray("direction_component", "speed_component", "player") instance=ExtResource("9_104p0")]
+[node name="MovementComponent" parent="." index="7" node_paths=PackedStringArray("direction_component", "speed_component", "player") instance=ExtResource("9_104p0")]
 direction_component = NodePath("../DirectionComponent")
 speed_component = NodePath("../SpeedComponent")
 player = NodePath("..")
 
-[node name="TransformationComponent" parent="." index="10" node_paths=PackedStringArray("sprite") instance=ExtResource("13_6iibj")]
-sprite = NodePath("../Sprite")
+[node name="TransformationComponent" parent="." index="8" node_paths=PackedStringArray("sprite") instance=ExtResource("13_6iibj")]
+sprite = NodePath("../Sprite3D")
 
-[node name="DashComponent" parent="." index="11" node_paths=PackedStringArray("movement_component", "transformation_component") instance=ExtResource("14_v6jny")]
+[node name="DashComponent" parent="." index="9" node_paths=PackedStringArray("movement_component", "transformation_component") instance=ExtResource("14_v6jny")]
 movement_component = NodePath("../MovementComponent")
 transformation_component = NodePath("../TransformationComponent")
 
-[node name="Sprite" parent="." index="12"]
-scale = Vector2(2.5, 2.5)
+[node name="Sprite3D" parent="." index="10"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 1.6, 0)
+billboard = 0
 sprite_frames = ExtResource("13_v6jny")
 animation = &"white"
 autoplay = "white"
 
-[node name="HitboxComponent" parent="Sprite" index="0" instance=ExtResource("11_urxli")]
-monitoring = false
+[node name="SubViewport" type="SubViewport" parent="2DComponents" index="0"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(1024, 1024)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/HitboxComponent" index="0"]
-position = Vector2(0, 7)
-shape = SubResource("CapsuleShape2D_pxk32")
+[node name="ImmolationComponent" parent="2DComponents/SubViewport" index="0" node_paths=PackedStringArray("health_component", "attack_component", "transformation_component", "_2d_component") instance=ExtResource("6_tjpjd")]
+position = Vector2(512, 512)
+health_component = NodePath("../../../HealthComponent")
+attack_component = NodePath("../../../AttackComponent")
+transformation_component = NodePath("../../../TransformationComponent")
+_2d_component = NodePath("../..")
+
+[node name="HitboxComponent" parent="2DComponents" index="1" instance=ExtResource("13_s6s4v")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2DComponents/HitboxComponent" index="0"]
+shape = SubResource("CapsuleShape2D_kywcc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="12"]
+sorting_offset = 1.0
+mesh = SubResource("PlaneMesh_6iibj")
+surface_material_override/0 = SubResource("StandardMaterial3D_v6jny")
 
 [connection signal="damage_received" from="HealthComponent" to="RetaliationComponent" method="_on_unit_attacked"]
-[connection signal="area_entered" from="Sprite/HitboxComponent" to="Sprite/HitboxComponent" method="_on_area_entered"]
+[connection signal="area_entered" from="2DComponents/HitboxComponent" to="2DComponents/HitboxComponent" method="_on_area_entered"]

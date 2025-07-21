@@ -8,14 +8,17 @@ func _ready():
 	player = enemy.player
 
 func _process(delta: float):
-	var move: Vector2 = (get_interception_point() - enemy.global_position).normalized() * speed * delta
+	#pass
+	var move: Vector2 = (get_interception_point() - enemy.get_2d_position()).normalized() * speed * delta
 	if move.length_squared() > get_distance_to_player():
 		enemy.global_position = player.global_position
 	else:
-		enemy.global_position += move
+		#pass
+		enemy.global_position += Vector3(move.x, 0, move.y)
 
 func get_direction_from_player() -> Vector2:
-	return enemy.global_position - player.global_position
+	#return Vector2()
+	return enemy.get_2d_position() - player.get_2d_position()
 
 func get_distance_to_player() -> float:
 	return (player.global_position - enemy.global_position).length_squared()
@@ -40,7 +43,7 @@ func get_interception_point():
 		t_final = t_0
 	else:
 		t_final = min(t_0, t_1)
-
-		
-	var final_position = player.global_position + player.direction_component.get_dir() * player.speed_component.get_current_speed() * t_final
+	
+	#return Vector2()
+	var final_position = player.get_2d_position() + player.direction_component.get_dir() * player.speed_component.get_current_speed() * t_final
 	return final_position

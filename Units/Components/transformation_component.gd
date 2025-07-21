@@ -1,7 +1,7 @@
 extends Node
 class_name TransformationComponent
 
-@export var sprite: AnimatedSprite2D
+@export var sprite: AnimatedSprite3D
 
 @onready var timer: Timer = $ResetTransformationTimer
 

@@ -6,13 +6,21 @@ extends Node
 @export var spawn_point: PathFollow2D
 @export var spawn_node: Node
 
-@export var spawn_distance: float = 1800
+@export var spawn_distance: float = 100
+@export var spawn_rate: float = 0.25
+
+func _ready() -> void:
+	$SpawnTimer.wait_time = spawn_rate
 
 func spawn_enemy():
 	var enemy = enemy_scene.instantiate() as Enemy
 	enemy.player = player
 	var angle = randf() * PI - PI / 2
-	enemy.set_position(player.global_position + (player.direction_component.get_dir() * spawn_distance).rotated(angle));
+	var position = player.get_2d_position() + (player.direction_component.get_dir() * spawn_distance).rotated(angle)
+	#var position = player.get_2d_position() + (player.direction_component.get_dir() * spawn_distance)
+	print(player.position)
+	print(position)
+	enemy.set_position(Vector3(position.x, 0, position.y));
 	spawn_node.add_child(enemy)
 	#enemy.scale_enemy(1 + time_passed / 10)
 	

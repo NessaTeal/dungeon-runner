@@ -3,12 +3,7 @@
 [ext_resource type="Script" uid="uid://bb6a2rdbfbpch" path="res://main.gd" id="1_6ox4s"]
 [ext_resource type="PackedScene" uid="uid://bwdr57hf4tfor" path="res://Scenes/main_menu.tscn" id="3_uviel"]
 
-[node name="Main" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Main" type="Node"]
 script = ExtResource("1_6ox4s")
 
 [node name="MainMenu" parent="." instance=ExtResource("3_uviel")]
-layout_mode = 1

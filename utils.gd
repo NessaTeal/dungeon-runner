@@ -22,3 +22,6 @@ static func reduce(array, callback, accumulator):
 	for element in array:
 		result = callback.call(result, element)
 	return result
+
+#static func convertVector2to3(source: Vector2) -> Vector3:
+	#return Vector3(source)

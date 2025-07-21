@@ -1,4 +1,4 @@
-extends Node2D
+extends Node3D
 
 class_name BaseUnit
 
@@ -19,3 +19,9 @@ func _ready():
 		HealthComponent: health_component,
 		AttackComponent: attack_component
 	})
+
+func get_2d_position() -> Vector2:
+	return Vector2(position.x, position.z)
+
+func _process(_delta: float) -> void:
+	$"2DComponents".position = get_2d_position()

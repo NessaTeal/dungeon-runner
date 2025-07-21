@@ -1,3 +1,5 @@
+@tool
+
 extends Node2D
 
 @export var chunk_scene: PackedScene
@@ -5,13 +7,28 @@ extends Node2D
 var chunk_map = {}
 
 var thread: Thread
+var stop_the_thread = false
 var semaphore: Semaphore
 var requests: Array[Vector2i] = []
 
 func _ready() -> void:
+	#if Engine.is_editor_hint():
+		#var chunk = chunk_scene.instantiate();
+		#chunk.generate_chunk()
+		#chunk.set_position(Vector2(0, 0))
+		#add_child.call_deferred(chunk)
+		#chunk_map[[0, 0]] = chunk
+	#else:
+		#semaphore = Semaphore.new()
+		#thread = Thread.new()
+		#thread.start(_thread_function)
+		#update_map(Vector2(0, 0))
 	semaphore = Semaphore.new()
-	thread = Thread.new()
-	thread.start(_thread_function)
+		
+	if !Engine.is_editor_hint():
+		thread = Thread.new()
+		thread.start(_thread_function)
+	
 	update_map(Vector2(0, 0))
 
 func get_chunk(x, y):
@@ -40,10 +57,16 @@ func _thread_function():
 	while true:
 		semaphore.wait()
 		
+		if stop_the_thread:
+			return
+		
 		for request in requests:
 			get_chunk(request.x, request.y)
 			
 		requests = []
+		
+		if Engine.is_editor_hint():
+			return
 
 func update_map(player_position: Vector2):
 	var x = round(player_position.x / Chunk.CHUNK_SIZE)
@@ -52,6 +75,15 @@ func update_map(player_position: Vector2):
 	
 	for dx in range(-map_size, map_size + 1):
 		for dy in range(-map_size, map_size + 1):
-			requests.push_back(Vector2i(x + dx, y + dy))
+			if Engine.is_editor_hint():
+				get_chunk(x + dx, y + dy)
+			else:
+				requests.push_back(Vector2i(x + dx, y + dy))
 	
 	semaphore.post()
+
+func _exit_tree() -> void:
+	if !Engine.is_editor_hint():
+		stop_the_thread = true
+		semaphore.post()
+		await thread.wait_to_finish()

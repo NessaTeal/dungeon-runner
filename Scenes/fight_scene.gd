@@ -1,13 +1,13 @@
-extends Control
+extends Node
 
-@onready var player: Player = $SubViewportContainer/SubViewport/Player
+@onready var player: Player = $Player
 @onready var distance_label: Label = $UI/Distance
 @onready var speed_label: Label = $UI/Speed
 @onready var chance_label: Label = $UI/Chance
 @onready var game_state: GameState = $GameState
 @onready var game_over: Control = $UI/GameOver
-@onready var map = $SubViewportContainer/SubViewport/Map
-@onready var subviewport = $SubViewportContainer/SubViewport
+@onready var map = $SubViewport/Map
+@onready var subviewport: SubViewport = $SubViewport
 
 @export var enemy_scene: PackedScene
 
@@ -28,6 +28,15 @@ func _ready():
 	player.health_component.hp_depleted.connect(_on_player_unit_died, CONNECT_ONE_SHOT)
 	player.movement_component.moved_a_lot.connect(_on_player_moved_a_lot)
 	
+	#var sub_viewport: SubViewport = $SubViewport;
+	#var camera_2d_rid = $SubViewport/Player/Camera2D
+	#var camera_3d_rid = $SubViewport/Player/Camera3D
+	#
+	#var sub_view = $SubViewport.get_viewport_rid()
+	#var viewport_rid = get_viewport().get_viewport_rid()
+	#
+	#RenderingServer.viewport_attach_camera(viewport_rid, camera_3d_rid)
+	#RenderingServer.viewport_attach_camera(sub_view, camera_2d_rid)
 
 func _process(delta):
 	if Input.is_action_pressed("SpeeHack"):
@@ -37,12 +46,33 @@ func _process(delta):
 	
 	time_passed += delta
 	
+	$SubViewport/CameraHolder.position = player.get_2d_position() + Vector2(0, 2000)
+	$SubViewport/CameraHolder.global_rotation = -player.global_rotation.y
+	
+	#$Player/MeshInstance3D.transform
+	
+	#$Player/MeshInstance3D.position = player.position
+	#$Player/MeshInstance3D/CameraHolder.rotation = player.rotation
+	
 	#distance_label.text = "%.02f" % player.movement_component.distance
 	
 	var current_speed = player.speed_component.get_current_speed()
 	
 	speed_label.text = "%.01f" % player.speed_component.get_current_speed()
-
+	
+func _unhandled_key_input(event: InputEvent) -> void:
+	#print(event.as_text()K)
+	if event.as_text() == "Z" and event.is_pressed():
+		var state = $Player/Camera3D.current
+		if state:
+			$Player/Camera3D2.current = state
+		else:
+			$Player/Camera3D.current = !state
+			
+	if event.as_text() == "L" and event.is_pressed():
+		var texture = subviewport.get_texture()
+		var image = texture.get_image()
+		image.save_png("user://terrain.png")
 
 func _on_enemy_died():
 	game_state.fight_xp += 50
@@ -89,7 +119,6 @@ func _on_player_unit_died():
 	game_over.get_node("XPRun").text = tr("XP_FROM_RUN") % distance_xp
 	game_over.set_visible(true)
 
-
 func _on_button_3_pressed():
 	get_parent().add_child((load("res://Scenes/fight_scene.tscn").instantiate()))
 	get_tree().paused = false
@@ -99,4 +128,4 @@ func _on_show_inventory_button_pressed() -> void:
 	Inventory.show()
 
 func _on_player_moved_a_lot() -> void:
-	map.update_map(player.position)
+	map.update_map(player.get_2d_position())
