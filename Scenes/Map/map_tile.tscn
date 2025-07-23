@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bytek24042ccj"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_1nk0f"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1nk0f"]
+material = SubResource("ORMMaterial3D_1nk0f")
+size = Vector2(100, 100)
+
+[node name="MapTile" type="MeshInstance3D"]
+mesh = SubResource("PlaneMesh_1nk0f")

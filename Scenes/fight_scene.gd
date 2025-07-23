@@ -1,12 +1,12 @@
 extends Node
 
-@onready var player: Player = $Player
+@export var player: Player
 @onready var distance_label: Label = $UI/Distance
 @onready var speed_label: Label = $UI/Speed
 @onready var chance_label: Label = $UI/Chance
 @onready var game_state: GameState = $GameState
 @onready var game_over: Control = $UI/GameOver
-@onready var map = $SubViewport/Map
+@export var map: Map
 @onready var subviewport: SubViewport = $SubViewport
 
 @export var enemy_scene: PackedScene
@@ -63,11 +63,11 @@ func _process(delta):
 func _unhandled_key_input(event: InputEvent) -> void:
 	#print(event.as_text()K)
 	if event.as_text() == "Z" and event.is_pressed():
-		var state = $Player/Camera3D.current
+		var state = $Map/Player/Camera3D.current
 		if state:
-			$Player/Camera3D2.current = state
+			$Map/Player/Camera3D2.current = state
 		else:
-			$Player/Camera3D.current = !state
+			$Map/Player/Camera3D.current = !state
 			
 	if event.as_text() == "L" and event.is_pressed():
 		var texture = subviewport.get_texture()
@@ -87,12 +87,10 @@ func _on_enemy_died():
 func _on_button_pressed():
 	get_parent().add_child(load("res://Scenes/perks_scene.tscn").instantiate())
 
-
 func _on_button_2_pressed():
 	get_tree().paused = false
 	get_parent().add_child(main_menu.instantiate())
 	queue_free()
-
 
 func _on_player_unit_died():
 	get_tree().paused = true
@@ -128,4 +126,6 @@ func _on_show_inventory_button_pressed() -> void:
 	Inventory.show()
 
 func _on_player_moved_a_lot() -> void:
-	map.update_map(player.get_2d_position())
+	var thread = Thread.new()
+	thread.start(func(): map.update_map(player.get_2d_position()))
+	await thread.wait_to_finish()

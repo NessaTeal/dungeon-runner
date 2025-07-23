@@ -77,7 +77,7 @@ movement_component = NodePath("../MovementComponent")
 transformation_component = NodePath("../TransformationComponent")
 
 [node name="Sprite3D" parent="." index="10"]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 1.6, 0)
+transform = Transform3D(5, 0, 0, 0, 3.90553, 3.12199, 0, -3.12199, 3.90553, 0, 1.6, 0)
 billboard = 0
 sprite_frames = ExtResource("13_v6jny")
 animation = &"white"
@@ -101,7 +101,7 @@ _2d_component = NodePath("../..")
 shape = SubResource("CapsuleShape2D_kywcc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="12"]
-sorting_offset = 1.0
+sorting_offset = 100.0
 mesh = SubResource("PlaneMesh_6iibj")
 surface_material_override/0 = SubResource("StandardMaterial3D_v6jny")
 

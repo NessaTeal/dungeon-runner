@@ -18,8 +18,8 @@ func spawn_enemy():
 	var angle = randf() * PI - PI / 2
 	var position = player.get_2d_position() + (player.direction_component.get_dir() * spawn_distance).rotated(angle)
 	#var position = player.get_2d_position() + (player.direction_component.get_dir() * spawn_distance)
-	print(player.position)
-	print(position)
+	#print(player.position)
+	#print(position)
 	enemy.set_position(Vector3(position.x, 0, position.y));
 	spawn_node.add_child(enemy)
 	#enemy.scale_enemy(1 + time_passed / 10)

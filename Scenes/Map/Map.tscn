@@ -1,8 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctiw0m8k5sub3"]
+[gd_scene load_steps=4 format=3 uid="uid://ctiw0m8k5sub3"]
 
 [ext_resource type="Script" uid="uid://cyedjoacdnds3" path="res://Scenes/Map/map.gd" id="1_drkxu"]
-[ext_resource type="PackedScene" uid="uid://bre0gyn7fxjhi" path="res://Scenes/Map/Chunk.tscn" id="2_x8cmu"]
+[ext_resource type="PackedScene" uid="uid://bytek24042ccj" path="res://Scenes/Map/map_tile.tscn" id="2_03x5g"]
+[ext_resource type="PackedScene" uid="uid://bre0gyn7fxjhi" path="res://Scenes/Map/chunk_generator.tscn" id="2_x8cmu"]
 
-[node name="Map" type="Node2D"]
+[node name="Map" type="Node3D" node_paths=PackedStringArray("chunk_generator")]
 script = ExtResource("1_drkxu")
-chunk_scene = ExtResource("2_x8cmu")
+chunk_generator = NodePath("ChunkGenerator")
+map_tile_scene = ExtResource("2_03x5g")
+
+[node name="ChunkGenerator" parent="." instance=ExtResource("2_x8cmu")]
+
+[connection signal="chunk_generated" from="ChunkGenerator" to="." method="register_chunk"]

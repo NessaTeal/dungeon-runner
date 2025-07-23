@@ -17,7 +17,7 @@ func _process(delta: float) -> void:
 	
 	move_forward(delta_movement)
 
-	if (last_pos - player.position).length_squared() > Chunk.CHUNK_SIZE_SQUARED:
+	if (last_pos - player.position).length_squared() > ChunkGenerator.MAP_TILE_SIZE_SQUARED:
 		last_pos = player.position
 		moved_a_lot.emit()
 		
@@ -25,4 +25,4 @@ func move_forward(distance: float):
 	total_distance += distance
 	#player.position += Vector3(0, 0, 1)
 	var direction = direction_component.get_dir()
-	player.position += Vector3(direction.x, 0, direction.y) * distance
+	player.position += Vector3(-direction.x, 0, -direction.y) * distance

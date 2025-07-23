@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://bre0gyn7fxjhi"]
+
+[ext_resource type="Script" uid="uid://c81sd6258u1b1" path="res://Scenes/Map/chunk_generator.gd" id="1_jq46e"]
+[ext_resource type="TileSet" uid="uid://g62unt51muww" path="res://Scenes/Map/tileset.tres" id="2_epwsf"]
+
+[node name="ChunkGenerator" type="Node" node_paths=PackedStringArray("rock", "dirt", "sand", "grass", "sub_viewport")]
+script = ExtResource("1_jq46e")
+rock = NodePath("SubViewport/Rock")
+dirt = NodePath("SubViewport/Dirt")
+sand = NodePath("SubViewport/Sand")
+grass = NodePath("SubViewport/Grass")
+sub_viewport = NodePath("SubViewport")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
+size = Vector2i(4096, 4096)
+render_target_update_mode = 4
+
+[node name="Rock" type="TileMapLayer" parent="SubViewport"]
+tile_set = ExtResource("2_epwsf")
+occlusion_enabled = false
+collision_enabled = false
+
+[node name="Dirt" type="TileMapLayer" parent="SubViewport"]
+tile_set = ExtResource("2_epwsf")
+occlusion_enabled = false
+collision_enabled = false
+
+[node name="Sand" type="TileMapLayer" parent="SubViewport"]
+tile_set = ExtResource("2_epwsf")
+occlusion_enabled = false
+collision_enabled = false
+
+[node name="Grass" type="TileMapLayer" parent="SubViewport"]
+tile_set = ExtResource("2_epwsf")
+occlusion_enabled = false
+collision_enabled = false
+
+[node name="Camera2D" type="Camera2D" parent="SubViewport"]
+offset = Vector2(2048, 2048)
+editor_draw_screen = false
