@@ -9,6 +9,8 @@ class_name Player
 @onready var direction_component: DirectionComponent = $DirectionComponent
 @onready var movement_component: MovementComponent = $MovementComponent
 
+signal player_position_updated(position: Vector2, direction: Vector2)
+
 func _ready():
 	super()
 	components.merge({
@@ -19,3 +21,6 @@ func _ready():
 		DirectionComponent: direction_component,
 		MovementComponent: movement_component
 	})
+
+func report_player_position():
+	player_position_updated.emit(get_2d_position(), direction_component.get_dir())

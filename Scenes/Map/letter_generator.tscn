@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmm3g2bw3y5rs"]
+
+[ext_resource type="Script" uid="uid://cp5nkpkl5c7hp" path="res://Scenes/Map/letter_generator.gd" id="1_3avcq"]
+
+[node name="LetterGenerator" type="Node"]
+script = ExtResource("1_3avcq")

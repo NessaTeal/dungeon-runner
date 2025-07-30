@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://busuulbp1ogsk"]
+[gd_scene load_steps=44 format=3 uid="uid://busuulbp1ogsk"]
 
 [ext_resource type="Script" uid="uid://lnivdlx0ady1" path="res://Scenes/fight_scene.gd" id="1_x8404"]
 [ext_resource type="PackedScene" uid="uid://rur6sjmg2o3g" path="res://Units/Enemy/enemy.tscn" id="2_0ukyi"]
@@ -8,6 +8,32 @@
 [ext_resource type="Script" uid="uid://k77suwqe7wdi" path="res://Scenes/affix_applier.gd" id="8_6leyg"]
 [ext_resource type="Script" uid="uid://jsxegobugwiv" path="res://Scenes/mesh_instance_3d.gd" id="8_lmtoh"]
 [ext_resource type="PackedScene" uid="uid://v5cl4nhy5imd" path="res://Scenes/enemy_spawner_component.tscn" id="8_mo3wy"]
+[ext_resource type="Script" uid="uid://2m2kiqoplbbk" path="res://Scenes/loading.gd" id="9_lmtoh"]
+[ext_resource type="Texture2D" uid="uid://pxwor5j40s8w" path="res://Textures/deero/0000.png" id="10_gcmlh"]
+[ext_resource type="Texture2D" uid="uid://rlhjiqfhsn5i" path="res://Textures/deero/0001.png" id="11_hx27y"]
+[ext_resource type="Texture2D" uid="uid://bkmh1bbdc2wfi" path="res://Textures/deero/0002.png" id="12_v8c26"]
+[ext_resource type="Texture2D" uid="uid://cyb5hqempnosj" path="res://Textures/deero/0003.png" id="13_hqa1g"]
+[ext_resource type="Texture2D" uid="uid://bkomomgve8jit" path="res://Textures/deero/0004.png" id="14_055pi"]
+[ext_resource type="Texture2D" uid="uid://bm8coaepokq4x" path="res://Textures/deero/0005.png" id="15_jl5lm"]
+[ext_resource type="Texture2D" uid="uid://jj4wht5hqcd0" path="res://Textures/deero/0006.png" id="16_utsqm"]
+[ext_resource type="Texture2D" uid="uid://d0kfm4e5kvvwo" path="res://Textures/deero/0007.png" id="17_x2j3q"]
+[ext_resource type="Texture2D" uid="uid://cl3b4kjugkkbc" path="res://Textures/deero/0008.png" id="18_ejchd"]
+[ext_resource type="Texture2D" uid="uid://cvhx54ebu5110" path="res://Textures/deero/0009.png" id="19_25lm4"]
+[ext_resource type="Texture2D" uid="uid://dh7gs0hvjbnn6" path="res://Textures/deero/0010.png" id="20_3bc6j"]
+[ext_resource type="Texture2D" uid="uid://dyoow3a0gp23p" path="res://Textures/deero/0011.png" id="21_tglok"]
+[ext_resource type="Texture2D" uid="uid://t3dqarjq26ud" path="res://Textures/deero/0012.png" id="22_3ex84"]
+[ext_resource type="Texture2D" uid="uid://b7vepry670pr2" path="res://Textures/deero/0013.png" id="23_7pxyg"]
+[ext_resource type="Texture2D" uid="uid://cjsob7cg28n0g" path="res://Textures/deero/0014.png" id="24_e02nb"]
+[ext_resource type="Texture2D" uid="uid://bpyr4wh6cng0m" path="res://Textures/deero/0015.png" id="25_nll0m"]
+[ext_resource type="Texture2D" uid="uid://bccs5skcsx1og" path="res://Textures/deero/0016.png" id="26_6pr4l"]
+[ext_resource type="Texture2D" uid="uid://c026y88fb5mv3" path="res://Textures/deero/0017.png" id="27_davj8"]
+[ext_resource type="Texture2D" uid="uid://cvlfh76j1rjth" path="res://Textures/deero/0018.png" id="28_b2ea0"]
+[ext_resource type="Texture2D" uid="uid://be7j44xa1gfqs" path="res://Textures/deero/0019.png" id="29_d887w"]
+[ext_resource type="PackedScene" uid="uid://bmm3g2bw3y5rs" path="res://Scenes/Map/letter_generator.tscn" id="30_hx27y"]
+[ext_resource type="Texture2D" uid="uid://dpdbhb1tor1ho" path="res://Textures/deero/0020.png" id="30_vjorg"]
+[ext_resource type="Texture2D" uid="uid://sppcsjg6uwbc" path="res://Textures/deero/0021.png" id="31_nq1sn"]
+[ext_resource type="Texture2D" uid="uid://bcdnlt64ukj4q" path="res://Textures/deero/0022.png" id="32_7mdle"]
+[ext_resource type="Texture2D" uid="uid://bw7tmlc77qsc0" path="res://Textures/deero/0023.png" id="33_k8y2o"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j70gj"]
 sky_top_color = Color(0.172614, 0.453959, 0.524713, 1)
@@ -26,10 +52,92 @@ background_mode = 2
 sky = SubResource("Sky_mo3wy")
 tonemap_mode = 2
 sdfgi_cascades = 1
-sdfgi_max_distance = 25.6
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.03
 volumetric_fog_albedo = Color(0.44081, 0.266991, 0.612727, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mo3wy"]
+font_size = 40
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lmtoh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_gcmlh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_hx27y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_v8c26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_hqa1g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_055pi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_jl5lm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_utsqm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_x2j3q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_ejchd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_25lm4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_3bc6j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_tglok")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_3ex84")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_7pxyg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_e02nb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_nll0m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_6pr4l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_davj8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_b2ea0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_d887w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_vjorg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_nq1sn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_7mdle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_k8y2o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_j70gj"]
 resource_local_to_scene = true
@@ -143,7 +251,7 @@ void fragment() {
 "
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_mo3wy"]
-viewport_path = NodePath("SubViewport")
+viewport_path = NodePath("GameHolder/SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l1ww7"]
 resource_local_to_scene = true
@@ -162,10 +270,16 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(1, 1, 1)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
 
-[node name="FightScene" type="Node" node_paths=PackedStringArray("player", "map")]
+[node name="FightScene" type="Node" node_paths=PackedStringArray("player", "distance_label", "speed_label", "chance_label", "game_state", "game_over", "map", "subviewport")]
 script = ExtResource("1_x8404")
-player = NodePath("Map/Player")
-map = NodePath("Map")
+player = NodePath("GameHolder/Map/Player")
+distance_label = NodePath("UI/Distance")
+speed_label = NodePath("UI/Speed")
+chance_label = NodePath("UI/Chance")
+game_state = NodePath("GameState")
+game_over = NodePath("UI/GameOver")
+map = NodePath("GameHolder/Map")
+subviewport = NodePath("GameHolder/SubViewport")
 enemy_scene = ExtResource("2_0ukyi")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -176,11 +290,12 @@ script = ExtResource("3_10aaw")
 
 [node name="AffixApplier" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("8_6leyg")
-player = NodePath("../Map/Player")
+player = NodePath("../GameHolder/Map/Player")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="ShowInventoryButton" type="Button" parent="UI"]
+anchors_preset = -1
 offset_left = 1004.0
 offset_top = 20.0
 offset_right = 1133.0
@@ -189,24 +304,28 @@ text = "Show inventory
 "
 
 [node name="Label" type="Label" parent="UI"]
+anchors_preset = -1
 offset_left = 408.0
 offset_right = 491.0
 offset_bottom = 26.0
 text = "You've run"
 
 [node name="Distance" type="Label" parent="UI"]
+anchors_preset = -1
 offset_left = 491.0
 offset_right = 574.0
 offset_bottom = 26.0
 horizontal_alignment = 1
 
 [node name="Label3" type="Label" parent="UI"]
+anchors_preset = -1
 offset_left = 574.0
 offset_right = 657.0
 offset_bottom = 26.0
 text = "meters"
 
 [node name="Label2" type="Label" parent="UI"]
+anchors_preset = -1
 offset_left = 408.0
 offset_top = 40.0
 offset_right = 596.0
@@ -214,6 +333,7 @@ offset_bottom = 66.0
 text = "Chance of enemy spawn"
 
 [node name="Chance" type="Label" parent="UI"]
+anchors_preset = -1
 offset_left = 600.0
 offset_top = 40.0
 offset_right = 619.0
@@ -221,6 +341,7 @@ offset_bottom = 66.0
 text = "10"
 
 [node name="Label5" type="Label" parent="UI"]
+anchors_preset = -1
 offset_left = 619.0
 offset_top = 40.0
 offset_right = 638.0
@@ -228,6 +349,7 @@ offset_bottom = 66.0
 text = "%"
 
 [node name="Label4" type="Label" parent="UI"]
+anchors_preset = -1
 offset_left = 408.0
 offset_top = 24.0
 offset_right = 557.0
@@ -235,6 +357,7 @@ offset_bottom = 50.0
 text = "Your current speed"
 
 [node name="Speed" type="Label" parent="UI"]
+anchors_preset = -1
 offset_left = 560.0
 offset_top = 26.0
 offset_right = 600.0
@@ -242,11 +365,11 @@ offset_bottom = 49.0
 
 [node name="Control" type="Control" parent="UI"]
 layout_mode = 3
-anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Label6" type="Label" parent="UI"]
+anchors_preset = -1
 offset_left = 600.0
 offset_top = 24.0
 offset_right = 640.0
@@ -256,6 +379,7 @@ text = "m/s"
 [node name="GameOver" type="VBoxContainer" parent="UI"]
 process_mode = 3
 visible = false
+anchors_preset = -1
 offset_left = 408.0
 offset_top = 384.0
 offset_right = 704.0
@@ -303,33 +427,73 @@ layout_mode = 2
 text = "Restart
 "
 
-[node name="EnemySpawnerComponent" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("8_mo3wy")]
+[node name="Loading" type="CanvasLayer" parent="." node_paths=PackedStringArray("game_holder")]
+script = ExtResource("9_lmtoh")
+game_holder = NodePath("../GameHolder")
+
+[node name="ColorRect" type="ColorRect" parent="Loading"]
+anchors_preset = -1
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.45452422, 0.4545243, 0.45452422, 1)
+
+[node name="ProgressBar" type="ProgressBar" parent="Loading"]
+anchors_preset = -1
+offset_left = 320.0
+offset_top = 848.0
+offset_right = 1616.0
+offset_bottom = 875.0
+max_value = 0.0
+step = 1.0
+
+[node name="Label" type="Label" parent="Loading"]
+anchors_preset = -1
+offset_left = 344.0
+offset_top = 400.0
+offset_right = 1582.0
+offset_bottom = 455.0
+text = "Game is loading, please wait for honse pastures to be generated"
+label_settings = SubResource("LabelSettings_mo3wy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Loading"]
+process_mode = 3
+position = Vector2(208, 680.00006)
+scale = Vector2(-0.329, 0.329)
+sprite_frames = SubResource("SpriteFrames_lmtoh")
+autoplay = "default"
+frame_progress = 0.6283509
+
+[node name="LetterGenerator" parent="." instance=ExtResource("30_hx27y")]
+
+[node name="GameHolder" type="Node" parent="."]
+process_mode = 4
+
+[node name="EnemySpawnerComponent" parent="GameHolder" node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("8_mo3wy")]
 enemy_scene = ExtResource("2_0ukyi")
 player = NodePath("../Map/Player")
-spawn_node = NodePath("..")
+spawn_node = NodePath("../..")
 spawn_distance = 500.0
 spawn_rate = 1.0
 
-[node name="Map" parent="." instance=ExtResource("6_48sw3")]
+[node name="Map" parent="GameHolder" instance=ExtResource("6_48sw3")]
 
-[node name="Player" parent="Map" instance=ExtResource("3_supv1")]
+[node name="Player" parent="GameHolder/Map" instance=ExtResource("3_supv1")]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Map/Player"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="GameHolder/Map/Player"]
 transform = Transform3D(0.874366, -2.12117e-08, 0.485267, -0.485267, -3.82197e-08, 0.874366, -2.31653e-18, -1, -4.37113e-08, 303.674, 557.009, 0)
 rotation_order = 5
 light_energy = 0.433
 
-[node name="Camera3D" type="Camera3D" parent="Map/Player"]
+[node name="Camera3D" type="Camera3D" parent="GameHolder/Map/Player"]
 transform = Transform3D(1, 0, 0, 0, 0.898794, 0.438371, 0, -0.438371, 0.898794, 0, 9, 5)
 rotation_order = 5
-current = true
 fov = 70.0
 
-[node name="MeshHolder" type="Node3D" parent="Map/Player"]
+[node name="MeshHolder" type="Node3D" parent="GameHolder/Map/Player"]
 transform = Transform3D(1, 0, 0, 0, 0.999391, 0.0348995, 0, -0.0348995, 0.999391, 0, 0, 0)
 visible = false
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Player/MeshHolder"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="GameHolder/Map/Player/MeshHolder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 250)
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_j70gj")
@@ -337,10 +501,13 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_l1ww7")
 script = ExtResource("8_lmtoh")
 
-[node name="Camera3D2" type="Camera3D" parent="Map/Player"]
-transform = Transform3D(-1, 9.64505e-08, -4.05409e-08, -7.90573e-08, -0.44279, 0.896626, 6.85289e-08, 0.896626, 0.44279, 8.73988e-06, 216.218, 186.622)
+[node name="Camera3D2" type="Camera3D" parent="GameHolder/Map/Player"]
+transform = Transform3D(1, 0, 0, 0, -4.3711413e-08, 1.0000006, 0, -1.0000006, -4.3711413e-08, 0, 400, -350)
+projection = 1
+current = true
+size = 1250.0
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="GameHolder"]
 disable_3d = true
 handle_input_locally = false
 msaa_2d = 3
@@ -348,10 +515,10 @@ canvas_item_default_texture_filter = 3
 size = Vector2i(4000, 4000)
 render_target_update_mode = 4
 
-[node name="CameraHolder" type="Node2D" parent="SubViewport"]
+[node name="CameraHolder" type="Node2D" parent="GameHolder/SubViewport"]
 position = Vector2(0, -2000)
 
-[node name="Camera2D" type="Camera2D" parent="SubViewport/CameraHolder"]
+[node name="Camera2D" type="Camera2D" parent="GameHolder/SubViewport/CameraHolder"]
 position = Vector2(0, 2000)
 position_smoothing_speed = 7.0
 rotation_smoothing_speed = 7.0
@@ -361,3 +528,9 @@ editor_draw_drag_margin = true
 [connection signal="pressed" from="UI/GameOver/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="UI/GameOver/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="UI/GameOver/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="texture_ready" from="LetterGenerator" to="GameHolder/Map" method="create_map_tile"]
+[connection signal="tile_cancelled" from="GameHolder/Map" to="LetterGenerator" method="remove_task"]
+[connection signal="tile_created" from="GameHolder/Map" to="Loading" method="tile_created"]
+[connection signal="tile_requested" from="GameHolder/Map" to="Loading" method="tile_requested"]
+[connection signal="tile_requested" from="GameHolder/Map" to="LetterGenerator" method="add_task"]
+[connection signal="player_position_updated" from="GameHolder/Map/Player" to="GameHolder/Map" method="update_map"]

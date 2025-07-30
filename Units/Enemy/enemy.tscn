@@ -21,6 +21,10 @@ base_hp = 20.0
 enemy = NodePath("..")
 speed = 200.0
 
+[node name="Sprite3D" parent="." index="3"]
+texture_filter = 5
+render_priority = 100
+
 [node name="EnemyCollisionComponent" parent="2DComponents" index="0" node_paths=PackedStringArray("attack_component", "health_component") instance=ExtResource("4_lu5uc")]
 collision_layer = 2
 attack_component = NodePath("../../AttackComponent")

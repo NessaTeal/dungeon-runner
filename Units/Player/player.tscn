@@ -43,7 +43,7 @@ base_hp = 10000.0
 base_hp_regen = 1
 
 [node name="SpeedComponent" parent="." index="2" instance=ExtResource("3_b5npy")]
-base_speed = 10
+base_speed = 150
 
 [node name="RetaliationComponent" parent="." index="3" node_paths=PackedStringArray("health_component", "attack_component") instance=ExtResource("5_cj3yk")]
 health_component = NodePath("../HealthComponent")
@@ -54,6 +54,7 @@ attack_component = NodePath("../AttackComponent")
 movement_component = NodePath("../SpeedComponent")
 
 [node name="SlingshotComponent" parent="." index="5" node_paths=PackedStringArray("attack_component", "movement_component") instance=ExtResource("7_v1crv")]
+anchors_preset = -1
 offset_left = 256.0
 offset_top = 132.0
 offset_right = 256.0
@@ -79,6 +80,7 @@ transformation_component = NodePath("../TransformationComponent")
 [node name="Sprite3D" parent="." index="10"]
 transform = Transform3D(5, 0, 0, 0, 3.90553, 3.12199, 0, -3.12199, 3.90553, 0, 1.6, 0)
 billboard = 0
+texture_filter = 4
 sprite_frames = ExtResource("13_v6jny")
 animation = &"white"
 autoplay = "white"
@@ -106,4 +108,6 @@ mesh = SubResource("PlaneMesh_6iibj")
 surface_material_override/0 = SubResource("StandardMaterial3D_v6jny")
 
 [connection signal="damage_received" from="HealthComponent" to="RetaliationComponent" method="_on_unit_attacked"]
+[connection signal="player_turned_a_lot" from="DirectionComponent" to="." method="report_player_position"]
+[connection signal="moved_a_lot" from="MovementComponent" to="." method="report_player_position"]
 [connection signal="area_entered" from="2DComponents/HitboxComponent" to="2DComponents/HitboxComponent" method="_on_area_entered"]

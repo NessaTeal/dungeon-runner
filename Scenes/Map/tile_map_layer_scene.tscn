@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://xogfcwnwtluw"]
+
+[ext_resource type="TileSet" uid="uid://g62unt51muww" path="res://Scenes/Map/tileset.tres" id="1_poc6v"]
+
+[node name="TileMapLayerScene" type="TileMapLayer"]
+tile_set = ExtResource("1_poc6v")
+occlusion_enabled = false
+collision_enabled = false
+navigation_enabled = false

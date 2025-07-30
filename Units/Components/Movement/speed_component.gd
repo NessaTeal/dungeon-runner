@@ -16,7 +16,7 @@ func _process(delta):
 	distance += get_current_speed() * delta
 	speed_from_acceleration += acceleration * delta
 
-func get_current_speed():
+func get_current_speed() -> float:
 	return current_speed + speed_from_acceleration
 
 func reset():

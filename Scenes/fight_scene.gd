@@ -1,13 +1,13 @@
 extends Node
 
 @export var player: Player
-@onready var distance_label: Label = $UI/Distance
-@onready var speed_label: Label = $UI/Speed
-@onready var chance_label: Label = $UI/Chance
-@onready var game_state: GameState = $GameState
-@onready var game_over: Control = $UI/GameOver
+@export var distance_label: Label
+@export var speed_label: Label
+@export var chance_label: Label
+@export var game_state: GameState
+@export var game_over: Control
 @export var map: Map
-@onready var subviewport: SubViewport = $SubViewport
+@export var subviewport: SubViewport
 
 @export var enemy_scene: PackedScene
 
@@ -26,7 +26,7 @@ signal encounter_ended
 
 func _ready():
 	player.health_component.hp_depleted.connect(_on_player_unit_died, CONNECT_ONE_SHOT)
-	player.movement_component.moved_a_lot.connect(_on_player_moved_a_lot)
+	map.update_map(player.get_2d_position(), player.direction_component.get_dir())
 	
 	#var sub_viewport: SubViewport = $SubViewport;
 	#var camera_2d_rid = $SubViewport/Player/Camera2D
@@ -46,8 +46,8 @@ func _process(delta):
 	
 	time_passed += delta
 	
-	$SubViewport/CameraHolder.position = player.get_2d_position() + Vector2(0, 2000)
-	$SubViewport/CameraHolder.global_rotation = -player.global_rotation.y
+	#$SubViewport/CameraHolder.position = player.get_2d_position() + Vector2(0, 2000)
+	#$SubViewport/CameraHolder.global_rotation = -player.global_rotation.y
 	
 	#$Player/MeshInstance3D.transform
 	
@@ -63,11 +63,11 @@ func _process(delta):
 func _unhandled_key_input(event: InputEvent) -> void:
 	#print(event.as_text()K)
 	if event.as_text() == "Z" and event.is_pressed():
-		var state = $Map/Player/Camera3D.current
+		var state = $GameHolder/Map/Player/Camera3D.current
 		if state:
-			$Map/Player/Camera3D2.current = state
+			$GameHolder/Map/Player/Camera3D2.current = state
 		else:
-			$Map/Player/Camera3D.current = !state
+			$GameHolder/Map/Player/Camera3D.current = !state
 			
 	if event.as_text() == "L" and event.is_pressed():
 		var texture = subviewport.get_texture()
@@ -124,8 +124,3 @@ func _on_button_3_pressed():
 
 func _on_show_inventory_button_pressed() -> void:
 	Inventory.show()
-
-func _on_player_moved_a_lot() -> void:
-	var thread = Thread.new()
-	thread.start(func(): map.update_map(player.get_2d_position()))
-	await thread.wait_to_finish()
