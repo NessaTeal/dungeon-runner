@@ -138,7 +138,7 @@ animations = [{
 "speed": 30.0
 }]
 
-[node name="FightScene" type="Node" node_paths=PackedStringArray("player", "distance_label", "speed_label", "chance_label", "game_state", "map", "subviewport", "main_camera", "top_view_camera")]
+[node name="FightScene" type="Node" node_paths=PackedStringArray("player", "distance_label", "speed_label", "chance_label", "game_state", "map", "subviewport", "main_camera", "top_view_camera", "ui")]
 script = ExtResource("1_x8404")
 player = NodePath("GameHolder/Map/Player")
 distance_label = NodePath("UI/Distance")
@@ -149,6 +149,7 @@ map = NodePath("GameHolder/Map")
 subviewport = NodePath("GameHolder/SubViewport")
 main_camera = NodePath("GameHolder/Map/Player/MainCamera")
 top_view_camera = NodePath("GameHolder/Map/Player/TopCamera")
+ui = NodePath("UI")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_lmtoh")
@@ -283,10 +284,11 @@ frame_progress = 0.6283509
 [node name="GameHolder" type="Node" parent="."]
 process_mode = 4
 
-[node name="EnemySpawnerComponent" parent="GameHolder" node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("8_mo3wy")]
+[node name="EnemySpawnerComponent" parent="GameHolder" node_paths=PackedStringArray("player", "spawn_node", "game_state") instance=ExtResource("8_mo3wy")]
 enemy_scene = ExtResource("2_0ukyi")
 player = NodePath("../Map/Player")
 spawn_node = NodePath("../Map")
+game_state = NodePath("../../GameState")
 spawn_distance = 500.0
 spawn_rate = 1.0
 

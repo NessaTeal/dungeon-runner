@@ -7,7 +7,9 @@ var encounter_chance_increase: float = 1.0/10
 
 var fight_xp: float = 0
 
-#func _ready() -> void:
-	#for perk_key in Perks.active_perks:
-		#if Perks.active_perks[perk_key].state:
-			#Perks.active_perks[perk_key].script.apply(self)
+func _on_enemy_died() -> void:
+	fight_xp += 50
+	var new_item := preload("res://Inventory/item.tscn").instantiate() as Item
+	new_item.stone = StoneGenerator.generate_stone()
+	new_item.texture = preload("res://Textures/06_t.PNG")
+	Inventory.add_item(new_item)

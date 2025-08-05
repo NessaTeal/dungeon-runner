@@ -6,6 +6,7 @@
 
 [node name="Control" type="Control" node_paths=PackedStringArray("tips")]
 process_mode = 3
+z_index = 10
 layout_mode = 3
 offset_right = 129.0
 offset_bottom = 73.0

@@ -18,4 +18,5 @@ func report_player_position() -> void:
 func reset() -> void:
 	for component in all_components:
 		# handle it better than string check and implicit logic that component has reset()
-		component.reset()
+		if "reset" in component:
+			component.reset()

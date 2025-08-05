@@ -2,9 +2,8 @@ extends Node
 
 @export var enemy_scene: PackedScene
 @export var player: Player
-@export var spawn_path: Path2D
-@export var spawn_point: PathFollow2D
 @export var spawn_node: Node
+@export var game_state: GameState
 
 @export_category("Internals")
 @export var spawn_distance: float = 100
@@ -25,6 +24,7 @@ func spawn_enemy() -> void:
 	#enemy.scale_enemy(1 + time_passed / 10.0)
 	
 	Utils.handled_connect(enemy.attack_component.attack_happened, player.health_component._on_receive_damage)
+	Utils.handled_connect(enemy.unit_died, game_state._on_enemy_died)
 
 func _on_spawn_timer_timeout() -> void:
 	spawn_enemy()

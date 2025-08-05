@@ -27,14 +27,14 @@ func set_item(new_item: Item) -> void:
 	item = new_item
 	add_child(new_item)
 	if equip_slot:
-		Inventory.equip_changed.emit(new_item.stone.affixes)
+		Inventory.equip_changed.emit()
 
 func pick_up_item() -> Item:
 	var tmp := item
 	remove_child(item)
 	item = null
 	if equip_slot:
-		Inventory.equip_changed.emit(tmp.stone.affixes)
+		Inventory.equip_changed.emit()
 	return tmp
 	
 func _on_gui_input(event: InputEvent) -> void:

@@ -18,8 +18,8 @@ config/icon="res://Textures/icon.svg"
 [autoload]
 
 Meta="*res://meta.gd"
-Inventory="*res://Inventory/inventory.tscn"
 HoverBox="*res://Perks/hover_box.tscn"
+Inventory="*res://Inventory/inventory.tscn"
 StoneGenerator="*res://Affixes/stone_generator.tscn"
 Perks="*res://Perks/perks.tscn"
 

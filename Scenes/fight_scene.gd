@@ -15,8 +15,6 @@ var enemy_scene: PackedScene = preload("res://Units/Enemy/enemy.tscn")
 var main_menu: PackedScene = preload("res://Scenes/main_menu.tscn")
 var item: PackedScene = preload("res://Inventory/item.tscn")
 
-var enemy: Enemy
-
 var time_passed := 0.0
 var fighting := false
 var angle := 0.0
@@ -41,16 +39,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			top_view_camera.current = state
 		else:
 			main_camera.current = !state
-
-
-func _on_enemy_died() -> void:
-	game_state.fight_xp += 50
-	fighting = false
-	enemy.queue_free()
-	var new_item := item.instantiate() as Item
-	new_item.stone = StoneGenerator.generate_stone()
-	new_item.texture = preload("res://Textures/06_t.PNG")
-	Inventory.add_item(new_item)
 
 func _on_button_pressed() -> void:
 	get_parent().add_child(preload("res://Scenes/perks_scene.tscn").instantiate())

@@ -21,9 +21,9 @@ func get_all_affixes() -> Array[BaseAffix]:
 	return all_affixes
 	
 func apply_affixes() -> void:
+	player.reset()
 	for affix: BaseAffix in get_all_affixes():
 		if affix is PlayerAffix:
-			player.reset()
 			var player_affix := affix as PlayerAffix
 			player_affix.player = player
 			player_affix.apply()

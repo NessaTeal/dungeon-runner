@@ -7,7 +7,7 @@ extends PanelContainer
 var slots: Array[ItemSlot] = []
 
 @warning_ignore("unused_signal")
-signal equip_changed(affixes: Array[BaseAffix])
+signal equip_changed()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for i in range(18):
