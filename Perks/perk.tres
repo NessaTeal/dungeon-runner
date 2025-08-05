@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Perk" load_steps=3 format=3 uid="uid://cndqcjpwq8w5a"]
+
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="1_3jsm4"]
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_m2d4a"]
+
+[resource]
+script = ExtResource("1_3jsm4")

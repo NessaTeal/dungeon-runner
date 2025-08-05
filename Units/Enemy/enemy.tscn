@@ -33,5 +33,3 @@ contact_damage = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="2DComponents/EnemyCollisionComponent" index="0"]
 shape = SubResource("RectangleShape2D_lu5uc")
-
-[connection signal="hp_depleted" from="HealthComponent" to="." method="_on_health_component_hp_depleted"]

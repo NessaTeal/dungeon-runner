@@ -1,0 +1,13 @@
+[gd_scene load_steps=8 format=3 uid="uid://chmlxg0brnmom"]
+
+[ext_resource type="Script" uid="uid://bs8mymrcx3yiy" path="res://Perks/perks.gd" id="1_cida0"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="2_mp60i"]
+[ext_resource type="Resource" uid="uid://uibw2dcpd7c1" path="res://Perks/Agility/move_speed.tres" id="3_72cq2"]
+[ext_resource type="Resource" uid="uid://byh4hewk6c4lg" path="res://Perks/Agility/acceleration.tres" id="4_1og1s"]
+[ext_resource type="Resource" uid="uid://bre15e0s3fymn" path="res://Perks/Agility/slingshot.tres" id="5_oyoi2"]
+[ext_resource type="Resource" uid="uid://bso2phw6r0mno" path="res://Perks/Agility/tenacity.tres" id="6_h00k4"]
+[ext_resource type="Resource" uid="uid://4bdapansr2it" path="res://Perks/Agility/trample.tres" id="7_jls2a"]
+
+[node name="Perks" type="Node"]
+script = ExtResource("1_cida0")
+_perk_resources = Array[ExtResource("2_mp60i")]([ExtResource("3_72cq2"), ExtResource("4_1og1s"), ExtResource("5_oyoi2"), ExtResource("6_h00k4"), ExtResource("7_jls2a")])

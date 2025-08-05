@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bytek24042ccj"]
+
+[ext_resource type="Texture2D" uid="uid://ca3ag3v8u2jrl" path="res://Textures/terrain.png" id="1_0t1dj"]
+[ext_resource type="Script" uid="uid://xp1dn7ynl0l2" path="res://Scenes/Map/map_tile.gd" id="2_mte2e"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_1nk0f"]
+resource_local_to_scene = true
+no_depth_test = true
+albedo_texture = ExtResource("1_0t1dj")
+texture_filter = 5
+texture_repeat = false
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0t1dj"]
+resource_local_to_scene = true
+material = SubResource("ORMMaterial3D_1nk0f")
+size = Vector2(100, 100)
+
+[node name="MapTile" type="MeshInstance3D"]
+mesh = SubResource("PlaneMesh_0t1dj")
+script = ExtResource("2_mte2e")
+plane_mesh = SubResource("PlaneMesh_0t1dj")
+material = SubResource("ORMMaterial3D_1nk0f")

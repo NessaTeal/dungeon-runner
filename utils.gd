@@ -1,27 +1,7 @@
 extends Object
 class_name Utils
 
-static func first_element_which(array, callback):
-	for element in array:
-		if callback.call(element):
-			return element
-			
-	return null
-
-static func flatmap(array, callback):
-	var result = []
-	array.map(callback)
-	for item in array:
-		for callback_item in callback.call(item):
-			result.push_back(callback_item)
-			
-	return result
-
-static func reduce(array, callback, accumulator):
-	var result = accumulator
-	for element in array:
-		result = callback.call(result, element)
-	return result
-
-#static func convertVector2to3(source: Vector2) -> Vector3:
-	#return Vector3(source)
+static func handled_connect(signall: Signal, callable: Callable, flags: int = 0) -> void:
+	var err := signall.connect(callable, flags)
+	if err:
+		push_error("Error connecting signal %s" % error_string(err))

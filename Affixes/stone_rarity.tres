@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bdma0erlsne42"]
+
+[ext_resource type="Script" uid="uid://b3occksp5al76" path="res://Affixes/stone_rarity.gd" id="1_x4p8d"]
+
+[resource]
+script = ExtResource("1_x4p8d")

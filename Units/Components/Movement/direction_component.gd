@@ -9,7 +9,7 @@ signal player_turned_a_lot
 
 var rotation_buffer := 0.0
 
-func get_dir():
+func get_dir() -> Vector2:
 	return Vector2.UP.rotated(-direction)
 
 func _process(delta: float) -> void:	

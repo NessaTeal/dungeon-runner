@@ -1,9 +1,12 @@
 extends ColorRect
+class_name PerkTree
 
-signal perk_changed
+@export var perk_buttons: Control
 
-func _on_perk_button_perks_point_changed():
-	perk_changed.emit()
+signal perks_changed
 
-	for button: PerkButton in $PerkButtons.get_children():
+func _ready() -> void:
+	for button: PerkButton in perk_buttons.get_children():
+		@warning_ignore("return_value_discarded")
+		button.button.toggled.connect(func(_arg: bool) -> void: perks_changed.emit())
 		button.recalculate()

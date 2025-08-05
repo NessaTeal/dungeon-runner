@@ -4,8 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://b15a53d7gu5mb" path="res://Inventory/item_slot.tscn" id="2_wo71l"]
 [ext_resource type="PackedScene" uid="uid://daxkrcb3hu8fl" path="res://Inventory/held_item.tscn" id="3_ipe2g"]
 
-[node name="Inventory" type="PanelContainer"]
-anchors_preset = 8
+[node name="Inventory" type="PanelContainer" node_paths=PackedStringArray("grid", "equipment", "held_item")]
+z_index = 1
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -17,6 +18,9 @@ offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iiy3f")
+grid = NodePath("Control/GridContainer")
+equipment = NodePath("Control/Equipment")
+held_item = NodePath("HeldItem")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 2
@@ -40,14 +44,14 @@ offset_bottom = 831.0
 text = "Equipment"
 
 [node name="Equipment" type="Control" parent="Control"]
-layout_mode = 3
-anchors_preset = 0
+layout_mode = 1
 offset_left = 468.0
 offset_top = 302.0
 offset_right = 1460.0
 offset_bottom = 894.0
 
 [node name="ItemSlot" parent="Control/Equipment" instance=ExtResource("2_wo71l")]
+layout_mode = 1
 offset_left = 22.0
 offset_top = 12.0
 offset_right = 62.0
@@ -55,6 +59,7 @@ offset_bottom = 52.0
 equip_slot = true
 
 [node name="ItemSlot2" parent="Control/Equipment" instance=ExtResource("2_wo71l")]
+layout_mode = 1
 offset_left = 150.0
 offset_top = 138.0
 offset_right = 190.0
@@ -62,6 +67,7 @@ offset_bottom = 178.0
 equip_slot = true
 
 [node name="ItemSlot3" parent="Control/Equipment" instance=ExtResource("2_wo71l")]
+layout_mode = 1
 offset_left = 23.0
 offset_top = 125.0
 offset_right = 63.0
@@ -69,6 +75,7 @@ offset_bottom = 165.0
 equip_slot = true
 
 [node name="ItemSlot4" parent="Control/Equipment" instance=ExtResource("2_wo71l")]
+layout_mode = 1
 offset_left = 147.0
 offset_top = 15.0
 offset_right = 187.0
@@ -77,7 +84,7 @@ equip_slot = true
 
 [node name="Button" type="Button" parent="Control"]
 layout_mode = 1
-anchors_preset = 3
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0

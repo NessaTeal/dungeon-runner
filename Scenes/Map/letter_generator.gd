@@ -10,8 +10,6 @@ var letters: Dictionary[Vector2i, GeneratorTile] = {}
 static var SIZE: int = 9
 static var TILE_COUNT: int = (SIZE - 1) * 2
 static var TILE_SIZE: int = 128
-static var CHUNK_SIZE: int = TILE_COUNT * TILE_SIZE
-static var CHUNK_SIZE_SQUARED: int = CHUNK_SIZE ** 2
 
 static var ORIGINS: Dictionary[String, int] = {
 	"r": 2,
@@ -19,22 +17,27 @@ static var ORIGINS: Dictionary[String, int] = {
 	"s": 1,
 	"g": 0
 }
-
 static var TERRAIN_OPTIONS: Array[String] = ["d", "r", "s", "g"]
-
 static var PRIO: Dictionary[String, int] = {"r": 0, "d": 1, "s": 2, "g": 3}
 
 signal texture_ready(coords: Vector2i, texture: ImageTexture)
 
+var task_id: int = -1
 var tasks: Dictionary[Vector2i, Callable] = {}
-		
-var requested_chunks: Dictionary[Vector2i, bool] = {}
 
-func remove_task(coords: Vector2i):
-	if tasks.has(coords):
-		tasks.erase(coords)
+func _ready() -> void:
+	Performance.add_custom_monitor("game/tiles_in_queue", get_tiles_in_queue)
+	
+func get_tiles_in_queue() -> int:
+	return len(tasks)
 
-func add_task(coords: Vector2i):
+func remove_task(coords: Vector2i) -> void:
+	var removed := tasks.erase(coords)
+	if not removed:
+		print("Trying to remove task with coordinates which was not found")
+		#push_warning("Trying to remove task with coordinates %v which was not found" % [coords])
+
+func add_task(coords: Vector2i) -> void:
 	var task := get_task(coords)
 	
 	tasks[coords] = task
@@ -43,10 +46,10 @@ func get_task(coords: Vector2i) -> Callable:
 	var _x := coords.x * (SIZE - 1)
 	var _y := coords.y * (SIZE - 1)
 	
-	return func():
+	return func() -> void:
 		for xx in range(_x, _x + SIZE):
 			for yy in range(_y, _y + SIZE):
-				var letter_key = Vector2i(xx, yy)
+				var letter_key := Vector2i(xx, yy)
 				if not letters.has(letter_key):
 					letters[letter_key] = GeneratorTile.new(xx, yy)
 		# offset by 1 as edge letters can have all 4 neighbours already done if it's 4th tile in a corner
@@ -56,24 +59,26 @@ func get_task(coords: Vector2i) -> Callable:
 	
 		var chunk_generator := chunk_generator_scene.instantiate() as ChunkGenerator
 		chunk_generator.setup(patterns)
-		chunk_generator.chunk_generated.connect(
-			func(texture: ImageTexture):
-				texture_ready.emit.call_deferred(coords, texture))
+		if chunk_generator.chunk_generated.connect(
+			func(texture: ImageTexture) -> void:
+				texture_ready.emit.call_deferred(coords, texture)):
+			printerr("Error connecting chunk generator to a callable")
 		
-		(func():
+		(func() -> void:
 			add_child(chunk_generator)
 			chunk_generator.render_generated_chunk(patterns)).call_deferred()
-
-var task_id: int = -1
 
 func _process(_delta: float) -> void:
 	if task_id == -1:
 		if not tasks.is_empty():
-			var key = tasks.keys()[0]
+			var key := (tasks.keys() as Array[Vector2i])[0]
 			task_id = WorkerThreadPool.add_task(tasks[key])
-			tasks.erase(key)
+			if !tasks.erase(key):
+				printerr("Somebody else removed task while letter generator was adding it")
 	elif WorkerThreadPool.is_task_completed(task_id):
-		WorkerThreadPool.wait_for_task_completion(task_id)
+		var err := WorkerThreadPool.wait_for_task_completion(task_id)
+		if err:
+			printerr("Error waiting for letter generator task %s" % [error_string(err)])
 		task_id = -1
 	
 func calculate_tile_terrain_corners(coords: Vector2i) -> Array[PackedStringArray]:
@@ -83,14 +88,19 @@ func calculate_tile_terrain_corners(coords: Vector2i) -> Array[PackedStringArray
 		var bottom_row: PackedStringArray = []
 		for y in range(coords.y, coords.y + SIZE - 1):
 			
+			@warning_ignore_start("return_value_discarded")
 			top_row.push_back(letters[Vector2i(x, y)].selected_option)
 			top_row.push_back(get_stronger_terrain([letters[Vector2i(x, y)],letters[Vector2i(x, y + 1)]]))
 			bottom_row.push_back(get_stronger_terrain([letters[Vector2i(x, y)],letters[Vector2i(x + 1, y)]]))
 			bottom_row.push_back(get_stronger_terrain([letters[Vector2i(x, y)],letters[Vector2i(x + 1, y)], letters[Vector2i(x, y + 1)], letters[Vector2i(x + 1, y + 1)]]))
-		
+			@warning_ignore_restore("return_value_discarded")
+			
 		# we generate 2n - 1 size array and need to insert last elements manually
+		
+		@warning_ignore_start("return_value_discarded")
 		top_row.push_back(letters[Vector2i(x, coords.y + SIZE - 1)].selected_option)
 		bottom_row.push_back(get_stronger_terrain([letters[Vector2i(x, coords.y + SIZE - 1)], letters[Vector2i(x + 1, coords.y + SIZE - 1)]]))
+		@warning_ignore_restore("return_value_discarded")
 		
 		tile_terrain_corners.push_back(top_row)
 		tile_terrain_corners.push_back(bottom_row)
@@ -98,8 +108,12 @@ func calculate_tile_terrain_corners(coords: Vector2i) -> Array[PackedStringArray
 	# we generate 2n - 1 size array and need to insert last row with last elements manually
 	var last_row: PackedStringArray = []
 	for y in range(coords.y, coords.y + SIZE - 1):
+		@warning_ignore_start("return_value_discarded")
 		last_row.push_back(letters[Vector2i(coords.x + SIZE - 1, y)].selected_option)
 		last_row.push_back(get_stronger_terrain([letters[Vector2i(coords.x + SIZE - 1, y)], letters[Vector2i(coords.x + SIZE - 1, y + 1)]]))
+		@warning_ignore_restore("return_value_discarded")
+	
+	@warning_ignore("return_value_discarded")
 	last_row.push_back(letters[Vector2i(coords.x + SIZE - 1, coords.y + SIZE - 1)].selected_option)
 	
 	tile_terrain_corners.push_back(last_row)
@@ -107,8 +121,8 @@ func calculate_tile_terrain_corners(coords: Vector2i) -> Array[PackedStringArray
 	return tile_terrain_corners
 	
 func get_stronger_terrain(terrains: Array[GeneratorTile]) -> String:
-	var acc = ""
-	var power = -1
+	var acc := ""
+	var power := -1
 	for terrain in terrains:
 		if PRIO[terrain.selected_option] > power:
 			acc = terrain.selected_option
@@ -119,7 +133,7 @@ func get_stronger_terrain(terrains: Array[GeneratorTile]) -> String:
 func calculate_layers(tile_terrain_corners: Array[PackedStringArray]) -> Array[TileMapPattern]:
 	var patterns: Array[TileMapPattern] = []
 	for ter in TERRAIN_OPTIONS:
-		var layer = TileMapPattern.new()
+		var layer := TileMapPattern.new()
 		layer.set_size(Vector2i(TILE_COUNT, TILE_COUNT))
 		for x in range(0, TILE_COUNT):
 			for y in range(0, TILE_COUNT):
@@ -136,14 +150,14 @@ func calculate_layers(tile_terrain_corners: Array[PackedStringArray]) -> Array[T
 	
 	return patterns
 
-func convert_terrain(source, target) -> int:
+func convert_terrain(source: String, target: String) -> int:
 	return 1 if PRIO[source] >= PRIO[target] else 0
 
 func add_half_of_weights(generator_tile: GeneratorTile, terrain: String) -> void:
 	generator_tile.weights[terrain] += 5.0 / generator_tile.weights[terrain]
 	#generator_tile.weights[terrain] += 5.0 / generator_tile.weights[terrain] + Utils.reduce(generator_tile.weights.values(), func(acc, cur): return acc + cur, 0) / 2
 
-func select_weighted_random(weights: Dictionary[String, float]):
+func select_weighted_random(weights: Dictionary[String, float]) -> String:
 	var r := weights.r
 	var rd := r + weights.d
 	var rdg := rd + weights.g
@@ -162,7 +176,7 @@ func select_weighted_random(weights: Dictionary[String, float]):
 
 # consider keeping one line of letters unassigned to have border with some weights in them
 
-func update_neighbours(generator_tile: GeneratorTile, force: bool = false):
+func update_neighbours(generator_tile: GeneratorTile, force: bool = false) -> void:
 	if !generator_tile.selected_option:
 		generator_tile.selected_option = select_weighted_random(generator_tile.weights)
 	elif not force:

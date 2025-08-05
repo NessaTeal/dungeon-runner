@@ -1,11 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://4pxjsoxdwpko"]
+[gd_scene load_steps=3 format=3 uid="uid://4pxjsoxdwpko"]
 
 [ext_resource type="Texture2D" uid="uid://deuaqa0j3vcfr" path="res://Textures/bullet_point.png" id="1_x4od3"]
+[ext_resource type="Script" uid="uid://blp7k4bbqlf7c" path="res://Perks/perks_tooltip_line.gd" id="1_yjqki"]
 
-[node name="PerksTooltipLine" type="MarginContainer"]
+[node name="PerksTooltipLine" type="MarginContainer" node_paths=PackedStringArray("label")]
+anchors_preset = -1
 offset_right = 113.0
 offset_bottom = 24.0
 theme_override_constants/margin_left = 4
+script = ExtResource("1_yjqki")
+label = NodePath("HBoxContainer/Label")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2

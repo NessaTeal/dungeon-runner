@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="BaseAffix" load_steps=2 format=3 uid="uid://8740axit6ar6"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_tmn23"]
+
+[resource]
+script = ExtResource("1_tmn23")

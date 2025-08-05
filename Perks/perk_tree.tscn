@@ -1,14 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://g8g2afkn8gqj"]
+[gd_scene load_steps=9 format=3 uid="uid://g8g2afkn8gqj"]
 
 [ext_resource type="PackedScene" uid="uid://c65tlx11pnwdf" path="res://Perks/perk_button.tscn" id="1_4sv20"]
 [ext_resource type="Script" uid="uid://bkdqfpeif0shh" path="res://Perks/perk_tree.gd" id="1_shrwa"]
+[ext_resource type="Texture2D" uid="uid://m7v2oqk0s026" path="res://Textures/speed-01.png" id="3_oa4ao"]
+[ext_resource type="Resource" uid="uid://byh4hewk6c4lg" path="res://Perks/Agility/acceleration.tres" id="4_ijho5"]
+[ext_resource type="Resource" uid="uid://bso2phw6r0mno" path="res://Perks/Agility/tenacity.tres" id="5_oa4ao"]
+[ext_resource type="Resource" uid="uid://4bdapansr2it" path="res://Perks/Agility/trample.tres" id="6_wyd1k"]
+[ext_resource type="Resource" uid="uid://bre15e0s3fymn" path="res://Perks/Agility/slingshot.tres" id="7_4svwd"]
+[ext_resource type="Texture2D" uid="uid://s0vsgi3metbt" path="res://Textures/impact_mine_thing-01.png" id="8_wyd1k"]
 
-[node name="ColorRect" type="ColorRect"]
+[node name="PerkTree" type="ColorRect" node_paths=PackedStringArray("perk_buttons")]
 process_mode = 3
+anchors_preset = -1
 offset_right = 1148.0
 offset_bottom = 647.0
 color = Color(0.458824, 0.447059, 0.286275, 1)
 script = ExtResource("1_shrwa")
+perk_buttons = NodePath("PerkButtons")
 
 [node name="PerkButtons" type="Control" parent="."]
 anchors_preset = 0
@@ -16,37 +24,47 @@ offset_right = 1150.0
 offset_bottom = 649.0
 mouse_filter = 2
 
-[node name="PerkButton" parent="PerkButtons" instance=ExtResource("1_4sv20")]
-layout_mode = 2
+[node name="PerkButton" parent="PerkButtons" node_paths=PackedStringArray("unlocks") instance=ExtResource("1_4sv20")]
+layout_mode = 0
+anchors_preset = 0
 offset_top = 200.0
 offset_bottom = 624.0
+icon = ExtResource("3_oa4ao")
+unlocks = [NodePath("../PerkButton2"), NodePath("../PerkButton3")]
 
-[node name="PerkButton2" parent="PerkButtons" instance=ExtResource("1_4sv20")]
-layout_mode = 2
+[node name="PerkButton2" parent="PerkButtons" node_paths=PackedStringArray("unlocks", "locks") instance=ExtResource("1_4sv20")]
+layout_mode = 0
+anchors_preset = 0
 offset_left = 352.0
 offset_right = 352.0
+perk_resource = ExtResource("4_ijho5")
+unlocks = [NodePath("../PerkButton5")]
+locks = [NodePath("../PerkButton3")]
 
-[node name="PerkButton3" parent="PerkButtons" instance=ExtResource("1_4sv20")]
-layout_mode = 2
+[node name="PerkButton3" parent="PerkButtons" node_paths=PackedStringArray("unlocks", "locks") instance=ExtResource("1_4sv20")]
+layout_mode = 0
+anchors_preset = 0
 offset_left = 352.0
 offset_top = 360.0
 offset_right = 352.0
 offset_bottom = 360.0
+perk_resource = ExtResource("5_oa4ao")
+unlocks = [NodePath("../PerkButton4")]
+locks = [NodePath("../PerkButton2")]
 
 [node name="PerkButton4" parent="PerkButtons" instance=ExtResource("1_4sv20")]
-layout_mode = 2
+layout_mode = 0
+anchors_preset = 0
 offset_left = 704.0
 offset_top = 336.0
 offset_right = 704.0
 offset_bottom = 336.0
+perk_resource = ExtResource("6_wyd1k")
 
 [node name="PerkButton5" parent="PerkButtons" instance=ExtResource("1_4sv20")]
-layout_mode = 2
+layout_mode = 0
+anchors_preset = 0
 offset_left = 704.0
 offset_right = 704.0
-
-[connection signal="perks_point_changed" from="PerkButtons/PerkButton" to="." method="_on_perk_button_perks_point_changed"]
-[connection signal="perks_point_changed" from="PerkButtons/PerkButton2" to="." method="_on_perk_button_perks_point_changed"]
-[connection signal="perks_point_changed" from="PerkButtons/PerkButton3" to="." method="_on_perk_button_perks_point_changed"]
-[connection signal="perks_point_changed" from="PerkButtons/PerkButton4" to="." method="_on_perk_button_perks_point_changed"]
-[connection signal="perks_point_changed" from="PerkButtons/PerkButton5" to="." method="_on_perk_button_perks_point_changed"]
+icon = ExtResource("8_wyd1k")
+perk_resource = ExtResource("7_4svwd")

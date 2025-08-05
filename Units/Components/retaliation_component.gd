@@ -3,11 +3,11 @@ class_name RetaliationComponent
 
 @export var health_component: HealthComponent
 @export var attack_component: AttackComponent
-@export var retaliate = 0.0
+@export var retaliate := 0.0
 
-func _on_unit_attacked(damage: float):
+func _on_unit_attacked(damage: float) -> void:
 	if retaliate < 0:
 		attack_component.perform_attack(damage * retaliate)
 
-func reset():
+func reset() -> void:
 	retaliate = 0.0

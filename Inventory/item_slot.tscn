@@ -6,7 +6,6 @@
 [node name="ItemSlot" type="Control"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 3
-anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_isl4b")
@@ -14,6 +13,7 @@ script = ExtResource("2_isl4b")
 [node name="Border" type="TextureRect" parent="."]
 texture_filter = 1
 layout_mode = 1
+anchors_preset = -1
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_qgpoq")

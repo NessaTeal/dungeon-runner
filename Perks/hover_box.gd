@@ -1,21 +1,20 @@
 extends Control
 
-@onready var tips = $HoverBox/MarginContainer/VBoxContainer2/VBoxContainer
-@onready var header = $HoverBox/MarginContainer/VBoxContainer2/Header
+@export var tips: VBoxContainer
 
-var tooltip_line = preload("res://Perks/perks_tooltip_line.tscn")
+const tooltip_line := preload("res://Perks/perks_tooltip_line.tscn")
 
-func _ready():
+func _ready() -> void:
 	visible = false
 
-func _process(_delta):
+func _process(_delta: float) -> void:
 	set_position(get_viewport().get_mouse_position() + Vector2(16, 16))
 
-func reset():
+func reset() -> void:
 	for child in tips.get_children():
 		child.queue_free()
 
-func add_line(text: String):
-	var new_tooltip = tooltip_line.instantiate()
-	new_tooltip.get_node("HBoxContainer/Label").text = text
+func add_line(text: String) -> void:
+	var new_tooltip := tooltip_line.instantiate() as PerksTooltipLine
+	new_tooltip.set_text(text)
 	tips.add_child(new_tooltip)

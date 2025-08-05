@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Perk" load_steps=5 format=3 uid="uid://uibw2dcpd7c1"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_tok4f"]
+[ext_resource type="Script" uid="uid://cat0rgxhemnde" path="res://Affixes/PlayerAffixes/Agility/move_speed.gd" id="2_3kyru"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="3_lj8df"]
+
+[sub_resource type="Resource" id="Resource_lj8df"]
+script = ExtResource("2_3kyru")
+metadata/_custom_type_script = "uid://cat0rgxhemnde"
+
+[resource]
+script = ExtResource("3_lj8df")
+perk_name = "MoveSpeed"
+affixes = Array[ExtResource("1_tok4f")]([SubResource("Resource_lj8df")])
+unlocks = Array[String](["Acceleration", "Tenacity"])
+metadata/_custom_type_script = "uid://i4dygb6wswk7"

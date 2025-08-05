@@ -23,8 +23,8 @@ func _process(delta: float) -> void:
 		moved_a_lot.emit()
 		movement_buffer = 0
 		
-func move_forward(distance: float):
+func move_forward(distance: float) -> void:
 	total_distance += distance
 	#player.position += Vector3(0, 0, 1)
-	var direction = direction_component.get_dir()
+	var direction := direction_component.get_dir()
 	player.position += Vector3(direction.x, 0, direction.y) * distance

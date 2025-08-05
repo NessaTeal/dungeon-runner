@@ -1,25 +1,19 @@
 [gd_scene load_steps=3 format=3 uid="uid://8ht8vpsb0vl8"]
 
 [ext_resource type="Script" uid="uid://s8j50tfokgis" path="res://Scenes/perks_scene.gd" id="1_xtv0c"]
-[ext_resource type="PackedScene" uid="uid://demnmt3wbgfxq" path="res://Perks/Agility/agility_tree.tscn" id="2_7pfsv"]
+[ext_resource type="PackedScene" uid="uid://g8g2afkn8gqj" path="res://Perks/perk_tree.tscn" id="2_gruq8"]
 
-[node name="ColorRect" type="ColorRect"]
+[node name="PerksScene" type="ColorRect"]
 process_mode = 3
+anchors_preset = -1
 offset_right = 1148.0
 offset_bottom = 647.0
 color = Color(0.458824, 0.447059, 0.286275, 1)
 script = ExtResource("1_xtv0c")
 
-[node name="PerkTree" parent="." instance=ExtResource("2_7pfsv")]
+[node name="PerksTree" parent="." instance=ExtResource("2_gruq8")]
 layout_mode = 0
-
-[node name="TreeSelector" type="TabBar" parent="."]
-layout_mode = 0
-offset_right = 1148.0
-offset_bottom = 48.0
-tab_count = 2
-tab_0/title = "Agility"
-tab_1/title = "Vitality"
+anchors_preset = 0
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
@@ -37,6 +31,5 @@ offset_right = 304.0
 offset_bottom = 104.0
 text = "Perk points text"
 
-[connection signal="perk_changed" from="PerkTree" to="." method="_on_perk_tree_perk_changed"]
-[connection signal="tab_changed" from="TreeSelector" to="." method="_on_tree_selector_tab_changed"]
+[connection signal="perks_changed" from="PerksTree" to="." method="_on_perk_tree_perk_changed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

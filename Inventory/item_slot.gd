@@ -1,12 +1,12 @@
 extends Control
+class_name ItemSlot
 
-var item
+var item: Item
+var mouse_inside := false
 
-var mouse_inside: bool = false
+@export var equip_slot := false
 
-@export var equip_slot: bool = false
-
-func _process(_delta):
+func _process(_delta: float) -> void:
 	if mouse_inside:
 		if !HoverBox.visible && item:
 			HoverBox.reset()
@@ -16,38 +16,40 @@ func _process(_delta):
 		elif HoverBox.visible && !item:
 			HoverBox.visible = false
 	
-func _on_mouse_entered():
+func _on_mouse_entered() -> void:
 	mouse_inside = true
 
-func _on_mouse_exited():
+func _on_mouse_exited() -> void:
 	mouse_inside = false
 	HoverBox.visible = false
 
-func set_item(new_item):
+func set_item(new_item: Item) -> void:
 	item = new_item
 	add_child(new_item)
 	if equip_slot:
 		Inventory.equip_changed.emit(new_item.stone.affixes)
 
-func pick_up_item():
-	var tmp = item
+func pick_up_item() -> Item:
+	var tmp := item
 	remove_child(item)
 	item = null
 	if equip_slot:
 		Inventory.equip_changed.emit(tmp.stone.affixes)
 	return tmp
 	
-func _on_gui_input(event):
-	if event is InputEventMouseButton && event.pressed:
-		if item:
-			if Inventory.held_item.item:
-				var held_item = Inventory.held_item.stop_holding()
-				var slot_item = pick_up_item()
-				Inventory.held_item.start_holding(slot_item)
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		var mouse_button_event := event as InputEventMouseButton
+		if mouse_button_event.pressed:
+			if item:
+				if Inventory.held_item.item:
+					var held_item: Item = Inventory.stop_holding_item()
+					var slot_item := pick_up_item()
+					Inventory.start_holding_item(slot_item)
+					set_item(held_item)
+				else:
+					var slot_item := pick_up_item()
+					Inventory.start_holding_item(slot_item)
+			elif Inventory.held_item.item:
+				var held_item: Item = Inventory.stop_holding_item()
 				set_item(held_item)
-			else:
-				var slot_item = pick_up_item()
-				Inventory.held_item.start_holding(slot_item)
-		elif Inventory.held_item.item:
-			var held_item = Inventory.held_item.stop_holding()
-			set_item(held_item)

@@ -1,4 +1,4 @@
 extends Node
 
-func _ready():
-	(func(): get_parent().move_child(self, 0)).call_deferred()
+func _ready() -> void:
+	get_parent().move_child.call_deferred(self, 0)

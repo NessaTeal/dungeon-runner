@@ -2,19 +2,28 @@ extends Node
 
 @export var player: Player
 
-func _ready():
-	Inventory.equip_changed.connect(affixes_changed)
+func _ready() -> void:
+	Utils.handled_connect(Inventory.equip_changed, apply_affixes)
 	for affix: BaseAffix in get_all_affixes():
-		if affix.place_to_apply == BaseAffix.AFFIX_PLAYER:
-			var component = player.components[affix.component];
-			affix.apply(component)
+		if affix is PlayerAffix:
+			var player_affix := affix as PlayerAffix
+			player_affix.player = player
+			player_affix.apply()
 
-func get_all_affixes():
-	return Utils.flatmap(Inventory.equipment.get_children().filter(func(slot): return slot.item), func(slot): return slot.item.stone.affixes)
-
-func affixes_changed(affixes: Array[BaseAffix]):
-	for affix in affixes:
-		if affix.place_to_apply == BaseAffix.AFFIX_PLAYER:
-			var component = player.components[affix.component];
-			component.reset()
-			get_all_affixes().filter(func(affix_internal): return affix_internal.component == affix.component).map(func(affix_internal): affix_internal.apply(component))
+func get_all_affixes() -> Array[BaseAffix]:
+	var all_affixes: Array[BaseAffix] = []
+	for item in Inventory.get_equipment():
+		all_affixes.append_array(item.stone.affixes)
+	
+	for perk in Perks.active_perks.values() as Array[Perk]:
+		all_affixes.append_array(perk.affixes)
+	
+	return all_affixes
+	
+func apply_affixes() -> void:
+	for affix: BaseAffix in get_all_affixes():
+		if affix is PlayerAffix:
+			player.reset()
+			var player_affix := affix as PlayerAffix
+			player_affix.player = player
+			player_affix.apply()

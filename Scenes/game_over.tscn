@@ -1,9 +1,60 @@
-[gd_scene format=3 uid="uid://b3wk883a14afj"]
+[gd_scene load_steps=2 format=3 uid="uid://bvxe8j8rro0br"]
 
-[node name="GameOver" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[ext_resource type="Script" uid="uid://dy7fn8hq44vai" path="res://Scenes/game_over.gd" id="1_ojehl"]
+
+[node name="GameOver" type="VBoxContainer" node_paths=PackedStringArray("level_up", "player_level", "xp_count", "xp_run", "xp_kills", "xp_bar")]
+process_mode = 3
+anchors_preset = -1
+offset_left = 408.0
+offset_top = 384.0
+offset_right = 704.0
+offset_bottom = 601.0
+script = ExtResource("1_ojehl")
+level_up = NodePath("HBoxContainer/LevelUp")
+player_level = NodePath("HBoxContainer/PlayerLevel")
+xp_count = NodePath("XPCount")
+xp_run = NodePath("XPRun")
+xp_kills = NodePath("XPKills")
+xp_bar = NodePath("XPProgress")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PlayerLevel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Player level placeholder"
+
+[node name="LevelUp" type="Label" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "LEVEL_UP"
+
+[node name="XPKills" type="Label" parent="."]
+layout_mode = 2
+text = "XP from kills placeholder"
+
+[node name="XPRun" type="Label" parent="."]
+layout_mode = 2
+text = "XP from run placeholder"
+
+[node name="XPCount" type="Label" parent="."]
+layout_mode = 2
+text = "XPCount / needed xp"
+horizontal_alignment = 1
+
+[node name="XPProgress" type="ProgressBar" parent="."]
+layout_mode = 2
+show_percentage = false
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+text = "Open tree"
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 2
+text = "Main menu"
+
+[node name="Button3" type="Button" parent="."]
+layout_mode = 2
+text = "Restart
+"

@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bp05skn8mfoov"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_r68pg"]
-radius = 3.649
-height = 34.07
-
-[node name="MeshTest" type="MeshInstance2D"]
-mesh = SubResource("CapsuleMesh_r68pg")

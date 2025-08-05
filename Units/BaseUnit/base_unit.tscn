@@ -16,8 +16,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Unit" type="Node3D"]
+[node name="Unit" type="Node3D" node_paths=PackedStringArray("health_component", "attack_component", "_2d_components")]
 script = ExtResource("1_eslch")
+health_component = NodePath("HealthComponent")
+attack_component = NodePath("AttackComponent")
+_2d_components = NodePath("2DComponents")
 
 [node name="AttackComponent" parent="." instance=ExtResource("4_x2grr")]
 
@@ -38,3 +41,5 @@ billboard = 1
 sprite_frames = SubResource("SpriteFrames_v8vin")
 
 [node name="2DComponents" type="Node2D" parent="."]
+
+[connection signal="hp_depleted" from="HealthComponent" to="." method="_on_health_component_hp_depleted"]

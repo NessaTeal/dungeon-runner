@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Perk" load_steps=5 format=3 uid="uid://byh4hewk6c4lg"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_bblmm"]
+[ext_resource type="Script" uid="uid://c0vo6wi5c2i11" path="res://Affixes/PlayerAffixes/Agility/acceleration.gd" id="2_p3d7e"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="2_wejrr"]
+
+[sub_resource type="Resource" id="Resource_wejrr"]
+script = ExtResource("2_p3d7e")
+metadata/_custom_type_script = "uid://c0vo6wi5c2i11"
+
+[resource]
+script = ExtResource("2_wejrr")
+perk_name = "Acceleration"
+affixes = Array[ExtResource("1_bblmm")]([SubResource("Resource_wejrr")])
+unlocks = Array[String](["Trample"])
+locks = Array[String](["Tenacity"])
+metadata/_custom_type_script = "uid://i4dygb6wswk7"

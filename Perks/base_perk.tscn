@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cvgcx7llbch4p"]
-
-[ext_resource type="Script" uid="uid://osdv1xegcb0" path="res://Perks/base_perk.gd" id="1_gpdht"]
-
-[node name="BasePerk" type="Node"]
-script = ExtResource("1_gpdht")

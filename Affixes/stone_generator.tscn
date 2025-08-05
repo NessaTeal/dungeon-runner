@@ -1,0 +1,92 @@
+[gd_scene load_steps=28 format=3 uid="uid://4nbegx20agaj"]
+
+[ext_resource type="Script" uid="uid://bhunx51mhxqqa" path="res://Affixes/stone_generator.gd" id="1_aefq6"]
+[ext_resource type="Script" uid="uid://b3occksp5al76" path="res://Affixes/stone_rarity.gd" id="2_xgms0"]
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="3_wco3e"]
+[ext_resource type="Script" uid="uid://cibcd5m1n4iwh" path="res://Affixes/PlayerAffixes/Vitality/immolation.gd" id="4_ema85"]
+[ext_resource type="Script" uid="uid://c0vo6wi5c2i11" path="res://Affixes/PlayerAffixes/Agility/acceleration.gd" id="5_e05jk"]
+[ext_resource type="Script" uid="uid://rm0w2fowmh6u" path="res://Affixes/PlayerAffixes/Power/attack_power.gd" id="6_2jb84"]
+[ext_resource type="Script" uid="uid://omufgen72h3p" path="res://Affixes/PlayerAffixes/Power/attack_speed.gd" id="7_hw65o"]
+[ext_resource type="Script" uid="uid://c2ac4p7lu7hlo" path="res://Affixes/PlayerAffixes/Vitality/hp_regen.gd" id="8_eki2j"]
+[ext_resource type="Script" uid="uid://cat0rgxhemnde" path="res://Affixes/PlayerAffixes/Agility/move_speed.gd" id="9_lsqey"]
+[ext_resource type="Script" uid="uid://davwd1ohcie7l" path="res://Affixes/PlayerAffixes/Agility/slingshot.gd" id="10_qkc57"]
+[ext_resource type="Script" uid="uid://yvewd6j387qf" path="res://Affixes/PlayerAffixes/Agility/tenacity.gd" id="11_amloe"]
+[ext_resource type="Script" uid="uid://cl6syx0epfcyv" path="res://Affixes/PlayerAffixes/Vitality/toughness.gd" id="12_dghgx"]
+[ext_resource type="Script" uid="uid://cfggqjci5mq84" path="res://Affixes/PlayerAffixes/Agility/trample.gd" id="13_k3ot8"]
+
+[sub_resource type="Resource" id="Resource_lmkqc"]
+script = ExtResource("2_xgms0")
+chance = 60.0
+affix_count = 1
+minimum_power = 50.0
+maximum_power = 85.0
+metadata/_custom_type_script = "uid://b3occksp5al76"
+
+[sub_resource type="Resource" id="Resource_wco3e"]
+script = ExtResource("2_xgms0")
+chance = 30.0
+affix_count = 2
+minimum_power = 60.0
+maximum_power = 90.0
+metadata/_custom_type_script = "uid://b3occksp5al76"
+
+[sub_resource type="Resource" id="Resource_ema85"]
+script = ExtResource("2_xgms0")
+chance = 7.0
+affix_count = 3
+minimum_power = 70.0
+maximum_power = 95.0
+metadata/_custom_type_script = "uid://b3occksp5al76"
+
+[sub_resource type="Resource" id="Resource_v8sx6"]
+script = ExtResource("2_xgms0")
+chance = 3.0
+affix_count = 4
+minimum_power = 75.0
+maximum_power = 100.0
+metadata/_custom_type_script = "uid://b3occksp5al76"
+
+[sub_resource type="Resource" id="Resource_yp473"]
+script = ExtResource("4_ema85")
+metadata/_custom_type_script = "uid://cibcd5m1n4iwh"
+
+[sub_resource type="Resource" id="Resource_7ik6n"]
+script = ExtResource("5_e05jk")
+metadata/_custom_type_script = "uid://c0vo6wi5c2i11"
+
+[sub_resource type="Resource" id="Resource_aewxf"]
+script = ExtResource("6_2jb84")
+metadata/_custom_type_script = "uid://rm0w2fowmh6u"
+
+[sub_resource type="Resource" id="Resource_disuy"]
+script = ExtResource("7_hw65o")
+metadata/_custom_type_script = "uid://omufgen72h3p"
+
+[sub_resource type="Resource" id="Resource_t5eug"]
+script = ExtResource("8_eki2j")
+metadata/_custom_type_script = "uid://c2ac4p7lu7hlo"
+
+[sub_resource type="Resource" id="Resource_se2uh"]
+script = ExtResource("9_lsqey")
+metadata/_custom_type_script = "uid://cat0rgxhemnde"
+
+[sub_resource type="Resource" id="Resource_37hje"]
+script = ExtResource("10_qkc57")
+metadata/_custom_type_script = "uid://davwd1ohcie7l"
+
+[sub_resource type="Resource" id="Resource_0pedb"]
+script = ExtResource("11_amloe")
+metadata/_custom_type_script = "uid://yvewd6j387qf"
+
+[sub_resource type="Resource" id="Resource_osmas"]
+script = ExtResource("12_dghgx")
+metadata/_custom_type_script = "uid://cl6syx0epfcyv"
+
+[sub_resource type="Resource" id="Resource_a3oi3"]
+script = ExtResource("13_k3ot8")
+metadata/_custom_type_script = "uid://cfggqjci5mq84"
+
+[node name="StoneGenerator" type="Node"]
+script = ExtResource("1_aefq6")
+stone_rarities = Array[ExtResource("2_xgms0")]([SubResource("Resource_lmkqc"), SubResource("Resource_wco3e"), SubResource("Resource_ema85"), SubResource("Resource_v8sx6")])
+all_affixes = Array[ExtResource("3_wco3e")]([SubResource("Resource_yp473"), SubResource("Resource_7ik6n"), SubResource("Resource_aewxf"), SubResource("Resource_disuy"), SubResource("Resource_t5eug"), SubResource("Resource_se2uh"), SubResource("Resource_37hje"), SubResource("Resource_0pedb"), SubResource("Resource_osmas"), SubResource("Resource_a3oi3")])

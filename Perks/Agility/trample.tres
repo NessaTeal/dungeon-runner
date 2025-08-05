@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Perk" load_steps=5 format=3 uid="uid://4bdapansr2it"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_n86if"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="2_7e644"]
+[ext_resource type="Script" uid="uid://cfggqjci5mq84" path="res://Affixes/PlayerAffixes/Agility/trample.gd" id="2_vv4h7"]
+
+[sub_resource type="Resource" id="Resource_octh1"]
+script = ExtResource("2_vv4h7")
+metadata/_custom_type_script = "uid://cfggqjci5mq84"
+
+[resource]
+script = ExtResource("2_7e644")
+perk_name = "Trample"
+affixes = Array[ExtResource("1_n86if")]([SubResource("Resource_octh1")])
+metadata/_custom_type_script = "uid://i4dygb6wswk7"

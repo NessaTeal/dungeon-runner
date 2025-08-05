@@ -4,13 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://bc4x1so7x7njw" path="res://Textures/ui_icon_empty_orange.png" id="2_b64bh"]
 [ext_resource type="PackedScene" uid="uid://4pxjsoxdwpko" path="res://Perks/perks_tooltip_line.tscn" id="3_omyib"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" node_paths=PackedStringArray("tips")]
 process_mode = 3
 layout_mode = 3
-anchors_preset = 0
 offset_right = 129.0
 offset_bottom = 73.0
 script = ExtResource("1_blqyw")
+tips = NodePath("HoverBox/MarginContainer/VBoxContainer2/VBoxContainer")
 
 [node name="HoverBox" type="PanelContainer" parent="."]
 layout_mode = 0

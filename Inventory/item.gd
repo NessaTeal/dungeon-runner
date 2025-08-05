@@ -1,3 +1,4 @@
 extends TextureRect
+class_name Item
 
-var stone
+var stone: Stone

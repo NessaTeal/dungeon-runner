@@ -1,8 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c1hc4v6l8uml4"]
-
-[ext_resource type="Shader" uid="uid://cbp7axkne4kd5" path="res://Scenes/map.gdshader" id="1_qok6b"]
-
-[resource]
-shader = ExtResource("1_qok6b")
-shader_parameter/angle = 0.297
-shader_parameter/camera_origin = Vector3(8, 4.5, 6.36349)

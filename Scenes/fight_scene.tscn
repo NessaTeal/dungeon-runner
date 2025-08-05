@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://busuulbp1ogsk"]
+[gd_scene load_steps=39 format=3 uid="uid://busuulbp1ogsk"]
 
 [ext_resource type="Script" uid="uid://lnivdlx0ady1" path="res://Scenes/fight_scene.gd" id="1_x8404"]
 [ext_resource type="PackedScene" uid="uid://rur6sjmg2o3g" path="res://Units/Enemy/enemy.tscn" id="2_0ukyi"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://lugeysu4ryx3" path="res://Units/Player/player.tscn" id="3_supv1"]
 [ext_resource type="PackedScene" uid="uid://ctiw0m8k5sub3" path="res://Scenes/Map/map.tscn" id="6_48sw3"]
 [ext_resource type="Script" uid="uid://k77suwqe7wdi" path="res://Scenes/affix_applier.gd" id="8_6leyg"]
-[ext_resource type="Script" uid="uid://jsxegobugwiv" path="res://Scenes/mesh_instance_3d.gd" id="8_lmtoh"]
 [ext_resource type="PackedScene" uid="uid://v5cl4nhy5imd" path="res://Scenes/enemy_spawner_component.tscn" id="8_mo3wy"]
 [ext_resource type="Script" uid="uid://2m2kiqoplbbk" path="res://Scenes/loading.gd" id="9_lmtoh"]
 [ext_resource type="Texture2D" uid="uid://pxwor5j40s8w" path="res://Textures/deero/0000.png" id="10_gcmlh"]
@@ -139,158 +138,23 @@ animations = [{
 "speed": 30.0
 }]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_j70gj"]
-resource_local_to_scene = true
-size = Vector2(500, 500)
-subdivide_width = 32
-subdivide_depth = 32
-
-[sub_resource type="Shader" id="Shader_lmtoh"]
-code = "// NOTE: Shader automatically converted from Godot Engine 4.5.dev's StandardMaterial3D.
-
-shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx, depth_test_disabled;
-
-uniform vec4 albedo : source_color;
-uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
-uniform ivec2 albedo_texture_size;
-uniform float point_size : hint_range(0.1, 128.0, 0.1);
-
-uniform float roughness : hint_range(0.0, 1.0);
-uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
-uniform vec4 metallic_texture_channel;
-uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
-
-uniform float specular : hint_range(0.0, 1.0, 0.01);
-uniform float metallic : hint_range(0.0, 1.0, 0.01);
-
-uniform vec3 uv1_scale;
-uniform vec3 uv1_offset;
-uniform vec3 uv2_scale;
-uniform vec3 uv2_offset;
-
-vec4 mod289(vec4 x)
-{
-  return x - floor(x * (1.0 / 289.0)) * 289.0;
-}
-
-vec4 permute(vec4 x)
-{
-  return mod289(((x*34.0)+10.0)*x);
-}
-
-vec4 taylorInvSqrt(vec4 r)
-{
-  return 1.79284291400159 - 0.85373472095314 * r;
-}
-
-vec2 fade(vec2 t) {
-  return t*t*t*(t*(t*6.0-15.0)+10.0);
-}
-
-// Classic Perlin noise
-float cnoise(vec2 P)
-{
-  vec4 Pi = floor(P.xyxy) + vec4(0.0, 0.0, 1.0, 1.0);
-  vec4 Pf = fract(P.xyxy) - vec4(0.0, 0.0, 1.0, 1.0);
-  Pi = mod289(Pi); // To avoid truncation effects in permutation
-  vec4 ix = Pi.xzxz;
-  vec4 iy = Pi.yyww;
-  vec4 fx = Pf.xzxz;
-  vec4 fy = Pf.yyww;
-
-  vec4 i = permute(permute(ix) + iy);
-
-  vec4 gx = fract(i * (1.0 / 41.0)) * 2.0 - 1.0 ;
-  vec4 gy = abs(gx) - 0.5 ;
-  vec4 tx = floor(gx + 0.5);
-  gx = gx - tx;
-
-  vec2 g00 = vec2(gx.x,gy.x);
-  vec2 g10 = vec2(gx.y,gy.y);
-  vec2 g01 = vec2(gx.z,gy.z);
-  vec2 g11 = vec2(gx.w,gy.w);
-
-  vec4 norm = taylorInvSqrt(vec4(dot(g00, g00), dot(g01, g01), dot(g10, g10), dot(g11, g11)));
-
-  float n00 = norm.x * dot(g00, vec2(fx.x, fy.x));
-  float n01 = norm.y * dot(g01, vec2(fx.z, fy.z));
-  float n10 = norm.z * dot(g10, vec2(fx.y, fy.y));
-  float n11 = norm.w * dot(g11, vec2(fx.w, fy.w));
-
-  vec2 fade_xy = fade(Pf.xy);
-  vec2 n_x = mix(vec2(n00, n01), vec2(n10, n11), fade_xy.x);
-  float n_xy = mix(n_x.x, n_x.y, fade_xy.y);
-  return 2.3 * n_xy;
-}
-
-//varying vec3 world_position;
-
-void vertex() {
-	UV = UV * uv1_scale.xy + uv1_offset.xy;
-	vec2 noise_position = (MODEL_MATRIX * vec4(VERTEX.xz, 0, 1.0)).xy;
-	noise_position.y = -noise_position.y;
-	float noise_value = cnoise(noise_position);
-	//VERTEX.y = noise_value * 10.0;
-}
-
-void fragment() {
-	vec2 base_uv = UV;
-
-	vec4 albedo_tex = texture(texture_albedo, base_uv);
-	ALBEDO = albedo.rgb * albedo_tex.rgb;
-
-	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
-	METALLIC = metallic_tex * metallic;
-	SPECULAR = specular;
-
-	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
-	float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
-	ROUGHNESS = roughness_tex * roughness;
-}
-"
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_mo3wy"]
-viewport_path = NodePath("GameHolder/SubViewport")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_l1ww7"]
-resource_local_to_scene = true
-render_priority = 0
-shader = SubResource("Shader_lmtoh")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/texture_albedo = SubResource("ViewportTexture_mo3wy")
-shader_parameter/albedo_texture_size = Vector2i(0, 0)
-shader_parameter/point_size = 1.0
-shader_parameter/roughness = 1.0
-shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
-shader_parameter/specular = 0.5
-shader_parameter/metallic = 0.0
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/uv2_scale = Vector3(1, 1, 1)
-shader_parameter/uv2_offset = Vector3(0, 0, 0)
-
-[node name="FightScene" type="Node" node_paths=PackedStringArray("player", "distance_label", "speed_label", "chance_label", "game_state", "game_over", "map", "subviewport")]
+[node name="FightScene" type="Node" node_paths=PackedStringArray("player", "distance_label", "speed_label", "chance_label", "game_state", "map", "subviewport", "main_camera", "top_view_camera")]
 script = ExtResource("1_x8404")
 player = NodePath("GameHolder/Map/Player")
 distance_label = NodePath("UI/Distance")
 speed_label = NodePath("UI/Speed")
 chance_label = NodePath("UI/Chance")
 game_state = NodePath("GameState")
-game_over = NodePath("UI/GameOver")
 map = NodePath("GameHolder/Map")
 subviewport = NodePath("GameHolder/SubViewport")
-enemy_scene = ExtResource("2_0ukyi")
+main_camera = NodePath("GameHolder/Map/Player/MainCamera")
+top_view_camera = NodePath("GameHolder/Map/Player/TopCamera")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_lmtoh")
 
 [node name="GameState" type="Node" parent="."]
 script = ExtResource("3_10aaw")
-
-[node name="AffixApplier" type="Node" parent="." node_paths=PackedStringArray("player")]
-script = ExtResource("8_6leyg")
-player = NodePath("../GameHolder/Map/Player")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -376,60 +240,11 @@ offset_right = 640.0
 offset_bottom = 50.0
 text = "m/s"
 
-[node name="GameOver" type="VBoxContainer" parent="UI"]
-process_mode = 3
-visible = false
-anchors_preset = -1
-offset_left = 408.0
-offset_top = 384.0
-offset_right = 704.0
-offset_bottom = 601.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameOver"]
-layout_mode = 2
-
-[node name="PlayerLevel" type="Label" parent="UI/GameOver/HBoxContainer"]
-layout_mode = 2
-text = "Player level placeholder"
-
-[node name="LevelUp" type="Label" parent="UI/GameOver/HBoxContainer"]
-visible = false
-layout_mode = 2
-text = "LEVEL_UP"
-
-[node name="XPKills" type="Label" parent="UI/GameOver"]
-layout_mode = 2
-text = "XP from kills placeholder"
-
-[node name="XPRun" type="Label" parent="UI/GameOver"]
-layout_mode = 2
-text = "XP from run placeholder"
-
-[node name="XPCount" type="Label" parent="UI/GameOver"]
-layout_mode = 2
-text = "XPCount / needed xp"
-horizontal_alignment = 1
-
-[node name="XPProgress" type="ProgressBar" parent="UI/GameOver"]
-layout_mode = 2
-show_percentage = false
-
-[node name="Button" type="Button" parent="UI/GameOver"]
-layout_mode = 2
-text = "Open tree"
-
-[node name="Button2" type="Button" parent="UI/GameOver"]
-layout_mode = 2
-text = "Main menu"
-
-[node name="Button3" type="Button" parent="UI/GameOver"]
-layout_mode = 2
-text = "Restart
-"
-
-[node name="Loading" type="CanvasLayer" parent="." node_paths=PackedStringArray("game_holder")]
+[node name="Loading" type="CanvasLayer" parent="." node_paths=PackedStringArray("game_holder", "progress_bar", "deero_sprite")]
 script = ExtResource("9_lmtoh")
 game_holder = NodePath("../GameHolder")
+progress_bar = NodePath("ProgressBar")
+deero_sprite = NodePath("AnimatedSprite2D")
 
 [node name="ColorRect" type="ColorRect" parent="Loading"]
 anchors_preset = -1
@@ -471,40 +286,29 @@ process_mode = 4
 [node name="EnemySpawnerComponent" parent="GameHolder" node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("8_mo3wy")]
 enemy_scene = ExtResource("2_0ukyi")
 player = NodePath("../Map/Player")
-spawn_node = NodePath("../..")
+spawn_node = NodePath("../Map")
 spawn_distance = 500.0
 spawn_rate = 1.0
 
 [node name="Map" parent="GameHolder" instance=ExtResource("6_48sw3")]
 
 [node name="Player" parent="GameHolder/Map" instance=ExtResource("3_supv1")]
+unit_name = "Unit Name"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="GameHolder/Map/Player"]
 transform = Transform3D(0.874366, -2.12117e-08, 0.485267, -0.485267, -3.82197e-08, 0.874366, -2.31653e-18, -1, -4.37113e-08, 303.674, 557.009, 0)
 rotation_order = 5
 light_energy = 0.433
 
-[node name="Camera3D" type="Camera3D" parent="GameHolder/Map/Player"]
+[node name="MainCamera" type="Camera3D" parent="GameHolder/Map/Player"]
 transform = Transform3D(1, 0, 0, 0, 0.898794, 0.438371, 0, -0.438371, 0.898794, 0, 9, 5)
 rotation_order = 5
+current = true
 fov = 70.0
 
-[node name="MeshHolder" type="Node3D" parent="GameHolder/Map/Player"]
-transform = Transform3D(1, 0, 0, 0, 0.999391, 0.0348995, 0, -0.0348995, 0.999391, 0, 0, 0)
-visible = false
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="GameHolder/Map/Player/MeshHolder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 250)
-cast_shadow = 0
-mesh = SubResource("PlaneMesh_j70gj")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_l1ww7")
-script = ExtResource("8_lmtoh")
-
-[node name="Camera3D2" type="Camera3D" parent="GameHolder/Map/Player"]
+[node name="TopCamera" type="Camera3D" parent="GameHolder/Map/Player"]
 transform = Transform3D(1, 0, 0, 0, -4.3711413e-08, 1.0000006, 0, -1.0000006, -4.3711413e-08, 0, 400, -350)
 projection = 1
-current = true
 size = 1250.0
 
 [node name="SubViewport" type="SubViewport" parent="GameHolder"]
@@ -524,13 +328,15 @@ position_smoothing_speed = 7.0
 rotation_smoothing_speed = 7.0
 editor_draw_drag_margin = true
 
+[node name="AffixApplier" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("8_6leyg")
+player = NodePath("../GameHolder/Map/Player")
+
 [connection signal="pressed" from="UI/ShowInventoryButton" to="." method="_on_show_inventory_button_pressed"]
-[connection signal="pressed" from="UI/GameOver/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="UI/GameOver/Button2" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="UI/GameOver/Button3" to="." method="_on_button_3_pressed"]
 [connection signal="texture_ready" from="LetterGenerator" to="GameHolder/Map" method="create_map_tile"]
 [connection signal="tile_cancelled" from="GameHolder/Map" to="LetterGenerator" method="remove_task"]
 [connection signal="tile_created" from="GameHolder/Map" to="Loading" method="tile_created"]
 [connection signal="tile_requested" from="GameHolder/Map" to="Loading" method="tile_requested"]
 [connection signal="tile_requested" from="GameHolder/Map" to="LetterGenerator" method="add_task"]
 [connection signal="player_position_updated" from="GameHolder/Map/Player" to="GameHolder/Map" method="update_map"]
+[connection signal="unit_died" from="GameHolder/Map/Player" to="." method="_on_player_unit_died"]

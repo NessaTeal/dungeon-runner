@@ -7,7 +7,7 @@ var selected_option: String
 var x: int
 var y: int
 
-var confidence = -1
+var confidence := -1
 
 func _init(_x: int, _y: int) -> void:
 	x = _x

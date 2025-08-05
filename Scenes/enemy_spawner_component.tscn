@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bbwv15t5mg0y8" path="res://Scenes/enemy_spawner_component.gd" id="1_g1iva"]
 
-[node name="EnemySpawnerComponent" type="Node"]
+[node name="EnemySpawnerComponent" type="Node" node_paths=PackedStringArray("spawn_timer")]
 script = ExtResource("1_g1iva")
+spawn_timer = NodePath("SpawnTimer")
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 0.25
