@@ -212,16 +212,24 @@ func update_neighbours(generator_tile: GeneratorTile, force: bool = false) -> vo
 	
 	# doing in such order to make generation breadth first and not depth first
 	
+	var neighbours: Array[String] = []
+	
 	if top:
 		if !top.selected_option:
 			update_neighbours(top)
+		neighbours.push_back(top.selected_option)
 	if bottom:
 		if !bottom.selected_option:
 			update_neighbours(bottom)
+		neighbours.push_back(bottom.selected_option)
 	if left:
 		if !left.selected_option:
 			update_neighbours(left)
+		neighbours.push_back(left.selected_option)
 	if right:
 		if !right.selected_option:
 			update_neighbours(right)
+		neighbours.push_back(right.selected_option)
 	
+	if generator_tile.selected_option not in neighbours:
+		generator_tile.selected_option = neighbours.pick_random()
