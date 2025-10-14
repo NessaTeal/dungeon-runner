@@ -6,11 +6,13 @@
 
 [sub_resource type="Resource" id="Resource_hbon1"]
 script = ExtResource("2_e2w15")
+power = 100.0
 metadata/_custom_type_script = "uid://yvewd6j387qf"
 
 [resource]
 script = ExtResource("2_s7u4q")
 perk_name = "Tenacity"
+enabled = false
 affixes = Array[ExtResource("1_phb1o")]([SubResource("Resource_hbon1")])
 unlocks = Array[String](["Trample"])
 locks = Array[String](["Acceleration"])

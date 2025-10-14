@@ -6,10 +6,14 @@
 
 [sub_resource type="Resource" id="Resource_cve08"]
 script = ExtResource("2_7gly8")
+power = 100.0
 metadata/_custom_type_script = "uid://davwd1ohcie7l"
 
 [resource]
 script = ExtResource("2_3aeeu")
 perk_name = "Slingshot"
+enabled = false
 affixes = Array[ExtResource("1_2bq00")]([SubResource("Resource_cve08")])
+unlocks = Array[String]([])
+locks = Array[String]([])
 metadata/_custom_type_script = "uid://i4dygb6wswk7"
