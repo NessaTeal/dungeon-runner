@@ -1,17 +1,18 @@
-extends Area3D
-class_name ImmolationCollision
+extends GPUParticles3D
+class_name ImmolationEmitter
 
+var immolation_damage: float = -1.0
 var minimum_size := 0.25
 var maximum_size := 2.0
 var difference := maximum_size - minimum_size
 var duration := 1
-var immolation_damage: float = 0
 var already_processed: Dictionary[RID, bool] = {}
 
 @export var shape: CylinderShape3D
 
 func _ready() -> void:
 	shape.radius = minimum_size
+	emitting = true
 
 func _process(delta: float) -> void:
 	var radius_delta := difference * delta
@@ -25,5 +26,5 @@ func _on_area_entered(enemy_collision: EnemyHurtboxComponent) -> void:
 	else:
 		already_processed[enemy_id] = true
 
-func _on_timer_timeout() -> void:
+func _on_finished() -> void:
 	queue_free()

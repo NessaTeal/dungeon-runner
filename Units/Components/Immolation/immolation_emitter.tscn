@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://5peqlemwyg6y"]
+
+[ext_resource type="Material" uid="uid://djoavigwekg0d" path="res://Units/Components/Immolation/immolation_process_material.material" id="1_3e8gs"]
+[ext_resource type="Script" uid="uid://no126lo68o43" path="res://Units/Components/Immolation/immolation_emitter.gd" id="1_unhsg"]
+[ext_resource type="Texture2D" uid="uid://croil5h7qyx2r" path="res://Textures/immolation.png" id="2_54v1i"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_54v1i"]
+transparency = 1
+albedo_texture = ExtResource("2_54v1i")
+emission_energy_multiplier = 5.06
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_8kh4c"]
+material = SubResource("ORMMaterial3D_54v1i")
+size = Vector2(0.1, 0.1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7emd5"]
+radius = 0.01
+
+[node name="ImmolationEmitter" type="GPUParticles3D"]
+emitting = false
+amount = 2000
+one_shot = true
+explosiveness = 0.7
+local_coords = true
+process_material = ExtResource("1_3e8gs")
+draw_pass_1 = SubResource("QuadMesh_8kh4c")
+script = ExtResource("1_unhsg")
+shape = SubResource("CylinderShape3D_7emd5")
+
+[node name="ImmolationCollision" type="Area3D" parent="."]
+collision_layer = 64
+collision_mask = 128
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ImmolationCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_7emd5")
+debug_color = Color(0.9019608, 0.24313726, 0.4862745, 0.77254903)
+
+[connection signal="finished" from="." to="." method="_on_finished"]
+[connection signal="area_entered" from="ImmolationCollision" to="." method="_on_area_entered"]

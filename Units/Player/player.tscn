@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dp1aer0epf235" path="res://Units/Components/health_component.tscn" id="12_kywcc"]
 [ext_resource type="PackedScene" uid="uid://c5pj7prhubfjp" path="res://Units/Components/Movement/dash_component.tscn" id="13_6iibj"]
 [ext_resource type="PackedScene" uid="uid://j3ao1w64e7ie" path="res://Units/Components/attack_component.tscn" id="13_68uij"]
-[ext_resource type="PackedScene" uid="uid://5peqlemwyg6y" path="res://Units/Components/Immolation/immolation_component.tscn" id="13_v6jny"]
+[ext_resource type="PackedScene" uid="uid://dcvty7g8iniy8" path="res://Units/Components/Immolation/immolation_component.tscn" id="13_v6jny"]
 [ext_resource type="PackedScene" uid="uid://cy8kx26eiqrfw" path="res://Units/Components/Movement/direction_component.tscn" id="15_2t20v"]
 [ext_resource type="PackedScene" uid="uid://dyvw3nfsvi107" path="res://Units/Components/Slingshot/slingshot_component.tscn" id="16_cbjcl"]
 [ext_resource type="PackedScene" uid="uid://by12r5p8vqs7i" path="res://Units/Components/Movement/speed_component.tscn" id="17_vsxer"]
@@ -56,7 +56,6 @@ attack_component = NodePath("../AttackComponent")
 speed_component = NodePath("../SpeedComponent")
 
 [node name="SpeedComponent" parent="." instance=ExtResource("17_vsxer")]
-base_speed = 10.0
 
 [node name="MovementComponent" parent="." node_paths=PackedStringArray("direction_component", "speed_component", "player") instance=ExtResource("8_pxk32")]
 direction_component = NodePath("../DirectionComponent")

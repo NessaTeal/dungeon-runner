@@ -1,4 +1,4 @@
-extends GPUParticles2D
+extends Node3D
 class_name ImmolationComponent
 
 @export var immolation_damage := 10.0
@@ -8,21 +8,13 @@ class_name ImmolationComponent
 @export var transformation_component: TransformationComponent
 @export var timer: Timer
 
-var immolation_collision: PackedScene = preload("res://Units/Components/Immolation/immolation_collision.tscn")
-
-func _on_timeout() -> void:
-	#amount_ratio += 0.01
-	emitting = true;
-	transformation_component.transform("fire")
-	var new_collision := immolation_collision.instantiate() as ImmolationCollision
-	new_collision.immolation_damage = immolation_damage
-	get_parent().add_child(new_collision)
-	await get_tree().create_timer(0.05).timeout
-	emitting = false;
-	pass
-	#restart()
-	#for i in 500:
-		#emit_particle(Transform2D(), Vector2(), Color(), Color(), 0)
+var immolation_emitter: PackedScene = preload("res://Units/Components/Immolation/immolation_emitter.tscn")
 
 func reset() -> void:
 	immolation_damage = 10.0
+
+func _on_timer_timeout() -> void:
+	transformation_component.transform("fire")
+	var emitter := immolation_emitter.instantiate() as ImmolationEmitter
+	emitter.immolation_damage = immolation_damage
+	add_child(emitter)
