@@ -1,9 +1,9 @@
-[gd_scene load_steps=39 format=3 uid="uid://busuulbp1ogsk"]
+[gd_scene load_steps=40 format=3 uid="uid://busuulbp1ogsk"]
 
 [ext_resource type="Script" uid="uid://lnivdlx0ady1" path="res://Scenes/fight_scene.gd" id="1_x8404"]
-[ext_resource type="PackedScene" uid="uid://rur6sjmg2o3g" path="res://Units/Enemy/enemy.tscn" id="2_0ukyi"]
+[ext_resource type="PackedScene" uid="uid://cswctlti1unua" path="res://Units/Enemy/enemy.tscn" id="2_0ukyi"]
 [ext_resource type="Script" uid="uid://dcnh6jfowkhy4" path="res://Scenes/game_state.gd" id="3_10aaw"]
-[ext_resource type="PackedScene" uid="uid://lugeysu4ryx3" path="res://Units/Player/player.tscn" id="3_supv1"]
+[ext_resource type="PackedScene" uid="uid://dldtmj2d8aq01" path="res://Units/Player/player.tscn" id="3_supv1"]
 [ext_resource type="PackedScene" uid="uid://ctiw0m8k5sub3" path="res://Scenes/Map/map.tscn" id="6_48sw3"]
 [ext_resource type="Script" uid="uid://k77suwqe7wdi" path="res://Scenes/affix_applier.gd" id="8_6leyg"]
 [ext_resource type="PackedScene" uid="uid://v5cl4nhy5imd" path="res://Scenes/enemy_spawner_component.tscn" id="8_mo3wy"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://dpdbhb1tor1ho" path="res://Textures/deero/0020.png" id="30_vjorg"]
 [ext_resource type="Texture2D" uid="uid://sppcsjg6uwbc" path="res://Textures/deero/0021.png" id="31_nq1sn"]
 [ext_resource type="Texture2D" uid="uid://bcdnlt64ukj4q" path="res://Textures/deero/0022.png" id="32_7mdle"]
+[ext_resource type="PackedScene" uid="uid://dbhhh1tlh70mb" path="res://Units/apple.tscn" id="33_hx27y"]
 [ext_resource type="Texture2D" uid="uid://bw7tmlc77qsc0" path="res://Textures/deero/0023.png" id="33_k8y2o"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j70gj"]
@@ -160,7 +161,6 @@ script = ExtResource("3_10aaw")
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="ShowInventoryButton" type="Button" parent="UI"]
-anchors_preset = -1
 offset_left = 1004.0
 offset_top = 20.0
 offset_right = 1133.0
@@ -169,28 +169,24 @@ text = "Show inventory
 "
 
 [node name="Label" type="Label" parent="UI"]
-anchors_preset = -1
 offset_left = 408.0
 offset_right = 491.0
 offset_bottom = 26.0
 text = "You've run"
 
 [node name="Distance" type="Label" parent="UI"]
-anchors_preset = -1
 offset_left = 491.0
 offset_right = 574.0
 offset_bottom = 26.0
 horizontal_alignment = 1
 
 [node name="Label3" type="Label" parent="UI"]
-anchors_preset = -1
 offset_left = 574.0
 offset_right = 657.0
 offset_bottom = 26.0
 text = "meters"
 
 [node name="Label2" type="Label" parent="UI"]
-anchors_preset = -1
 offset_left = 408.0
 offset_top = 40.0
 offset_right = 596.0
@@ -198,7 +194,6 @@ offset_bottom = 66.0
 text = "Chance of enemy spawn"
 
 [node name="Chance" type="Label" parent="UI"]
-anchors_preset = -1
 offset_left = 600.0
 offset_top = 40.0
 offset_right = 619.0
@@ -206,7 +201,6 @@ offset_bottom = 66.0
 text = "10"
 
 [node name="Label5" type="Label" parent="UI"]
-anchors_preset = -1
 offset_left = 619.0
 offset_top = 40.0
 offset_right = 638.0
@@ -214,7 +208,6 @@ offset_bottom = 66.0
 text = "%"
 
 [node name="Label4" type="Label" parent="UI"]
-anchors_preset = -1
 offset_left = 408.0
 offset_top = 24.0
 offset_right = 557.0
@@ -222,7 +215,6 @@ offset_bottom = 50.0
 text = "Your current speed"
 
 [node name="Speed" type="Label" parent="UI"]
-anchors_preset = -1
 offset_left = 560.0
 offset_top = 26.0
 offset_right = 600.0
@@ -230,16 +222,30 @@ offset_bottom = 49.0
 
 [node name="Control" type="Control" parent="UI"]
 layout_mode = 3
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Label6" type="Label" parent="UI"]
-anchors_preset = -1
 offset_left = 600.0
 offset_top = 24.0
 offset_right = 640.0
 offset_bottom = 50.0
 text = "m/s"
+
+[node name="Label7" type="Label" parent="UI"]
+offset_left = 416.0
+offset_top = 64.0
+offset_right = 456.0
+offset_bottom = 87.0
+text = "Apples: "
+
+[node name="Label8" type="Label" parent="UI"]
+offset_left = 480.0
+offset_top = 64.0
+offset_right = 520.0
+offset_bottom = 87.0
+text = "0"
 
 [node name="Loading" type="CanvasLayer" parent="." node_paths=PackedStringArray("game_holder", "progress_bar", "deero_sprite")]
 script = ExtResource("9_lmtoh")
@@ -248,13 +254,11 @@ progress_bar = NodePath("ProgressBar")
 deero_sprite = NodePath("AnimatedSprite2D")
 
 [node name="ColorRect" type="ColorRect" parent="Loading"]
-anchors_preset = -1
 offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0.45452422, 0.4545243, 0.45452422, 1)
 
 [node name="ProgressBar" type="ProgressBar" parent="Loading"]
-anchors_preset = -1
 offset_left = 320.0
 offset_top = 848.0
 offset_right = 1616.0
@@ -263,7 +267,6 @@ max_value = 0.0
 step = 1.0
 
 [node name="Label" type="Label" parent="Loading"]
-anchors_preset = -1
 offset_left = 344.0
 offset_top = 400.0
 offset_right = 1582.0
@@ -289,13 +292,11 @@ enemy_scene = ExtResource("2_0ukyi")
 player = NodePath("../Map/Player")
 spawn_node = NodePath("../Map")
 game_state = NodePath("../../GameState")
-spawn_distance = 500.0
 spawn_rate = 1.0
 
 [node name="Map" parent="GameHolder" instance=ExtResource("6_48sw3")]
 
 [node name="Player" parent="GameHolder/Map" instance=ExtResource("3_supv1")]
-unit_name = "Unit Name"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="GameHolder/Map/Player"]
 transform = Transform3D(0.874366, -2.12117e-08, 0.485267, -0.485267, -3.82197e-08, 0.874366, -2.31653e-18, -1, -4.37113e-08, 303.674, 557.009, 0)
@@ -303,7 +304,7 @@ rotation_order = 5
 light_energy = 0.433
 
 [node name="MainCamera" type="Camera3D" parent="GameHolder/Map/Player"]
-transform = Transform3D(1, 0, 0, 0, 0.898794, 0.438371, 0, -0.438371, 0.898794, 0, 9, 5)
+transform = Transform3D(1, 0, 0, 0, 0.8987941, 0.43837106, 0, -0.43837106, 0.8987941, 0, 2.063137, 1.9813986)
 rotation_order = 5
 current = true
 fov = 70.0
@@ -312,6 +313,9 @@ fov = 70.0
 transform = Transform3D(1, 0, 0, 0, -4.3711413e-08, 1.0000006, 0, -1.0000006, -4.3711413e-08, 0, 400, -350)
 projection = 1
 size = 1250.0
+
+[node name="Apple" parent="GameHolder/Map" instance=ExtResource("33_hx27y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.18587)
 
 [node name="SubViewport" type="SubViewport" parent="GameHolder"]
 disable_3d = true
@@ -341,4 +345,3 @@ player = NodePath("../GameHolder/Map/Player")
 [connection signal="tile_requested" from="GameHolder/Map" to="Loading" method="tile_requested"]
 [connection signal="tile_requested" from="GameHolder/Map" to="LetterGenerator" method="add_task"]
 [connection signal="player_position_updated" from="GameHolder/Map/Player" to="GameHolder/Map" method="update_map"]
-[connection signal="unit_died" from="GameHolder/Map/Player" to="." method="_on_player_unit_died"]

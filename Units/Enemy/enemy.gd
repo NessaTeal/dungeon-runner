@@ -1,11 +1,13 @@
-extends BaseUnit
+extends CharacterBody3D
 class_name Enemy
 
-var xp := 50.0
+@export var attack_component: AttackComponent
+@export var health_component: HealthComponent
+
+signal unit_died
 
 var player: Player
 
-func scale_enemy(factor: float) -> void:
-	health_component.scale_max_hp(factor)
-	attack_component.multiplier *= factor
-	xp **= factor
+func _on_health_component_hp_depleted() -> void:
+	unit_died.emit()
+	queue_free()

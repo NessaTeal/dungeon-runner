@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://cswctlti1unua"]
+
+[ext_resource type="Script" uid="uid://bkl2w4xol70xe" path="res://Units/Enemy/enemy.gd" id="1_ggqo2"]
+[ext_resource type="Texture2D" uid="uid://c3r80g2mb46qi" path="res://Textures/icon.svg" id="1_y6vie"]
+[ext_resource type="Script" uid="uid://ctco84t11bjan" path="res://Units/Enemy/enemy_movement_component.gd" id="2_3wt5w"]
+[ext_resource type="Script" uid="uid://b7joah5em4d7m" path="res://Units/Components/attack_component.gd" id="4_t41a4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3wt5w"]
+radius = 0.64
+height = 1.28
+
+[sub_resource type="GDScript" id="GDScript_lu5uc"]
+script/source = "extends ProgressBar
+class_name HealthComponent
+
+var damaged := 0.0
+@export var base_hp := 0.0
+var max_hp := 0.0
+@export var base_hp_regen := 0.0
+var hp_regen := 0.0
+@export var missing_hp_regen := 0.0
+
+signal hp_depleted
+signal damage_received(damage: float)
+
+func _ready() -> void:
+	self.max_value = base_hp
+	self.value = base_hp
+	max_hp = base_hp
+	hp_regen = base_hp_regen
+
+func _process(delta: float) -> void:
+	damaged = maxf(0.0, damaged - (hp_regen * delta + (damaged) * missing_hp_regen * delta))
+	self.value = max_hp - damaged
+
+func _on_receive_damage(damage: float) -> void:
+	damaged += damage
+	damage_received.emit(damage)
+	self.value = max(max_hp - damaged, 0)
+	
+	if damaged >= max_hp:
+		hp_depleted.emit()
+
+func scale_max_hp(factor: float) -> void:
+	base_hp *= factor
+	max_hp = base_hp
+	self.max_value = base_hp
+	self.value = base_hp
+
+func reset() -> void:
+	max_hp = base_hp
+	self.max_value = max_hp
+	hp_regen = base_hp_regen
+	missing_hp_regen = 0
+"
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_ggqo2")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+texture = ExtResource("1_y6vie")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64, 0)
+shape = SubResource("CapsuleShape3D_3wt5w")
+
+[node name="EnemyMovementComponent" type="Node" parent="."]
+script = ExtResource("2_3wt5w")
+metadata/_custom_type_script = "uid://ctco84t11bjan"
+
+[node name="HealthComponent" type="ProgressBar" parent="."]
+visible = false
+offset_right = 4.0
+offset_bottom = 27.0
+script = SubResource("GDScript_lu5uc")
+metadata/_custom_type_script = "uid://uko4qskiraqo"
+
+[node name="AttackComponent" type="Node" parent="."]
+script = ExtResource("4_t41a4")
+metadata/_custom_type_script = "uid://b7joah5em4d7m"

@@ -7,7 +7,7 @@ var fight_speed := 0.0
 var acceleration := 0.0
 var speed_from_acceleration := 0.0
 
-@export var base_speed := 500.0
+@export var base_speed := 4.0
 
 func _ready() -> void:
 	current_speed = base_speed

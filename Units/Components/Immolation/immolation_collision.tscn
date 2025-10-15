@@ -2,19 +2,20 @@
 
 [ext_resource type="Script" uid="uid://coq0o31dag00n" path="res://Units/Components/Immolation/immolation_collision.gd" id="1_2evi8"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_613kc"]
-resource_local_to_scene = true
-radius = 80.0
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2evi8"]
+radius = 0.01
 
-[node name="ImmolationCollision" type="Area2D" node_paths=PackedStringArray("shape")]
-collision_layer = 4
-collision_mask = 2
+[node name="ImmolationCollision" type="Area3D"]
+collision_layer = 64
+collision_mask = 128
 monitorable = false
 script = ExtResource("1_2evi8")
-shape = NodePath("CollisionShape2D")
+shape = SubResource("CylinderShape3D_2evi8")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_613kc")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_2evi8")
+debug_color = Color(0.9019608, 0.24313726, 0.4862745, 0.77254903)
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true

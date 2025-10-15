@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=3 uid="uid://cn8gr3rosbki2"]
+
+[ext_resource type="Texture2D" uid="uid://c3r80g2mb46qi" path="res://Textures/icon.svg" id="2_ceitq"]
+[ext_resource type="Script" uid="uid://uko4qskiraqo" path="res://Units/Components/health_component.gd" id="3_dy4wh"]
+[ext_resource type="Script" uid="uid://ctco84t11bjan" path="res://Units/Enemy/enemy_movement_component.gd" id="5_q68vt"]
+
+[sub_resource type="GDScript" id="GDScript_jy8to"]
+script/source = "extends CharacterBody3D
+class_name Enemy
+
+@export var unit_name: String = 'Unit Name'
+@export var health_component: HealthComponent
+@export var attack_component: AttackComponent
+
+var xp := 50.0
+var player: Player
+
+signal unit_died
+
+func _on_health_component_hp_depleted() -> void:
+	unit_died.emit()
+	queue_free()
+
+func scale_enemy(factor: float) -> void:
+	health_component.scale_max_hp(factor)
+	attack_component.multiplier *= factor
+	xp **= factor
+"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v5j12"]
+radius = 0.64
+height = 1.28
+
+[sub_resource type="GDScript" id="GDScript_lu5uc"]
+script/source = "extends Node
+class_name AttackComponent
+
+@export var base_damage := 10.0
+@export var base_attack_speed := 100.0
+
+var affix_damage := 0.0
+var affix_attack_speed := 0.0
+var dynamic_damage: Array[ValueComponent] = []
+var dynamic_attack_speed: Array[ValueComponent] = []
+var count_up := 0.0
+
+var damage: float:
+	get:
+		return base_damage + affix_damage + dynamic_damage.reduce(func(acc: float, cur: ValueComponent) -> float: return acc + cur.get_value(), 0.0)
+
+var attack_speed: float:
+	get:
+		return base_attack_speed + affix_attack_speed
+		
+var multiplier := 1.0
+
+signal attack_happened(damage: float)
+
+func _process(delta: float) -> void:
+	count_up += delta * attack_speed
+	while count_up >= 100:
+		count_up -= 100
+		perform_attack(damage)
+
+func perform_attack(attack_damage: float) -> void:
+	attack_happened.emit(attack_damage * multiplier)
+
+func reset() -> void:
+	affix_damage = 0
+	affix_attack_speed = 0
+	multiplier = 1
+"
+
+[node name="PhysicalEnemy" type="CharacterBody3D" node_paths=PackedStringArray("health_component", "attack_component")]
+script = SubResource("GDScript_jy8to")
+health_component = NodePath("HealthComponent")
+attack_component = NodePath("AttackComponent")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64, 0)
+billboard = 2
+double_sided = false
+texture = ExtResource("2_ceitq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64, 0)
+shape = SubResource("CapsuleShape3D_v5j12")
+
+[node name="HealthComponent" type="ProgressBar" parent="."]
+visible = false
+offset_right = 4.0
+offset_bottom = 27.0
+script = ExtResource("3_dy4wh")
+metadata/_custom_type_script = "uid://uko4qskiraqo"
+
+[node name="AttackComponent" type="Node" parent="."]
+script = SubResource("GDScript_lu5uc")
+metadata/_custom_type_script = "uid://b7joah5em4d7m"
+
+[node name="EnemyMovementComponent" type="Node" parent="."]
+script = ExtResource("5_q68vt")
+metadata/_custom_type_script = "uid://ctco84t11bjan"
+
+[connection signal="hp_depleted" from="HealthComponent" to="." method="_on_health_component_hp_depleted"]

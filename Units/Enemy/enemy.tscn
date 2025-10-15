@@ -1,35 +1,56 @@
-[gd_scene load_steps=6 format=3 uid="uid://rur6sjmg2o3g"]
+[gd_scene load_steps=10 format=3 uid="uid://cswctlti1unua"]
 
-[ext_resource type="Script" uid="uid://c8xt3i725552k" path="res://Units/Enemy/enemy.gd" id="1_ggqo2"]
-[ext_resource type="PackedScene" uid="uid://b45y6qw1y818h" path="res://Units/BaseUnit/base_unit.tscn" id="2_5guo4"]
-[ext_resource type="PackedScene" uid="uid://crmskecpud0sa" path="res://Units/Enemy/enemy_collision_component.tscn" id="4_lu5uc"]
-[ext_resource type="PackedScene" uid="uid://bwm5xuplv36ip" path="res://Units/Enemy/enemy_movement_component.tscn" id="5_ceitq"]
+[ext_resource type="Script" uid="uid://bkl2w4xol70xe" path="res://Units/Enemy/enemy.gd" id="1_ggqo2"]
+[ext_resource type="Texture2D" uid="uid://c3r80g2mb46qi" path="res://Textures/icon.svg" id="1_y6vie"]
+[ext_resource type="PackedScene" uid="uid://dp1aer0epf235" path="res://Units/Components/health_component.tscn" id="3_ceitq"]
+[ext_resource type="PackedScene" uid="uid://j3ao1w64e7ie" path="res://Units/Components/attack_component.tscn" id="4_dy4wh"]
+[ext_resource type="PackedScene" uid="uid://bwm5xuplv36ip" path="res://Units/Enemy/enemy_movement_component.tscn" id="5_egvsc"]
+[ext_resource type="PackedScene" uid="uid://crmskecpud0sa" path="res://Units/Enemy/enemy_collision_component.tscn" id="6_dy4wh"]
+[ext_resource type="PackedScene" uid="uid://srjufmy7vqnx" path="res://Units/Enemy/enemy_hurtbox_component.tscn" id="7_egvsc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lu5uc"]
-size = Vector2(128, 128)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3wt5w"]
+radius = 0.3
+height = 1.28
 
-[node name="Enemy" instance=ExtResource("2_5guo4")]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dy4wh"]
+height = 1.0
+radius = 1.0
+
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("attack_component", "health_component")]
+collision_layer = 2
+collision_mask = 7
 script = ExtResource("1_ggqo2")
+attack_component = NodePath("AttackComponent")
+health_component = NodePath("HealthComponent")
 
-[node name="AttackComponent" parent="." index="0"]
-base_damage = 0
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64, 0)
+billboard = 2
+texture = ExtResource("1_y6vie")
 
-[node name="HealthComponent" parent="." index="1"]
+[node name="BodyCollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64, 0)
+shape = SubResource("CapsuleShape3D_3wt5w")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_ceitq")]
+visible = false
 base_hp = 20.0
 
-[node name="EnemyMovementComponent" parent="." index="2" node_paths=PackedStringArray("enemy") instance=ExtResource("5_ceitq")]
+[node name="AttackComponent" parent="." instance=ExtResource("4_dy4wh")]
+base_damage = 0.0
+
+[node name="EnemyMovementComponent" parent="." node_paths=PackedStringArray("enemy") instance=ExtResource("5_egvsc")]
 enemy = NodePath("..")
-speed = 200.0
+speed = 5.0
 
-[node name="Sprite3D" parent="." index="3"]
-texture_filter = 5
-render_priority = 100
+[node name="EnemyCollisionDamageComponent" parent="." node_paths=PackedStringArray("attack_component") instance=ExtResource("6_dy4wh")]
+attack_component = NodePath("../AttackComponent")
 
-[node name="EnemyCollisionComponent" parent="2DComponents" index="0" node_paths=PackedStringArray("attack_component", "health_component") instance=ExtResource("4_lu5uc")]
-collision_layer = 2
-attack_component = NodePath("../../AttackComponent")
-health_component = NodePath("../../HealthComponent")
-contact_damage = 5.0
+[node name="CollisionDamageShape3D" type="CollisionShape3D" parent="EnemyCollisionDamageComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_dy4wh")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="2DComponents/EnemyCollisionComponent" index="0"]
-shape = SubResource("RectangleShape2D_lu5uc")
+[node name="EnemyHurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_egvsc")]
+health_component = NodePath("../HealthComponent")
+
+[connection signal="hp_depleted" from="HealthComponent" to="." method="_on_health_component_hp_depleted"]

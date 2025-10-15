@@ -1,4 +1,4 @@
-extends BaseUnit
+extends CharacterBody3D
 class_name Player
 
 @export var speed_component: SpeedComponent
@@ -7,13 +7,15 @@ class_name Player
 @export var immolation_component: ImmolationComponent
 @export var direction_component: DirectionComponent
 @export var movement_component: MovementComponent
+@export var health_component: HealthComponent
+@export var attack_component: AttackComponent
 
 @onready var all_components: Array[Node] = find_children("*Component")
 
-signal player_position_updated(position: Vector2, direction: Vector2)
+signal player_position_updated(position: Vector3, direction: Vector2)
 
 func report_player_position() -> void:
-	player_position_updated.emit(get_2d_position(), direction_component.get_dir())
+	player_position_updated.emit(position, direction_component.get_dir())
 
 func reset() -> void:
 	for component in all_components:

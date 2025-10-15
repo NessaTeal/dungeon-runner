@@ -6,7 +6,7 @@ extends Node
 @export var game_state: GameState
 
 @export_category("Internals")
-@export var spawn_distance: float = 100
+@export var spawn_distance: float = 50.0
 @export var spawn_rate: float = 0.25
 @export var spawn_timer: Timer
 
@@ -17,7 +17,7 @@ func spawn_enemy() -> void:
 	var enemy := enemy_scene.instantiate() as Enemy
 	enemy.player = player
 	var angle := randf() * PI - PI / 2
-	var position := player.get_2d_position() + (player.direction_component.get_dir() * spawn_distance).rotated(angle)
+	var position := Vector2(player.position.x, player.position.z) + (player.direction_component.get_dir() * spawn_distance).rotated(angle)
 
 	enemy.set_position(Vector3(position.x, 0, position.y));
 	spawn_node.add_child(enemy)

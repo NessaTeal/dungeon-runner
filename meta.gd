@@ -1,5 +1,6 @@
 extends Node
 
+var apples: int = 0
 var player_level: int = 1
 
 var current_xp: float = 0

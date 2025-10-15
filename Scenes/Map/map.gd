@@ -3,7 +3,7 @@ class_name Map
 
 const map_tile_scene := preload("res://Scenes/Map/map_tile.tscn")
 
-static var MAP_TILE_DRAW_DISTANCE := 13
+static var MAP_TILE_DRAW_DISTANCE := 9
 static var MAP_TILE_DRAW_ANGLE := 50.0
 
 static var MAP_TILE_SIZE: int = 100
@@ -15,6 +15,7 @@ signal tile_requested(position: Vector2i)
 signal tile_cancelled(position: Vector2i)
 
 var map_tiles: Dictionary[Vector2i, MapTile] = {}
+var map_tile_was_already_spawned: Dictionary[Vector2i, bool] = {}
 
 func _ready() -> void:
 	Performance.add_custom_monitor("game/map_tiles", get_map_tile_count)
@@ -30,10 +31,19 @@ func create_map_tile(coords: Vector2i, texture: ImageTexture) -> void:
 	var map_tile := map_tiles[coords]
 	map_tile.was_processed = true
 	map_tile.material.albedo_texture = texture
+	if not map_tile_was_already_spawned.has(coords):
+		map_tile_was_already_spawned[coords] = true
+		var apple_scene := preload("res://Units/apple.tscn")
+		for i in range(10):
+			var apple: = apple_scene.instantiate()
+			apple.position = Vector3((coords.x + randf() - 0.5) * MAP_TILE_SIZE, 0, (coords.y + randf() - 0.5) * MAP_TILE_SIZE)
+			add_child(apple)
+			
 	tile_created.emit()
 
-func update_map(player_position: Vector2, player_direction: Vector2) -> void:
-	var offset_player_position := player_position - 2 * player_direction * MAP_TILE_SIZE
+func update_map(player_position: Vector3, player_direction: Vector2) -> void:
+	var player_position_2d := Vector2(player_position.x, player_position.z)
+	var offset_player_position := player_position_2d - 2 * player_direction * MAP_TILE_SIZE
 	var discrete_player_position := (offset_player_position / MAP_TILE_SIZE).round()
 	
 	var direction_one := player_direction.rotated(deg_to_rad(MAP_TILE_DRAW_ANGLE))

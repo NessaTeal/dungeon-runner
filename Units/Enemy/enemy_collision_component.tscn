@@ -2,8 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dwhd2xa4wlqu6" path="res://Units/Enemy/enemy_collision_component.gd" id="1_uiqrd"]
 
-[node name="EnemyCollisionComponent" type="Area2D"]
+[node name="EnemyCollisionDamageComponent" type="Area3D"]
+collision_layer = 16
 script = ExtResource("1_uiqrd")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

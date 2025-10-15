@@ -1,4 +1,4 @@
-extends MeshInstance3D
+extends StaticBody3D
 class_name MapTile
 
 var was_processed := false

@@ -20,7 +20,7 @@ var fighting := false
 var angle := 0.0
 
 func _ready() -> void:
-	map.update_map(player.get_2d_position(), player.direction_component.get_dir())
+	map.update_map(Vector3(player.position.x, 0, player.position.z), player.direction_component.get_dir())
 
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("SpeeHack"):
@@ -31,6 +31,8 @@ func _process(delta: float) -> void:
 	time_passed += delta
 	
 	speed_label.text = "%.01f" % player.speed_component.get_current_speed()
+	
+	$UI/Label8.text = str(Meta.apples)
 	
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.as_text() == "Z" and event.is_pressed():

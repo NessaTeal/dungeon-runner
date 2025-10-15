@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbhhh1tlh70mb"]
+
+[ext_resource type="Script" uid="uid://7das1ic7whr6" path="res://Units/collectible.gd" id="1_c433l"]
+[ext_resource type="Texture2D" uid="uid://cdch2x6xyuhmi" path="res://Textures/06_t.PNG" id="1_pjxfa"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_c433l"]
+radius = 0.4
+
+[node name="Apple" type="Area3D"]
+collision_layer = 8
+monitorable = false
+script = ExtResource("1_c433l")
+metadata/_custom_type_script = "uid://7das1ic7whr6"
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.32, 0)
+billboard = 1
+texture = ExtResource("1_pjxfa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("SphereShape3D_c433l")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -13,7 +13,7 @@ var total_distance := 0.0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var speed_multiplier := 2.0 if Input.is_action_pressed("GoUp") else 0.5 if Input.is_action_pressed("GoDown") else 1.0
-	var delta_movement := speed_component.get_current_speed() * delta * speed_multiplier
+	var delta_movement := speed_component.get_current_speed() * speed_multiplier
 	
 	move_forward(delta_movement)
 	
@@ -27,4 +27,5 @@ func move_forward(distance: float) -> void:
 	total_distance += distance
 	#player.position += Vector3(0, 0, 1)
 	var direction := direction_component.get_dir()
-	player.position += Vector3(direction.x, 0, direction.y) * distance
+	player.velocity = Vector3(direction.x, 0, direction.y) * distance + Utils.GRAVITY_VECTOR
+	player.move_and_slide()

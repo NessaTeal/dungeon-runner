@@ -6,7 +6,6 @@ class_name ImmolationComponent
 @export var health_component: HealthComponent
 @export var attack_component: AttackComponent
 @export var transformation_component: TransformationComponent
-@export var _2d_component: Node2D
 @export var timer: Timer
 
 var immolation_collision: PackedScene = preload("res://Units/Components/Immolation/immolation_collision.tscn")
@@ -17,7 +16,7 @@ func _on_timeout() -> void:
 	transformation_component.transform("fire")
 	var new_collision := immolation_collision.instantiate() as ImmolationCollision
 	new_collision.immolation_damage = immolation_damage
-	_2d_component.add_child(new_collision)
+	get_parent().add_child(new_collision)
 	await get_tree().create_timer(0.05).timeout
 	emitting = false;
 	pass
