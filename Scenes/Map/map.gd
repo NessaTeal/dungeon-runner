@@ -35,9 +35,15 @@ func create_map_tile(coords: Vector2i, texture: ImageTexture) -> void:
 		map_tile_was_already_spawned[coords] = true
 		var apple_scene := preload("res://Units/apple.tscn")
 		for i in range(10):
-			var apple: = apple_scene.instantiate()
+			var apple: = apple_scene.instantiate() as Node3D
 			apple.position = Vector3((coords.x + randf() - 0.5) * MAP_TILE_SIZE, 0, (coords.y + randf() - 0.5) * MAP_TILE_SIZE)
 			add_child(apple)
+			
+		if randf() > 0.95:
+			var tower_landmark_scene := preload("res://Scenes/Landmarks/tower_landmark.tscn")
+			var tower_landmark := tower_landmark_scene.instantiate() as Node3D
+			tower_landmark.position = Vector3((coords.x + 0.5) * MAP_TILE_SIZE, 0, (coords.y + 0.5) * MAP_TILE_SIZE)
+			add_child(tower_landmark)
 			
 	tile_created.emit()
 
