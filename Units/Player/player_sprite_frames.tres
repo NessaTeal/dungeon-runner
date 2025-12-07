@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=11 format=3 uid="uid://hsxkvgltrvmg"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://hsxkvgltrvmg"]
 
 [ext_resource type="Texture2D" uid="uid://8uao7wjpb5o7" path="res://Textures/horses.png" id="1_nigx3"]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://0ehwac3nuaux"]
+[gd_scene format=3 uid="uid://0ehwac3nuaux"]
 
 [ext_resource type="Script" uid="uid://b1ujsf4pgprfu" path="res://Scenes/multi_mesh_instance_3d.gd" id="1_8dkdx"]
 [ext_resource type="Shader" uid="uid://ctjqhuvap2ryw" path="res://Scenes/multi_mesh_test.gdshader" id="1_214q5"]
@@ -18,19 +18,19 @@ transform_format = 1
 use_custom_data = true
 mesh = SubResource("PlaneMesh_lcw7v")
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" unique_id=1293196432]
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1602463447]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -100, 15, -100)
 current = true
 
-[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="."]
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="." unique_id=787076570]
 multimesh = SubResource("MultiMesh_8dkdx")
 script = ExtResource("1_8dkdx")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1569041282]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.705731, 0)
 visible = false
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1554250227]
 transform = Transform3D(1, 0, 0, 0, 0.1392941, 0.99025106, 0, -0.99025106, 0.1392941, 0, 20.50253, 0)
