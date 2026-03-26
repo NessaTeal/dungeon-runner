@@ -1,15 +1,11 @@
 extends Node
-
 class_name LetterGenerator
-
-const chunk_generator_scene = preload("res://Scenes/Map/chunk_generator.tscn")
-const tile_map_layer_scene = preload("res://Scenes/Map/tile_map_layer_scene.tscn")
 
 var letters: Dictionary[Vector2i, GeneratorTile] = {}
 
-static var SIZE: int = 9
-static var TILE_COUNT: int = (SIZE - 1) * 2
-static var TILE_SIZE: int = 128
+#static var SIZE: int = 9
+#static var TILE_COUNT: int = (SIZE - 1) * 2
+#static var TILE_SIZE: int = 128
 
 static var ORIGINS: Dictionary[String, int] = {
 	"r": 2,
@@ -17,76 +13,33 @@ static var ORIGINS: Dictionary[String, int] = {
 	"s": 1,
 	"g": 0
 }
-static var TERRAIN_OPTIONS: Array[String] = ["d", "r", "s", "g"]
+static var TERRAIN_OPTIONS: Array[String] = ["g", "s", "r", "d"]
 static var PRIO: Dictionary[String, int] = {"r": 0, "d": 1, "s": 2, "g": 3}
 
-signal texture_ready(coords: Vector2i, texture: ImageTexture)
+func add_task(coords: Vector2i) -> NewMapChunkData:
+	var _x := coords.x * (NewMapChunk.GENERATION_POINTS - 1)
+	var _y := coords.y * (NewMapChunk.GENERATION_POINTS - 1)
+	
+	for xx in range(_x, _x + NewMapChunk.GENERATION_POINTS):
+		for yy in range(_y, _y + NewMapChunk.GENERATION_POINTS):
+			var letter_key := Vector2i(xx, yy)
+			if not letters.has(letter_key):
+				letters[letter_key] = GeneratorTile.new(xx, yy)
+	# offset by 1 as edge letters can have all 4 neighbours already done if it's 4th tile in a corner
+	update_neighbours(letters[Vector2i(_x + 1, _y + 1)])
+	print(Vector2i(_x, _y))
+	var tile_terrain_corners := calculate_tile_terrain_corners(Vector2i(_x, _y))
+	#var patterns := calculate_layers(tile_terrain_corners)
+	var chunk_data := calculate_chunk_data(tile_terrain_corners)
 
-var task_id: int = -1
-var tasks: Dictionary[Vector2i, Callable] = {}
+	return chunk_data
 
-func _ready() -> void:
-	Performance.add_custom_monitor("game/tiles_in_queue", get_tiles_in_queue)
-	
-func get_tiles_in_queue() -> int:
-	return len(tasks)
-
-func remove_task(coords: Vector2i) -> void:
-	var removed := tasks.erase(coords)
-	if not removed:
-		print("Trying to remove task with coordinates which was not found")
-		#push_warning("Trying to remove task with coordinates %v which was not found" % [coords])
-
-func add_task(coords: Vector2i) -> void:
-	var task := get_task(coords)
-	
-	tasks[coords] = task
-	
-func get_task(coords: Vector2i) -> Callable:
-	var _x := coords.x * (SIZE - 1)
-	var _y := coords.y * (SIZE - 1)
-	
-	return func() -> void:
-		for xx in range(_x, _x + SIZE):
-			for yy in range(_y, _y + SIZE):
-				var letter_key := Vector2i(xx, yy)
-				if not letters.has(letter_key):
-					letters[letter_key] = GeneratorTile.new(xx, yy)
-		# offset by 1 as edge letters can have all 4 neighbours already done if it's 4th tile in a corner
-		update_neighbours(letters[Vector2i(_x + 1, _y + 1)])
-		var tile_terrain_corners := calculate_tile_terrain_corners(Vector2i(_x, _y))
-		var patterns := calculate_layers(tile_terrain_corners)
-	
-		var chunk_generator := chunk_generator_scene.instantiate() as ChunkGenerator
-		chunk_generator.setup(patterns)
-		if chunk_generator.chunk_generated.connect(
-			func(texture: ImageTexture) -> void:
-				texture_ready.emit.call_deferred(coords, texture)):
-			printerr("Error connecting chunk generator to a callable")
-		
-		(func() -> void:
-			add_child(chunk_generator)
-			chunk_generator.render_generated_chunk(patterns)).call_deferred()
-
-func _process(_delta: float) -> void:
-	if task_id == -1:
-		if not tasks.is_empty():
-			var key := (tasks.keys() as Array[Vector2i])[0]
-			task_id = WorkerThreadPool.add_task(tasks[key])
-			if !tasks.erase(key):
-				printerr("Somebody else removed task while letter generator was adding it")
-	elif WorkerThreadPool.is_task_completed(task_id):
-		var err := WorkerThreadPool.wait_for_task_completion(task_id)
-		if err:
-			printerr("Error waiting for letter generator task %s" % [error_string(err)])
-		task_id = -1
-	
 func calculate_tile_terrain_corners(coords: Vector2i) -> Array[PackedStringArray]:
 	var tile_terrain_corners: Array[PackedStringArray] = []
-	for x in range(coords.x, coords.x + SIZE - 1):
+	for x in range(coords.x, coords.x + NewMapChunk.GENERATION_POINTS - 1):
 		var top_row: PackedStringArray = []
 		var bottom_row: PackedStringArray = []
-		for y in range(coords.y, coords.y + SIZE - 1):
+		for y in range(coords.y, coords.y + NewMapChunk.GENERATION_POINTS - 1):
 			
 			@warning_ignore_start("return_value_discarded")
 			top_row.push_back(letters[Vector2i(x, y)].selected_option)
@@ -98,8 +51,8 @@ func calculate_tile_terrain_corners(coords: Vector2i) -> Array[PackedStringArray
 		# we generate 2n - 1 size array and need to insert last elements manually
 		
 		@warning_ignore_start("return_value_discarded")
-		top_row.push_back(letters[Vector2i(x, coords.y + SIZE - 1)].selected_option)
-		bottom_row.push_back(get_stronger_terrain([letters[Vector2i(x, coords.y + SIZE - 1)], letters[Vector2i(x + 1, coords.y + SIZE - 1)]]))
+		top_row.push_back(letters[Vector2i(x, coords.y + NewMapChunk.GENERATION_POINTS - 1)].selected_option)
+		bottom_row.push_back(get_stronger_terrain([letters[Vector2i(x, coords.y + NewMapChunk.GENERATION_POINTS - 1)], letters[Vector2i(x + 1, coords.y + NewMapChunk.GENERATION_POINTS - 1)]]))
 		@warning_ignore_restore("return_value_discarded")
 		
 		tile_terrain_corners.push_back(top_row)
@@ -107,14 +60,14 @@ func calculate_tile_terrain_corners(coords: Vector2i) -> Array[PackedStringArray
 	
 	# we generate 2n - 1 size array and need to insert last row with last elements manually
 	var last_row: PackedStringArray = []
-	for y in range(coords.y, coords.y + SIZE - 1):
+	for y in range(coords.y, coords.y + NewMapChunk.GENERATION_POINTS - 1):
 		@warning_ignore_start("return_value_discarded")
-		last_row.push_back(letters[Vector2i(coords.x + SIZE - 1, y)].selected_option)
-		last_row.push_back(get_stronger_terrain([letters[Vector2i(coords.x + SIZE - 1, y)], letters[Vector2i(coords.x + SIZE - 1, y + 1)]]))
+		last_row.push_back(letters[Vector2i(coords.x + NewMapChunk.GENERATION_POINTS - 1, y)].selected_option)
+		last_row.push_back(get_stronger_terrain([letters[Vector2i(coords.x + NewMapChunk.GENERATION_POINTS - 1, y)], letters[Vector2i(coords.x + NewMapChunk.GENERATION_POINTS - 1, y + 1)]]))
 		@warning_ignore_restore("return_value_discarded")
 	
 	@warning_ignore("return_value_discarded")
-	last_row.push_back(letters[Vector2i(coords.x + SIZE - 1, coords.y + SIZE - 1)].selected_option)
+	last_row.push_back(letters[Vector2i(coords.x + NewMapChunk.GENERATION_POINTS - 1, coords.y + NewMapChunk.GENERATION_POINTS - 1)].selected_option)
 	
 	tile_terrain_corners.push_back(last_row)
 	
@@ -130,26 +83,59 @@ func get_stronger_terrain(terrains: Array[GeneratorTile]) -> String:
 			
 	return acc
 
-func calculate_layers(tile_terrain_corners: Array[PackedStringArray]) -> Array[TileMapPattern]:
-	var patterns: Array[TileMapPattern] = []
-	for ter in TERRAIN_OPTIONS:
-		var layer := TileMapPattern.new()
-		layer.set_size(Vector2i(TILE_COUNT, TILE_COUNT))
-		for x in range(0, TILE_COUNT):
-			for y in range(0, TILE_COUNT):
+#func calculate_layers(tile_terrain_corners: Array[PackedStringArray]) -> Array[TileMapPattern]:
+	#var patterns: Array[TileMapPattern] = []
+	#for ter in TERRAIN_OPTIONS:
+		#var layer := TileMapPattern.new()
+		#layer.set_size(Vector2i(TILE_COUNT, TILE_COUNT))
+		#for x in range(0, TILE_COUNT):
+			#for y in range(0, TILE_COUNT):
+				#if tile_terrain_corners[x][y] != ter and tile_terrain_corners[x + 1][y] != ter and tile_terrain_corners[x][y + 1] != ter and tile_terrain_corners[x + 1][y + 1] != ter:
+					#continue
+				#var a := convert_terrain(tile_terrain_corners[x][y], ter)
+				#var b := convert_terrain(tile_terrain_corners[x + 1][y], ter)
+				#var c := convert_terrain(tile_terrain_corners[x][y + 1], ter)
+				#var d := convert_terrain(tile_terrain_corners[x + 1][y + 1], ter)
+				#var total := a + b * 2 + c * 8 + d * 4 - 1
+				#layer.set_cell(Vector2i(x, y), 0, Vector2i(total, ORIGINS[ter]), 0)
+		#
+		#patterns.push_back(layer)
+	#
+	#return patterns
+
+func calculate_chunk_data(tile_terrain_corners: Array[PackedStringArray]) -> NewMapChunkData:
+	var chunk_data := NewMapChunkData.new()
+	var packed_byte_array := PackedByteArray([0, 0, 0, 0])
+	for x in range(0, NewMapChunk.TILE_COUNT):
+		for y in range(0, NewMapChunk.TILE_COUNT):
+			#print(Vector2i(x, y))
+			var tile_data := 0
+			for terrain_index in range(4):
+				var ter := TERRAIN_OPTIONS[terrain_index]
 				if tile_terrain_corners[x][y] != ter and tile_terrain_corners[x + 1][y] != ter and tile_terrain_corners[x][y + 1] != ter and tile_terrain_corners[x + 1][y + 1] != ter:
 					continue
 				var a := convert_terrain(tile_terrain_corners[x][y], ter)
 				var b := convert_terrain(tile_terrain_corners[x + 1][y], ter)
 				var c := convert_terrain(tile_terrain_corners[x][y + 1], ter)
 				var d := convert_terrain(tile_terrain_corners[x + 1][y + 1], ter)
-				var total := a + b * 2 + c * 8 + d * 4 - 1
-				layer.set_cell(Vector2i(x, y), 0, Vector2i(total, ORIGINS[ter]), 0)
-		
-		patterns.push_back(layer)
+				
+				# encoding index of tile in atlas using corners as binary counters
+				tile_data += (a + b * 2 + c * 8 + d * 4) << (terrain_index * 6)
+				
+				#print(ter)
+				#print(a + b * 2 + c * 8 + d * 4 - 1)
+				
+				# order of terrains can be dynamic
+				# for now following current hardcoded order 
+				tile_data += PRIO[ter] << (4 + (terrain_index * 6))
+				
+			#print("-=-=-=-=-=-=-")
+			packed_byte_array.encode_u32(0, tile_data)
+			
+			chunk_data.tiles.push_back(NewMapChunkTileData.new(Vector2i(x, y), Color(packed_byte_array.decode_float(0), 0, 0, 0)))
+			
+	return chunk_data
 	
-	return patterns
-
 func convert_terrain(source: String, target: String) -> int:
 	return 1 if PRIO[source] >= PRIO[target] else 0
 

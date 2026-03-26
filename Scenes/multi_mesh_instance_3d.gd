@@ -52,7 +52,7 @@ func _ready() -> void:
 			#orders.shuffle()
 			for tile_data_index in range(4):
 				@warning_ignore("integer_division")
-				tile_data += ((current_instance / (floori(pow(15, tile_data_index)))) % 15) << (tile_data_index * 6)
+				tile_data += (1 + ((current_instance / (floori(pow(15, tile_data_index)))) % 15)) << (tile_data_index * 6)
 				#print(current_instance)
 				#print(tile_data_index * 4)
 				#print((current_instance >> (tile_data_index * 4)))

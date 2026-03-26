@@ -4,10 +4,10 @@ extends CanvasLayer
 @export var progress_bar: ProgressBar
 @export var deero_sprite: AnimatedSprite2D
 
-#func _ready() -> void:
-	#visible = false
-	#game_holder.process_mode = Node.PROCESS_MODE_INHERIT
-	#queue_free()
+func _ready() -> void:
+	visible = false
+	game_holder.process_mode = Node.PROCESS_MODE_INHERIT
+	queue_free()
 
 func tile_requested(_arg: Vector2i) -> void:
 	progress_bar.max_value += 1

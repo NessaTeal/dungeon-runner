@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dldtmj2d8aq01"]
+[gd_scene format=3 uid="uid://dldtmj2d8aq01"]
 
 [ext_resource type="Script" uid="uid://wfpmrn7gihsb" path="res://Units/Player/player.gd" id="1_dwi3t"]
 [ext_resource type="PackedScene" uid="uid://ngkegcjskgw1" path="res://Units/Components/Movement/movement_component.tscn" id="8_pxk32"]
@@ -20,7 +20,7 @@ height = 1.0
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pxk32"]
 radius = 1.0
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("speed_component", "trample_component", "slingshot_component", "direction_component", "movement_component", "health_component", "attack_component")]
+[node name="Player" type="CharacterBody3D" unique_id=716859399 node_paths=PackedStringArray("speed_component", "trample_component", "slingshot_component", "direction_component", "movement_component", "health_component", "attack_component")]
 collision_mask = 260
 script = ExtResource("1_dwi3t")
 speed_component = NodePath("SpeedComponent")
@@ -31,66 +31,67 @@ movement_component = NodePath("MovementComponent")
 health_component = NodePath("HealthComponent")
 attack_component = NodePath("AttackComponent")
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=513692035]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32, 0)
 billboard = 2
 sprite_frames = ExtResource("11_sne4n")
 animation = &"white"
 autoplay = "white"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=823631991]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CapsuleShape3D_ucxuk")
 
-[node name="AttackComponent" parent="." instance=ExtResource("13_68uij")]
+[node name="AttackComponent" parent="." unique_id=869894622 instance=ExtResource("13_68uij")]
 
-[node name="DashComponent" parent="." node_paths=PackedStringArray("movement_component", "transformation_component") instance=ExtResource("13_6iibj")]
+[node name="DashComponent" parent="." unique_id=676088891 node_paths=PackedStringArray("movement_component", "transformation_component") instance=ExtResource("13_6iibj")]
 movement_component = NodePath("../MovementComponent")
 transformation_component = NodePath("../TransformationComponent")
 
-[node name="DirectionComponent" parent="." node_paths=PackedStringArray("player") instance=ExtResource("15_2t20v")]
+[node name="DirectionComponent" parent="." unique_id=1349143226 node_paths=PackedStringArray("player") instance=ExtResource("15_2t20v")]
 player = NodePath("..")
 
-[node name="SlingshotComponent" parent="." node_paths=PackedStringArray("attack_component", "speed_component") instance=ExtResource("16_cbjcl")]
+[node name="SlingshotComponent" parent="." unique_id=173952577 node_paths=PackedStringArray("attack_component", "speed_component") instance=ExtResource("16_cbjcl")]
 attack_component = NodePath("../AttackComponent")
 speed_component = NodePath("../SpeedComponent")
 
-[node name="SpeedComponent" parent="." instance=ExtResource("17_vsxer")]
-base_speed = 25.0
+[node name="SpeedComponent" parent="." unique_id=1805166999 instance=ExtResource("17_vsxer")]
+base_speed = 0.0
 
-[node name="MovementComponent" parent="." node_paths=PackedStringArray("direction_component", "speed_component", "player") instance=ExtResource("8_pxk32")]
+[node name="MovementComponent" parent="." unique_id=1686997147 node_paths=PackedStringArray("direction_component", "speed_component", "player") instance=ExtResource("8_pxk32")]
 direction_component = NodePath("../DirectionComponent")
 speed_component = NodePath("../SpeedComponent")
 player = NodePath("..")
 
-[node name="RetaliationComponent" parent="." node_paths=PackedStringArray("health_component", "attack_component") instance=ExtResource("9_6iibj")]
+[node name="RetaliationComponent" parent="." unique_id=1998968542 node_paths=PackedStringArray("health_component", "attack_component") instance=ExtResource("9_6iibj")]
 health_component = NodePath("../HealthComponent")
 attack_component = NodePath("../AttackComponent")
 
-[node name="TrampleComponent" parent="." node_paths=PackedStringArray("attack_component", "speed_component") instance=ExtResource("10_v6jny")]
+[node name="TrampleComponent" parent="." unique_id=5241239 node_paths=PackedStringArray("attack_component", "speed_component") instance=ExtResource("10_v6jny")]
 attack_component = NodePath("../AttackComponent")
 speed_component = NodePath("../SpeedComponent")
 
-[node name="TransformationComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("11_s6s4v")]
+[node name="TransformationComponent" parent="." unique_id=1440377070 node_paths=PackedStringArray("sprite") instance=ExtResource("11_s6s4v")]
 sprite = NodePath("../AnimatedSprite3D")
 
-[node name="HealthComponent" parent="." instance=ExtResource("12_kywcc")]
+[node name="HealthComponent" parent="." unique_id=247656054 instance=ExtResource("12_kywcc")]
+visible = false
 offset_left = 743.0
 offset_top = 508.0
 offset_right = 1261.0
 offset_bottom = 576.0
 base_hp = 1000.0
 
-[node name="EnemyCollision" type="StaticBody3D" parent="."]
+[node name="EnemyCollision" type="StaticBody3D" parent="." unique_id=289622229]
 collision_layer = 2
 collision_mask = 0
 
-[node name="EnemyCollisionShape" type="CollisionShape3D" parent="EnemyCollision"]
+[node name="EnemyCollisionShape" type="CollisionShape3D" parent="EnemyCollision" unique_id=104886986]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CapsuleShape3D_pxk32")
 debug_color = Color(0.87608176, 0.22123876, 0.65927917, 0.41960785)
 
-[node name="ImmolationComponent" parent="." node_paths=PackedStringArray("health_component", "attack_component", "transformation_component") instance=ExtResource("13_v6jny")]
+[node name="ImmolationComponent" parent="." unique_id=1470891446 node_paths=PackedStringArray("health_component", "attack_component", "transformation_component") instance=ExtResource("13_v6jny")]
 health_component = NodePath("../HealthComponent")
 attack_component = NodePath("../AttackComponent")
 transformation_component = NodePath("../TransformationComponent")

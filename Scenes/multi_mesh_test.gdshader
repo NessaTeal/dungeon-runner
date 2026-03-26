@@ -1,20 +1,24 @@
 shader_type spatial;
 
 uniform sampler2D atlas : filter_nearest_mipmap_anisotropic, repeat_disable;
-//uniform sampler2D atlas;
 varying flat vec4 t;
-//uniform vec4[2] g;
+
+//render_mode blend_premul_alpha;
 
 void vertex() {
-	// Called for every vertex the material is visible on.
-	//float a = INSTANCE_CUSTOM.x;
-	//COLOR = color;
-	//int a = floatBitsToInt(t.x) >> 28;
 	t = INSTANCE_CUSTOM;
 }
 
+const float tile_size = 128.0;
+const float tiles_x = 16.0;
+const float tiles_y = 4.0;
+const float texture_width = 4096.0;
+const float texture_height = 1024.0;
+const float texture_padding = 32.0;
+const float delta_x_tile = (tile_size + 2.0 * texture_padding) / texture_width;
+const float delta_y_tile = (tile_size + 2.0 * texture_padding) / texture_height;
+
 void fragment() {
-	//float grass_offset = t.x && 1;
 	uint grass_tile = floatBitsToUint(t.x) % 16u;
 	uint sand_tile = (floatBitsToUint(t.x) >> 6u) % 16u;
 	uint rock_tile = (floatBitsToUint(t.x) >> 12u) % 16u;
@@ -24,18 +28,39 @@ void fragment() {
 	uint sand_tile_order = (floatBitsToUint(t.x) >> 10u) % 4u;
 	uint rock_tile_order = (floatBitsToUint(t.x) >> 16u) % 4u;
 	uint dirt_tile_order = (floatBitsToUint(t.x) >> 22u) % 4u;
-	//float b = float(a);
-	vec4 grass = texture(atlas, vec2((float(grass_tile) * 128.0 / 1920.0) + UV.x * (128.0 / 1920.0), UV.y * 0.25));
-	vec4 sand = texture(atlas, vec2((float(sand_tile) * 128.0 / 1920.0) + UV.x * (128.0 / 1920.0),  0.25 + UV.y * 0.25));
-	vec4 rock = texture(atlas, vec2((float(rock_tile) * 128.0 / 1920.0) + UV.x * (128.0 / 1920.0),  0.5 + UV.y * 0.25));
-	vec4 dirt = texture(atlas, vec2((float(dirt_tile) * 128.0 / 1920.0) + UV.x * (128.0 / 1920.0),  0.75 + UV.y * 0.25));
 	
-	bool grass_visible = (grass_tile_order == 3u) || (((grass_tile_order > sand_tile_order) || (sand.a < 1.0)) && ((grass_tile_order > rock_tile_order) || (rock.a < 1.0)) && ((grass_tile_order > dirt_tile_order) || (dirt.a < 1.0)));
-	bool sand_visible = (sand_tile_order == 3u) || (((sand_tile_order > grass_tile_order) || (grass.a < 1.0)) && ((sand_tile_order > rock_tile_order) || (rock.a < 1.0)) && ((sand_tile_order > dirt_tile_order) || (dirt.a < 1.0)));
-	bool rock_visible = (rock_tile_order == 3u) || (((rock_tile_order > sand_tile_order) || (sand.a < 1.0)) && ((rock_tile_order > grass_tile_order) || (grass.a < 1.0)) && ((rock_tile_order > dirt_tile_order) || (dirt.a < 1.0)));
-	bool dirt_visible = (dirt_tile_order == 3u) || (((dirt_tile_order > sand_tile_order) || (sand.a < 1.0)) && ((dirt_tile_order > rock_tile_order) || (rock.a < 1.0)) && ((dirt_tile_order > grass_tile_order) || (grass.a < 1.0)));
-	//ALBEDO = vec3(1.0 * (float(uint(a)) / 64.0), 0.0, 0.0);
-	//ALBEDO = vec3(float(a), 0.0, 0.0);
-	//ALBEDO = t.xyz;
-	ALBEDO = min(grass.rgb * grass.a, float(grass_visible)) + min(sand.rgb * sand.a, float(sand_visible)) + min(rock.rgb * rock.a, float(rock_visible)) + min(dirt.rgb * dirt.a, float(dirt_visible));
+	vec4 grass = texture(atlas, vec2((float(grass_tile) * delta_x_tile) + UV.x * (tile_size / texture_width) + (texture_padding / texture_width),                        UV.y * (tile_size / texture_height) + (texture_padding /texture_height)));
+	vec4 sand  = texture(atlas, vec2((float(sand_tile)  * delta_x_tile) + UV.x * (tile_size / texture_width) + (texture_padding / texture_width), (1.0 * delta_y_tile) + UV.y * (tile_size / texture_height) + (texture_padding / texture_height)));
+	vec4 rock  = texture(atlas, vec2((float(rock_tile)  * delta_x_tile) + UV.x * (tile_size / texture_width) + (texture_padding / texture_width), (2.0 * delta_y_tile) + UV.y * (tile_size / texture_height) + (texture_padding / texture_height)));
+	vec4 dirt  = texture(atlas, vec2((float(dirt_tile)  * delta_x_tile) + UV.x * (tile_size / texture_width) + (texture_padding / texture_width), (3.0 * delta_y_tile) + UV.y * (tile_size / texture_height) + (texture_padding / texture_height)));
+	
+    vec4 slot0 = grass * float(grass_tile_order == 0u)
+               + sand  * float(sand_tile_order  == 0u)
+               + rock  * float(rock_tile_order  == 0u)
+               + dirt  * float(dirt_tile_order  == 0u);
+
+    vec4 slot1 = grass * float(grass_tile_order == 1u)
+               + sand  * float(sand_tile_order  == 1u)
+               + rock  * float(rock_tile_order  == 1u)
+               + dirt  * float(dirt_tile_order  == 1u);
+
+    vec4 slot2 = grass * float(grass_tile_order == 2u)
+               + sand  * float(sand_tile_order  == 2u)
+               + rock  * float(rock_tile_order  == 2u)
+               + dirt  * float(dirt_tile_order  == 2u);
+
+    vec4 slot3 = grass * float(grass_tile_order == 3u)
+               + sand  * float(sand_tile_order  == 3u)
+               + rock  * float(rock_tile_order  == 3u)
+               + dirt  * float(dirt_tile_order  == 3u);
+
+    // Composite bottom to top
+    vec4 final = slot0;
+
+    final = mix(final, slot1, slot1.a);
+    final = mix(final, slot2, slot2.a);
+    final = mix(final, slot3, slot3.a);
+
+    ALBEDO = final.rgb;
+    ALPHA = final.a;
 }

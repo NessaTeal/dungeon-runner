@@ -1,6 +1,8 @@
+from __future__ import division
 import math
 import json
-from PIL import Image
+import numpy as np
+from PIL import Image, ImageDraw
 
 # def create_gradients(extra_fill):
 #     grad = Image.linear_gradient("L")
@@ -120,13 +122,136 @@ coords = [
 	}
 ]
 
-atlas = Image.new("RGBA", (15 * SIZE, 4 * SIZE))
+PADDING = 64
+PADDED_SIZE = SIZE + PADDING * 2
+
+atlas = Image.new("RGBA", (16 * PADDED_SIZE, 4 * PADDED_SIZE))
+# atlas = Image.new("RGBA", (4096, 4096))
+
+drawer = ImageDraw.Draw(atlas)
+
+RECT_OFFSET = PADDING
+SMALL_SIDE = 30
+
+top_left_corner = (-RECT_OFFSET, -RECT_OFFSET)
+top_right_corner = (SIZE + RECT_OFFSET - 1, -RECT_OFFSET)
+bottom_left_corner = (-RECT_OFFSET, SIZE + RECT_OFFSET - 1)
+bottom_right_corner = (SIZE + RECT_OFFSET - 1, SIZE + RECT_OFFSET - 1)
+
+top_left_right = np.add(top_left_corner, (RECT_OFFSET + SMALL_SIDE - 1, 0))
+top_left_down = np.add(top_left_corner, (0, RECT_OFFSET + SMALL_SIDE - 1))
+top_left_inner = np.add(top_left_corner, (RECT_OFFSET + SMALL_SIDE - 1, RECT_OFFSET + SMALL_SIDE - 1))
+
+top_right_left = np.add(top_right_corner, (-RECT_OFFSET - SMALL_SIDE + 1, 0))
+top_right_down = np.add(top_right_corner, (0, RECT_OFFSET + SMALL_SIDE - 1))
+top_right_inner = np.add(top_right_corner, (-RECT_OFFSET - SMALL_SIDE + 1, RECT_OFFSET + SMALL_SIDE - 1))
+
+bottom_left_right = np.add(bottom_left_corner, (RECT_OFFSET + SMALL_SIDE - 1, 0))
+bottom_left_up = np.add(bottom_left_corner, (0, - RECT_OFFSET - SMALL_SIDE + 1))
+bottom_left_inner = np.add(bottom_left_corner, (RECT_OFFSET + SMALL_SIDE - 1, -RECT_OFFSET - SMALL_SIDE + 1))
+
+bottom_right_left = np.add(bottom_right_corner, (-RECT_OFFSET - SMALL_SIDE + 1, 0))
+bottom_right_up = np.add(bottom_right_corner, (0, -RECT_OFFSET - SMALL_SIDE + 1))
+bottom_right_inner = np.add(bottom_right_corner, (-RECT_OFFSET - SMALL_SIDE + 1, -RECT_OFFSET - SMALL_SIDE + 1))
+
+colors = ["#2ecc71", "#ecdcb8", "#89a4a6", "#bb8044"];
+
+# def draw_top_left_corner(pos, coloor):
+# 	one = np.add(pos, top_left_corner)
+# 	two = np.add(pos, top_left_inner)
+# 	drawer.rectangle([(one[0], one[1]), (two[0], two[1])], fill = coloor)
+
+# for index in range(4):
+# 	color = colors[index]
+# 	for index, coor in enumerate(coords):
+
+ordered_colors = ["#89a4a6", "#bb8044", "#ecdcb8", "#2ecc71"]
+# drawer.rectangle([(PADDED_SIZE,0), (PADDED_SIZE * 16, PADDED_SIZE)], fill = "#2ecc71")
+# drawer.rectangle([(PADDED_SIZE,PADDED_SIZE), (PADDED_SIZE * 16, PADDED_SIZE * 2)], fill = "#ecdcb8")
+# drawer.rectangle([(PADDED_SIZE,PADDED_SIZE * 2), (PADDED_SIZE * 16, PADDED_SIZE * 3)], fill = "#89a4a6")
+# drawer.rectangle([(PADDED_SIZE,PADDED_SIZE * 3), (PADDED_SIZE * 16, PADDED_SIZE * 4)], fill = "#bb8044")
+
 
 for value in [2, 3, 1, 0]:
-    for index, coord in enumerate(coords):
-        atlas.paste(im.crop((coord['x'] * SIZE, (coord['y'] + value * 3) * SIZE, (coord['x'] + 1) * SIZE, (coord['y'] + value * 3 + 1) * SIZE)), (index * SIZE, value * SIZE))
+	color = colors[value]
+	# color = "#FF0000"
+	for index, coord in enumerate(coords):
+		x_start = coord['x'] * SIZE
+		y_start = (coord['y'] + value * 3) * SIZE
+		x_end = (coord['x'] + 1) * SIZE
+		y_end = (coord['y'] + value * 3 + 1) * SIZE
 
-atlas.save("atlas.png")
+		target_x = (index + 1) * PADDED_SIZE + PADDING
+		target_y = value * PADDED_SIZE + PADDING
+		pos = (target_x, target_y)
+
+		# draw_top_left_corner((target_x, target_y), color)
+
+		if index == 0 or index == 4:
+			one = np.add(pos, top_left_corner)
+			two = np.add(pos, top_left_inner)
+			drawer.rectangle([(one[0], one[1]), (two[0], two[1])], fill = color)
+		if index == 1 or index == 9:
+			one = np.add(pos, top_right_left)
+			two = np.add(pos, top_right_down)
+			drawer.rectangle([(one[0], one[1]), (two[0], two[1])], fill = color)
+		if index == 3 or index == 4:
+			one = np.add(pos, bottom_right_inner)
+			two = np.add(pos, bottom_right_corner)
+			drawer.rectangle([(one[0], one[1]), (two[0], two[1])], fill = color)
+		if index == 7 or index == 9:
+			one = np.add(pos, bottom_left_up)
+			two = np.add(pos, bottom_left_right)
+			drawer.rectangle([(one[0], one[1]), (two[0], two[1])], fill = color)
+
+
+		if index == 2 or index == 6 or index == 10:
+			one = np.add(pos, top_left_corner)
+			two = np.add(pos, top_right_down)
+			drawer.rectangle([(one[0], one[1]), (two[0], two[1])], fill = color)
+		if index == 5 or index == 6 or index == 13:
+			one = np.add(pos, top_right_left)
+			two = np.add(pos, bottom_right_corner)
+			drawer.rectangle([(one[0], one[1]), (two[0], two[1])], fill = color)
+		if index == 8 or index == 10 or index == 12:
+			one = np.add(pos, top_left_corner)
+			two = np.add(pos, bottom_left_right)
+			drawer.rectangle([(one[0], one[1]), (two[0], two[1])], fill = color)
+		if index == 11 or index == 12 or index == 13:
+			one = np.add(pos, bottom_left_up)
+			two = np.add(pos, bottom_right_corner)
+			drawer.rectangle([(one[0], one[1]), (two[0], two[1])], fill = color)
+
+		if index == 14:
+			one = np.add(pos, top_left_corner)
+			two = np.add(pos, bottom_right_corner)
+			drawer.rectangle([(one[0], one[1]), (two[0], two[1])], fill = color)
+
+		atlas.paste(im.crop((x_start, y_start, x_end, y_end)), pos)
+
+
+def halve_image(image) :
+    rows, cols, planes = image.shape
+    image = image.astype('uint16')
+    image = image.reshape(rows // 2, 2, cols // 2, 2, planes)
+    image = image.sum(axis=3).sum(axis=1)
+    return ((image + 2) >> 2).astype('uint8')
+
+def mipmap(image) :
+    img = image.copy()
+    rows, cols, planes = image.shape
+    mipmap = np.zeros((rows, cols * 3 // 2, planes), dtype='uint8')
+    mipmap[:, :cols, :] = img
+    row = 0
+    for i in range(6):
+        img = halve_image(img)
+        rows = img.shape[0]
+        mipmap[row:row + rows, cols:cols + img.shape[1], :] = img
+        row += rows
+    return mipmap
+
+atlas.save("atlas_3.png")
+# Image.fromarray(mipmap(np.asarray(atlas))).save("mips.dds", pixel_format="DXT5")
 
 # all_result_tiles = []
 # all_result_data = []
