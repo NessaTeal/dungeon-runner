@@ -28,7 +28,6 @@
 [ext_resource type="Texture2D" uid="uid://c026y88fb5mv3" path="res://Textures/deero/0017.png" id="27_davj8"]
 [ext_resource type="Texture2D" uid="uid://cvlfh76j1rjth" path="res://Textures/deero/0018.png" id="28_b2ea0"]
 [ext_resource type="Texture2D" uid="uid://be7j44xa1gfqs" path="res://Textures/deero/0019.png" id="29_d887w"]
-[ext_resource type="PackedScene" uid="uid://bmm3g2bw3y5rs" path="res://Scenes/Map/letter_generator.tscn" id="30_hx27y"]
 [ext_resource type="Texture2D" uid="uid://dpdbhb1tor1ho" path="res://Textures/deero/0020.png" id="30_vjorg"]
 [ext_resource type="Texture2D" uid="uid://sppcsjg6uwbc" path="res://Textures/deero/0021.png" id="31_nq1sn"]
 [ext_resource type="Texture2D" uid="uid://bcdnlt64ukj4q" path="res://Textures/deero/0022.png" id="32_7mdle"]
@@ -271,8 +270,6 @@ sprite_frames = SubResource("SpriteFrames_lmtoh")
 autoplay = "default"
 frame_progress = 0.6283509
 
-[node name="LetterGenerator" parent="." unique_id=1402109333 instance=ExtResource("30_hx27y")]
-
 [node name="GameHolder" type="Node" parent="." unique_id=2147269012]
 process_mode = 4
 
@@ -328,8 +325,6 @@ script = ExtResource("8_6leyg")
 player = NodePath("../GameHolder/Map/Player")
 
 [connection signal="pressed" from="UI/ShowInventoryButton" to="." method="_on_show_inventory_button_pressed"]
-[connection signal="tile_cancelled" from="GameHolder/Map" to="LetterGenerator" method="remove_task"]
 [connection signal="tile_created" from="GameHolder/Map" to="Loading" method="tile_created"]
 [connection signal="tile_requested" from="GameHolder/Map" to="Loading" method="tile_requested"]
-[connection signal="tile_requested" from="GameHolder/Map" to="LetterGenerator" method="add_task"]
 [connection signal="player_position_updated" from="GameHolder/Map/Player" to="GameHolder/Map" method="update_map"]

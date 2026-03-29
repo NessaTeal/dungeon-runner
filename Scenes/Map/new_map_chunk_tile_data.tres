@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="NewMapChunkData" format=3 uid="uid://cyl7cbv1x5jo3"]
+
+[ext_resource type="Script" uid="uid://b7xwwvsvmib52" path="res://Scenes/Map/new_map_chunk_tile_data.gd" id="1_wqw4d"]
+
+[resource]
+script = ExtResource("1_wqw4d")

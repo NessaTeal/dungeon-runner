@@ -20,6 +20,10 @@ height = 1.0
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pxk32"]
 radius = 1.0
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_6iibj"]
+top_radius = 1.0
+bottom_radius = 1.0
+
 [node name="Player" type="CharacterBody3D" unique_id=716859399 node_paths=PackedStringArray("speed_component", "trample_component", "slingshot_component", "direction_component", "movement_component", "health_component", "attack_component")]
 collision_mask = 260
 script = ExtResource("1_dwi3t")
@@ -34,6 +38,7 @@ attack_component = NodePath("AttackComponent")
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=513692035]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32, 0)
 billboard = 2
+alpha_cut = 2
 sprite_frames = ExtResource("11_sne4n")
 animation = &"white"
 autoplay = "white"
@@ -56,7 +61,6 @@ attack_component = NodePath("../AttackComponent")
 speed_component = NodePath("../SpeedComponent")
 
 [node name="SpeedComponent" parent="." unique_id=1805166999 instance=ExtResource("17_vsxer")]
-base_speed = 0.0
 
 [node name="MovementComponent" parent="." unique_id=1686997147 node_paths=PackedStringArray("direction_component", "speed_component", "player") instance=ExtResource("8_pxk32")]
 direction_component = NodePath("../DirectionComponent")
@@ -95,6 +99,10 @@ debug_color = Color(0.87608176, 0.22123876, 0.65927917, 0.41960785)
 health_component = NodePath("../HealthComponent")
 attack_component = NodePath("../AttackComponent")
 transformation_component = NodePath("../TransformationComponent")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=936573061]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("CylinderMesh_6iibj")
 
 [connection signal="player_turned_a_lot" from="DirectionComponent" to="." method="report_player_position"]
 [connection signal="moved_a_lot" from="MovementComponent" to="." method="report_player_position"]

@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="StoneRarity" format=3 uid="uid://byxsnkgl0wvpo"]
+
+[ext_resource type="Script" uid="uid://b3occksp5al76" path="res://Affixes/stone_rarity.gd" id="1_gfamd"]
+
+[resource]
+script = ExtResource("1_gfamd")

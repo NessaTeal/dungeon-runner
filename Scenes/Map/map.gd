@@ -3,8 +3,8 @@ class_name Map
 
 const new_map_chunk := preload("res://Scenes/Map/new_map_chunk.tscn")
 
-static var MAP_TILE_DRAW_DISTANCE := 9
-static var MAP_TILE_DRAW_ANGLE := 50.0
+static var MAP_TILE_DRAW_DISTANCE := 15
+static var MAP_TILE_DRAW_ANGLE := 60.0
 
 static var MAP_TILE_SIZE := NewMapChunk.CHUNK_SIZE
 
@@ -70,6 +70,8 @@ func update_map(player_position: Vector3, player_direction: Vector2) -> void:
 	var tiles_to_request: Array[Vector2i] = []
 	var tiles_to_remove: Array[Vector2i] = []
 	
+	#print(minumum_x, minimum_y, maximum_x, maximum_y)
+	
 	#tiles_to_request.push_back(Vector2i(0, 0))
 	#tiles_to_request.push_back(Vector2i(0, 1))
 	
@@ -98,25 +100,41 @@ func update_map(player_position: Vector3, player_direction: Vector2) -> void:
 			
 			if not map_chunks.has(key):
 				tiles_to_request.push_back(key)
-				
+	
 	for key in map_chunks.keys() as Array[Vector2i]:
 		if !all_keys.has(key):
 			tiles_to_remove.push_back(key)
-			
+	
+	letterGenerator.add_tasks(tiles_to_request)
+	
 	for key in tiles_to_request:
-		var map_tile := new_map_chunk.instantiate() as NewMapChunk
-		#map_tile.plane_mesh.size = Vector2(MAP_TILE_SIZE, MAP_TILE_SIZE)
-		map_tile.set_position(Vector3(key.x * MAP_TILE_SIZE, 0, key.y * MAP_TILE_SIZE))
-		map_tile.chunk_data = letterGenerator.add_task(key)
-		map_chunks[key] = map_tile
-		map_tile.name = "MapChunk %d,%d" % [key.x, key.y]
-		add_child(map_tile)
-		#tile_requested.emit(key)
+		tile_requested.emit(key)
+		#var map_tile := new_map_chunk.instantiate() as NewMapChunk
+		##map_tile.plane_mesh.size = Vector2(MAP_TILE_SIZE, MAP_TILE_SIZE)
+		#map_tile.set_position(Vector3(key.x * MAP_TILE_SIZE, 0, key.y * MAP_TILE_SIZE))
+		#map_tile.chunk_data = 
+		#map_chunks[key] = map_tile
+		#map_tile.name = "MapChunk %d,%d" % [key.x, key.y]
+		#add_child(map_tile)
+		##tile_requested.emit(key)
 		
-	for key in tiles_to_remove:
-		var removed_tile := map_chunks[key]
-			
-		map_chunks[key].queue_free()
 		
-		if !map_chunks.erase(key):
-			printerr("Somebody else removed map tile with key %v" % [key])
+	# TODO: Chunk deletion is struggling with multithreading
+	#for key in tiles_to_remove:
+		#var removed_tile := map_chunks[key]
+			#
+		#map_chunks[key].free()
+		#
+		#if !map_chunks.erase(key):
+			#printerr("Somebody else removed map tile with key %v" % [key])
+	
+
+func _on_letter_generator_publish_chunk(key: Vector2i, chunk_data: NewMapChunkData) -> void:
+	var map_tile := new_map_chunk.instantiate() as NewMapChunk
+	#map_tile.plane_mesh.size = Vector2(MAP_TILE_SIZE, MAP_TILE_SIZE)
+	map_tile.set_position(Vector3(key.x * MAP_TILE_SIZE, 0, key.y * MAP_TILE_SIZE))
+	map_tile.chunk_data = chunk_data
+	map_chunks[key] = map_tile
+	map_tile.name = "MapChunk %d,%d" % [key.x, key.y]
+	add_child(map_tile)
+	tile_created.emit()

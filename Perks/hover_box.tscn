@@ -1,28 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://dopyrxkigntyo"]
+[gd_scene format=3 uid="uid://dopyrxkigntyo"]
 
 [ext_resource type="Script" uid="uid://dhktvqhymn3pm" path="res://Perks/hover_box.gd" id="1_blqyw"]
 [ext_resource type="Texture2D" uid="uid://bc4x1so7x7njw" path="res://Textures/ui_icon_empty_orange.png" id="2_b64bh"]
 [ext_resource type="PackedScene" uid="uid://4pxjsoxdwpko" path="res://Perks/perks_tooltip_line.tscn" id="3_omyib"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("tips")]
+[node name="Control" type="Control" unique_id=1506748852 node_paths=PackedStringArray("tips")]
 process_mode = 3
 z_index = 10
 layout_mode = 3
+anchors_preset = 0
 offset_right = 129.0
 offset_bottom = 73.0
 script = ExtResource("1_blqyw")
 tips = NodePath("HoverBox/MarginContainer/VBoxContainer2/VBoxContainer")
 
-[node name="HoverBox" type="PanelContainer" parent="."]
+[node name="HoverBox" type="PanelContainer" parent="." unique_id=358770665]
 layout_mode = 0
 offset_right = 129.0
 offset_bottom = 73.0
 
-[node name="ColorRect" type="ColorRect" parent="HoverBox"]
+[node name="ColorRect" type="ColorRect" parent="HoverBox" unique_id=1087245411]
 layout_mode = 2
 color = Color(0.1176, 0.28, 0.185267, 1)
 
-[node name="NinePatchRect" type="NinePatchRect" parent="HoverBox"]
+[node name="NinePatchRect" type="NinePatchRect" parent="HoverBox" unique_id=643787460]
 layout_mode = 2
 texture = ExtResource("2_b64bh")
 draw_center = false
@@ -32,24 +33,24 @@ patch_margin_top = 4
 patch_margin_right = 4
 patch_margin_bottom = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="HoverBox"]
+[node name="MarginContainer" type="MarginContainer" parent="HoverBox" unique_id=1782722560]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HoverBox/MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HoverBox/MarginContainer" unique_id=285814055]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Header" type="Label" parent="HoverBox/MarginContainer/VBoxContainer2"]
+[node name="Header" type="Label" parent="HoverBox/MarginContainer/VBoxContainer2" unique_id=2040542285]
 layout_mode = 2
 text = "Header"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HoverBox/MarginContainer/VBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HoverBox/MarginContainer/VBoxContainer2" unique_id=270934825]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="PerksTooltipLine3" parent="HoverBox/MarginContainer/VBoxContainer2/VBoxContainer" instance=ExtResource("3_omyib")]
+[node name="PerksTooltipLine3" parent="HoverBox/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=1104598503 instance=ExtResource("3_omyib")]
 layout_mode = 2

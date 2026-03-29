@@ -1,23 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://4pxjsoxdwpko"]
+[gd_scene format=3 uid="uid://4pxjsoxdwpko"]
 
 [ext_resource type="Texture2D" uid="uid://deuaqa0j3vcfr" path="res://Textures/bullet_point.png" id="1_x4od3"]
 [ext_resource type="Script" uid="uid://blp7k4bbqlf7c" path="res://Perks/perks_tooltip_line.gd" id="1_yjqki"]
 
-[node name="PerksTooltipLine" type="MarginContainer" node_paths=PackedStringArray("label")]
-anchors_preset = -1
+[node name="PerksTooltipLine" type="MarginContainer" unique_id=998968780 node_paths=PackedStringArray("label")]
 offset_right = 113.0
 offset_bottom = 24.0
 theme_override_constants/margin_left = 4
 script = ExtResource("1_yjqki")
 label = NodePath("HBoxContainer/Label")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1739080151]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=644964878]
 layout_mode = 2
 texture = ExtResource("1_x4od3")
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1867376576]
 layout_mode = 2
 text = "Test text 1"

@@ -6,5 +6,5 @@ static func handled_connect(signall: Signal, callable: Callable, flags: int = 0)
 	if err:
 		push_error("Error connecting signal %s" % error_string(err))
 
-#const GRAVITY_VECTOR := Vector3(0, -9.8, 0)
-const GRAVITY_VECTOR := Vector3(0, 0, 0)
+const GRAVITY_VECTOR := Vector3(0, -9.8, 0)
+#const GRAVITY_VECTOR := Vector3(0, 0, 0)

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://ctiw0m8k5sub3"]
+
+[ext_resource type="Script" uid="uid://cyedjoacdnds3" path="res://Scenes/Map/map.gd" id="1_drkxu"]
+[ext_resource type="PackedScene" uid="uid://bmm3g2bw3y5rs" path="res://Scenes/Map/letter_generator.tscn" id="2_jolfa"]
+
+[node name="Map" type="Node3D" unique_id=1510003958 node_paths=PackedStringArray("letterGenerator")]
+script = ExtResource("1_drkxu")
+letterGenerator = NodePath("LetterGenerator")
+
+[node name="LetterGenerator" parent="." unique_id=561896254 instance=ExtResource("2_jolfa")]
+
+[connection signal="publish_chunk" from="LetterGenerator" to="." method="_on_letter_generator_publish_chunk"]

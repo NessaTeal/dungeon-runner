@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cswctlti1unua"]
+[gd_scene format=3 uid="uid://cswctlti1unua"]
 
 [ext_resource type="Script" uid="uid://bkl2w4xol70xe" path="res://Units/Enemy/enemy.gd" id="1_ggqo2"]
 [ext_resource type="Texture2D" uid="uid://c3r80g2mb46qi" path="res://Textures/icon.svg" id="1_y6vie"]
@@ -16,41 +16,51 @@ height = 1.28
 height = 1.0
 radius = 1.0
 
-[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("attack_component", "health_component")]
+[sub_resource type="CylinderMesh" id="CylinderMesh_egvsc"]
+top_radius = 0.3
+bottom_radius = 0.3
+
+[node name="Enemy" type="CharacterBody3D" unique_id=1257401946 node_paths=PackedStringArray("attack_component", "health_component")]
 collision_layer = 2
 collision_mask = 263
 script = ExtResource("1_ggqo2")
 attack_component = NodePath("AttackComponent")
 health_component = NodePath("HealthComponent")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64, 0)
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1787471087]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.64, 0)
 billboard = 2
+alpha_cut = 2
+texture_filter = 5
 texture = ExtResource("1_y6vie")
 
-[node name="BodyCollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="BodyCollisionShape3D" type="CollisionShape3D" parent="." unique_id=778015223]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64, 0)
 shape = SubResource("CapsuleShape3D_3wt5w")
 
-[node name="HealthComponent" parent="." instance=ExtResource("3_ceitq")]
+[node name="HealthComponent" parent="." unique_id=2121218414 instance=ExtResource("3_ceitq")]
 visible = false
 base_hp = 20.0
 
-[node name="AttackComponent" parent="." instance=ExtResource("4_dy4wh")]
+[node name="AttackComponent" parent="." unique_id=1378208158 instance=ExtResource("4_dy4wh")]
 base_damage = 0.0
 
-[node name="EnemyMovementComponent" parent="." node_paths=PackedStringArray("enemy") instance=ExtResource("5_egvsc")]
+[node name="EnemyMovementComponent" parent="." unique_id=1833706456 node_paths=PackedStringArray("enemy") instance=ExtResource("5_egvsc")]
 enemy = NodePath("..")
 speed = 5.0
 
-[node name="EnemyCollisionDamageComponent" parent="." node_paths=PackedStringArray("attack_component") instance=ExtResource("6_dy4wh")]
+[node name="EnemyCollisionDamageComponent" parent="." unique_id=258350172 node_paths=PackedStringArray("attack_component") instance=ExtResource("6_dy4wh")]
 attack_component = NodePath("../AttackComponent")
 
-[node name="CollisionDamageShape3D" type="CollisionShape3D" parent="EnemyCollisionDamageComponent"]
+[node name="CollisionDamageShape3D" type="CollisionShape3D" parent="EnemyCollisionDamageComponent" unique_id=544394279]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CylinderShape3D_dy4wh")
 
-[node name="EnemyHurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_egvsc")]
+[node name="EnemyHurtboxComponent" parent="." unique_id=1810472938 node_paths=PackedStringArray("health_component") instance=ExtResource("7_egvsc")]
 health_component = NodePath("../HealthComponent")
+
+[node name="Circle" type="MeshInstance3D" parent="." unique_id=643335745]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("CylinderMesh_egvsc")
 
 [connection signal="hp_depleted" from="HealthComponent" to="." method="_on_health_component_hp_depleted"]

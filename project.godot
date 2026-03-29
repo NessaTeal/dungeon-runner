@@ -30,6 +30,7 @@ Perks="*res://Perks/perks.tscn"
 [debug]
 
 settings/profiler/max_timestamp_query_elements=2048
+settings/gdscript/max_call_stack=2047
 gdscript/warnings/untyped_declaration=1
 gdscript/warnings/unsafe_property_access=1
 gdscript/warnings/unsafe_method_access=1
@@ -45,6 +46,10 @@ window/size/viewport_height=1080
 [dotnet]
 
 project/assembly_name="Dungeon Runner"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")
 
 [gui]
 
@@ -122,3 +127,7 @@ renderer/rendering_method.mobile="gl_compatibility"
 textures/default_filters/anisotropic_filtering_level=4
 anti_aliasing/quality/msaa_3d=3
 anti_aliasing/quality/screen_space_aa=2
+
+[threading]
+
+worker_pool/max_threads=8

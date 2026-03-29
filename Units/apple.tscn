@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dbhhh1tlh70mb"]
+[gd_scene format=3 uid="uid://dbhhh1tlh70mb"]
 
 [ext_resource type="Script" uid="uid://7das1ic7whr6" path="res://Units/collectible.gd" id="1_c433l"]
 [ext_resource type="Texture2D" uid="uid://cdch2x6xyuhmi" path="res://Textures/06_t.PNG" id="1_pjxfa"]
@@ -6,18 +6,19 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_c433l"]
 radius = 0.4
 
-[node name="Apple" type="Area3D"]
+[node name="Apple" type="Area3D" unique_id=1681493989]
 collision_layer = 8
 monitorable = false
 script = ExtResource("1_c433l")
 metadata/_custom_type_script = "uid://7das1ic7whr6"
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1508103090]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.32, 0)
 billboard = 1
+alpha_cut = 2
 texture = ExtResource("1_pjxfa")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=413052074]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
 shape = SubResource("SphereShape3D_c433l")
 

@@ -16,23 +16,138 @@ static var ORIGINS: Dictionary[String, int] = {
 static var TERRAIN_OPTIONS: Array[String] = ["g", "s", "r", "d"]
 static var PRIO: Dictionary[String, int] = {"r": 0, "d": 1, "s": 2, "g": 3}
 
-func add_task(coords: Vector2i) -> NewMapChunkData:
+signal publish_chunk(coords: Vector2i, chunk_data: NewMapChunkData)
+
+var tasks: Array[Vector2i] = []
+var all_tasks: Dictionary[Vector2i, bool] = {}
+var thread: Thread
+var thread_running := true
+var mutex := Mutex.new()
+
+func _ready() -> void:
+	thread = Thread.new()
+	thread.start(do_task)
+
+func _exit_tree() -> void:
+	thread_running = false
+	thread.wait_to_finish()
+	
+var cur_tasaks: Array[Vector2i] = []
+
+func worker_func(task_index: int) -> void:
+	#print(task_index)
+	var coords := cur_tasaks[task_index]
+	
 	var _x := coords.x * (NewMapChunk.GENERATION_POINTS - 1)
 	var _y := coords.y * (NewMapChunk.GENERATION_POINTS - 1)
 	
-	for xx in range(_x, _x + NewMapChunk.GENERATION_POINTS):
-		for yy in range(_y, _y + NewMapChunk.GENERATION_POINTS):
-			var letter_key := Vector2i(xx, yy)
-			if not letters.has(letter_key):
-				letters[letter_key] = GeneratorTile.new(xx, yy)
+	#for xx in range(_x, _x + NewMapChunk.GENERATION_POINTS):
+		#for yy in range(_y, _y + NewMapChunk.GENERATION_POINTS):
+			#var letter_key := Vector2i(xx, yy)
+			#if not letters.has(letter_key):
+				#letters[letter_key] = GeneratorTile.new(xx, yy)
 	# offset by 1 as edge letters can have all 4 neighbours already done if it's 4th tile in a corner
 	update_neighbours(letters[Vector2i(_x + 1, _y + 1)])
-	print(Vector2i(_x, _y))
 	var tile_terrain_corners := calculate_tile_terrain_corners(Vector2i(_x, _y))
 	#var patterns := calculate_layers(tile_terrain_corners)
 	var chunk_data := calculate_chunk_data(tile_terrain_corners)
+	#all_tasks[coords] = chunk_data
 
-	return chunk_data
+	publish_chunk.emit.call_deferred(coords, chunk_data)
+
+func do_task() -> void:
+	while thread_running:
+		mutex.lock()
+		cur_tasaks = tasks.duplicate()
+		tasks.clear()
+		mutex.unlock()
+		for task in cur_tasaks:
+			var _x := task.x * (NewMapChunk.GENERATION_POINTS - 1)
+			var _y := task.y * (NewMapChunk.GENERATION_POINTS - 1)
+			
+			for xx in range(_x, _x + NewMapChunk.GENERATION_POINTS):
+				for yy in [_y, _y + NewMapChunk.GENERATION_POINTS - 1]:
+					var letter_key := Vector2i(xx, yy)
+					if not letters.has(letter_key):
+						letters[letter_key] = GeneratorTile.new(xx, yy)
+					
+			update_neighbours(letters[Vector2i(_x + 1, _y)])
+			update_neighbours(letters[Vector2i(_x + 1, _y + NewMapChunk.GENERATION_POINTS - 1)])
+				
+			for yy in range(_y, _y + NewMapChunk.GENERATION_POINTS):
+				for xx in [_x, _x + NewMapChunk.GENERATION_POINTS - 1]:
+					var letter_key := Vector2i(xx, yy)
+					if not letters.has(letter_key):
+						letters[letter_key] = GeneratorTile.new(xx, yy)
+					
+			update_neighbours(letters[Vector2i(_x, _y + 1)])
+			update_neighbours(letters[Vector2i(_x + NewMapChunk.GENERATION_POINTS - 1, _y + 1)])
+			
+			for xx in range(_x, _x + NewMapChunk.GENERATION_POINTS):
+				for yy in range(_y, _y + NewMapChunk.GENERATION_POINTS):
+					var letter_key := Vector2i(xx, yy)
+					if not letters.has(letter_key):
+						letters[letter_key] = GeneratorTile.new(xx, yy)
+				#for yy in range(_y, _y + NewMapChunk.GENERATION_POINTS):
+					#var letter_key := Vector2i(xx, yy)
+					#if not letters.has(letter_key):
+						#letters[letter_key] = GeneratorTile.new(xx, yy)
+			#pass
+		#print(letters)
+		var id := WorkerThreadPool.add_group_task(worker_func, len(cur_tasaks))
+		WorkerThreadPool.wait_for_group_task_completion(id)
+		#if coords_untyped is Vector2i:
+			#var coords := coords_untyped as Vector2i
+		#
+			#var _x := coords.x * (NewMapChunk.GENERATION_POINTS - 1)
+			#var _y := coords.y * (NewMapChunk.GENERATION_POINTS - 1)
+			#
+			#for xx in range(_x, _x + NewMapChunk.GENERATION_POINTS):
+				#for yy in range(_y, _y + NewMapChunk.GENERATION_POINTS):
+					#var letter_key := Vector2i(xx, yy)
+					#if not letters.has(letter_key):
+						#letters[letter_key] = GeneratorTile.new(xx, yy)
+			## offset by 1 as edge letters can have all 4 neighbours already done if it's 4th tile in a corner
+			#update_neighbours(letters[Vector2i(_x + 1, _y + 1)])
+			#var tile_terrain_corners := calculate_tile_terrain_corners(Vector2i(_x, _y))
+			##var patterns := calculate_layers(tile_terrain_corners)
+			#var chunk_data := calculate_chunk_data(tile_terrain_corners)
+			#all_tasks[coords] = chunk_data
+#
+			#publish_chunk.emit.call_deferred(coords, chunk_data)
+#func add_task(coords: Vector2i) -> void:
+	#if tasks.has(coords):
+		#return
+		#
+	#var fff := func() -> void:
+		#var _x := coords.x * (NewMapChunk.GENERATION_POINTS - 1)
+		#var _y := coords.y * (NewMapChunk.GENERATION_POINTS - 1)
+		#
+		#for xx in range(_x, _x + NewMapChunk.GENERATION_POINTS):
+			#for yy in range(_y, _y + NewMapChunk.GENERATION_POINTS):
+				#var letter_key := Vector2i(xx, yy)
+				#if not letters.has(letter_key):
+					#letters[letter_key] = GeneratorTile.new(xx, yy)
+		## offset by 1 as edge letters can have all 4 neighbours already done if it's 4th tile in a corner
+		#update_neighbours(letters[Vector2i(_x + 1, _y + 1)])
+		#var tile_terrain_corners := calculate_tile_terrain_corners(Vector2i(_x, _y))
+		##var patterns := calculate_layers(tile_terrain_corners)
+		#var chunk_data := calculate_chunk_data(tile_terrain_corners)
+#
+		#publish_chunk.emit.call_deferred(tasks[coords], coords, chunk_data)
+	#var id := WorkerThreadPool.add_task(fff)
+	#tasks[coords] = id
+	
+func add_tasks(ccooooo: Array[Vector2i]) -> void:
+	for c in ccooooo:
+		mutex.lock()
+		if not all_tasks.has(c):
+			all_tasks[c] = true
+			tasks.push_back(c)
+			#add_task(c)
+		#elif all_tasks[c]:
+			#publish_chunk.emit(c, all_tasks[c])
+		mutex.unlock()
 
 func calculate_tile_terrain_corners(coords: Vector2i) -> Array[PackedStringArray]:
 	var tile_terrain_corners: Array[PackedStringArray] = []

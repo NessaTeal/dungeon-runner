@@ -15,8 +15,8 @@ class_name Player
 signal player_position_updated(position: Vector3, direction: Vector2)
 
 func report_player_position() -> void:
-	pass
-	#player_position_updated.emit(position, direction_component.get_dir())
+	#pass
+	player_position_updated.emit(position, direction_component.get_dir())
 
 func reset() -> void:
 	for component in all_components:

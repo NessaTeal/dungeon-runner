@@ -18,11 +18,12 @@ func _process(delta: float) -> void:
 	move_forward(delta_movement)
 	
 	movement_buffer += delta_movement
-
-	if movement_buffer > Map.MAP_TILE_SIZE / 10.0:
+	
+	if movement_buffer > Map.MAP_TILE_SIZE * 4:
 		moved_a_lot.emit()
 		movement_buffer = 0
-		
+	
+
 func move_forward(distance: float) -> void:
 	total_distance += distance
 	#player.position += Vector3(0, 0, 1)

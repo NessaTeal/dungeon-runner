@@ -17,14 +17,14 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_pressed("GoLeft"):
 		direction += delta_turn
+		rotation_buffer += delta_turn
 	elif Input.is_action_pressed("GoRight"):
 		direction -= delta_turn
-		
+		rotation_buffer -= delta_turn
+	
 	direction = fposmod(direction, TAU)
 	
-	rotation_buffer += delta_turn
-	
-	if rad_to_deg(absf(rotation_buffer)) > Map.MAP_TILE_DRAW_ANGLE / 10.0:
+	if rad_to_deg(absf(rotation_buffer)) > Map.MAP_TILE_DRAW_ANGLE:
 		player_turned_a_lot.emit()
 		rotation_buffer = 0
 	
