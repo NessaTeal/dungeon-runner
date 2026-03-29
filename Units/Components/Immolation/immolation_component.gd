@@ -1,7 +1,7 @@
 extends Node3D
 class_name ImmolationComponent
 
-@export var immolation_damage := 10.0
+@export var immolation_damage := 0.0
 
 @export var health_component: HealthComponent
 @export var attack_component: AttackComponent
@@ -11,10 +11,11 @@ class_name ImmolationComponent
 var immolation_emitter: PackedScene = preload("res://Units/Components/Immolation/immolation_emitter.tscn")
 
 func reset() -> void:
-	immolation_damage = 10.0
+	immolation_damage = 0.0
 
 func _on_timer_timeout() -> void:
-	transformation_component.transform("fire")
-	var emitter := immolation_emitter.instantiate() as ImmolationEmitter
-	emitter.immolation_damage = immolation_damage
-	add_child(emitter)
+	if immolation_damage > 0:
+		transformation_component.transform("fire")
+		var emitter := immolation_emitter.instantiate() as ImmolationEmitter
+		emitter.immolation_damage = immolation_damage
+		add_child(emitter)

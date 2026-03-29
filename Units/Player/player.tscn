@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c5pj7prhubfjp" path="res://Units/Components/Movement/dash_component.tscn" id="13_6iibj"]
 [ext_resource type="PackedScene" uid="uid://j3ao1w64e7ie" path="res://Units/Components/attack_component.tscn" id="13_68uij"]
 [ext_resource type="PackedScene" uid="uid://dcvty7g8iniy8" path="res://Units/Components/Immolation/immolation_component.tscn" id="13_v6jny"]
+[ext_resource type="Texture2D" uid="uid://dx3e4itufp0sp" path="res://Textures/circle.png" id="14_v6jny"]
 [ext_resource type="PackedScene" uid="uid://cy8kx26eiqrfw" path="res://Units/Components/Movement/direction_component.tscn" id="15_2t20v"]
 [ext_resource type="PackedScene" uid="uid://dyvw3nfsvi107" path="res://Units/Components/Slingshot/slingshot_component.tscn" id="16_cbjcl"]
 [ext_resource type="PackedScene" uid="uid://by12r5p8vqs7i" path="res://Units/Components/Movement/speed_component.tscn" id="17_vsxer"]
@@ -20,16 +21,23 @@ height = 1.0
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pxk32"]
 radius = 1.0
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_6iibj"]
-top_radius = 1.0
-bottom_radius = 1.0
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_s6s4v"]
+render_priority = 1
+transparency = 1
+albedo_color = Color(0.22352941, 0.7058824, 0.34901962, 0.58431375)
+albedo_texture = ExtResource("14_v6jny")
 
-[node name="Player" type="CharacterBody3D" unique_id=716859399 node_paths=PackedStringArray("speed_component", "trample_component", "slingshot_component", "direction_component", "movement_component", "health_component", "attack_component")]
+[sub_resource type="PlaneMesh" id="PlaneMesh_kywcc"]
+material = SubResource("ORMMaterial3D_s6s4v")
+size = Vector2(1.32, 1.32)
+
+[node name="Player" type="CharacterBody3D" unique_id=716859399 node_paths=PackedStringArray("speed_component", "trample_component", "slingshot_component", "immolation_component", "direction_component", "movement_component", "health_component", "attack_component")]
 collision_mask = 260
 script = ExtResource("1_dwi3t")
 speed_component = NodePath("SpeedComponent")
 trample_component = NodePath("TrampleComponent")
 slingshot_component = NodePath("SlingshotComponent")
+immolation_component = NodePath("ImmolationComponent")
 direction_component = NodePath("DirectionComponent")
 movement_component = NodePath("MovementComponent")
 health_component = NodePath("HealthComponent")
@@ -100,9 +108,8 @@ health_component = NodePath("../HealthComponent")
 attack_component = NodePath("../AttackComponent")
 transformation_component = NodePath("../TransformationComponent")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=936573061]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-mesh = SubResource("CylinderMesh_6iibj")
+[node name="Circle" type="MeshInstance3D" parent="." unique_id=1007908429]
+mesh = SubResource("PlaneMesh_kywcc")
 
 [connection signal="player_turned_a_lot" from="DirectionComponent" to="." method="report_player_position"]
 [connection signal="moved_a_lot" from="MovementComponent" to="." method="report_player_position"]

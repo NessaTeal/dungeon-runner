@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bwm5xuplv36ip" path="res://Units/Enemy/enemy_movement_component.tscn" id="5_egvsc"]
 [ext_resource type="PackedScene" uid="uid://crmskecpud0sa" path="res://Units/Enemy/enemy_collision_component.tscn" id="6_dy4wh"]
 [ext_resource type="PackedScene" uid="uid://srjufmy7vqnx" path="res://Units/Enemy/enemy_hurtbox_component.tscn" id="7_egvsc"]
+[ext_resource type="Texture2D" uid="uid://dx3e4itufp0sp" path="res://Textures/circle.png" id="8_q68vt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3wt5w"]
 radius = 0.3
@@ -16,9 +17,15 @@ height = 1.28
 height = 1.0
 radius = 1.0
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_egvsc"]
-top_radius = 0.3
-bottom_radius = 0.3
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_iielf"]
+render_priority = 1
+transparency = 1
+albedo_color = Color(0.77254903, 0.1882353, 0.19607843, 0.5882353)
+albedo_texture = ExtResource("8_q68vt")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_58j0y"]
+material = SubResource("ORMMaterial3D_iielf")
+size = Vector2(1.28, 1.28)
 
 [node name="Enemy" type="CharacterBody3D" unique_id=1257401946 node_paths=PackedStringArray("attack_component", "health_component")]
 collision_layer = 2
@@ -59,8 +66,7 @@ shape = SubResource("CylinderShape3D_dy4wh")
 [node name="EnemyHurtboxComponent" parent="." unique_id=1810472938 node_paths=PackedStringArray("health_component") instance=ExtResource("7_egvsc")]
 health_component = NodePath("../HealthComponent")
 
-[node name="Circle" type="MeshInstance3D" parent="." unique_id=643335745]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-mesh = SubResource("CylinderMesh_egvsc")
+[node name="Circle" type="MeshInstance3D" parent="." unique_id=1026715225]
+mesh = SubResource("PlaneMesh_58j0y")
 
 [connection signal="hp_depleted" from="HealthComponent" to="." method="_on_health_component_hp_depleted"]
