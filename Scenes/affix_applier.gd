@@ -4,11 +4,7 @@ extends Node
 
 func _ready() -> void:
 	Utils.handled_connect(Inventory.equip_changed, apply_affixes)
-	for affix: BaseAffix in get_all_affixes():
-		if affix is PlayerAffix:
-			var player_affix := affix as PlayerAffix
-			player_affix.player = player
-			player_affix.apply()
+	apply_affixes()
 
 func get_all_affixes() -> Array[BaseAffix]:
 	var all_affixes: Array[BaseAffix] = []
@@ -22,8 +18,13 @@ func get_all_affixes() -> Array[BaseAffix]:
 	
 func apply_affixes() -> void:
 	player.reset()
+	CurrentRunState.apple_healing = 25.0
+	CurrentRunState.reset()
 	for affix: BaseAffix in get_all_affixes():
 		if affix is PlayerAffix:
 			var player_affix := affix as PlayerAffix
 			player_affix.player = player
 			player_affix.apply()
+		elif affix is RunAffix:
+			var run_affix := affix as RunAffix
+			run_affix.apply()

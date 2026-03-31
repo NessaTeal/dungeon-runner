@@ -1,14 +1,12 @@
-@tool
 extends Control
 class_name PerkButton
 
-@export var icon: Texture
 @export var perk_resource: Perk
-@export var unlocks: Array[PerkButton] = []
-@export var locks: Array[PerkButton] = []
 
-var unlocked_by: Array[Perk] = []
-var locked_by: Array[Perk] = []
+var unlocks: Array[PerkButton] = []
+var locks: Array[PerkButton] = []
+var unlocked_by: Array[PerkButton] = []
+var locked_by: Array[PerkButton] = []
 
 @export_category("Internals")
 @export var button: Button
@@ -20,27 +18,31 @@ const halo_golden := preload("res://Textures/ui_icon_empty_orange.png")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	icon_component.texture = icon
+	icon_component.texture = perk_resource.icon
 	label.text = perk_resource.perk_name
-	var perk_active := perk_resource.enabled
-	button.set_pressed_no_signal(perk_active)
+	var perk_active := perk_resource.level
+	#button.set_pressed_no_signal(perk_active)
 	if perk_active:
 		button.icon = halo_golden
-	
-	for unlock in unlocks:
-		unlock.unlocked_by.push_back(perk_resource)
-	for lock in locks:
-		lock.locked_by.push_back(perk_resource)
+	if perk_resource.level == perk_resource.max_level:
+		button.disabled = true
+	#for unlock in perk_resource.unlocks:
+		#unlock.unlocked_by.push_back(perk_resource)
+	#for lock in perk_resource.locks:
+		#lock.locked_by.push_back(perk_resource)
 
 func _on_button_toggled(button_pressed: bool) -> void:
 	if button_pressed:
-		# trying to enable perk and having enough points
-		if Perks.perk_points > 0:
+		# trying to enable perk and having enough resources
+		#var total_apples_cost := perk_resource.cost.apples + perk_resource.cost.apples_per_level * perk_resource.level
+		if get_cost() < Meta.apples:
+			Meta.apples -= get_cost()
 			button.icon = halo_golden
-			Perks.perk_points -= 1
-			perk_resource.enabled = true
+			perk_resource.level += 1
+			if perk_resource.level == perk_resource.max_level:
+				button.disabled = true
 			Perks.active_perks[perk_resource.perk_name] = perk_resource
-		# if not enough perk points silently unpress button
+		# if not enough resources silently unpress button
 		else:
 			button.set_pressed_no_signal(false)
 	# if perks are bought down the line unbuy them all
@@ -48,29 +50,33 @@ func _on_button_toggled(button_pressed: bool) -> void:
 		#button.icon = halo_normal
 		#Perks.perk_points += 1
 		#perk_resource.enabled = false
-	else:
-		for unlock in unlocks:
-			if unlock.perk_resource.enabled:
-				unlock.button.set_pressed_no_signal(false)
-				unlock._on_button_toggled(false)
-		button.icon = halo_normal
-		Perks.perk_points += 1
-		if not Perks.active_perks.erase(perk_resource.perk_name):
-			printerr("Trying to remove perk which is not in the active dictionary")
-		perk_resource.enabled = false
+	#else:
+		#for unlock in unlocks:
+			#if unlock.perk_resource.level:
+				#unlock.button.set_pressed_no_signal(false)
+				#unlock._on_button_toggled(false)
+		#button.icon = halo_normal
+		#Perks.perk_points += 1
+		#if not Perks.active_perks.erase(perk_resource.perk_name):
+			#printerr("Trying to remove perk which is not in the active dictionary")
+		#perk_resource.level = 0
 		#button.set_pressed_no_signal(true)
 	# always recheck status of dependencies
-	for unlock in unlocks:
-		unlock.recalculate()
-	for lock in locks:
-		lock.recalculate()
+	#for unlock in unlocks:
+		#unlock.recalculate()
+	#for lock in locks:
+		#lock.recalculate()
+
+func get_cost() -> int:
+	return perk_resource.cost.apples + perk_resource.cost.apples_per_level * perk_resource.level
 
 func recalculate() -> void:
-	if locked_by.any(func(lock: Perk) -> bool: return lock.enabled):
+	if locked_by.any(func(lock: PerkButton) -> bool: return lock.perk_resource.level > 0):
 		button.disabled = true
-	elif unlocked_by.all(func(lock: Perk) -> bool: return lock.enabled):
-		button.disabled = false
-	else:
+	elif unlocked_by.all(func(lock: PerkButton) -> bool: return lock.perk_resource.level > 0):
+		visible = true
+	
+	if get_cost() > Meta.apples:
 		button.disabled = true
 	
 	#var unlock_perks = Perks.active_perks[perk_name].unlocked_by
@@ -78,11 +84,33 @@ func recalculate() -> void:
 
 	#button.disabled = !unlock_perks.all(func(perk: Perk) -> bool: return perk.enabled) or !lock_perks.all(func(perk: Perk) -> bool: return !perk.enabled)
 
-
 func _on_mouse_entered() -> void:
+	calculate_tooltip()
+	
+func calculate_tooltip() -> void:
 	HoverBox.reset()
-	HoverBox.add_line(perk_resource.description)
+	HoverBox.header.text = perk_resource.get_description()
+	HoverBox.apple_count.text = str(get_cost())
+	for affix in perk_resource.affixes:
+		HoverBox.add_line(affix.get_description(perk_resource.level != 0 && perk_resource.level != perk_resource.max_level))
 	HoverBox.visible = true
 
 func _on_mouse_exited() -> void:
 	HoverBox.visible = false
+
+func _on_button_button_up() -> void:
+	var total_apples_cost := perk_resource.cost.apples + perk_resource.cost.apples_per_level * perk_resource.level
+	if total_apples_cost < Meta.apples:
+		Meta.apples -= total_apples_cost
+		button.icon = halo_golden
+		perk_resource.bump_level()
+		if perk_resource.level == perk_resource.max_level:
+			button.disabled = true
+		Perks.active_perks[perk_resource.perk_name] = perk_resource
+		
+	#for unlock in unlocks:
+		#unlock.recalculate()
+	#for lock in locks:
+		#lock.recalculate()
+	
+	calculate_tooltip()

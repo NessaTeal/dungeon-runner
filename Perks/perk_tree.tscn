@@ -1,70 +1,65 @@
-[gd_scene load_steps=9 format=3 uid="uid://g8g2afkn8gqj"]
+[gd_scene format=3 uid="uid://g8g2afkn8gqj"]
 
 [ext_resource type="PackedScene" uid="uid://c65tlx11pnwdf" path="res://Perks/perk_button.tscn" id="1_4sv20"]
 [ext_resource type="Script" uid="uid://bkdqfpeif0shh" path="res://Perks/perk_tree.gd" id="1_shrwa"]
-[ext_resource type="Texture2D" uid="uid://m7v2oqk0s026" path="res://Textures/speed-01.png" id="3_oa4ao"]
+[ext_resource type="Resource" uid="uid://cbvc8lnbix1a7" path="res://Perks/Vitality/max_energy_0.tres" id="2_ael60"]
 [ext_resource type="Resource" uid="uid://byh4hewk6c4lg" path="res://Perks/Agility/acceleration.tres" id="4_ijho5"]
+[ext_resource type="Resource" uid="uid://uibw2dcpd7c1" path="res://Perks/Agility/move_speed.tres" id="4_wyd1k"]
 [ext_resource type="Resource" uid="uid://bso2phw6r0mno" path="res://Perks/Agility/tenacity.tres" id="5_oa4ao"]
 [ext_resource type="Resource" uid="uid://4bdapansr2it" path="res://Perks/Agility/trample.tres" id="6_wyd1k"]
 [ext_resource type="Resource" uid="uid://bre15e0s3fymn" path="res://Perks/Agility/slingshot.tres" id="7_4svwd"]
-[ext_resource type="Texture2D" uid="uid://s0vsgi3metbt" path="res://Textures/impact_mine_thing-01.png" id="8_wyd1k"]
+[ext_resource type="Resource" uid="uid://bxt22ro14o0aa" path="res://Perks/Apple/apple_healing_0.tres" id="11_ael60"]
 
-[node name="PerkTree" type="ColorRect" node_paths=PackedStringArray("perk_buttons")]
+[node name="PerkTree" type="Control" unique_id=771799568 node_paths=PackedStringArray("perk_buttons", "new_perk_buttons")]
 process_mode = 3
-anchors_preset = -1
-offset_right = 1148.0
-offset_bottom = 647.0
-color = Color(0.458824, 0.447059, 0.286275, 1)
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_shrwa")
 perk_buttons = NodePath("PerkButtons")
+new_perk_buttons = NodePath("NewPerkButtons")
+starting_perk = ExtResource("2_ael60")
 
-[node name="PerkButtons" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 1150.0
-offset_bottom = 649.0
+[node name="PerkButtons" type="GridContainer" parent="." unique_id=311413907]
+visible = false
+layout_mode = 0
+offset_bottom = 20.0
 mouse_filter = 2
+columns = 3
 
-[node name="PerkButton" parent="PerkButtons" node_paths=PackedStringArray("unlocks") instance=ExtResource("1_4sv20")]
-layout_mode = 0
-anchors_preset = 0
-offset_top = 200.0
-offset_bottom = 624.0
-icon = ExtResource("3_oa4ao")
-unlocks = [NodePath("../PerkButton2"), NodePath("../PerkButton3")]
+[node name="PerkButton" parent="PerkButtons" unique_id=2085123129 instance=ExtResource("1_4sv20")]
+layout_mode = 2
+perk_resource = ExtResource("4_wyd1k")
 
-[node name="PerkButton2" parent="PerkButtons" node_paths=PackedStringArray("unlocks", "locks") instance=ExtResource("1_4sv20")]
-layout_mode = 0
-anchors_preset = 0
-offset_left = 352.0
-offset_right = 352.0
+[node name="PerkButton2" parent="PerkButtons" unique_id=1184441956 instance=ExtResource("1_4sv20")]
+layout_mode = 2
 perk_resource = ExtResource("4_ijho5")
-unlocks = [NodePath("../PerkButton5")]
-locks = [NodePath("../PerkButton3")]
 
-[node name="PerkButton3" parent="PerkButtons" node_paths=PackedStringArray("unlocks", "locks") instance=ExtResource("1_4sv20")]
-layout_mode = 0
-anchors_preset = 0
-offset_left = 352.0
-offset_top = 360.0
-offset_right = 352.0
-offset_bottom = 360.0
+[node name="PerkButton3" parent="PerkButtons" unique_id=814638825 instance=ExtResource("1_4sv20")]
+layout_mode = 2
 perk_resource = ExtResource("5_oa4ao")
-unlocks = [NodePath("../PerkButton4")]
-locks = [NodePath("../PerkButton2")]
 
-[node name="PerkButton4" parent="PerkButtons" instance=ExtResource("1_4sv20")]
-layout_mode = 0
-anchors_preset = 0
-offset_left = 704.0
-offset_top = 336.0
-offset_right = 704.0
-offset_bottom = 336.0
+[node name="PerkButton4" parent="PerkButtons" unique_id=2124375939 instance=ExtResource("1_4sv20")]
+layout_mode = 2
 perk_resource = ExtResource("6_wyd1k")
 
-[node name="PerkButton5" parent="PerkButtons" instance=ExtResource("1_4sv20")]
-layout_mode = 0
-anchors_preset = 0
-offset_left = 704.0
-offset_right = 704.0
-icon = ExtResource("8_wyd1k")
+[node name="PerkButton5" parent="PerkButtons" unique_id=2143720559 instance=ExtResource("1_4sv20")]
+layout_mode = 2
 perk_resource = ExtResource("7_4svwd")
+
+[node name="PerkButton6" parent="PerkButtons" unique_id=1276274660 instance=ExtResource("1_4sv20")]
+layout_mode = 2
+perk_resource = ExtResource("11_ael60")
+
+[node name="PerkButton7" parent="PerkButtons" unique_id=1319146742 instance=ExtResource("1_4sv20")]
+layout_mode = 2
+perk_resource = ExtResource("11_ael60")
+
+[node name="NewPerkButtons" type="HBoxContainer" parent="." unique_id=1880098867]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

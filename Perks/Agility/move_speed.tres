@@ -6,11 +6,12 @@
 
 [sub_resource type="Resource" id="Resource_lj8df"]
 script = ExtResource("2_3kyru")
+power = 0.0
+raw_power = 37.5
 metadata/_custom_type_script = "uid://cat0rgxhemnde"
 
 [resource]
 script = ExtResource("3_lj8df")
 perk_name = "MoveSpeed"
 affixes = Array[ExtResource("1_tok4f")]([SubResource("Resource_lj8df")])
-unlocks = Array[String](["Acceleration", "Tenacity"])
 metadata/_custom_type_script = "uid://i4dygb6wswk7"

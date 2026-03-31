@@ -284,7 +284,7 @@ enemy_scene = ExtResource("2_0ukyi")
 player = NodePath("../Map/Player")
 spawn_node = NodePath("../Map")
 game_state = NodePath("../../GameState")
-spawn_rate = 1.0
+spawn_rate = 0.0
 
 [node name="Map" parent="GameHolder" unique_id=1656109193 instance=ExtResource("6_48sw3")]
 

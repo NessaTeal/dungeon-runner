@@ -12,6 +12,4 @@ metadata/_custom_type_script = "uid://c0vo6wi5c2i11"
 script = ExtResource("2_wejrr")
 perk_name = "Acceleration"
 affixes = Array[ExtResource("1_bblmm")]([SubResource("Resource_wejrr")])
-unlocks = Array[String](["Trample"])
-locks = Array[String](["Tenacity"])
 metadata/_custom_type_script = "uid://i4dygb6wswk7"

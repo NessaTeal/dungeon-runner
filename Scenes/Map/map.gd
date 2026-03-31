@@ -4,7 +4,7 @@ class_name Map
 const new_map_chunk := preload("res://Scenes/Map/new_map_chunk.tscn")
 
 static var MAP_TILE_DRAW_DISTANCE := 15
-static var MAP_TILE_DRAW_ANGLE := 60.0
+static var MAP_TILE_DRAW_ANGLE := 50.0
 
 static var MAP_TILE_SIZE := NewMapChunk.CHUNK_SIZE
 

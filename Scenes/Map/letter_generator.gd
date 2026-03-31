@@ -217,6 +217,7 @@ func get_stronger_terrain(terrains: Array[GeneratorTile]) -> String:
 		#patterns.push_back(layer)
 	#
 	#return patterns
+var apple_chance := 0.01
 
 func calculate_chunk_data(tile_terrain_corners: Array[PackedStringArray]) -> NewMapChunkData:
 	var chunk_data := NewMapChunkData.new()
@@ -234,8 +235,9 @@ func calculate_chunk_data(tile_terrain_corners: Array[PackedStringArray]) -> New
 				var c := convert_terrain(tile_terrain_corners[x][y + 1], ter)
 				var d := convert_terrain(tile_terrain_corners[x + 1][y + 1], ter)
 				
+				var tile_index := (a + b * 2 + c * 8 + d * 4)
 				# encoding index of tile in atlas using corners as binary counters
-				tile_data += (a + b * 2 + c * 8 + d * 4) << (terrain_index * 6)
+				tile_data += tile_index << (terrain_index * 6)
 				
 				#print(ter)
 				#print(a + b * 2 + c * 8 + d * 4 - 1)
@@ -243,6 +245,9 @@ func calculate_chunk_data(tile_terrain_corners: Array[PackedStringArray]) -> New
 				# order of terrains can be dynamic
 				# for now following current hardcoded order 
 				tile_data += PRIO[ter] << (4 + (terrain_index * 6))
+				
+				if ter == "g" and tile_index == 15 and randf() < apple_chance:
+					chunk_data.collectibles[Vector2i(x, y)] = preload("res://Units/apple.tscn")
 				
 			#print("-=-=-=-=-=-=-")
 			packed_byte_array.encode_u32(0, tile_data)

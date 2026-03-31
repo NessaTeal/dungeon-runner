@@ -1,6 +1,5 @@
 extends Node
 
-var apples: int = 0
 var player_level: int = 1
 
 var current_xp: float = 0
@@ -11,3 +10,8 @@ func set_xp_for_next_level() -> void:
 	
 func get_xp_for_level(level: int) -> int:
 	return 100 * (level ** 2)
+
+# Apple params
+var apples: int = 0
+var apple_heal := 0.0
+var apple_spawn_chance := 0.005

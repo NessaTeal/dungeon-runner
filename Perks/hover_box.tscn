@@ -2,22 +2,20 @@
 
 [ext_resource type="Script" uid="uid://dhktvqhymn3pm" path="res://Perks/hover_box.gd" id="1_blqyw"]
 [ext_resource type="Texture2D" uid="uid://bc4x1so7x7njw" path="res://Textures/ui_icon_empty_orange.png" id="2_b64bh"]
+[ext_resource type="Texture2D" uid="uid://cdch2x6xyuhmi" path="res://Textures/06_t.PNG" id="3_jsqpc"]
 [ext_resource type="PackedScene" uid="uid://4pxjsoxdwpko" path="res://Perks/perks_tooltip_line.tscn" id="3_omyib"]
 
-[node name="Control" type="Control" unique_id=1506748852 node_paths=PackedStringArray("tips")]
+[node name="Control" type="CanvasLayer" unique_id=101803397 node_paths=PackedStringArray("tips", "header", "apple_count")]
 process_mode = 3
-z_index = 10
-layout_mode = 3
-anchors_preset = 0
-offset_right = 129.0
-offset_bottom = 73.0
+layer = 10
 script = ExtResource("1_blqyw")
 tips = NodePath("HoverBox/MarginContainer/VBoxContainer2/VBoxContainer")
+header = NodePath("HoverBox/MarginContainer/VBoxContainer2/Header")
+apple_count = NodePath("HoverBox/MarginContainer/VBoxContainer2/HBoxContainer/AppleCount")
 
 [node name="HoverBox" type="PanelContainer" parent="." unique_id=358770665]
-layout_mode = 0
-offset_right = 129.0
-offset_bottom = 73.0
+offset_right = 485.0
+offset_bottom = 106.0
 
 [node name="ColorRect" type="ColorRect" parent="HoverBox" unique_id=1087245411]
 layout_mode = 2
@@ -47,6 +45,18 @@ theme_override_constants/separation = 10
 [node name="Header" type="Label" parent="HoverBox/MarginContainer/VBoxContainer2" unique_id=2040542285]
 layout_mode = 2
 text = "Header"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HoverBox/MarginContainer/VBoxContainer2" unique_id=1346213635]
+layout_mode = 2
+
+[node name="Apple" type="TextureRect" parent="HoverBox/MarginContainer/VBoxContainer2/HBoxContainer" unique_id=1921634814]
+layout_mode = 2
+texture = ExtResource("3_jsqpc")
+expand_mode = 2
+
+[node name="AppleCount" type="Label" parent="HoverBox/MarginContainer/VBoxContainer2/HBoxContainer" unique_id=617663910]
+layout_mode = 2
+text = "Apples cost"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HoverBox/MarginContainer/VBoxContainer2" unique_id=270934825]
 layout_mode = 2

@@ -15,7 +15,6 @@ static var PRIO: Dictionary[String, int] = {"r": 0, "d": 1, "s": 2, "g": 3}
 #var multi_mesh = preload("res://Scenes/Map/new_map_chunk_multi_mesh.tres")
 
 var chunk_data: NewMapChunkData
-var index = 0;
 
 func _ready() -> void:
 	#multimesh = MultiMesh.new()ad
@@ -37,7 +36,14 @@ func _ready() -> void:
 		
 		multimesh.set_instance_transform(tile_index, Transform3D(Basis(), Vector3(tile_data.position.x * TILE_SIZE, 0, tile_data.position.y * TILE_SIZE)))
 		multimesh.set_instance_custom_data(tile_index, tile_data.tile_data)
+	
+	for collectible_key: Vector2i in chunk_data.collectibles.keys():
+		var collectible_scene := chunk_data.collectibles[collectible_key].instantiate() as Collectible
 		
+		collectible_scene.set_transform(Transform3D(Basis(), Vector3(collectible_key.x * TILE_SIZE, 0, collectible_key.y * TILE_SIZE)))
+		
+		add_child(collectible_scene)
+	
 	chunk_data = null
 		
 #func _process(delta: float) -> void:

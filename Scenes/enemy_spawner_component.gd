@@ -11,7 +11,9 @@ extends Node
 @export var spawn_timer: Timer
 
 func _ready() -> void:
-	spawn_timer.wait_time = spawn_rate
+	if spawn_rate > 0:
+		spawn_timer.wait_time = spawn_rate
+		spawn_timer.start()
 
 func spawn_enemy() -> void:
 	var enemy := enemy_scene.instantiate() as Enemy

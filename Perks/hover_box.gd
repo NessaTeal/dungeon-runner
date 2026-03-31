@@ -1,6 +1,8 @@
-extends Control
+extends CanvasLayer
 
 @export var tips: VBoxContainer
+@export var header: Label
+@export var apple_count: Label
 
 const tooltip_line := preload("res://Perks/perks_tooltip_line.tscn")
 
@@ -8,7 +10,7 @@ func _ready() -> void:
 	visible = false
 
 func _process(_delta: float) -> void:
-	set_position(get_viewport().get_mouse_position() + Vector2(16, 16))
+	$HoverBox.set_position(get_viewport().get_mouse_position() + Vector2(16, 16))
 
 func reset() -> void:
 	for child in tips.get_children():

@@ -1,4 +1,5 @@
 extends Control
+class_name MainMenu
 
 const fight_scene = preload("res://Scenes/fight_scene.tscn")
 const perks_scene = preload("res://Scenes/perks_scene.tscn")

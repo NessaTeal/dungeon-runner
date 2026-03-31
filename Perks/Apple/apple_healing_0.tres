@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="Perk" format=3 uid="uid://bxt22ro14o0aa"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_o1vs5"]
+[ext_resource type="Script" uid="uid://bh8dca3ds84od" path="res://Affixes/RunAffixes/Collectibles/Apple/apple_healing.gd" id="2_g1gnu"]
+[ext_resource type="Script" uid="uid://c1pmnej3lw1q6" path="res://Perks/perk_cost.gd" id="3_n55ta"]
+[ext_resource type="Texture2D" uid="uid://cdch2x6xyuhmi" path="res://Textures/06_t.PNG" id="4_ygv1j"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="5_vg13g"]
+
+[sub_resource type="Resource" id="Resource_wpd50"]
+script = ExtResource("2_g1gnu")
+power = 0.0
+raw_power = 2.0
+raw_power_per_level = 3.0
+metadata/_custom_type_script = "uid://bh8dca3ds84od"
+
+[sub_resource type="Resource" id="Resource_hqguj"]
+script = ExtResource("3_n55ta")
+apples = 15
+apples_per_level = 10
+metadata/_custom_type_script = "uid://c1pmnej3lw1q6"
+
+[resource]
+script = ExtResource("5_vg13g")
+icon = ExtResource("4_ygv1j")
+perk_name = "Apple Healing"
+max_level = 3
+affixes = Array[ExtResource("1_o1vs5")]([SubResource("Resource_wpd50")])
+cost = SubResource("Resource_hqguj")
+metadata/_custom_type_script = "uid://i4dygb6wswk7"

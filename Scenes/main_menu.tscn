@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwdr57hf4tfor"]
+[gd_scene format=3 uid="uid://bwdr57hf4tfor"]
 
 [ext_resource type="Script" uid="uid://dafw17hh4uwxn" path="res://Scenes/main_menu.gd" id="1_wkksn"]
+[ext_resource type="Texture2D" uid="uid://8uao7wjpb5o7" path="res://Textures/horses.png" id="2_48xlc"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=1279478585]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,29 +12,49 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wkksn")
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="." unique_id=1556503270]
 layout_mode = 0
-offset_left = 448.0
-offset_top = 148.0
-offset_right = 1008.0
-offset_bottom = 280.0
+offset_left = 674.0
+offset_top = 476.0
+offset_right = 1234.0
+offset_bottom = 608.0
 text = "Start the game"
 
-[node name="Button2" type="Button" parent="."]
+[node name="Button2" type="Button" parent="." unique_id=1288916143]
 layout_mode = 0
-offset_left = 470.0
-offset_top = 445.0
-offset_right = 1032.0
-offset_bottom = 576.0
+offset_left = 674.0
+offset_top = 634.0
+offset_right = 1236.0
+offset_bottom = 765.0
 text = "PERK_TREE_BUTTON"
 
-[node name="Button3" type="Button" parent="."]
+[node name="Button3" type="Button" parent="." unique_id=56131683]
+visible = false
 layout_mode = 0
 offset_left = 105.0
 offset_top = 348.0
 offset_right = 257.0
 offset_bottom = 566.0
 text = "Generate stone"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=522287156]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 289.0
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer" unique_id=2003746117]
+layout_mode = 2
+texture = ExtResource("2_48xlc")
+stretch_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer" unique_id=749009035]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 80
+text = "Entitled honse game"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]

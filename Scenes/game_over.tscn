@@ -1,10 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bvxe8j8rro0br"]
+[gd_scene format=3 uid="uid://bvxe8j8rro0br"]
 
 [ext_resource type="Script" uid="uid://dy7fn8hq44vai" path="res://Scenes/game_over.gd" id="1_ojehl"]
 
-[node name="GameOver" type="VBoxContainer" node_paths=PackedStringArray("level_up", "player_level", "xp_count", "xp_run", "xp_kills", "xp_bar")]
+[node name="GameOver" type="VBoxContainer" unique_id=111870525 node_paths=PackedStringArray("level_up", "player_level", "xp_count", "xp_run", "xp_kills", "xp_bar")]
 process_mode = 3
-anchors_preset = -1
 offset_left = 408.0
 offset_top = 384.0
 offset_right = 704.0
@@ -17,44 +16,48 @@ xp_run = NodePath("XPRun")
 xp_kills = NodePath("XPKills")
 xp_bar = NodePath("XPProgress")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1147804498]
 layout_mode = 2
 
-[node name="PlayerLevel" type="Label" parent="HBoxContainer"]
+[node name="PlayerLevel" type="Label" parent="HBoxContainer" unique_id=303624520]
 layout_mode = 2
 text = "Player level placeholder"
 
-[node name="LevelUp" type="Label" parent="HBoxContainer"]
+[node name="LevelUp" type="Label" parent="HBoxContainer" unique_id=755689400]
 visible = false
 layout_mode = 2
 text = "LEVEL_UP"
 
-[node name="XPKills" type="Label" parent="."]
+[node name="XPKills" type="Label" parent="." unique_id=567404066]
 layout_mode = 2
 text = "XP from kills placeholder"
 
-[node name="XPRun" type="Label" parent="."]
+[node name="XPRun" type="Label" parent="." unique_id=1750971230]
 layout_mode = 2
 text = "XP from run placeholder"
 
-[node name="XPCount" type="Label" parent="."]
+[node name="XPCount" type="Label" parent="." unique_id=774492449]
 layout_mode = 2
 text = "XPCount / needed xp"
 horizontal_alignment = 1
 
-[node name="XPProgress" type="ProgressBar" parent="."]
+[node name="XPProgress" type="ProgressBar" parent="." unique_id=741930380]
 layout_mode = 2
 show_percentage = false
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="." unique_id=1215994636]
 layout_mode = 2
 text = "Open tree"
 
-[node name="Button2" type="Button" parent="."]
+[node name="Button2" type="Button" parent="." unique_id=1736106901]
 layout_mode = 2
 text = "Main menu"
 
-[node name="Button3" type="Button" parent="."]
+[node name="Button3" type="Button" parent="." unique_id=374872022]
 layout_mode = 2
 text = "Restart
 "
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_on_button_3_pressed"]

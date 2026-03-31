@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dcvty7g8iniy8" path="res://Units/Components/Immolation/immolation_component.tscn" id="13_v6jny"]
 [ext_resource type="Texture2D" uid="uid://dx3e4itufp0sp" path="res://Textures/circle.png" id="14_v6jny"]
 [ext_resource type="PackedScene" uid="uid://cy8kx26eiqrfw" path="res://Units/Components/Movement/direction_component.tscn" id="15_2t20v"]
+[ext_resource type="PackedScene" uid="uid://ces548j7m3qmd" path="res://Units/Components/energy_drain_component.tscn" id="15_s6s4v"]
 [ext_resource type="PackedScene" uid="uid://dyvw3nfsvi107" path="res://Units/Components/Slingshot/slingshot_component.tscn" id="16_cbjcl"]
 [ext_resource type="PackedScene" uid="uid://by12r5p8vqs7i" path="res://Units/Components/Movement/speed_component.tscn" id="17_vsxer"]
 
@@ -87,12 +88,13 @@ speed_component = NodePath("../SpeedComponent")
 sprite = NodePath("../AnimatedSprite3D")
 
 [node name="HealthComponent" parent="." unique_id=247656054 instance=ExtResource("12_kywcc")]
-visible = false
-offset_left = 743.0
-offset_top = 508.0
-offset_right = 1261.0
-offset_bottom = 576.0
-base_hp = 1000.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -312.0
+offset_right = 0.0
+offset_bottom = 68.0
+grow_horizontal = 0
 
 [node name="EnemyCollision" type="StaticBody3D" parent="." unique_id=289622229]
 collision_layer = 2
@@ -110,6 +112,11 @@ transformation_component = NodePath("../TransformationComponent")
 
 [node name="Circle" type="MeshInstance3D" parent="." unique_id=1007908429]
 mesh = SubResource("PlaneMesh_kywcc")
+
+[node name="EnergyDrainComponent" parent="." unique_id=1663113346 node_paths=PackedStringArray("health_component") instance=ExtResource("15_s6s4v")]
+health_component = NodePath("../HealthComponent")
+energy_drain = 3.0
+energy_drain_acceleration = 0.25
 
 [connection signal="player_turned_a_lot" from="DirectionComponent" to="." method="report_player_position"]
 [connection signal="moved_a_lot" from="MovementComponent" to="." method="report_player_position"]

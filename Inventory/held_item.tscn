@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://daxkrcb3hu8fl"]
+[gd_scene format=3 uid="uid://daxkrcb3hu8fl"]
 
 [ext_resource type="Script" uid="uid://c656dbb1diibv" path="res://Inventory/held_item.gd" id="1_7t5b5"]
 
-[node name="HeldItem" type="Control"]
+[node name="HeldItem" type="Control" unique_id=1821032588]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

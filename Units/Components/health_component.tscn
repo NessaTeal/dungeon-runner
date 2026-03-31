@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dp1aer0epf235"]
+[gd_scene format=3 uid="uid://dp1aer0epf235"]
 
 [ext_resource type="Script" uid="uid://uko4qskiraqo" path="res://Units/Components/health_component.gd" id="1_piyrs"]
 
@@ -16,13 +16,29 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[node name="HealthComponent" type="ProgressBar"]
-offset_right = 43.0
-offset_bottom = 23.0
+[node name="HealthComponent" type="MarginContainer" unique_id=373891709 node_paths=PackedStringArray("health_bar")]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+script = ExtResource("1_piyrs")
+health_bar = NodePath("VBoxContainer/Healthbar")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1941725588]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=406891460]
+layout_mode = 2
+text = "Energy"
+horizontal_alignment = 1
+
+[node name="Healthbar" type="ProgressBar" parent="VBoxContainer" unique_id=668561751]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 size_flags_vertical = 1
 theme_override_styles/background = SubResource("StyleBoxFlat_4dg02")
 theme_override_styles/fill = SubResource("StyleBoxFlat_5v6hu")
 step = 0.0
 value = 50.0
-show_percentage = false
-script = ExtResource("1_piyrs")

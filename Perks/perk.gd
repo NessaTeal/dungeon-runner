@@ -1,19 +1,21 @@
 extends Resource
 class_name Perk
 
+@export var icon: Texture2D
 @export var perk_name: String
-@export var enabled: bool
+@export var level: int
+@export var max_level: int = 1
 @export var affixes: Array[BaseAffix]
-@export var unlocks: Array[String]
-@export var locks: Array[String]
+@export var unlocks: Array[Perk]
+@export var locks: Array[Perk]
+@export var cost: PerkCost
 var unlocked_by: Array[Perk] = []
 var locked_by: Array[Perk] = []
-var description: String
+	
+func get_description() -> String:
+	return tr(perk_name.to_upper() + "_DESCRIPTION")
 
-func _init(p_perk_name: String = "", p_enabled: bool = false, p_affixes: Array[BaseAffix] = [], p_unlocks: Array[String] = [], p_locks: Array[String] = []) -> void:
-	perk_name = p_perk_name
-	enabled = p_enabled
-	affixes = p_affixes
-	unlocks = p_unlocks
-	locks = p_locks
-	description = tr(p_perk_name.to_upper() + "_DESCRIPTION")
+func bump_level() -> void:
+	level += 1
+	for affix in affixes:
+		affix.level += 1

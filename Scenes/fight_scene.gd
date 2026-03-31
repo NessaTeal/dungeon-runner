@@ -12,7 +12,6 @@ extends Node
 @export var ui: CanvasLayer
 
 var enemy_scene: PackedScene = preload("res://Units/Enemy/enemy.tscn")
-var main_menu: PackedScene = preload("res://Scenes/main_menu.tscn")
 var item: PackedScene = preload("res://Inventory/item.tscn")
 
 var time_passed := 0.0
@@ -21,6 +20,8 @@ var angle := 0.0
 
 func _ready() -> void:
 	map.update_map(Vector3(player.position.x, 0, player.position.z), player.direction_component.get_dir())
+	
+	Utils.handled_connect(player.health_component.hp_depleted, _on_player_unit_died)
 
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("SpeeHack"):
@@ -42,13 +43,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		else:
 			main_camera.current = !state
 
-func _on_button_pressed() -> void:
-	get_parent().add_child(preload("res://Scenes/perks_scene.tscn").instantiate())
-
-func _on_button_2_pressed() -> void:
-	get_tree().paused = false
-	get_parent().add_child(main_menu.instantiate())
-	queue_free()
 
 func _on_player_unit_died() -> void:
 	get_tree().paused = true
@@ -75,11 +69,6 @@ func _on_player_unit_died() -> void:
 	game_over.xp_run.text = tr("XP_FROM_RUN") % distance_xp
 	
 	ui.add_child(game_over)
-
-func _on_button_3_pressed() -> void:
-	add_sibling((preload("res://Scenes/fight_scene.tscn").instantiate()))
-	get_tree().paused = false
-	queue_free()
 
 func _on_show_inventory_button_pressed() -> void:
 	Inventory.show()
