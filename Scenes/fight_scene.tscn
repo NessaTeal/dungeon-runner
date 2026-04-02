@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://lnivdlx0ady1" path="res://Scenes/fight_scene.gd" id="1_x8404"]
 [ext_resource type="PackedScene" uid="uid://cswctlti1unua" path="res://Units/Enemy/enemy.tscn" id="2_0ukyi"]
-[ext_resource type="Script" uid="uid://dcnh6jfowkhy4" path="res://Scenes/game_state.gd" id="3_10aaw"]
 [ext_resource type="PackedScene" uid="uid://dldtmj2d8aq01" path="res://Units/Player/player.tscn" id="3_supv1"]
 [ext_resource type="PackedScene" uid="uid://ctiw0m8k5sub3" path="res://Scenes/Map/map.tscn" id="6_48sw3"]
 [ext_resource type="Script" uid="uid://k77suwqe7wdi" path="res://Scenes/affix_applier.gd" id="8_6leyg"]
@@ -133,13 +132,12 @@ animations = [{
 "speed": 30.0
 }]
 
-[node name="FightScene" type="Node" unique_id=537465887 node_paths=PackedStringArray("player", "distance_label", "speed_label", "chance_label", "game_state", "map", "subviewport", "main_camera", "top_view_camera", "ui")]
+[node name="FightScene" type="Node" unique_id=537465887 node_paths=PackedStringArray("player", "distance_label", "speed_label", "chance_label", "map", "subviewport", "main_camera", "top_view_camera", "ui")]
 script = ExtResource("1_x8404")
 player = NodePath("GameHolder/Map/Player")
 distance_label = NodePath("UI/Distance")
 speed_label = NodePath("UI/Speed")
 chance_label = NodePath("UI/Chance")
-game_state = NodePath("GameState")
 map = NodePath("GameHolder/Map")
 subviewport = NodePath("GameHolder/SubViewport")
 main_camera = NodePath("GameHolder/Map/Player/MainCamera")
@@ -148,9 +146,6 @@ ui = NodePath("UI")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=936797055]
 environment = SubResource("Environment_lmtoh")
-
-[node name="GameState" type="Node" parent="." unique_id=426703120]
-script = ExtResource("3_10aaw")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=2045945216]
 
@@ -279,11 +274,11 @@ frame_progress = 0.6283509
 [node name="GameHolder" type="Node" parent="." unique_id=2147269012]
 process_mode = 4
 
-[node name="EnemySpawnerComponent" parent="GameHolder" unique_id=561827070 node_paths=PackedStringArray("player", "spawn_node", "game_state") instance=ExtResource("8_mo3wy")]
+[node name="EnemySpawnerComponent" parent="GameHolder" unique_id=561827070 node_paths=PackedStringArray("player", "spawn_node", "fight_scene") instance=ExtResource("8_mo3wy")]
 enemy_scene = ExtResource("2_0ukyi")
 player = NodePath("../Map/Player")
 spawn_node = NodePath("../Map")
-game_state = NodePath("../../GameState")
+fight_scene = NodePath("../..")
 spawn_rate = 0.0
 
 [node name="Map" parent="GameHolder" unique_id=1656109193 instance=ExtResource("6_48sw3")]

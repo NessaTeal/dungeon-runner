@@ -1,34 +1,37 @@
+@tool
 extends Control
 class_name PerkTree
 
-@export var perk_buttons: GridContainer
-@export var new_perk_buttons: HBoxContainer
+@export var perk_buttons: HBoxContainer
 @export var starting_perk: Perk
 
 signal perks_changed
 
-var perk_buttons_a: Array[PerkButton] = []
+var all_perk_buttons: Array[PerkButton] = []
 
 func _ready() -> void:
-	#var perks: Array[Perk] = [starting_perk]
 	var box := HBoxContainer.new()
 	assert(len(calculate_perks([starting_perk], box)) == 1, "More than 1 root perk found")
-	new_perk_buttons.add_child(box)
-	for button in perk_buttons_a:
-		button.recalculate()
+	perk_buttons.add_child(box)
+	
+	if not Engine.is_editor_hint():
+		for button in all_perk_buttons :
+			button.recalculate()
+	
 
 func calculate_perks(perks: Array[Perk], container: HBoxContainer, parent_button: PerkButton = null) -> Array[PerkButton]:
-	#var new_perks: Array[Perk] = []
 	var vertical_box := VBoxContainer.new()
 	container.add_child(vertical_box)
+	
 	var child_buttons: Array[PerkButton] = []
+	
 	for perk in perks:
 		var perk_button: PerkButton = preload("res://Perks/perk_button.tscn").instantiate() as PerkButton
 		Utils.handled_connect(perk_button.button.button_up, func() -> void:
-			for button in perk_buttons_a:
+			for button in all_perk_buttons:
 				button.recalculate()
 			perks_changed.emit())
-		perk_buttons_a.push_back(perk_button)
+		all_perk_buttons.push_back(perk_button)
 		child_buttons.push_back(perk_button)
 		if parent_button:
 			perk_button.unlocked_by.push_back(parent_button)
@@ -38,12 +41,7 @@ func calculate_perks(perks: Array[Perk], container: HBoxContainer, parent_button
 		perk_button.perk_resource = perk
 		vertical_box.add_child(perk_button)
 		if perk.unlocks:
-			#var horizontal_box := HBoxContainer.new()
-			#horizontal_box.add_child(vertical_box)
 			var children := calculate_perks(perk.unlocks, container, perk_button)
 			perk_button.unlocks = children
 	
 	return child_buttons
-		#for perk_unlock in perk.unlocks:
-			#new_perks.push_back(perk_unlock)
-	#perks = new_perks

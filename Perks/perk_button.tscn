@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://c3nfce77dbucm" path="res://Textures/ui_icon_empty_white.png" id="2_h28ac"]
 
 [node name="PerkButton" type="Control" unique_id=1276274660 node_paths=PackedStringArray("button", "label", "icon_component")]
-visible = false
 custom_minimum_size = Vector2(400, 426)
 layout_mode = 3
 anchors_preset = 0

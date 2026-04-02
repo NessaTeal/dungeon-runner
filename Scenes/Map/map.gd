@@ -12,37 +12,11 @@ var textures_to_process: Dictionary[Vector2i, ImageTexture]
 
 signal tile_created
 signal tile_requested(position: Vector2i)
-signal tile_cancelled(position: Vector2i)
 
 var map_chunks: Dictionary[Vector2i, NewMapChunk] = {}
 var map_chunk_was_already_spawned: Dictionary[Vector2i, bool] = {}
 
 @export var letterGenerator: LetterGenerator
-
-func create_map_tile(coords: Vector2i, texture: ImageTexture) -> void:
-	pass
-	## check if tile was freed already
-	#if not map_tiles.has(coords):
-		#print("Received map tile texture when it's already not needed")
-		#return
-	#var map_tile := map_tiles[coords]
-	#map_tile.was_processed = true
-	#map_tile.material.albedo_texture = texture
-	#if not map_tile_was_already_spawned.has(coords):
-		#map_tile_was_already_spawned[coords] = true
-		#var apple_scene := preload("res://Units/apple.tscn")
-		#for i in range(10):
-			#var apple: = apple_scene.instantiate() as Node3D
-			#apple.position = Vector3((coords.x + randf() - 0.5) * MAP_TILE_SIZE, 0, (coords.y + randf() - 0.5) * MAP_TILE_SIZE)
-			#add_child(apple)
-			#
-		#if randf() > 0.95:
-			#var tower_landmark_scene := preload("res://Scenes/Landmarks/tower_landmark.tscn")
-			#var tower_landmark := tower_landmark_scene.instantiate() as Node3D
-			#tower_landmark.position = Vector3((coords.x + 0.5) * MAP_TILE_SIZE, 0, (coords.y + 0.5) * MAP_TILE_SIZE)
-			#add_child(tower_landmark)
-			#
-	#tile_created.emit()
 
 func update_map(player_position: Vector3, player_direction: Vector2) -> void:
 	var player_position_2d := Vector2(player_position.x, player_position.z)
@@ -69,11 +43,6 @@ func update_map(player_position: Vector3, player_direction: Vector2) -> void:
 	var all_keys: Array[Vector2i] = []
 	var tiles_to_request: Array[Vector2i] = []
 	var tiles_to_remove: Array[Vector2i] = []
-	
-	#print(minumum_x, minimum_y, maximum_x, maximum_y)
-	
-	#tiles_to_request.push_back(Vector2i(0, 0))
-	#tiles_to_request.push_back(Vector2i(0, 1))
 	
 	for x in range(minumum_x, maximum_x):
 		for y in range(minimum_y, maximum_y):
@@ -109,15 +78,6 @@ func update_map(player_position: Vector3, player_direction: Vector2) -> void:
 	
 	for key in tiles_to_request:
 		tile_requested.emit(key)
-		#var map_tile := new_map_chunk.instantiate() as NewMapChunk
-		##map_tile.plane_mesh.size = Vector2(MAP_TILE_SIZE, MAP_TILE_SIZE)
-		#map_tile.set_position(Vector3(key.x * MAP_TILE_SIZE, 0, key.y * MAP_TILE_SIZE))
-		#map_tile.chunk_data = 
-		#map_chunks[key] = map_tile
-		#map_tile.name = "MapChunk %d,%d" % [key.x, key.y]
-		#add_child(map_tile)
-		##tile_requested.emit(key)
-		
 		
 	# TODO: Chunk deletion is struggling with multithreading
 	#for key in tiles_to_remove:
@@ -127,11 +87,9 @@ func update_map(player_position: Vector3, player_direction: Vector2) -> void:
 		#
 		#if !map_chunks.erase(key):
 			#printerr("Somebody else removed map tile with key %v" % [key])
-	
 
 func _on_letter_generator_publish_chunk(key: Vector2i, chunk_data: NewMapChunkData) -> void:
 	var map_tile := new_map_chunk.instantiate() as NewMapChunk
-	#map_tile.plane_mesh.size = Vector2(MAP_TILE_SIZE, MAP_TILE_SIZE)
 	map_tile.set_position(Vector3(key.x * MAP_TILE_SIZE, 0, key.y * MAP_TILE_SIZE))
 	map_tile.chunk_data = chunk_data
 	map_chunks[key] = map_tile

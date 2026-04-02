@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://c11wrg6o80iiy"]
+[gd_scene format=3 uid="uid://c11wrg6o80iiy"]
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_ml7q3"]
 albedo_color = Color(0.18431373, 1, 1, 1)
@@ -12,15 +12,15 @@ size = Vector3(2, 20, 2)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ml7q3"]
 points = PackedVector3Array(-1, -10, -1, -1, -10, 1, -1, 10, -1, 1, -10, -1, 1, -10, 1, -1, 10, 1, 1, 10, -1, 1, 10, 1)
 
-[node name="TowerLandmark" type="StaticBody3D"]
+[node name="TowerLandmark" type="StaticBody3D" unique_id=634624246]
 collision_layer = 256
 collision_mask = 0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1414012886]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 material_override = SubResource("ORMMaterial3D_ml7q3")
 mesh = SubResource("BoxMesh_kn2mw")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=704157212]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 shape = SubResource("ConvexPolygonShape3D_ml7q3")

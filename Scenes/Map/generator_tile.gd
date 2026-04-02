@@ -1,5 +1,4 @@
 extends RefCounted
-
 class_name GeneratorTile
 
 var weights: Dictionary[String, float] = {"r": 1, "d": 1, "s": 1, "g": 1}
