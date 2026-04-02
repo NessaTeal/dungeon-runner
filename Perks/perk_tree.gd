@@ -12,7 +12,7 @@ var perk_buttons_a: Array[PerkButton] = []
 func _ready() -> void:
 	#var perks: Array[Perk] = [starting_perk]
 	var box := HBoxContainer.new()
-	calculate_perks([starting_perk], box)
+	assert(len(calculate_perks([starting_perk], box)) == 1, "More than 1 root perk found")
 	new_perk_buttons.add_child(box)
 	for button in perk_buttons_a:
 		button.recalculate()

@@ -33,7 +33,7 @@ func _process(delta: float) -> void:
 	
 	speed_label.text = "%.01f" % player.speed_component.get_current_speed()
 	
-	$UI/Label8.text = str(Meta.apples)
+	$UI/Label8.text = str(Meta.collected_resources.apples)
 	
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.as_text() == "Z" and event.is_pressed():

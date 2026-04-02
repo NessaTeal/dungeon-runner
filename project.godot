@@ -31,6 +31,7 @@ Inventory="*res://Inventory/inventory.tscn"
 StoneGenerator="*res://Affixes/stone_generator.tscn"
 Perks="*res://Perks/perks.tscn"
 CurrentRunState="*uid://bktumptn4w3de"
+GlobalControls="*uid://c8knmwcmlirg"
 
 [debug]
 
@@ -54,7 +55,7 @@ project/assembly_name="Dungeon Runner"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/beatmap-plugin/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")
 
 [gui]
 

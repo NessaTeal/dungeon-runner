@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_wi286"]
 [ext_resource type="Script" uid="uid://cl6syx0epfcyv" path="res://Affixes/PlayerAffixes/Vitality/toughness.gd" id="2_ae46g"]
-[ext_resource type="Script" uid="uid://c1pmnej3lw1q6" path="res://Perks/perk_cost.gd" id="3_g0q5v"]
 [ext_resource type="Texture2D" uid="uid://2yillyvclfgh" path="res://Textures/SpellBook02_10.png" id="4_hsn54"]
 [ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="5_csdiv"]
 [ext_resource type="Resource" uid="uid://bxt22ro14o0aa" path="res://Perks/Apple/apple_healing_0.tres" id="6_5vunr"]
@@ -10,16 +9,9 @@
 
 [sub_resource type="Resource" id="Resource_3nhfo"]
 script = ExtResource("2_ae46g")
-power = 0.0
-raw_power = 10.0
-raw_power_per_level = 10.0
+power = 20.0
+power_per_level = 10.0
 metadata/_custom_type_script = "uid://cl6syx0epfcyv"
-
-[sub_resource type="Resource" id="Resource_w4bm8"]
-script = ExtResource("3_g0q5v")
-apples = 5
-apples_per_level = 2
-metadata/_custom_type_script = "uid://c1pmnej3lw1q6"
 
 [resource]
 script = ExtResource("5_csdiv")
@@ -28,5 +20,5 @@ perk_name = "Max Energy"
 max_level = 5
 affixes = Array[ExtResource("1_wi286")]([SubResource("Resource_3nhfo")])
 unlocks = Array[ExtResource("5_csdiv")]([ExtResource("6_5vunr"), ExtResource("7_picpa")])
-cost = SubResource("Resource_w4bm8")
+apples_cost = "1 + level * 3"
 metadata/_custom_type_script = "uid://i4dygb6wswk7"

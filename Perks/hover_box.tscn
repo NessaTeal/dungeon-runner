@@ -5,23 +5,42 @@
 [ext_resource type="Texture2D" uid="uid://cdch2x6xyuhmi" path="res://Textures/06_t.PNG" id="3_jsqpc"]
 [ext_resource type="PackedScene" uid="uid://4pxjsoxdwpko" path="res://Perks/perks_tooltip_line.tscn" id="3_omyib"]
 
-[node name="Control" type="CanvasLayer" unique_id=101803397 node_paths=PackedStringArray("tips", "header", "apple_count")]
+[node name="Control" type="CanvasLayer" unique_id=101803397 node_paths=PackedStringArray("hover_box", "header", "apple_count", "grit_count", "souls_count", "vistas_count", "apple_row", "grit_row", "souls_row", "vistas_row", "tips", "current_level", "max_level")]
 process_mode = 3
 layer = 10
 script = ExtResource("1_blqyw")
-tips = NodePath("HoverBox/MarginContainer/VBoxContainer2/VBoxContainer")
-header = NodePath("HoverBox/MarginContainer/VBoxContainer2/Header")
-apple_count = NodePath("HoverBox/MarginContainer/VBoxContainer2/HBoxContainer/AppleCount")
+hover_box = NodePath("CenterContainer")
+header = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/HeaderRow/Header")
+apple_count = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Costs/AppleRow/AppleCount")
+grit_count = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Costs/GritRow/GritCount")
+souls_count = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Costs/SoulsRow/SoulsCount")
+vistas_count = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Costs/VistasRow/VistasCount")
+apple_row = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Costs/AppleRow")
+grit_row = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Costs/GritRow")
+souls_row = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Costs/SoulsRow")
+vistas_row = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Costs/VistasRow")
+tips = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Affixes")
+current_level = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Footer/CurrentLevel")
+max_level = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Footer/MaxLevel")
 
-[node name="HoverBox" type="PanelContainer" parent="." unique_id=358770665]
-offset_right = 485.0
-offset_bottom = 106.0
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=286663711]
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+mouse_behavior_recursive = 1
 
-[node name="ColorRect" type="ColorRect" parent="HoverBox" unique_id=1087245411]
+[node name="HoverBox" type="PanelContainer" parent="CenterContainer" unique_id=358770665]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+offset_transform_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="CenterContainer/HoverBox" unique_id=1087245411]
 layout_mode = 2
 color = Color(0.1176, 0.28, 0.185267, 1)
 
-[node name="NinePatchRect" type="NinePatchRect" parent="HoverBox" unique_id=643787460]
+[node name="NinePatchRect" type="NinePatchRect" parent="CenterContainer/HoverBox" unique_id=643787460]
 layout_mode = 2
 texture = ExtResource("2_b64bh")
 draw_center = false
@@ -31,36 +50,102 @@ patch_margin_top = 4
 patch_margin_right = 4
 patch_margin_bottom = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="HoverBox" unique_id=1782722560]
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/HoverBox" unique_id=1782722560]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HoverBox/MarginContainer" unique_id=285814055]
+[node name="Lines" type="VBoxContainer" parent="CenterContainer/HoverBox/MarginContainer" unique_id=285814055]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/separation = 10
 
-[node name="Header" type="Label" parent="HoverBox/MarginContainer/VBoxContainer2" unique_id=2040542285]
+[node name="HeaderRow" type="HBoxContainer" parent="CenterContainer/HoverBox/MarginContainer/Lines" unique_id=1764320821]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Header" type="Label" parent="CenterContainer/HoverBox/MarginContainer/Lines/HeaderRow" unique_id=2040542285]
 layout_mode = 2
 text = "Header"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HoverBox/MarginContainer/VBoxContainer2" unique_id=1346213635]
+[node name="Costs" type="VBoxContainer" parent="CenterContainer/HoverBox/MarginContainer/Lines" unique_id=1476434168]
 layout_mode = 2
+size_flags_vertical = 0
 
-[node name="Apple" type="TextureRect" parent="HoverBox/MarginContainer/VBoxContainer2/HBoxContainer" unique_id=1921634814]
+[node name="AppleRow" type="HBoxContainer" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs" unique_id=1346213635]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Apple" type="TextureRect" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/AppleRow" unique_id=1921634814]
 layout_mode = 2
 texture = ExtResource("3_jsqpc")
 expand_mode = 2
 
-[node name="AppleCount" type="Label" parent="HoverBox/MarginContainer/VBoxContainer2/HBoxContainer" unique_id=617663910]
+[node name="AppleCount" type="Label" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/AppleRow" unique_id=617663910]
 layout_mode = 2
 text = "Apples cost"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HoverBox/MarginContainer/VBoxContainer2" unique_id=270934825]
+[node name="GritRow" type="HBoxContainer" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs" unique_id=11616214]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Grit" type="TextureRect" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/GritRow" unique_id=1871885907]
+layout_mode = 2
+texture = ExtResource("3_jsqpc")
+expand_mode = 2
+
+[node name="GritCount" type="Label" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/GritRow" unique_id=1575178098]
+layout_mode = 2
+text = "Apples cost"
+
+[node name="SoulsRow" type="HBoxContainer" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs" unique_id=43058132]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Souls" type="TextureRect" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/SoulsRow" unique_id=908379806]
+layout_mode = 2
+texture = ExtResource("3_jsqpc")
+expand_mode = 2
+
+[node name="SoulsCount" type="Label" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/SoulsRow" unique_id=673088900]
+layout_mode = 2
+text = "Apples cost"
+
+[node name="VistasRow" type="HBoxContainer" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs" unique_id=152527272]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Vistas" type="TextureRect" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/VistasRow" unique_id=93457135]
+layout_mode = 2
+texture = ExtResource("3_jsqpc")
+expand_mode = 2
+
+[node name="VistasCount" type="Label" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/VistasRow" unique_id=1228606984]
+layout_mode = 2
+text = "Apples cost"
+
+[node name="Affixes" type="VBoxContainer" parent="CenterContainer/HoverBox/MarginContainer/Lines" unique_id=270934825]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="PerksTooltipLine3" parent="HoverBox/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=1104598503 instance=ExtResource("3_omyib")]
+[node name="AffixLine" parent="CenterContainer/HoverBox/MarginContainer/Lines/Affixes" unique_id=1104598503 instance=ExtResource("3_omyib")]
 layout_mode = 2
+
+[node name="Footer" type="HBoxContainer" parent="CenterContainer/HoverBox/MarginContainer/Lines" unique_id=1176806076]
+layout_mode = 2
+alignment = 2
+
+[node name="CurrentLevel" type="Label" parent="CenterContainer/HoverBox/MarginContainer/Lines/Footer" unique_id=882419773]
+layout_mode = 2
+text = "Current level"
+
+[node name="Divider" type="Label" parent="CenterContainer/HoverBox/MarginContainer/Lines/Footer" unique_id=1038371697]
+layout_mode = 2
+text = "/"
+
+[node name="MaxLevel" type="Label" parent="CenterContainer/HoverBox/MarginContainer/Lines/Footer" unique_id=319758064]
+layout_mode = 2
+text = "MaxLevel"
