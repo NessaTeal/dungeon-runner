@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dgruckc6ybglp"]
+[gd_scene format=3 uid="uid://dgruckc6ybglp"]
 
 [ext_resource type="Script" uid="uid://mmhs5sfq16uv" path="res://Units/Components/trample_component.gd" id="1_m6x3n"]
 
-[node name="TrampleComponent" type="Node"]
+[node name="TrampleComponent" type="Node" unique_id=1538719561]
 script = ExtResource("1_m6x3n")

@@ -12,18 +12,7 @@ offset_bottom = 647.0
 color = Color(0.105882354, 0.4745098, 0.6431373, 1)
 script = ExtResource("1_xtv0c")
 apple_count = NodePath("CanvasLayer/VBoxContainer/HBoxContainer/AppleCount")
-perk_tree = NodePath("PerkTree")
-
-[node name="PerkTree" parent="." unique_id=1068226128 instance=ExtResource("2_gruq8")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_right = 1920.0
-offset_bottom = 1080.0
-grow_horizontal = 1
-grow_vertical = 1
-mouse_filter = 1
+perk_tree = NodePath("CenterContainer/PerkTree")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1924441832]
 layer = 15
@@ -59,5 +48,23 @@ offset_right = 1908.0
 offset_bottom = 238.0
 text = "Move around with right click"
 
-[connection signal="perks_changed" from="PerkTree" to="." method="_on_perk_tree_perk_changed"]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1947327130]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PerkTree" parent="CenterContainer" unique_id=1068226128 instance=ExtResource("2_gruq8")]
+layout_mode = 2
+mouse_filter = 1
+
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="perks_changed" from="CenterContainer/PerkTree" to="." method="_on_perk_tree_perk_changed"]

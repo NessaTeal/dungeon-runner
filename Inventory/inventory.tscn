@@ -1,12 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://deawvf1ocr0jj"]
+[gd_scene format=3 uid="uid://deawvf1ocr0jj"]
 
 [ext_resource type="Script" uid="uid://bg05hcwxrwoko" path="res://Inventory/inventory.gd" id="1_iiy3f"]
 [ext_resource type="PackedScene" uid="uid://b15a53d7gu5mb" path="res://Inventory/item_slot.tscn" id="2_wo71l"]
 [ext_resource type="PackedScene" uid="uid://daxkrcb3hu8fl" path="res://Inventory/held_item.tscn" id="3_ipe2g"]
 
-[node name="Inventory" type="PanelContainer" node_paths=PackedStringArray("grid", "equipment", "held_item")]
+[node name="Inventory" type="PanelContainer" unique_id=902103791 node_paths=PackedStringArray("grid", "equipment", "held_item")]
 z_index = 1
-anchors_preset = -1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -22,10 +22,10 @@ grid = NodePath("Control/GridContainer")
 equipment = NodePath("Control/Equipment")
 held_item = NodePath("HeldItem")
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." unique_id=770192452]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="Control"]
+[node name="GridContainer" type="GridContainer" parent="Control" unique_id=929655207]
 layout_mode = 0
 offset_left = 51.0
 offset_top = 51.0
@@ -35,7 +35,7 @@ theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 6
 
-[node name="Label" type="Label" parent="Control"]
+[node name="Label" type="Label" parent="Control" unique_id=726833214]
 layout_mode = 0
 offset_left = 491.0
 offset_top = 239.0
@@ -43,46 +43,51 @@ offset_right = 1483.0
 offset_bottom = 831.0
 text = "Equipment"
 
-[node name="Equipment" type="Control" parent="Control"]
+[node name="Equipment" type="Control" parent="Control" unique_id=2079897040]
 layout_mode = 1
+anchors_preset = 0
 offset_left = 468.0
 offset_top = 302.0
 offset_right = 1460.0
 offset_bottom = 894.0
 
-[node name="ItemSlot" parent="Control/Equipment" instance=ExtResource("2_wo71l")]
+[node name="ItemSlot" parent="Control/Equipment" unique_id=1319276312 instance=ExtResource("2_wo71l")]
 layout_mode = 1
+anchors_preset = 0
 offset_left = 22.0
 offset_top = 12.0
 offset_right = 62.0
 offset_bottom = 52.0
 equip_slot = true
 
-[node name="ItemSlot2" parent="Control/Equipment" instance=ExtResource("2_wo71l")]
+[node name="ItemSlot2" parent="Control/Equipment" unique_id=1299844975 instance=ExtResource("2_wo71l")]
 layout_mode = 1
+anchors_preset = 0
 offset_left = 150.0
 offset_top = 138.0
 offset_right = 190.0
 offset_bottom = 178.0
 equip_slot = true
 
-[node name="ItemSlot3" parent="Control/Equipment" instance=ExtResource("2_wo71l")]
+[node name="ItemSlot3" parent="Control/Equipment" unique_id=2032244323 instance=ExtResource("2_wo71l")]
 layout_mode = 1
+anchors_preset = 0
 offset_left = 23.0
 offset_top = 125.0
 offset_right = 63.0
 offset_bottom = 165.0
 equip_slot = true
 
-[node name="ItemSlot4" parent="Control/Equipment" instance=ExtResource("2_wo71l")]
+[node name="ItemSlot4" parent="Control/Equipment" unique_id=460458459 instance=ExtResource("2_wo71l")]
 layout_mode = 1
+anchors_preset = 0
 offset_left = 147.0
 offset_top = 15.0
 offset_right = 187.0
 offset_bottom = 55.0
 equip_slot = true
 
-[node name="Button" type="Button" parent="Control"]
+[node name="Button" type="Button" parent="Control" unique_id=1770931614]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
@@ -95,7 +100,7 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Hide inventory"
 
-[node name="HeldItem" parent="." instance=ExtResource("3_ipe2g")]
+[node name="HeldItem" parent="." unique_id=823339769 instance=ExtResource("3_ipe2g")]
 layout_mode = 2
 
 [connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]

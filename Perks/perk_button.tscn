@@ -2,8 +2,20 @@
 
 [ext_resource type="Script" uid="uid://bh0ktydguslnq" path="res://Perks/perk_button.gd" id="1_uk0tp"]
 [ext_resource type="Texture2D" uid="uid://c3nfce77dbucm" path="res://Textures/ui_icon_empty_white.png" id="2_h28ac"]
+[ext_resource type="Resource" uid="uid://cbvc8lnbix1a7" path="res://Perks/Vitality/max_energy_0.tres" id="2_hcgi3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yd8wl"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.037672453, 0.11729666, 0.11604329, 0.6)
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+corner_detail = 1
 
 [node name="PerkButton" type="Control" unique_id=1276274660 node_paths=PackedStringArray("button", "label", "icon_component")]
+z_index = 5
 custom_minimum_size = Vector2(400, 426)
 layout_mode = 3
 anchors_preset = 0
@@ -12,37 +24,43 @@ offset_bottom = 426.0
 scale = Vector2(0.5, 0.5)
 mouse_filter = 1
 script = ExtResource("1_uk0tp")
+perk_resource = ExtResource("2_hcgi3")
 button = NodePath("Button")
-label = NodePath("Label")
+label = NodePath("PanelContainer/Label")
 icon_component = NodePath("Icon")
 
 [node name="Button" type="Button" parent="." unique_id=1778015063]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-offset_top = 26.0
 offset_right = 400.0
-offset_bottom = 426.0
+offset_bottom = 400.0
 mouse_filter = 1
 icon = ExtResource("2_h28ac")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Label" type="Label" parent="." unique_id=1948430434]
-layout_mode = 0
-offset_right = 400.0
-offset_bottom = 26.0
-text = "MoveSpeed"
-horizontal_alignment = 1
-
 [node name="Icon" type="TextureRect" parent="." unique_id=787092754]
 layout_mode = 0
 offset_left = 64.0
-offset_top = 90.0
+offset_top = 64.0
 offset_right = 336.0
-offset_bottom = 362.0
+offset_bottom = 336.0
 mouse_filter = 2
 expand_mode = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1386253797]
+clip_contents = true
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 46.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yd8wl")
+
+[node name="Label" type="Label" parent="PanelContainer" unique_id=1948430434]
+layout_mode = 2
+text = "MoveSpeed"
+horizontal_alignment = 1
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

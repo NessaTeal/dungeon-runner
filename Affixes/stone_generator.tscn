@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://4nbegx20agaj"]
+[gd_scene format=3 uid="uid://4nbegx20agaj"]
 
 [ext_resource type="Script" uid="uid://bhunx51mhxqqa" path="res://Affixes/stone_generator.gd" id="1_aefq6"]
 [ext_resource type="Script" uid="uid://b3occksp5al76" path="res://Affixes/stone_rarity.gd" id="2_xgms0"]
@@ -86,7 +86,7 @@ metadata/_custom_type_script = "uid://cl6syx0epfcyv"
 script = ExtResource("13_k3ot8")
 metadata/_custom_type_script = "uid://cfggqjci5mq84"
 
-[node name="StoneGenerator" type="Node"]
+[node name="StoneGenerator" type="Node" unique_id=126760859]
 script = ExtResource("1_aefq6")
 stone_rarities = Array[ExtResource("2_xgms0")]([SubResource("Resource_lmkqc"), SubResource("Resource_wco3e"), SubResource("Resource_ema85"), SubResource("Resource_v8sx6")])
 all_affixes = Array[ExtResource("3_wco3e")]([SubResource("Resource_yp473"), SubResource("Resource_7ik6n"), SubResource("Resource_aewxf"), SubResource("Resource_disuy"), SubResource("Resource_t5eug"), SubResource("Resource_se2uh"), SubResource("Resource_37hje"), SubResource("Resource_0pedb"), SubResource("Resource_osmas"), SubResource("Resource_a3oi3")])

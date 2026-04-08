@@ -3,29 +3,9 @@
 [ext_resource type="Script" uid="uid://bkdqfpeif0shh" path="res://Perks/perk_tree.gd" id="1_shrwa"]
 [ext_resource type="Resource" uid="uid://cbvc8lnbix1a7" path="res://Perks/Vitality/max_energy_0.tres" id="2_ael60"]
 
-[node name="PerkTree" type="Control" unique_id=771799568 node_paths=PackedStringArray("perk_buttons")]
+[node name="PerkTree" type="Control" unique_id=771799568]
 process_mode = 3
-custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 script = ExtResource("1_shrwa")
-perk_buttons = NodePath("PerkButtons")
 starting_perk = ExtResource("2_ael60")
-
-[node name="PerkButtons" type="HBoxContainer" parent="." unique_id=1880098867]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[connection signal="mouse_entered" from="PerkButtons/@HBoxContainer@332992/@VBoxContainer@332988/PerkButton" to="PerkButtons/@HBoxContainer@332992/@VBoxContainer@332988/PerkButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="PerkButtons/@HBoxContainer@332992/@VBoxContainer@332988/PerkButton" to="PerkButtons/@HBoxContainer@332992/@VBoxContainer@332988/PerkButton" method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="PerkButtons/@HBoxContainer@332992/@VBoxContainer@332989/PerkButton" to="PerkButtons/@HBoxContainer@332992/@VBoxContainer@332989/PerkButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="PerkButtons/@HBoxContainer@332992/@VBoxContainer@332989/PerkButton" to="PerkButtons/@HBoxContainer@332992/@VBoxContainer@332989/PerkButton" method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="PerkButtons/@HBoxContainer@332992/@VBoxContainer@332989/@Control@332990" to="PerkButtons/@HBoxContainer@332992/@VBoxContainer@332989/@Control@332990" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="PerkButtons/@HBoxContainer@332992/@VBoxContainer@332989/@Control@332990" to="PerkButtons/@HBoxContainer@332992/@VBoxContainer@332989/@Control@332990" method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="PerkButtons/@HBoxContainer@332992/@VBoxContainer@332991/PerkButton" to="PerkButtons/@HBoxContainer@332992/@VBoxContainer@332991/PerkButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="PerkButtons/@HBoxContainer@332992/@VBoxContainer@332991/PerkButton" to="PerkButtons/@HBoxContainer@332992/@VBoxContainer@332991/PerkButton" method="_on_mouse_exited"]

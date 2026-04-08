@@ -21,11 +21,11 @@ func _gui_input(event: InputEvent) -> void:
 			dragging = click_event.pressed
 		elif click_event.button_index == MouseButton.MOUSE_BUTTON_WHEEL_DOWN && click_event.pressed:
 			var cur_scale := perk_tree.scale.x
-			cur_scale = maxf(0.05, cur_scale / 1.05)
+			cur_scale = maxf(0.05, cur_scale / 1.2)
 			perk_tree.scale = Vector2(cur_scale, cur_scale)
 		elif click_event.button_index == MouseButton.MOUSE_BUTTON_WHEEL_UP && click_event.pressed:
 			var cur_scale := perk_tree.scale.x
-			cur_scale = minf(4.0, cur_scale * 1.05)
+			cur_scale = minf(4.0, cur_scale * 1.2)
 			perk_tree.scale = Vector2(cur_scale, cur_scale)
 	elif dragging and event is InputEventMouseMotion:
 		var motion_event := event as InputEventMouseMotion

@@ -55,3 +55,5 @@ func get_perk_cost() -> PerkCost:
 	
 	return perk_cost
 	
+func _to_string() -> String:
+	return "<Perk name=%s level=%d>" % [perk_name, _level]
