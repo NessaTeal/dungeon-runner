@@ -18,8 +18,3 @@ func _process(delta: float) -> void:
 
 func get_current_speed() -> float:
 	return current_speed + speed_from_acceleration
-
-func reset() -> void:
-	current_speed = base_speed
-	acceleration = 0
-	fight_speed = 0

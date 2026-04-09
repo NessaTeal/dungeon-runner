@@ -49,18 +49,15 @@ var children_boxes: Array[PerkBox] = []
 func _enter_tree() -> void:
 	perk_button = $PerkButton
 	perk_button.perk_resource = perk
-	print(perk)
 
 func _ready() -> void:
 	max_distance = maxi(distance, max_distance)
 
 func update_position() -> void:
-	#offset_vector = OFFSET_VECTOR_MAPPINGS[direction]
 	offset_vector = calculate_offset_vector()
 	if parent:
 		position = get_offset_position()
 		var line_trust_me := ColorRect.new()
-		#line_trust_me.position = position.min(parent.position)
 		line_trust_me.size = (position - parent.position).abs() + Vector2(20, 20)
 		if direction == DIRECTION.DOWN or direction == DIRECTION.RIGHT:
 			line_trust_me.position = -line_trust_me.size + Vector2(10, 10)

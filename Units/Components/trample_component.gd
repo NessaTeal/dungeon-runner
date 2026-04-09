@@ -11,6 +11,3 @@ func _ready() -> void:
 	
 func get_value() -> float:
 	return speed_component.current_speed * coefficient
-
-func reset() -> void:
-	coefficient = 0.0

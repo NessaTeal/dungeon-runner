@@ -4,13 +4,16 @@ extends ColorRect
 @export var perk_tree: PerkTree
 
 func _ready() -> void:
-	apple_count.text = str(Meta.collected_resources.apples)
+	apple_count.text = str(Collectible.apples)
+
+func _exit_tree() -> void:
+	Meta.save_game()
 
 func _on_button_pressed() -> void:
 	queue_free()
 
 func _on_perk_tree_perk_changed() -> void:
-	apple_count.text = str(Meta.collected_resources.apples)
+	apple_count.text = str(Collectible.apples)
 
 var dragging := false
 

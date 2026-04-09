@@ -14,20 +14,19 @@ class_name Perk
 @export_custom(PROPERTY_HINT_EXPRESSION, "10 + 2 * level") var apples_cost: String = "0"
 @export_custom(PROPERTY_HINT_EXPRESSION, "10 + 2 * level") var grit_cost: String = "0"
 @export_custom(PROPERTY_HINT_EXPRESSION, "10 + 2 * level") var souls_cost: String = "0"
-@export_custom(PROPERTY_HINT_EXPRESSION, "10 + 2 * level") var vistas_cost: String = "0"
+@export_custom(PROPERTY_HINT_EXPRESSION, "10 + 2 * level") var culture_cost: String = "0"
 
-@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_NO_EDITOR) var _level: int
+@export var _level: int:
+#@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_NO_EDITOR) var _level: int:
+	set(value):
+		affixes.map(func(affix): affix._level = value)
+		_level = value
 
 var unlocked_by: Array[Perk] = []
 var locked_by: Array[Perk] = []
 	
 func get_description() -> String:
 	return tr(perk_name.to_upper() + "_DESCRIPTION")
-
-func increase_level() -> void:
-	_level += 1
-	for affix in affixes:
-		affix._level += 1
 
 func get_perk_cost() -> PerkCost:
 	var perk_cost := PerkCost.new()
@@ -48,10 +47,10 @@ func get_perk_cost() -> PerkCost:
 	assert(not expression.has_execute_failed())
 	perk_cost.souls = souls_result
 	
-	assert(expression.parse(vistas_cost, ["level"]) == OK)
-	var vistas_result: int = expression.execute([_level])
+	assert(expression.parse(culture_cost, ["level"]) == OK)
+	var culture_result: int = expression.execute([_level])
 	assert(not expression.has_execute_failed())
-	perk_cost.vista_points = vistas_result
+	perk_cost.culture = culture_result
 	
 	return perk_cost
 	

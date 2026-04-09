@@ -15,11 +15,11 @@ func _input(event: InputEvent) -> void:
 	if casted_event.keycode == Key.KEY_ESCAPE:
 		get_tree().quit()
 	elif casted_event.keycode == Key.KEY_9:
-		if Meta.collected_resources.apples == 0:
-			Meta.collected_resources.apples += 1
+		if Collectible.apples == 0:
+			Collectible.apples += 1
 		else:
-			Meta.collected_resources.apples *= 2
-		print("The apples are falling from dem clouds! Total apples: %d" % Meta.collected_resources.apples)
+			Collectible.apples *= 2
+		print("The apples are falling from dem clouds! Total apples: %d" % Collectible.apples)
 	elif casted_event.keycode == Key.KEY_1:
 		Player.instance.health_component.receive_damage_no_emit(5.0)
 	elif casted_event.keycode == Key.KEY_2:

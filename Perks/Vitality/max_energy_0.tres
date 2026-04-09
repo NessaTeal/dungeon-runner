@@ -21,5 +21,4 @@ max_level = 5
 affixes = Array[ExtResource("1_wi286")]([SubResource("Resource_3nhfo")])
 unlocks = Array[ExtResource("5_csdiv")]([ExtResource("6_5vunr"), ExtResource("7_picpa")])
 apples_cost = "1 + level * 3"
-_level = 3
 metadata/_custom_type_script = "uid://i4dygb6wswk7"

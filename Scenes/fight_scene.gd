@@ -33,7 +33,7 @@ func _process(delta: float) -> void:
 	
 	speed_label.text = "%.01f" % player.speed_component.get_current_speed()
 	
-	$UI/Label8.text = str(Meta.collected_resources.apples)
+	$UI/Label8.text = str(Collectible.apples)
 	
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.as_text() == "Z" and event.is_pressed():
@@ -54,9 +54,10 @@ func _on_player_unit_died() -> void:
 	
 	while Meta.current_xp > Meta.required_xp:
 		leveled_up = true
-		Perks.perk_points += 1
 		Meta.player_level += 1
 		Meta.set_xp_for_next_level()
+		
+	Meta.save_game()
 	
 	var game_over := preload("res://Scenes/game_over.tscn").instantiate() as GameOver
 	

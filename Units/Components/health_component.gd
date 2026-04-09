@@ -44,8 +44,3 @@ func heal_damage(heal: float) -> void:
 	#max_hp = base_hp
 	#health_bar.max_value = base_hp
 	#health_bar.value = base_hp
-
-func reset() -> void:
-	max_hp = 50.0
-	hp_regen = 0.0
-	missing_hp_regen = 0.0

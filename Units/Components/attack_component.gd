@@ -30,8 +30,3 @@ func _process(delta: float) -> void:
 
 func perform_attack(attack_damage: float) -> void:
 	attack_happened.emit(attack_damage * multiplier)
-
-func reset() -> void:
-	affix_damage = 0
-	affix_attack_speed = 0
-	multiplier = 1

@@ -8,6 +8,3 @@ class_name RetaliationComponent
 func _on_unit_attacked(damage: float) -> void:
 	if retaliate < 0:
 		attack_component.perform_attack(damage * retaliate)
-
-func reset() -> void:
-	retaliate = 0.0

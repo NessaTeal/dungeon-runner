@@ -18,5 +18,4 @@ perk_name = "Extra apples"
 affixes = Array[ExtResource("1_n6soi")]([SubResource("Resource_d0jvc")])
 unlocks = Array[ExtResource("3_tlir2")]([ExtResource("6_d0jvc")])
 apples_cost = "25"
-_level = 1
 metadata/_custom_type_script = "uid://i4dygb6wswk7"

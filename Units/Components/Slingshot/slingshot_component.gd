@@ -15,6 +15,3 @@ func perform_bonk() -> void:
 		projectile.damage = damage
 		projectile.attack_component = attack_component
 		add_child(projectile)
-
-func reset() -> void:
-	coefficient = 0.0

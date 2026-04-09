@@ -51,8 +51,10 @@ func _on_button_button_up() -> void:
 	if perk_resource.get_perk_cost().can_afford():
 		perk_resource.get_perk_cost().pay()
 		button.icon = halo_golden
-		perk_resource.increase_level()
+		
+		Perks.upgrade(perk_resource)
+		
 		if perk_resource._level == perk_resource.max_level:
 			button.disabled = true
-		Perks.active_perks[perk_resource.perk_name] = perk_resource
+		
 		calculate_tooltip()

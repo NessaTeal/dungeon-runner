@@ -52,8 +52,8 @@ func show_perk(perk: Perk) -> void:
 	souls_row.visible = perk_cost.souls > 0
 	souls_count.text = str(perk_cost.souls)
 	
-	vistas_row.visible = perk_cost.vista_points > 0
-	vistas_count.text = str(perk_cost.vista_points)
+	vistas_row.visible = perk_cost.culture > 0
+	vistas_count.text = str(perk_cost.culture)
 	
 	for affix in perk.affixes:
 		add_line(affix.get_description(perk._level != 0 && perk._level != perk.max_level))

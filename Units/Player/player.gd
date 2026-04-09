@@ -10,18 +10,10 @@ class_name Player
 @export var health_component: HealthComponent
 @export var attack_component: AttackComponent
 
-@onready var all_components: Array[Node] = find_children("*Component")
-
 signal player_position_updated(position: Vector3, direction: Vector2)
 
 func report_player_position() -> void:
 	player_position_updated.emit(position, direction_component.get_dir())
-
-func reset() -> void:
-	for component in all_components:
-		# handle it better than string check and implicit logic that component has reset()
-		if "reset" in component:
-			component.reset()
 
 func _ready() -> void:
 	instance = self

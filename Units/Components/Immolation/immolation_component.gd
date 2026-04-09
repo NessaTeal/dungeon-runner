@@ -10,9 +10,6 @@ class_name ImmolationComponent
 
 var immolation_emitter: PackedScene = preload("res://Units/Components/Immolation/immolation_emitter.tscn")
 
-func reset() -> void:
-	immolation_damage = 0.0
-
 func _on_timer_timeout() -> void:
 	if immolation_damage > 0:
 		transformation_component.transform("fire")
