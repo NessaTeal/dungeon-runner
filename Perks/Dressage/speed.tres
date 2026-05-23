@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Perk" format=3 uid="uid://bn3cx10v755om"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_vp37q"]
+[ext_resource type="Script" uid="uid://cat0rgxhemnde" path="res://Affixes/PlayerAffixes/Agility/move_speed.gd" id="2_3oed6"]
+[ext_resource type="Texture2D" uid="uid://m7v2oqk0s026" path="res://Textures/speed-01.png" id="3_e1f73"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="4_qlxum"]
+
+[sub_resource type="Resource" id="Resource_162ql"]
+script = ExtResource("2_3oed6")
+power = 2.0
+power_per_level = 1.0
+metadata/_custom_type_script = "uid://cat0rgxhemnde"
+
+[resource]
+script = ExtResource("4_qlxum")
+icon = ExtResource("3_e1f73")
+perk_name = "Speed"
+max_level = 10
+affixes = Array[ExtResource("1_vp37q")]([SubResource("Resource_162ql")])
+apples_cost = "5 + level ** 2"
+metadata/_custom_type_script = "uid://i4dygb6wswk7"

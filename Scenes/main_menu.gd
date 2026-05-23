@@ -19,3 +19,7 @@ func _on_button_3_pressed() -> void:
 	new_item.stone = StoneGenerator.generate_stone()
 	new_item.texture = preload("res://Textures/06_t.PNG")
 	Inventory.add_item(new_item)
+
+
+func _on_button_4_pressed() -> void:
+	Meta.reset_game()

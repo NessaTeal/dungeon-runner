@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_o1vs5"]
 [ext_resource type="Script" uid="uid://bh8dca3ds84od" path="res://Affixes/RunAffixes/Collectibles/Apple/apple_healing.gd" id="2_g1gnu"]
-[ext_resource type="Texture2D" uid="uid://cdch2x6xyuhmi" path="res://Textures/06_t.PNG" id="4_ygv1j"]
+[ext_resource type="Texture2D" uid="uid://bk2x02t5s8ck6" path="res://Perks/Apple/SpellBookPage09_77.PNG" id="3_c5y2e"]
 [ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="5_vg13g"]
 
 [sub_resource type="Resource" id="Resource_wpd50"]
@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://bh8dca3ds84od"
 
 [resource]
 script = ExtResource("5_vg13g")
-icon = ExtResource("4_ygv1j")
+icon = ExtResource("3_c5y2e")
 perk_name = "Apple Healing"
 max_level = 3
 affixes = Array[ExtResource("1_o1vs5")]([SubResource("Resource_wpd50")])

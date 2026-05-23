@@ -15,7 +15,7 @@ static var apples: int:
 	get:
 		return Meta.save_data.collected_resources_data[Type.Apples]
 
-static var grit: int:
+static var grit: float:
 	set(value):
 		Meta.save_data.collected_resources_data[Type.Grit] = value
 	get:

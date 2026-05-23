@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Perk" format=3 uid="uid://cbvc8lnbix1a7"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_7kghl"]
+[ext_resource type="Script" uid="uid://cl6syx0epfcyv" path="res://Affixes/PlayerAffixes/Vitality/toughness.gd" id="2_3nhfo"]
+[ext_resource type="Texture2D" uid="uid://2yillyvclfgh" path="res://Textures/SpellBook02_10.png" id="3_d46jh"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="4_e70lr"]
+
+[sub_resource type="Resource" id="Resource_3nhfo"]
+script = ExtResource("2_3nhfo")
+power = 20.0
+power_per_level = 10.0
+metadata/_custom_type_script = "uid://cl6syx0epfcyv"
+
+[resource]
+script = ExtResource("4_e70lr")
+icon = ExtResource("3_d46jh")
+perk_name = "Untapped Potential"
+max_level = 5
+affixes = Array[ExtResource("1_7kghl")]([SubResource("Resource_3nhfo")])
+apples_cost = "10 + level * 3"
+metadata/_custom_type_script = "uid://i4dygb6wswk7"

@@ -2,8 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dhktvqhymn3pm" path="res://Perks/hover_box.gd" id="1_blqyw"]
 [ext_resource type="Texture2D" uid="uid://bc4x1so7x7njw" path="res://Textures/ui_icon_empty_orange.png" id="2_b64bh"]
-[ext_resource type="Texture2D" uid="uid://cdch2x6xyuhmi" path="res://Textures/06_t.PNG" id="3_jsqpc"]
 [ext_resource type="PackedScene" uid="uid://4pxjsoxdwpko" path="res://Perks/perks_tooltip_line.tscn" id="3_omyib"]
+[ext_resource type="Texture2D" uid="uid://5rxo1pm3wge8" path="res://Textures/apple.png" id="3_vlj8w"]
+[ext_resource type="Texture2D" uid="uid://8ldqs0mkym65" path="res://Perks/Milestone/green_14.PNG" id="4_c20b6"]
+[ext_resource type="Texture2D" uid="uid://dhqnxdvhke0yw" path="res://Textures/SpellBook06_60.png" id="5_6cm3c"]
+[ext_resource type="Texture2D" uid="uid://cruiywel5ppyx" path="res://Textures/SGI_15.png" id="6_rf5fx"]
 
 [node name="Control" type="CanvasLayer" unique_id=101803397 node_paths=PackedStringArray("hover_box", "header", "apple_count", "grit_count", "souls_count", "vistas_count", "apple_row", "grit_row", "souls_row", "vistas_row", "tips", "current_level", "max_level")]
 process_mode = 3
@@ -30,6 +33,7 @@ mouse_filter = 2
 mouse_behavior_recursive = 1
 
 [node name="HoverBox" type="PanelContainer" parent="CenterContainer" unique_id=358770665]
+custom_maximum_size = Vector2(512, -1)
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -81,7 +85,7 @@ size_flags_vertical = 0
 
 [node name="Apple" type="TextureRect" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/AppleRow" unique_id=1921634814]
 layout_mode = 2
-texture = ExtResource("3_jsqpc")
+texture = ExtResource("3_vlj8w")
 expand_mode = 2
 
 [node name="AppleCount" type="Label" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/AppleRow" unique_id=617663910]
@@ -94,12 +98,12 @@ size_flags_vertical = 0
 
 [node name="Grit" type="TextureRect" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/GritRow" unique_id=1871885907]
 layout_mode = 2
-texture = ExtResource("3_jsqpc")
+texture = ExtResource("4_c20b6")
 expand_mode = 2
 
 [node name="GritCount" type="Label" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/GritRow" unique_id=1575178098]
 layout_mode = 2
-text = "Apples cost"
+text = "Grit cost"
 
 [node name="SoulsRow" type="HBoxContainer" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs" unique_id=43058132]
 layout_mode = 2
@@ -107,12 +111,12 @@ size_flags_vertical = 0
 
 [node name="Souls" type="TextureRect" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/SoulsRow" unique_id=908379806]
 layout_mode = 2
-texture = ExtResource("3_jsqpc")
+texture = ExtResource("5_6cm3c")
 expand_mode = 2
 
 [node name="SoulsCount" type="Label" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/SoulsRow" unique_id=673088900]
 layout_mode = 2
-text = "Apples cost"
+text = "Souls cost"
 
 [node name="VistasRow" type="HBoxContainer" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs" unique_id=152527272]
 layout_mode = 2
@@ -120,12 +124,12 @@ size_flags_vertical = 0
 
 [node name="Vistas" type="TextureRect" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/VistasRow" unique_id=93457135]
 layout_mode = 2
-texture = ExtResource("3_jsqpc")
+texture = ExtResource("6_rf5fx")
 expand_mode = 2
 
 [node name="VistasCount" type="Label" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/VistasRow" unique_id=1228606984]
 layout_mode = 2
-text = "Apples cost"
+text = "Culture cost"
 
 [node name="Affixes" type="VBoxContainer" parent="CenterContainer/HoverBox/MarginContainer/Lines" unique_id=270934825]
 layout_mode = 2

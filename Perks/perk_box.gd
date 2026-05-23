@@ -4,7 +4,7 @@ class_name PerkBox
 
 var perk_button: PerkButton
 
-enum DIRECTION {
+enum Direction {
 	UP,
 	RIGHT,
 	DOWN,
@@ -13,7 +13,7 @@ enum DIRECTION {
 
 var perk: Perk
 var parent: PerkBox
-var direction: DIRECTION
+var direction: Direction
 var distance := 0
 var offset_vector: Vector2i
 
@@ -27,18 +27,18 @@ func calculate_offset_vector() -> Vector2i:
 	
 	return OFFSET_VECTOR_MAPPINGS[direction] * (max_distance - distance + 1) + parent.offset_vector
 		
-static var OFFSET_VECTOR_MAPPINGS: Dictionary[DIRECTION, Vector2i] = {
-	DIRECTION.UP: Vector2i(0, -1),
-	DIRECTION.DOWN: Vector2i(0, 1),
-	DIRECTION.RIGHT: Vector2i(1, 0),
-	DIRECTION.LEFT: Vector2i(-1, 0)
+static var OFFSET_VECTOR_MAPPINGS: Dictionary[Direction, Vector2i] = {
+	Direction.UP: Vector2i(0, -1),
+	Direction.DOWN: Vector2i(0, 1),
+	Direction.RIGHT: Vector2i(1, 0),
+	Direction.LEFT: Vector2i(-1, 0)
 }
 
-static var OPPOSITE_DIRECTIONS: Dictionary[DIRECTION, DIRECTION] = {
-	DIRECTION.UP: DIRECTION.DOWN,
-	DIRECTION.DOWN: DIRECTION.UP,
-	DIRECTION.RIGHT: DIRECTION.LEFT,
-	DIRECTION.LEFT: DIRECTION.RIGHT
+static var OPPOSITE_DIRECTIONS: Dictionary[Direction, Direction] = {
+	Direction.UP: Direction.DOWN,
+	Direction.DOWN: Direction.UP,
+	Direction.RIGHT: Direction.LEFT,
+	Direction.LEFT: Direction.RIGHT
 }
 
 func get_offset_position() -> Vector2:
@@ -59,7 +59,7 @@ func update_position() -> void:
 		position = get_offset_position()
 		var line_trust_me := ColorRect.new()
 		line_trust_me.size = (position - parent.position).abs() + Vector2(20, 20)
-		if direction == DIRECTION.DOWN or direction == DIRECTION.RIGHT:
+		if direction == Direction.DOWN or direction == Direction.RIGHT:
 			line_trust_me.position = -line_trust_me.size + Vector2(10, 10)
 		else:
 			line_trust_me.position -= Vector2(10, 10)

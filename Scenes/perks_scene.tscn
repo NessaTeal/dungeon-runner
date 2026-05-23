@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://s8j50tfokgis" path="res://Scenes/perks_scene.gd" id="1_xtv0c"]
 [ext_resource type="PackedScene" uid="uid://g8g2afkn8gqj" path="res://Perks/perk_tree.tscn" id="2_gruq8"]
-[ext_resource type="Texture2D" uid="uid://cdch2x6xyuhmi" path="res://Textures/06_t.PNG" id="3_mw8m8"]
+[ext_resource type="Texture2D" uid="uid://5rxo1pm3wge8" path="res://Textures/apple.png" id="2_mw8m8"]
+[ext_resource type="Texture2D" uid="uid://8ldqs0mkym65" path="res://Perks/Milestone/green_14.PNG" id="3_fhm2o"]
 
-[node name="PerksScene" type="ColorRect" unique_id=230700610 node_paths=PackedStringArray("apple_count", "perk_tree")]
+[node name="PerksScene" type="ColorRect" unique_id=230700610 node_paths=PackedStringArray("apple_count", "grit_count", "perk_tree")]
 process_mode = 3
 custom_minimum_size = Vector2(1920, 1080)
 offset_right = 1148.0
@@ -12,6 +13,7 @@ offset_bottom = 647.0
 color = Color(0.105882354, 0.4745098, 0.6431373, 1)
 script = ExtResource("1_xtv0c")
 apple_count = NodePath("CanvasLayer/VBoxContainer/HBoxContainer/AppleCount")
+grit_count = NodePath("CanvasLayer/VBoxContainer/HBoxContainer2/GritCount")
 perk_tree = NodePath("CenterContainer/PerkTree")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1924441832]
@@ -26,16 +28,30 @@ offset_bottom = 58.0
 grow_horizontal = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=1373417858]
+clip_contents = true
 layout_mode = 2
 
 [node name="AppleIcon" type="TextureRect" parent="CanvasLayer/VBoxContainer/HBoxContainer" unique_id=1890217442]
 layout_mode = 2
-texture = ExtResource("3_mw8m8")
+texture = ExtResource("2_mw8m8")
 expand_mode = 2
 
 [node name="AppleCount" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer" unique_id=1910702163]
 layout_mode = 2
-text = "No apples :("
+text = "0"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=1739176555]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/VBoxContainer/HBoxContainer2" unique_id=1399620730]
+layout_mode = 2
+texture = ExtResource("3_fhm2o")
+expand_mode = 2
+
+[node name="GritCount" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer2" unique_id=359019162]
+layout_mode = 2
+text = "0"
 
 [node name="Button" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=601795403]
 layout_mode = 2

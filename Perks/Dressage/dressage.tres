@@ -4,12 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://cl3b4kjugkkbc" path="res://Textures/deero/0008.png" id="2_heaqb"]
 [ext_resource type="Script" uid="uid://cbeinhlioyggh" path="res://Affixes/PlayerAffixes/Agility/dressage_turn_rate_affix.gd" id="2_r8aej"]
 [ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="3_r8aej"]
-[ext_resource type="Resource" uid="uid://bn3cx10v755om" path="res://Perks/Dressage/speed_0.tres" id="5_r8aej"]
 
 [sub_resource type="Resource" id="Resource_hmha8"]
 script = ExtResource("2_r8aej")
-power = 0.087
-power_per_level = 0.087
+power = 5.0
+power_per_level = 5.0
 metadata/_custom_type_script = "uid://cbeinhlioyggh"
 
 [resource]
@@ -18,6 +17,5 @@ icon = ExtResource("2_heaqb")
 perk_name = "Dressage"
 max_level = 10
 affixes = Array[ExtResource("1_861j7")]([SubResource("Resource_hmha8")])
-unlocks = Array[ExtResource("3_r8aej")]([ExtResource("5_r8aej")])
 apples_cost = "3 + level * 2"
 metadata/_custom_type_script = "uid://i4dygb6wswk7"

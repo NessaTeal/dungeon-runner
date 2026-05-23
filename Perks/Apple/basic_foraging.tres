@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Perk" format=3 uid="uid://bgs5j1jveeqel"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_i3hye"]
+[ext_resource type="Script" uid="uid://co5w6ckcqk6cl" path="res://Affixes/RunAffixes/Collectibles/Apple/apple_chance.gd" id="2_gruhw"]
+[ext_resource type="Texture2D" uid="uid://dtaid78ckron4" path="res://Perks/Apple/green_33.PNG" id="3_paol1"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="4_53v7a"]
+[ext_resource type="Resource" uid="uid://bxt22ro14o0aa" path="res://Perks/Apple/apple_healing_0.tres" id="5_paol1"]
+[ext_resource type="Resource" uid="uid://yknd8rx624db" path="res://Perks/Apple/extra_apples_0.tres" id="6_53v7a"]
+
+[sub_resource type="Resource" id="Resource_otgwj"]
+script = ExtResource("2_gruhw")
+power = 0.5
+power_per_level = 0.5
+metadata/_custom_type_script = "uid://co5w6ckcqk6cl"
+
+[resource]
+script = ExtResource("4_53v7a")
+icon = ExtResource("3_paol1")
+perk_name = "Basic Foraging"
+max_level = 5
+affixes = Array[ExtResource("1_i3hye")]([SubResource("Resource_otgwj")])
+unlocks = Array[ExtResource("4_53v7a")]([ExtResource("5_paol1"), ExtResource("6_53v7a")])
+apples_cost = "10 + level * 10"
+metadata/_custom_type_script = "uid://i4dygb6wswk7"

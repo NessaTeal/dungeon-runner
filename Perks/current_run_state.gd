@@ -2,7 +2,10 @@ extends Node
 
 var apple_healing := 0.0
 var apples_per_apples := 1
-var apple_chance := 0.01
+var apple_chance := 0.005
+
+var grit_per_minute := 0.0
+
 var fight_xp := 0
 
 func reset() -> void:

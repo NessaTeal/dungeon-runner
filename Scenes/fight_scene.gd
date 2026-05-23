@@ -10,6 +10,8 @@ class_name FightScene
 @export var main_camera: Camera3D
 @export var top_view_camera: Camera3D
 @export var ui: CanvasLayer
+@export var apple_count: Label
+@export var grit_container: HBoxContainer
 
 var enemy_scene: PackedScene = preload("res://Units/Enemy/enemy.tscn")
 var item: PackedScene = preload("res://Inventory/item.tscn")
@@ -22,6 +24,7 @@ func _ready() -> void:
 	map.update_map(Vector3(player.position.x, 0, player.position.z), player.direction_component.get_dir())
 	
 	Utils.handled_connect(player.health_component.hp_depleted, _on_player_unit_died)
+	
 
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("SpeeHack"):
@@ -31,10 +34,10 @@ func _process(delta: float) -> void:
 	
 	time_passed += delta
 	
-	speed_label.text = "%.01f" % player.speed_component.get_current_speed()
-	
-	$UI/Label8.text = str(Collectible.apples)
-	
+	# TODO: fix this properly that unpause tries to read freed component
+	if is_instance_valid(player):
+		speed_label.text = "%.01f" % player.speed_component.get_current_speed()
+
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.as_text() == "Z" and event.is_pressed():
 		var state := main_camera.current

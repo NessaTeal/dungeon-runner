@@ -16,10 +16,12 @@ layout_mode = 2
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=644964878]
 layout_mode = 2
 texture = ExtResource("1_x4od3")
+stretch_mode = 4
 
 [node name="Label" type="RichTextLabel" parent="HBoxContainer" unique_id=187728594]
 clip_contents = false
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
-text = "Test text 1"
+text = "Writing very long line and again and again and again and again and again and again and again and again"
+fit_content = true

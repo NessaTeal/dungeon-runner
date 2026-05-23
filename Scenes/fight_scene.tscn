@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://lnivdlx0ady1" path="res://Scenes/fight_scene.gd" id="1_x8404"]
 [ext_resource type="PackedScene" uid="uid://cswctlti1unua" path="res://Units/Enemy/enemy.tscn" id="2_0ukyi"]
+[ext_resource type="Texture2D" uid="uid://5rxo1pm3wge8" path="res://Textures/apple.png" id="2_gcmlh"]
+[ext_resource type="Texture2D" uid="uid://8ldqs0mkym65" path="res://Perks/Milestone/green_14.PNG" id="3_hx27y"]
 [ext_resource type="PackedScene" uid="uid://dldtmj2d8aq01" path="res://Units/Player/player.tscn" id="3_supv1"]
 [ext_resource type="PackedScene" uid="uid://ctiw0m8k5sub3" path="res://Scenes/Map/map.tscn" id="6_48sw3"]
 [ext_resource type="Script" uid="uid://k77suwqe7wdi" path="res://Scenes/affix_applier.gd" id="8_6leyg"]
@@ -132,109 +134,47 @@ animations = [{
 "speed": 30.0
 }]
 
-[node name="FightScene" type="Node" unique_id=537465887 node_paths=PackedStringArray("player", "distance_label", "speed_label", "chance_label", "map", "subviewport", "main_camera", "top_view_camera", "ui")]
+[sub_resource type="GDScript" id="GDScript_v8c26"]
+script/source = "extends HBoxContainer
+
+@export var apple_count: Label
+
+func _process(_delta: float) -> void:
+	apple_count.text = str(Collectible.apples)
+"
+
+[sub_resource type="GDScript" id="GDScript_hx27y"]
+script/source = "extends HBoxContainer
+
+@export var progress_bar: ProgressBar
+@export var label: Label
+
+func _ready() -> void:
+	if CurrentRunState.grit_per_minute == 0.0:
+		queue_free()
+
+func _process(delta: float) -> void:
+	Collectible.grit += CurrentRunState.grit_per_minute * 60 / 1000 * delta
+	progress_bar.value = fmod(Collectible.grit, 1)
+	label.text = str(floori(Collectible.grit))
+"
+
+[node name="FightScene" type="Node" unique_id=537465887 node_paths=PackedStringArray("player", "distance_label", "speed_label", "chance_label", "map", "subviewport", "main_camera", "top_view_camera", "ui", "apple_count", "grit_container")]
 script = ExtResource("1_x8404")
 player = NodePath("GameHolder/Map/Player")
-distance_label = NodePath("UI/Distance")
-speed_label = NodePath("UI/Speed")
-chance_label = NodePath("UI/Chance")
+distance_label = NodePath("GameHolder/UI/Distance")
+speed_label = NodePath("GameHolder/UI/Speed")
+chance_label = NodePath("GameHolder/UI/Chance")
 map = NodePath("GameHolder/Map")
 subviewport = NodePath("GameHolder/SubViewport")
 main_camera = NodePath("GameHolder/Map/Player/MainCamera")
 top_view_camera = NodePath("GameHolder/Map/Player/TopCamera")
-ui = NodePath("UI")
+ui = NodePath("GameHolder/UI")
+apple_count = NodePath("GameHolder/UI/MarginContainer/VBoxContainer/AppleContainer/AppleCount")
+grit_container = NodePath("GameHolder/UI/MarginContainer/VBoxContainer/GritContainer")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=936797055]
 environment = SubResource("Environment_lmtoh")
-
-[node name="UI" type="CanvasLayer" parent="." unique_id=2045945216]
-
-[node name="ShowInventoryButton" type="Button" parent="UI" unique_id=1398181265]
-offset_left = 1004.0
-offset_top = 20.0
-offset_right = 1133.0
-offset_bottom = 51.0
-text = "Show inventory
-"
-
-[node name="Label" type="Label" parent="UI" unique_id=2134407683]
-offset_left = 408.0
-offset_right = 491.0
-offset_bottom = 26.0
-text = "You've run"
-
-[node name="Distance" type="Label" parent="UI" unique_id=405982213]
-offset_left = 491.0
-offset_right = 574.0
-offset_bottom = 26.0
-horizontal_alignment = 1
-
-[node name="Label3" type="Label" parent="UI" unique_id=1004787025]
-offset_left = 574.0
-offset_right = 657.0
-offset_bottom = 26.0
-text = "meters"
-
-[node name="Label2" type="Label" parent="UI" unique_id=1658888685]
-offset_left = 408.0
-offset_top = 40.0
-offset_right = 596.0
-offset_bottom = 66.0
-text = "Chance of enemy spawn"
-
-[node name="Chance" type="Label" parent="UI" unique_id=437680400]
-offset_left = 600.0
-offset_top = 40.0
-offset_right = 619.0
-offset_bottom = 66.0
-text = "10"
-
-[node name="Label5" type="Label" parent="UI" unique_id=748014057]
-offset_left = 619.0
-offset_top = 40.0
-offset_right = 638.0
-offset_bottom = 66.0
-text = "%"
-
-[node name="Label4" type="Label" parent="UI" unique_id=1187527225]
-offset_left = 408.0
-offset_top = 24.0
-offset_right = 557.0
-offset_bottom = 50.0
-text = "Your current speed"
-
-[node name="Speed" type="Label" parent="UI" unique_id=2107185446]
-offset_left = 560.0
-offset_top = 26.0
-offset_right = 600.0
-offset_bottom = 49.0
-
-[node name="Control" type="Control" parent="UI" unique_id=1617248452]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label6" type="Label" parent="UI" unique_id=1251534239]
-offset_left = 600.0
-offset_top = 24.0
-offset_right = 640.0
-offset_bottom = 50.0
-text = "m/s"
-
-[node name="Label7" type="Label" parent="UI" unique_id=752373378]
-offset_left = 416.0
-offset_top = 64.0
-offset_right = 456.0
-offset_bottom = 87.0
-text = "Apples: "
-
-[node name="Label8" type="Label" parent="UI" unique_id=1362382367]
-offset_left = 480.0
-offset_top = 64.0
-offset_right = 520.0
-offset_bottom = 87.0
-text = "0"
 
 [node name="Loading" type="CanvasLayer" parent="." unique_id=687057140 node_paths=PackedStringArray("game_holder", "progress_bar", "deero_sprite")]
 script = ExtResource("9_lmtoh")
@@ -273,6 +213,150 @@ frame_progress = 0.6283509
 
 [node name="GameHolder" type="Node" parent="." unique_id=2147269012]
 process_mode = 4
+
+[node name="UI" type="CanvasLayer" parent="GameHolder" unique_id=2045945216]
+
+[node name="ShowInventoryButton" type="Button" parent="GameHolder/UI" unique_id=1398181265]
+visible = false
+offset_left = 1004.0
+offset_top = 20.0
+offset_right = 1133.0
+offset_bottom = 51.0
+text = "Show inventory
+"
+
+[node name="Label" type="Label" parent="GameHolder/UI" unique_id=2134407683]
+visible = false
+offset_left = 408.0
+offset_right = 491.0
+offset_bottom = 26.0
+text = "You've run"
+
+[node name="Distance" type="Label" parent="GameHolder/UI" unique_id=405982213]
+visible = false
+offset_left = 491.0
+offset_right = 574.0
+offset_bottom = 26.0
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="GameHolder/UI" unique_id=1004787025]
+visible = false
+offset_left = 574.0
+offset_right = 657.0
+offset_bottom = 26.0
+text = "meters"
+
+[node name="Label2" type="Label" parent="GameHolder/UI" unique_id=1658888685]
+visible = false
+offset_left = 408.0
+offset_top = 40.0
+offset_right = 596.0
+offset_bottom = 66.0
+text = "Chance of enemy spawn"
+
+[node name="Chance" type="Label" parent="GameHolder/UI" unique_id=437680400]
+visible = false
+offset_left = 600.0
+offset_top = 40.0
+offset_right = 619.0
+offset_bottom = 66.0
+text = "10"
+
+[node name="Label5" type="Label" parent="GameHolder/UI" unique_id=748014057]
+visible = false
+offset_left = 619.0
+offset_top = 40.0
+offset_right = 638.0
+offset_bottom = 66.0
+text = "%"
+
+[node name="Label4" type="Label" parent="GameHolder/UI" unique_id=1187527225]
+offset_left = 408.0
+offset_top = 24.0
+offset_right = 557.0
+offset_bottom = 50.0
+text = "Your current speed"
+
+[node name="Speed" type="Label" parent="GameHolder/UI" unique_id=2107185446]
+offset_left = 560.0
+offset_top = 26.0
+offset_right = 600.0
+offset_bottom = 49.0
+
+[node name="Control" type="Control" parent="GameHolder/UI" unique_id=1617248452]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label6" type="Label" parent="GameHolder/UI" unique_id=1251534239]
+visible = false
+offset_left = 600.0
+offset_top = 24.0
+offset_right = 640.0
+offset_bottom = 50.0
+text = "m/s"
+
+[node name="Label7" type="Label" parent="GameHolder/UI" unique_id=752373378]
+visible = false
+offset_left = 448.0
+offset_top = 64.0
+offset_right = 488.0
+offset_bottom = 94.0
+text = ": "
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="GameHolder/UI" unique_id=1220681060]
+offset_right = 502.0
+offset_bottom = 126.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameHolder/UI/MarginContainer" unique_id=952598346]
+layout_mode = 2
+
+[node name="AppleContainer" type="HBoxContainer" parent="GameHolder/UI/MarginContainer/VBoxContainer" unique_id=574488524 node_paths=PackedStringArray("apple_count")]
+layout_mode = 2
+size_flags_vertical = 3
+script = SubResource("GDScript_v8c26")
+apple_count = NodePath("AppleCount")
+
+[node name="TextureRect" type="TextureRect" parent="GameHolder/UI/MarginContainer/VBoxContainer/AppleContainer" unique_id=1998403855]
+layout_mode = 2
+texture = ExtResource("2_gcmlh")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="AppleCount" type="Label" parent="GameHolder/UI/MarginContainer/VBoxContainer/AppleContainer" unique_id=1362382367]
+layout_mode = 2
+text = "0"
+vertical_alignment = 1
+
+[node name="GritContainer" type="HBoxContainer" parent="GameHolder/UI/MarginContainer/VBoxContainer" unique_id=1894030114 node_paths=PackedStringArray("progress_bar", "label")]
+layout_mode = 2
+size_flags_vertical = 3
+script = SubResource("GDScript_hx27y")
+progress_bar = NodePath("ProgressBar")
+label = NodePath("Label")
+
+[node name="TextureRect" type="TextureRect" parent="GameHolder/UI/MarginContainer/VBoxContainer/GritContainer" unique_id=2052070189]
+layout_mode = 2
+texture = ExtResource("3_hx27y")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="GameHolder/UI/MarginContainer/VBoxContainer/GritContainer" unique_id=949510738]
+layout_mode = 2
+text = "0"
+
+[node name="ProgressBar" type="ProgressBar" parent="GameHolder/UI/MarginContainer/VBoxContainer/GritContainer" unique_id=1294721455]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.0
+show_percentage = false
 
 [node name="EnemySpawnerComponent" parent="GameHolder" unique_id=561827070 node_paths=PackedStringArray("player", "spawn_node", "fight_scene") instance=ExtResource("8_mo3wy")]
 enemy_scene = ExtResource("2_0ukyi")
@@ -326,7 +410,7 @@ editor_draw_drag_margin = true
 script = ExtResource("8_6leyg")
 player = NodePath("../GameHolder/Map/Player")
 
-[connection signal="pressed" from="UI/ShowInventoryButton" to="." method="_on_show_inventory_button_pressed"]
+[connection signal="pressed" from="GameHolder/UI/ShowInventoryButton" to="." method="_on_show_inventory_button_pressed"]
 [connection signal="tile_created" from="GameHolder/Map" to="Loading" method="tile_created"]
 [connection signal="tile_requested" from="GameHolder/Map" to="Loading" method="tile_requested"]
 [connection signal="player_position_updated" from="GameHolder/Map/Player" to="GameHolder/Map" method="update_map"]

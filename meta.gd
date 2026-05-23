@@ -45,8 +45,14 @@ func load_game() -> void:
 		
 		save_data.deserialize(json.data)
 
+func reset_game() -> void:
+	if FileAccess.file_exists(save_file_path):
+		DirAccess.remove_absolute(save_file_path)
+		
+	save_data = SaveData.new()
+
 class SaveData:
-	var collected_resources_data: Array[int] = []
+	var collected_resources_data: Array[float] = []
 	var perk_levels: Dictionary[String, int] = {}
 	
 	func _init() -> void:

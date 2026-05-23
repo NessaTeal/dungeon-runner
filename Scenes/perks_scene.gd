@@ -1,10 +1,13 @@
+@tool
 extends ColorRect
 
 @export var apple_count: Label
+@export var grit_count: Label
 @export var perk_tree: PerkTree
 
 func _ready() -> void:
 	apple_count.text = str(Collectible.apples)
+	grit_count.text = str(floori(Collectible.grit))
 
 func _exit_tree() -> void:
 	Meta.save_game()
@@ -14,6 +17,7 @@ func _on_button_pressed() -> void:
 
 func _on_perk_tree_perk_changed() -> void:
 	apple_count.text = str(Collectible.apples)
+	grit_count.text = str(floori(Collectible.grit))
 
 var dragging := false
 

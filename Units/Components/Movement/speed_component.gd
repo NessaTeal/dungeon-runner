@@ -1,4 +1,4 @@
-extends Control
+extends BaseComponent
 class_name SpeedComponent
 
 var distance := 0.0
@@ -17,4 +17,4 @@ func _process(delta: float) -> void:
 	speed_from_acceleration += acceleration * delta
 
 func get_current_speed() -> float:
-	return current_speed + speed_from_acceleration
+	return current_speed + speed_from_acceleration + get_dynamic_value()

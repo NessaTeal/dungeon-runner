@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="Perk" format=3 uid="uid://can1qok7yg0er"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_0ujsx"]
+[ext_resource type="Script" uid="uid://cl6syx0epfcyv" path="res://Affixes/PlayerAffixes/Vitality/toughness.gd" id="2_pawot"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="2_piedt"]
+[ext_resource type="Script" uid="uid://c2ac4p7lu7hlo" path="res://Affixes/PlayerAffixes/Vitality/hp_regen.gd" id="3_j15pd"]
+[ext_resource type="Texture2D" uid="uid://7crfk7r8njjw" path="res://Perks/Vitality/SpellBookPage09_05.PNG" id="4_oxt6i"]
+[ext_resource type="Resource" uid="uid://cbvc8lnbix1a7" path="res://Perks/Vitality/max_energy.tres" id="6_j15pd"]
+[ext_resource type="Resource" uid="uid://b7y1253q1s8wx" path="res://Perks/Vitality/hunger_strike.tres" id="7_oxt6i"]
+
+[sub_resource type="Resource" id="Resource_dr0f5"]
+script = ExtResource("2_pawot")
+power = 5.0
+power_per_level = 5.0
+metadata/_custom_type_script = "uid://cl6syx0epfcyv"
+
+[sub_resource type="Resource" id="Resource_ars4j"]
+script = ExtResource("3_j15pd")
+power = 1.0
+power_per_level = 0.5
+metadata/_custom_type_script = "uid://c2ac4p7lu7hlo"
+
+[resource]
+script = ExtResource("2_piedt")
+icon = ExtResource("4_oxt6i")
+perk_name = "Basic Survival"
+max_level = 5
+affixes = Array[ExtResource("1_0ujsx")]([SubResource("Resource_dr0f5"), SubResource("Resource_ars4j")])
+unlocks = Array[ExtResource("2_piedt")]([ExtResource("6_j15pd"), ExtResource("7_oxt6i")])
+apples_cost = "10 + level * 1"
+metadata/_custom_type_script = "uid://i4dygb6wswk7"

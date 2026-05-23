@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Perk" format=3 uid="uid://b7y1253q1s8wx"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_fly5v"]
+[ext_resource type="Script" uid="uid://n5ombo2jiqqw" path="res://Affixes/PlayerAffixes/Vitality/damaged_speed.gd" id="2_fly5v"]
+[ext_resource type="Texture2D" uid="uid://uee0c884paea" path="res://Perks/Vitality/SGI_73.png" id="3_fdm5b"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="4_gqjd0"]
+
+[sub_resource type="Resource" id="Resource_tbfgv"]
+script = ExtResource("2_fly5v")
+power = 2.0
+power_per_level = 1.0
+metadata/_custom_type_script = "uid://n5ombo2jiqqw"
+
+[resource]
+script = ExtResource("4_gqjd0")
+icon = ExtResource("3_fdm5b")
+perk_name = "Hunger Strike"
+max_level = 3
+affixes = Array[ExtResource("1_fly5v")]([SubResource("Resource_tbfgv")])
+apples_cost = "100 + level * 150"
+metadata/_custom_type_script = "uid://i4dygb6wswk7"

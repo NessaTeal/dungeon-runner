@@ -2,8 +2,8 @@ extends Node
 
 @export var player: Player
 
-func _ready() -> void:
-	Utils.handled_connect(Inventory.equip_changed, apply_affixes)
+func _enter_tree() -> void:
+	#Utils.handled_connect(Inventory.equip_changed, apply_affixes)
 	apply_affixes()
 
 func get_all_affixes() -> Array[BaseAffix]:
@@ -12,7 +12,10 @@ func get_all_affixes() -> Array[BaseAffix]:
 		all_affixes.append_array(item.stone.affixes)
 	
 	for perk_path in Meta.save_data.perk_levels.keys() as Array[String]:
-		all_affixes.append_array(load(perk_path).affixes)
+		var perk_affixes: Array[BaseAffix] = load(perk_path).affixes
+		for perk_affix in perk_affixes:
+			perk_affix._level = Meta.save_data.perk_levels[perk_path]
+		all_affixes.append_array(perk_affixes)
 	
 	return all_affixes
 	

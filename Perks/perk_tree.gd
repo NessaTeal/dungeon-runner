@@ -26,12 +26,14 @@ func _ready() -> void:
 		var perk := perk_box.perk
 		
 		Utils.handled_connect(perk_box.perk_button.button.button_up, recalculate_perks)
-		var children_directions = PerkBox.DIRECTION.values().filter(func(value: int) -> bool: return value != PerkBox.OPPOSITE_DIRECTIONS[perk_box.direction])
+		var children_directions = PerkBox.Direction.values()
+			.filter(func(value): return value != PerkBox.OPPOSITE_DIRECTIONS[perk_box.direction]) \
+			if perk_box.parent else PerkBox.Direction.values()
 		assert(len(perk.unlocks) <= len(children_directions), "Trying to add more children than allowed")
 		
 		for child_perk_index in len(perk.unlocks):
 			var child_perk := perk.unlocks[child_perk_index]
-			var child_direction := children_directions[child_perk_index] as PerkBox.DIRECTION
+			var child_direction := children_directions[child_perk_index]
 			var child_perk_box := perk_box_scene.instantiate() as PerkBox
 			child_perk_box.perk = child_perk
 			child_perk_box.direction = child_direction
@@ -50,6 +52,6 @@ func _ready() -> void:
 	recalculate_perks()
 	
 func recalculate_perks() -> void:
-	for perk_box in all_perk_boxes:
-		perk_box.visible = perk_box.perk_button.unlocked_by.all(func(lock: PerkButton) -> bool: return lock.perk_resource._level > 0)
+	#for perk_box in all_perk_boxes:
+		#perk_box.visible = perk_box.perk_button.unlocked_by.all(func(lock: PerkButton) -> bool: return lock.perk_resource._level > 0)
 	perks_changed.emit()

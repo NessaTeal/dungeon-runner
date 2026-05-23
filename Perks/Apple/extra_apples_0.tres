@@ -1,10 +1,9 @@
 [gd_resource type="Resource" script_class="Perk" format=3 uid="uid://yknd8rx624db"]
 
 [ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_n6soi"]
-[ext_resource type="Texture2D" uid="uid://cdch2x6xyuhmi" path="res://Textures/06_t.PNG" id="2_6k3en"]
 [ext_resource type="Script" uid="uid://5udnnqel365f" path="res://Affixes/RunAffixes/Collectibles/Apple/extra_apples.gd" id="2_tlir2"]
+[ext_resource type="Texture2D" uid="uid://5rxo1pm3wge8" path="res://Textures/apple.png" id="3_d0jvc"]
 [ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="3_tlir2"]
-[ext_resource type="Resource" uid="uid://ph4jf675cce8" path="res://Perks/Dressage/dressage.tres" id="6_d0jvc"]
 
 [sub_resource type="Resource" id="Resource_d0jvc"]
 script = ExtResource("2_tlir2")
@@ -13,9 +12,8 @@ metadata/_custom_type_script = "uid://5udnnqel365f"
 
 [resource]
 script = ExtResource("3_tlir2")
-icon = ExtResource("2_6k3en")
+icon = ExtResource("3_d0jvc")
 perk_name = "Extra apples"
 affixes = Array[ExtResource("1_n6soi")]([SubResource("Resource_d0jvc")])
-unlocks = Array[ExtResource("3_tlir2")]([ExtResource("6_d0jvc")])
-apples_cost = "25"
+grit_cost = "2"
 metadata/_custom_type_script = "uid://i4dygb6wswk7"

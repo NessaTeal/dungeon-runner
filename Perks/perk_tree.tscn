@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://g8g2afkn8gqj"]
 
 [ext_resource type="Script" uid="uid://bkdqfpeif0shh" path="res://Perks/perk_tree.gd" id="1_shrwa"]
-[ext_resource type="Resource" uid="uid://cbvc8lnbix1a7" path="res://Perks/Vitality/max_energy_0.tres" id="2_ael60"]
+[ext_resource type="Resource" uid="uid://dta5rk50coqoh" path="res://Perks/Milestone/honsing_around.tres" id="2_f26l0"]
 
 [node name="PerkTree" type="Control" unique_id=771799568]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_shrwa")
-starting_perk = ExtResource("2_ael60")
+starting_perk = ExtResource("2_f26l0")

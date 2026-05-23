@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="Perk" format=3 uid="uid://c3owp2m2iaixn"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_v22b4"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="2_cceev"]
+[ext_resource type="Script" uid="uid://cbeinhlioyggh" path="res://Affixes/PlayerAffixes/Agility/dressage_turn_rate_affix.gd" id="2_d0f8q"]
+[ext_resource type="Script" uid="uid://cat0rgxhemnde" path="res://Affixes/PlayerAffixes/Agility/move_speed.gd" id="3_h3xaa"]
+[ext_resource type="Texture2D" uid="uid://c3bfqv3wcin7p" path="res://Perks/Dressage/SpellBook06_123.png" id="4_k77lx"]
+[ext_resource type="Resource" uid="uid://bn3cx10v755om" path="res://Perks/Dressage/speed.tres" id="6_w1hbx"]
+[ext_resource type="Resource" uid="uid://ph4jf675cce8" path="res://Perks/Dressage/dressage.tres" id="7_h3xaa"]
+
+[sub_resource type="Resource" id="Resource_2u35l"]
+script = ExtResource("2_d0f8q")
+power = 25.0
+metadata/_custom_type_script = "uid://cbeinhlioyggh"
+
+[sub_resource type="Resource" id="Resource_2da6j"]
+script = ExtResource("3_h3xaa")
+power = 1.0
+power_per_level = 0.5
+metadata/_custom_type_script = "uid://cat0rgxhemnde"
+
+[resource]
+script = ExtResource("2_cceev")
+icon = ExtResource("4_k77lx")
+perk_name = "Basic dressage"
+max_level = 5
+affixes = Array[ExtResource("1_v22b4")]([SubResource("Resource_2u35l"), SubResource("Resource_2da6j")])
+unlocks = Array[ExtResource("2_cceev")]([ExtResource("6_w1hbx"), ExtResource("7_h3xaa")])
+apples_cost = "20 + level * 10"
+metadata/_custom_type_script = "uid://i4dygb6wswk7"

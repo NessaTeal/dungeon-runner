@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bh0ktydguslnq" path="res://Perks/perk_button.gd" id="1_uk0tp"]
 [ext_resource type="Texture2D" uid="uid://c3nfce77dbucm" path="res://Textures/ui_icon_empty_white.png" id="2_h28ac"]
-[ext_resource type="Resource" uid="uid://cbvc8lnbix1a7" path="res://Perks/Vitality/max_energy_0.tres" id="2_hcgi3"]
+[ext_resource type="Resource" uid="uid://cbvc8lnbix1a7" path="res://Perks/Vitality/max_energy.tres" id="2_hcgi3"]
 [ext_resource type="Texture2D" uid="uid://2yillyvclfgh" path="res://Textures/SpellBook02_10.png" id="4_1ohjb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yd8wl"]

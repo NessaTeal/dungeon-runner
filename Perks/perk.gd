@@ -6,8 +6,8 @@ class_name Perk
 @export var max_level: int = 1
 @export var affixes: Array[BaseAffix]
 
-@export_group("Perk dependencies")
-@export var locks: Array[Perk]
+#@export_group("Perk dependencies")
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_NO_EDITOR) var locks: Array[Perk]
 @export var unlocks: Array[Perk]
 
 @export_group("Costs (use 'level' as a scaling variable)")
@@ -16,8 +16,8 @@ class_name Perk
 @export_custom(PROPERTY_HINT_EXPRESSION, "10 + 2 * level") var souls_cost: String = "0"
 @export_custom(PROPERTY_HINT_EXPRESSION, "10 + 2 * level") var culture_cost: String = "0"
 
-@export var _level: int:
-#@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_NO_EDITOR) var _level: int:
+#@export var _level: int:
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_NO_EDITOR) var _level: int:
 	set(value):
 		affixes.map(func(affix): affix._level = value)
 		_level = value

@@ -39,6 +39,9 @@ func heal_damage(heal: float) -> void:
 	damaged = maxf(0.0, damaged - heal)
 	health_bar.value = max_hp - damaged
 
+func get_health_percentage() -> float:
+	return (max_hp - damaged) / max_hp
+
 #func scale_max_hp(factor: float) -> void:
 	#base_hp *= factor
 	#max_hp = base_hp

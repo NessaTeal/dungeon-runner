@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Perk" format=3 uid="uid://lh4rvnl75rsh"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_om0yu"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="2_63oyk"]
+[ext_resource type="Texture2D" uid="uid://8ldqs0mkym65" path="res://Perks/Milestone/green_14.PNG" id="2_fxuac"]
+[ext_resource type="Script" uid="uid://dk3ljpra7jffq" path="res://Affixes/RunAffixes/Collectibles/Grit/grit_gain.gd" id="2_xvuo1"]
+
+[sub_resource type="Resource" id="Resource_wsaem"]
+script = ExtResource("2_xvuo1")
+power = 2.0
+metadata/_custom_type_script = "uid://dk3ljpra7jffq"
+
+[resource]
+script = ExtResource("2_63oyk")
+icon = ExtResource("2_fxuac")
+perk_name = "Persevere"
+affixes = Array[ExtResource("1_om0yu")]([SubResource("Resource_wsaem")])
+apples_cost = "250"
+metadata/_custom_type_script = "uid://i4dygb6wswk7"
