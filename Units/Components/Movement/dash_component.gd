@@ -8,7 +8,7 @@ class_name DashComponent
 
 var dashing := false
 @export var dash_speed := 0.0
-var dash_duration := 0.2
+var dash_duration := 0.5
 var remaining_dash_duration := 0.0
 
 func _process(delta: float) -> void:

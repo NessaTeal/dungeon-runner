@@ -1,8 +1,6 @@
-@tool
 extends Control
 class_name PerkTree
 
-@export var perk_buttons: HBoxContainer
 @export var starting_perk: Perk
 
 signal perks_changed
@@ -26,6 +24,7 @@ func _ready() -> void:
 		var perk := perk_box.perk
 		
 		Utils.handled_connect(perk_box.perk_button.button.button_up, recalculate_perks)
+		Utils.handled_connect(perks_changed, perk_box.perk_button.recalculate)
 		var children_directions = PerkBox.Direction.values()
 			.filter(func(value): return value != PerkBox.OPPOSITE_DIRECTIONS[perk_box.direction]) \
 			if perk_box.parent else PerkBox.Direction.values()
@@ -46,12 +45,15 @@ func _ready() -> void:
 			if Meta.save_data.perk_levels.has(child_perk.resource_path):
 				child_perk._level = Meta.save_data.perk_levels[child_perk.resource_path]
 			add_child(child_perk_box)
-			child_perk_box.perk_button.unlocked_by.push_back(perk_box.perk_button)
-			
+			#child_perk_box.perk_button.unlocked_by.push_back(perk_box.perk_button)
+	
+	for perk_box in all_perk_boxes:
+		perk_box.perk.set_unlocks()
+	
 	first_perk_box.update_position()
 	recalculate_perks()
 	
 func recalculate_perks() -> void:
-	#for perk_box in all_perk_boxes:
-		#perk_box.visible = perk_box.perk_button.unlocked_by.all(func(lock: PerkButton) -> bool: return lock.perk_resource._level > 0)
+	for perk_box in all_perk_boxes:
+		perk_box.visible = perk_box.perk.unlocked_by.all(func(lock: Perk) -> bool: return lock._level > 0)
 	perks_changed.emit()

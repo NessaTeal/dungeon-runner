@@ -9,6 +9,7 @@ class_name Player
 @export var movement_component: MovementComponent
 @export var health_component: HealthComponent
 @export var attack_component: AttackComponent
+@export var dash_component: DashComponent
 
 signal player_position_updated(position: Vector3, direction: Vector2)
 

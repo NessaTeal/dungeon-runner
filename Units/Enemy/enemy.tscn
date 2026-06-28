@@ -47,7 +47,7 @@ shape = SubResource("CapsuleShape3D_3wt5w")
 
 [node name="HealthComponent" parent="." unique_id=2121218414 instance=ExtResource("3_ceitq")]
 visible = false
-base_hp = 20.0
+max_hp = 20.0
 
 [node name="AttackComponent" parent="." unique_id=1378208158 instance=ExtResource("4_dy4wh")]
 base_damage = 0.0

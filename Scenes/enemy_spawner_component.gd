@@ -7,15 +7,17 @@ extends Node
 
 @export_category("Internals")
 @export var spawn_distance: float = 50.0
-@export var spawn_rate: float = 0.25
 @export var spawn_timer: Timer
 
-func _ready() -> void:
-	if spawn_rate > 0:
-		spawn_timer.wait_time = spawn_rate
-		spawn_timer.start()
+#func _ready() -> void:
+	#if CurrentRunState.spawn_chance > 0:
+		#spawn_timer.wait_time = CurrentRunState.spawn_chance
+		#spawn_timer.start()
 
 func spawn_enemy() -> void:
+	if randf() > CurrentRunState.spawn_chance:
+		return
+	
 	var enemy := enemy_scene.instantiate() as Enemy
 	enemy.player = player
 	var angle := randf() * PI - PI / 2

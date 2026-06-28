@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Perk" format=3 uid="uid://n10sbtccq163"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_0jvox"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="2_bn1va"]
+[ext_resource type="Script" uid="uid://cibcd5m1n4iwh" path="res://Affixes/PlayerAffixes/Vitality/immolation.gd" id="2_tm88j"]
+[ext_resource type="Texture2D" uid="uid://cndt6kxrfjtdv" path="res://Perks/Immolate/SpellBook06_97.png" id="3_fogik"]
+
+[sub_resource type="Resource" id="Resource_d7uvw"]
+script = ExtResource("2_tm88j")
+power = 10.0
+metadata/_custom_type_script = "uid://cibcd5m1n4iwh"
+
+[resource]
+script = ExtResource("2_bn1va")
+icon = ExtResource("3_fogik")
+perk_name = "Effera pledge"
+elemental = true
+affixes = Array[ExtResource("1_0jvox")]([SubResource("Resource_d7uvw")])
+grit_cost = "1"
+metadata/_custom_type_script = "uid://i4dygb6wswk7"

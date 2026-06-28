@@ -1,6 +1,5 @@
 [gd_resource type="Resource" script_class="Perk" format=3 uid="uid://dta5rk50coqoh"]
 
-[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_wh2m5"]
 [ext_resource type="Texture2D" uid="uid://faacu76t70pm" path="res://Perks/Milestone/SpellBook02_114.png" id="2_83me0"]
 [ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="2_fc0al"]
 [ext_resource type="Resource" uid="uid://can1qok7yg0er" path="res://Perks/Vitality/basic_survival.tres" id="4_mkovh"]
@@ -12,6 +11,13 @@
 script = ExtResource("2_fc0al")
 icon = ExtResource("2_83me0")
 perk_name = "Honsing Around"
+max_level = null
+elemental = null
+affixes = null
 unlocks = Array[ExtResource("2_fc0al")]([ExtResource("4_mkovh"), ExtResource("5_oxgcv"), ExtResource("6_oxgcv"), ExtResource("5_el1oe")])
+locks = null
 apples_cost = "1"
+grit_cost = null
+souls_cost = null
+culture_cost = null
 metadata/_custom_type_script = "uid://i4dygb6wswk7"

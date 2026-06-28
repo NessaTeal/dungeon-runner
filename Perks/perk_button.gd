@@ -1,4 +1,3 @@
-@tool
 extends Control
 class_name PerkButton
 
@@ -6,8 +5,6 @@ class_name PerkButton
 
 var unlocks: Array[PerkButton] = []
 var locks: Array[PerkButton] = []
-var unlocked_by: Array[PerkButton] = []
-var locked_by: Array[PerkButton] = []
 
 @export_category("Internals")
 @export var button: Button
@@ -28,12 +25,10 @@ func _ready() -> void:
 		button.disabled = true
 
 func recalculate() -> void:
-	visible = unlocked_by.all(func(lock: PerkButton) -> bool: return lock.perk_resource._level > 0)
-	
-	if locked_by.any(func(lock: PerkButton) -> bool: return lock.perk_resource._level > 0):
-		button.disabled = true
-
 	if not perk_resource.get_perk_cost().can_afford():
+		button.disabled = true
+	
+	if perk_resource.elemental and not Perks.can_buy_elemental():
 		button.disabled = true
 
 func _on_mouse_entered() -> void:

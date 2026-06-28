@@ -32,7 +32,7 @@ albedo_texture = ExtResource("14_v6jny")
 material = SubResource("ORMMaterial3D_s6s4v")
 size = Vector2(1.32, 1.32)
 
-[node name="Player" type="CharacterBody3D" unique_id=716859399 node_paths=PackedStringArray("speed_component", "trample_component", "slingshot_component", "immolation_component", "direction_component", "movement_component", "health_component", "attack_component")]
+[node name="Player" type="CharacterBody3D" unique_id=716859399 node_paths=PackedStringArray("speed_component", "trample_component", "slingshot_component", "immolation_component", "direction_component", "movement_component", "health_component", "attack_component", "dash_component")]
 collision_mask = 260
 script = ExtResource("1_dwi3t")
 speed_component = NodePath("SpeedComponent")
@@ -43,6 +43,7 @@ direction_component = NodePath("DirectionComponent")
 movement_component = NodePath("MovementComponent")
 health_component = NodePath("HealthComponent")
 attack_component = NodePath("AttackComponent")
+dash_component = NodePath("DashComponent")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=513692035]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32, 0)

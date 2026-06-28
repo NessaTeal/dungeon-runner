@@ -38,7 +38,7 @@ expand_mode = 2
 
 [node name="AppleCount" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer" unique_id=1910702163]
 layout_mode = 2
-text = "0"
+text = "4"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=1739176555]
 layout_mode = 2

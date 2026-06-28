@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c65tlx11pnwdf"]
 
 [ext_resource type="Script" uid="uid://bh0ktydguslnq" path="res://Perks/perk_button.gd" id="1_uk0tp"]
-[ext_resource type="Texture2D" uid="uid://c3nfce77dbucm" path="res://Textures/ui_icon_empty_white.png" id="2_h28ac"]
 [ext_resource type="Resource" uid="uid://cbvc8lnbix1a7" path="res://Perks/Vitality/max_energy.tres" id="2_hcgi3"]
+[ext_resource type="Texture2D" uid="uid://c3nfce77dbucm" path="res://Textures/ui_icon_empty_white.png" id="3_1ohjb"]
 [ext_resource type="Texture2D" uid="uid://2yillyvclfgh" path="res://Textures/SpellBook02_10.png" id="4_1ohjb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yd8wl"]
@@ -37,7 +37,7 @@ anchors_preset = -1
 offset_right = 400.0
 offset_bottom = 400.0
 mouse_filter = 1
-icon = ExtResource("2_h28ac")
+icon = ExtResource("3_1ohjb")
 icon_alignment = 1
 expand_icon = true
 
@@ -61,7 +61,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_yd8wl")
 
 [node name="Label" type="Label" parent="PanelContainer" unique_id=1948430434]
 layout_mode = 2
-text = "Max Energy"
+text = "Untapped Potential"
 horizontal_alignment = 1
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

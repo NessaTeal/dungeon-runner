@@ -7,6 +7,7 @@ var apple_chance := 0.005
 var grit_per_minute := 0.0
 
 var fight_xp := 0
+var spawn_chance := 0.0
 
 func reset() -> void:
 	var script := preload("res://Perks/current_run_state.gd")

@@ -1,4 +1,3 @@
-@tool
 extends ColorRect
 
 @export var apple_count: Label

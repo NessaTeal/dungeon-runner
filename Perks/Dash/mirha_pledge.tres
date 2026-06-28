@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Perk" format=3 uid="uid://tyxxhckwr0ys"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_xipmx"]
+[ext_resource type="Texture2D" uid="uid://v7hl5q4dgudl" path="res://Perks/Dash/SpellBook06_96.png" id="2_dd60o"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="2_fqr3f"]
+[ext_resource type="Script" uid="uid://b6b8jy8u72y3x" path="res://Affixes/PlayerAffixes/Agility/dash_speed.gd" id="2_q1jks"]
+
+[sub_resource type="Resource" id="Resource_ou5bn"]
+script = ExtResource("2_q1jks")
+power = 1000.0
+metadata/_custom_type_script = "uid://b6b8jy8u72y3x"
+
+[resource]
+script = ExtResource("2_fqr3f")
+icon = ExtResource("2_dd60o")
+perk_name = "Mirha Pledge"
+elemental = true
+affixes = Array[ExtResource("1_xipmx")]([SubResource("Resource_ou5bn")])
+grit_cost = "1"
+metadata/_custom_type_script = "uid://i4dygb6wswk7"

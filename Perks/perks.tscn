@@ -4,3 +4,4 @@
 
 [node name="Perks" type="Node" unique_id=1257380395]
 script = ExtResource("1_cida0")
+perk_mutexes = Array[Array]([[null], []])

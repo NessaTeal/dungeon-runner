@@ -54,6 +54,14 @@ func reset_game() -> void:
 class SaveData:
 	var collected_resources_data: Array[float] = []
 	var perk_levels: Dictionary[String, int] = {}
+	var elemental_limit := 1
+	
+	func get_elemental_perks_count() -> int:
+		var result := 0
+		for perk_path in perk_levels.keys():
+			if (load(perk_path) as Perk).elemental:
+				result += 1
+		return result
 	
 	func _init() -> void:
 		collected_resources_data.resize(Collectible.Type.Count)
@@ -61,7 +69,8 @@ class SaveData:
 	func serialize() -> Dictionary[String, Variant]:
 		return {
 			"collected_resources_data": collected_resources_data,
-			"perk_levels": perk_levels
+			"perk_levels": perk_levels,
+			"elemental_limit": elemental_limit
 		}
 		
 	func deserialize(data: Dictionary) -> void:
