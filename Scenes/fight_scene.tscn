@@ -271,17 +271,17 @@ offset_bottom = 66.0
 text = "%"
 
 [node name="Label4" type="Label" parent="GameHolder/UI" unique_id=1187527225]
-offset_left = 408.0
+offset_left = 518.0
 offset_top = 24.0
-offset_right = 557.0
-offset_bottom = 50.0
+offset_right = 667.0
+offset_bottom = 48.0
 text = "Your current speed"
 
 [node name="Speed" type="Label" parent="GameHolder/UI" unique_id=2107185446]
-offset_left = 560.0
-offset_top = 26.0
-offset_right = 600.0
-offset_bottom = 49.0
+offset_left = 672.0
+offset_top = 24.0
+offset_right = 712.0
+offset_bottom = 47.0
 
 [node name="Control" type="Control" parent="GameHolder/UI" unique_id=1617248452]
 visible = false
@@ -318,11 +318,11 @@ layout_mode = 2
 
 [node name="AppleContainer" type="HBoxContainer" parent="GameHolder/UI/MarginContainer/VBoxContainer" unique_id=574488524 node_paths=PackedStringArray("apple_count")]
 layout_mode = 2
-size_flags_vertical = 3
 script = SubResource("GDScript_v8c26")
 apple_count = NodePath("AppleCount")
 
 [node name="TextureRect" type="TextureRect" parent="GameHolder/UI/MarginContainer/VBoxContainer/AppleContainer" unique_id=1998403855]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("2_gcmlh")
 expand_mode = 2
@@ -335,12 +335,13 @@ vertical_alignment = 1
 
 [node name="GritContainer" type="HBoxContainer" parent="GameHolder/UI/MarginContainer/VBoxContainer" unique_id=1894030114 node_paths=PackedStringArray("progress_bar", "label")]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 0
 script = SubResource("GDScript_hx27y")
 progress_bar = NodePath("ProgressBar")
 label = NodePath("Label")
 
 [node name="TextureRect" type="TextureRect" parent="GameHolder/UI/MarginContainer/VBoxContainer/GritContainer" unique_id=2052070189]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("3_hx27y")
 expand_mode = 2
@@ -363,7 +364,6 @@ enemy_scene = ExtResource("2_0ukyi")
 player = NodePath("../Map/Player")
 spawn_node = NodePath("../Map")
 fight_scene = NodePath("../..")
-spawn_rate = 0.0
 
 [node name="Map" parent="GameHolder" unique_id=1656109193 instance=ExtResource("6_48sw3")]
 
