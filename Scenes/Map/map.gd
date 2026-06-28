@@ -94,5 +94,6 @@ func _on_letter_generator_publish_chunk(key: Vector2i, chunk_data: NewMapChunkDa
 	map_tile.chunk_data = chunk_data
 	map_chunks[key] = map_tile
 	map_tile.name = "MapChunk %d,%d" % [key.x, key.y]
+	await get_tree().process_frame
 	add_child(map_tile)
 	tile_created.emit()
