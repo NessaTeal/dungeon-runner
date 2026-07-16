@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bkh1dhajbeowt" path="res://Affixes/RunAffixes/Enemies/spawn_chance.gd" id="3_xvuo1"]
 [ext_resource type="Resource" uid="uid://n10sbtccq163" path="res://Perks/Immolate/effera_pledge.tres" id="6_wsaem"]
 [ext_resource type="Resource" uid="uid://tyxxhckwr0ys" path="res://Perks/Dash/mirha_pledge.tres" id="7_jlwwc"]
+[ext_resource type="Resource" uid="uid://c5gq7l7qqnbij" path="res://Perks/Milestone/increase_elemental_skill.tres" id="8_b0af4"]
 
 [sub_resource type="Resource" id="Resource_wsaem"]
 script = ExtResource("2_xvuo1")
@@ -23,6 +24,6 @@ script = ExtResource("2_63oyk")
 icon = ExtResource("2_fxuac")
 perk_name = "Persevere"
 affixes = Array[ExtResource("1_om0yu")]([SubResource("Resource_wsaem"), SubResource("Resource_jlwwc")])
-unlocks = Array[ExtResource("2_63oyk")]([ExtResource("6_wsaem"), ExtResource("7_jlwwc")])
+unlocks = Array[ExtResource("2_63oyk")]([ExtResource("6_wsaem"), ExtResource("7_jlwwc"), ExtResource("8_b0af4")])
 apples_cost = "250"
 metadata/_custom_type_script = "uid://i4dygb6wswk7"

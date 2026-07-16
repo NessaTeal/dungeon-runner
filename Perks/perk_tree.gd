@@ -14,7 +14,7 @@ func _ready() -> void:
 	first_perk_box.perk = first_perk
 	
 	if Meta.save_data.perk_levels.has(first_perk.resource_path):
-			first_perk._level = Meta.save_data.perk_levels[first_perk.resource_path]
+		first_perk._level = Meta.save_data.perk_levels[first_perk.resource_path]
 	add_child(first_perk_box)
 	
 	var perk_boxes_to_process := [first_perk_box]
@@ -22,6 +22,8 @@ func _ready() -> void:
 	while len(perk_boxes_to_process):
 		var perk_box: PerkBox = perk_boxes_to_process.pop_back()
 		var perk := perk_box.perk
+		
+		all_perk_boxes.push_back(perk_box)
 		
 		Utils.handled_connect(perk_box.perk_button.button.button_up, recalculate_perks)
 		Utils.handled_connect(perks_changed, perk_box.perk_button.recalculate)
@@ -39,13 +41,11 @@ func _ready() -> void:
 			child_perk_box.distance = perk_box.distance + 1
 			child_perk_box.parent = perk_box
 			child_perk_box.name = child_perk.perk_name
-			all_perk_boxes.push_back(child_perk_box)
 			perk_box.children_boxes.push_back(child_perk_box)
 			perk_boxes_to_process.push_front(child_perk_box)
 			if Meta.save_data.perk_levels.has(child_perk.resource_path):
 				child_perk._level = Meta.save_data.perk_levels[child_perk.resource_path]
 			add_child(child_perk_box)
-			#child_perk_box.perk_button.unlocked_by.push_back(perk_box.perk_button)
 	
 	for perk_box in all_perk_boxes:
 		perk_box.perk.set_unlocks()
@@ -55,5 +55,9 @@ func _ready() -> void:
 	
 func recalculate_perks() -> void:
 	for perk_box in all_perk_boxes:
-		perk_box.visible = perk_box.perk.unlocked_by.all(func(lock: Perk) -> bool: return lock._level > 0)
+		var is_visible = perk_box.perk.unlocked_by.all(func(lock: Perk) -> bool: return lock._level > 0)
+		perk_box.visible = is_visible
+		if is_visible:
+			perk_box.perk_button.recalculate()
+	
 	perks_changed.emit()

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Perk" format=3 uid="uid://c5gq7l7qqnbij"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_rtfxj"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="2_5g7c0"]
+[ext_resource type="Script" uid="uid://v1n3wvr2yjmm" path="res://Perks/Milestone/increase_elemental_skill_hooks.gd" id="2_gppvl"]
+[ext_resource type="Texture2D" uid="uid://bap233stmlnwk" path="res://Textures/SGI_67.png" id="2_obpma"]
+
+[resource]
+script = ExtResource("2_5g7c0")
+icon = ExtResource("2_obpma")
+perk_name = "Increase limits"
+hooks_script = ExtResource("2_gppvl")
+upgrade_expression = "Meta.save_data.elemental_limit += 1"
+apples_cost = "1"
+metadata/_custom_type_script = "uid://i4dygb6wswk7"

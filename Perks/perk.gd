@@ -11,6 +11,8 @@ class_name Perk
 @export var unlocks: Array[Perk]
 @export var locks: Array[Perk]
 
+@export var hooks_script: GDScript
+
 @export_group("Costs (use 'level' as a scaling variable)")
 @export_custom(PROPERTY_HINT_EXPRESSION, "10 + 2 * level") var apples_cost: String = "0"
 @export_custom(PROPERTY_HINT_EXPRESSION, "10 + 2 * level") var grit_cost: String = "0"
@@ -25,6 +27,10 @@ var _level: int:
 		_level = value
 
 var unlocked_by: Array[Perk] = []
+
+func upgrade() -> void:
+	if hooks_script:
+		hooks_script.new().on_upgrade()
 
 func set_unlocks() -> void:
 	for unlocked_perk in unlocks:

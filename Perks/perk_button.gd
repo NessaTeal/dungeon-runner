@@ -25,11 +25,14 @@ func _ready() -> void:
 		button.disabled = true
 
 func recalculate() -> void:
-	if not perk_resource.get_perk_cost().can_afford():
+	if perk_resource._level == perk_resource.max_level:
 		button.disabled = true
-	
-	if perk_resource.elemental and not Perks.can_buy_elemental():
+	elif not perk_resource.get_perk_cost().can_afford():
 		button.disabled = true
+	elif perk_resource.elemental and not Perks.can_buy_elemental():
+		button.disabled = true
+	else:
+		button.disabled = false
 
 func _on_mouse_entered() -> void:
 	calculate_tooltip()

@@ -122,7 +122,7 @@ locale/translations=PackedStringArray("res://Localization/translations.en.transl
 
 [physics]
 
-common/physics_ticks_per_second=165
+common/physics_ticks_per_second=120
 3d/physics_engine="Jolt Physics"
 jolt_physics_3d/limits/max_bodies=20480
 
