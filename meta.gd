@@ -39,6 +39,14 @@ func reset_game() -> void:
 		DirAccess.remove_absolute(save_file_path)
 		
 	save_data = SaveData.new()
+	
+	# Resetting resources levels to 0
+	# Assumes single root perk, which probably won't be true forever
+	var perks: Array[Perk] = [preload("res://Perks/Milestone/honsing_around.tres")]
+	while not perks.is_empty():
+		var perk = perks.pop_back()
+		perk._level = 0
+		perks.append_array(perk.unlocks)
 
 class SaveData:
 	var collected_resources_data: Array[float] = []
