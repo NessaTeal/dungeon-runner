@@ -5,6 +5,8 @@ extends ColorRect
 @export var souls_count: Label
 @export var perk_tree: PerkTree
 
+var desired_scale = 1.0
+
 func _enter_tree() -> void:
 	# Debug values
 	# To give resources when ran standalone
@@ -32,21 +34,25 @@ func _on_perk_tree_perk_changed() -> void:
 	grit_count.text = str(floori(Collectible.grit))
 	souls_count.text = str(Collectible.souls)
 
-var dragging := false
+var dragging = false
 
 func _gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		var click_event := event as InputEventMouseButton
+	if event is InputEventMouseButton click_event:
 		if click_event.button_index == MouseButton.MOUSE_BUTTON_RIGHT:
 			dragging = click_event.pressed
 		elif click_event.button_index == MouseButton.MOUSE_BUTTON_WHEEL_DOWN && click_event.pressed:
-			var cur_scale := perk_tree.scale.x
-			cur_scale = maxf(0.05, cur_scale / 1.2)
-			perk_tree.scale = Vector2(cur_scale, cur_scale)
+			desired_scale = maxf(0.05, desired_scale / 1.2)
 		elif click_event.button_index == MouseButton.MOUSE_BUTTON_WHEEL_UP && click_event.pressed:
-			var cur_scale := perk_tree.scale.x
-			cur_scale = minf(4.0, cur_scale * 1.2)
-			perk_tree.scale = Vector2(cur_scale, cur_scale)
-	elif dragging and event is InputEventMouseMotion:
-		var motion_event := event as InputEventMouseMotion
+			desired_scale = minf(4.0, desired_scale * 1.2)
+	elif dragging and event is InputEventMouseMotion motion_event:
 		perk_tree.position += motion_event.relative
+
+const SMOOTH_ZOOM_SPEED = 15.0
+
+func _process(delta: float) -> void:
+	var current_scale = perk_tree.scale.x
+	var change_this_frame = (desired_scale - current_scale) * minf(1.0, delta * SMOOTH_ZOOM_SPEED)
+	var next_scale = current_scale + change_this_frame
+	var scale_factor = next_scale / current_scale
+	perk_tree.scale = Vector2(next_scale, next_scale)
+	perk_tree.position *= scale_factor
