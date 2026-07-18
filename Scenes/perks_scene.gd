@@ -2,14 +2,27 @@ extends ColorRect
 
 @export var apple_count: Label
 @export var grit_count: Label
+@export var souls_count: Label
 @export var perk_tree: PerkTree
+
+func _enter_tree() -> void:
+	# Debug values
+	# To give resources when ran standalone
+	if get_parent() == get_tree().root:
+		Collectible.apples = 10000000
+		Collectible.grit = 10000000
+		Collectible.souls = 10000000
 
 func _ready() -> void:
 	apple_count.text = str(Collectible.apples)
 	grit_count.text = str(floori(Collectible.grit))
+	souls_count.text = str(Collectible.souls)
 
 func _exit_tree() -> void:
-	Meta.save_game()
+	# Save game only if we are not in debug mode
+	# Could cause troubles as it's very flaky check
+	if get_parent() != get_tree().root:
+		Meta.save_game()
 
 func _on_button_pressed() -> void:
 	queue_free()
@@ -17,6 +30,7 @@ func _on_button_pressed() -> void:
 func _on_perk_tree_perk_changed() -> void:
 	apple_count.text = str(Collectible.apples)
 	grit_count.text = str(floori(Collectible.grit))
+	souls_count.text = str(Collectible.souls)
 
 var dragging := false
 

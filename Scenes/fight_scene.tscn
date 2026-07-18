@@ -29,6 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://c026y88fb5mv3" path="res://Textures/deero/0017.png" id="27_davj8"]
 [ext_resource type="Texture2D" uid="uid://cvlfh76j1rjth" path="res://Textures/deero/0018.png" id="28_b2ea0"]
 [ext_resource type="Texture2D" uid="uid://be7j44xa1gfqs" path="res://Textures/deero/0019.png" id="29_d887w"]
+[ext_resource type="Texture2D" uid="uid://dhqnxdvhke0yw" path="res://Textures/SpellBook06_60.png" id="29_v8c26"]
 [ext_resource type="Texture2D" uid="uid://dpdbhb1tor1ho" path="res://Textures/deero/0020.png" id="30_vjorg"]
 [ext_resource type="Texture2D" uid="uid://sppcsjg6uwbc" path="res://Textures/deero/0021.png" id="31_nq1sn"]
 [ext_resource type="Texture2D" uid="uid://bcdnlt64ukj4q" path="res://Textures/deero/0022.png" id="32_7mdle"]
@@ -157,6 +158,19 @@ func _process(delta: float) -> void:
 	Collectible.grit += CurrentRunState.grit_per_minute * 60 / 1000 * delta
 	progress_bar.value = fmod(Collectible.grit, 1)
 	label.text = str(floori(Collectible.grit))
+"
+
+[sub_resource type="GDScript" id="GDScript_hqa1g"]
+script/source = "extends HBoxContainer
+
+@export var label: Label
+
+func _ready() -> void:
+	if CurrentRunState.spawn_chance <= 0.0:
+		queue_free()
+
+func _process(_delta: float) -> void:
+	label.text = str(Collectible.souls)
 "
 
 [node name="FightScene" type="Node" unique_id=537465887 node_paths=PackedStringArray("player", "distance_label", "speed_label", "chance_label", "map", "subviewport", "main_camera", "top_view_camera", "ui", "apple_count", "grit_container")]
@@ -358,6 +372,23 @@ size_flags_vertical = 4
 max_value = 1.0
 step = 0.0
 show_percentage = false
+
+[node name="SoulsContainer" type="HBoxContainer" parent="GameHolder/UI/MarginContainer/VBoxContainer" unique_id=1628972504 node_paths=PackedStringArray("label")]
+layout_mode = 2
+size_flags_vertical = 0
+script = SubResource("GDScript_hqa1g")
+label = NodePath("Label")
+
+[node name="TextureRect" type="TextureRect" parent="GameHolder/UI/MarginContainer/VBoxContainer/SoulsContainer" unique_id=817091291]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("29_v8c26")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="GameHolder/UI/MarginContainer/VBoxContainer/SoulsContainer" unique_id=2045862179]
+layout_mode = 2
+text = "0"
 
 [node name="EnemySpawnerComponent" parent="GameHolder" unique_id=561827070 node_paths=PackedStringArray("player", "spawn_node", "fight_scene") instance=ExtResource("8_mo3wy")]
 enemy_scene = ExtResource("2_0ukyi")

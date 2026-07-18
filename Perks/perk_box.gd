@@ -24,7 +24,7 @@ func calculate_offset_vector() -> Vector2i:
 	if not parent:
 		return Vector2i.ZERO
 	
-	return OFFSET_VECTOR_MAPPINGS[direction] * (max_distance - distance + 1) + parent.offset_vector
+	return OFFSET_VECTOR_MAPPINGS[direction] * (2 ** (max_distance - distance)) + parent.offset_vector
 		
 static var OFFSET_VECTOR_MAPPINGS: Dictionary[Direction, Vector2i] = {
 	Direction.UP: Vector2i(0, -1),

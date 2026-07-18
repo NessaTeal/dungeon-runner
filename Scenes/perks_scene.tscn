@@ -4,8 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://g8g2afkn8gqj" path="res://Perks/perk_tree.tscn" id="2_gruq8"]
 [ext_resource type="Texture2D" uid="uid://5rxo1pm3wge8" path="res://Textures/apple.png" id="2_mw8m8"]
 [ext_resource type="Texture2D" uid="uid://8ldqs0mkym65" path="res://Perks/Milestone/green_14.PNG" id="3_fhm2o"]
+[ext_resource type="Texture2D" uid="uid://dhqnxdvhke0yw" path="res://Textures/SpellBook06_60.png" id="4_n35ff"]
 
-[node name="PerksScene" type="ColorRect" unique_id=230700610 node_paths=PackedStringArray("apple_count", "grit_count", "perk_tree")]
+[node name="PerksScene" type="ColorRect" unique_id=230700610 node_paths=PackedStringArray("apple_count", "grit_count", "souls_count", "perk_tree")]
 process_mode = 3
 custom_minimum_size = Vector2(1920, 1080)
 offset_right = 1148.0
@@ -14,6 +15,7 @@ color = Color(0.105882354, 0.4745098, 0.6431373, 1)
 script = ExtResource("1_xtv0c")
 apple_count = NodePath("CanvasLayer/VBoxContainer/HBoxContainer/AppleCount")
 grit_count = NodePath("CanvasLayer/VBoxContainer/HBoxContainer2/GritCount")
+souls_count = NodePath("CanvasLayer/VBoxContainer/HBoxContainer3/SoulsCount")
 perk_tree = NodePath("CenterContainer/PerkTree")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1924441832]
@@ -50,6 +52,19 @@ texture = ExtResource("3_fhm2o")
 expand_mode = 2
 
 [node name="GritCount" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer2" unique_id=359019162]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=2145690004]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/VBoxContainer/HBoxContainer3" unique_id=1753336680]
+layout_mode = 2
+texture = ExtResource("4_n35ff")
+expand_mode = 2
+
+[node name="SoulsCount" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer3" unique_id=1762601768]
 layout_mode = 2
 text = "0"
 

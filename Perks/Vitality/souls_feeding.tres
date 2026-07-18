@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Perk" format=3 uid="uid://dahjvdmfs4a7r"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_au44e"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="2_cjcxf"]
+[ext_resource type="Script" uid="uid://c2ac4p7lu7hlo" path="res://Affixes/PlayerAffixes/Vitality/hp_regen.gd" id="3_ggdgw"]
+[ext_resource type="Texture2D" uid="uid://dcxd6a2q0b1qb" path="res://Perks/Vitality/green_20.PNG" id="3_vr2wx"]
+
+[sub_resource type="Resource" id="Resource_wbsuf"]
+script = ExtResource("3_ggdgw")
+power = 5.0
+power_per_level = 2.0
+metadata/_custom_type_script = "uid://c2ac4p7lu7hlo"
+
+[resource]
+script = ExtResource("2_cjcxf")
+icon = ExtResource("3_vr2wx")
+perk_name = "Feeding on souls"
+max_level = 3
+affixes = Array[ExtResource("1_au44e")]([SubResource("Resource_wbsuf")])
+souls_cost = "5+level*3"
+metadata/_custom_type_script = "uid://i4dygb6wswk7"

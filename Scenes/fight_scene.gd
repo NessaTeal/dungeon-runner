@@ -49,37 +49,14 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 func _on_player_unit_died() -> void:
 	get_tree().paused = true
-	var distance_xp: float = player.movement_component.total_distance ** 1.1
-	var total_xp: float = distance_xp + CurrentRunState.fight_xp
-	var leveled_up: bool = false
-	
-	Meta.current_xp += total_xp
-	
-	while Meta.current_xp > Meta.required_xp:
-		leveled_up = true
-		Meta.player_level += 1
-		Meta.set_xp_for_next_level()
-		
 	Meta.save_game()
 	
 	var game_over := preload("res://Scenes/game_over.tscn").instantiate() as GameOver
-	
-	game_over.level_up.set_visible(leveled_up)
-	game_over.xp_bar.set_min(Meta.get_xp_for_level(Meta.player_level - 1))
-	game_over.xp_bar.set_max(Meta.required_xp)
-	game_over.xp_bar.set_value(Meta.current_xp)
-	game_over.xp_count.text = tr("XP_COUNT") % [Meta.current_xp, Meta.required_xp]
-	game_over.xp_kills.text = tr("XP_FROM_KILLS") % CurrentRunState.fight_xp
-	game_over.xp_run.text = tr("XP_FROM_RUN") % distance_xp
-	
+
 	ui.add_child(game_over)
 
 func _on_enemy_died() -> void:
-	CurrentRunState.fight_xp += 50
-	var new_item := preload("res://Inventory/item.tscn").instantiate() as Item
-	new_item.stone = StoneGenerator.generate_stone()
-	new_item.texture = preload("res://Textures/06_t.PNG")
-	Inventory.add_item(new_item)
+	Collectible.souls += CurrentRunState.souls_per_enemy
 
 func _on_show_inventory_button_pressed() -> void:
 	Inventory.show()

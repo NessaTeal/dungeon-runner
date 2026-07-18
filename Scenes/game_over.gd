@@ -1,13 +1,6 @@
 extends VBoxContainer
 class_name GameOver
 
-@export var level_up: Label
-@export var player_level: Label
-@export var xp_count: Label
-@export var xp_run: Label
-@export var xp_kills: Label
-@export var xp_bar: ProgressBar
-
 func _on_button_pressed() -> void:
 	get_parent().add_child(preload("res://Scenes/perks_scene.tscn").instantiate())
 
