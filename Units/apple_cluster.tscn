@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dlpv0sq51k5k4"]
+
+[ext_resource type="Script" uid="uid://dr3hgtpy0f6oa" path="res://Units/apple_cluster.gd" id="1_t18l0"]
+
+[node name="AppleCluster" type="Node3D" unique_id=1193126963]
+script = ExtResource("1_t18l0")

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Perk" format=3 uid="uid://bqxpg0h8fb61r"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_m0nrl"]
+[ext_resource type="Texture2D" uid="uid://dw7mjvh16faw6" path="res://Perks/Apple/fruitful_harvest_icon.png" id="2_6fnw7"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="2_f5y82"]
+[ext_resource type="Script" uid="uid://d385i0dfbjml5" path="res://Affixes/RunAffixes/Collectibles/Apple/fruitful_harvest.gd" id="2_kgtsr"]
+
+[sub_resource type="Resource" id="Resource_ojehl"]
+script = ExtResource("2_kgtsr")
+power = 5.0
+power_per_level = 5.0
+metadata/_custom_type_script = "uid://d385i0dfbjml5"
+
+[resource]
+script = ExtResource("2_f5y82")
+icon = ExtResource("2_6fnw7")
+perk_name = "Fruitful Harvest"
+max_level = 20
+affixes = Array[ExtResource("1_m0nrl")]([SubResource("Resource_ojehl")])
+apples_cost = "ceili(2 + 1.5 ** level)"
+metadata/_custom_type_script = "uid://i4dygb6wswk7"

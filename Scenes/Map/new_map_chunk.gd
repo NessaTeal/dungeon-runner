@@ -23,7 +23,7 @@ func _ready() -> void:
 		multimesh.set_instance_custom_data(tile_index, tile_data.tile_data)
 	
 	for collectible_key: Vector2i in chunk_data.collectibles.keys():
-		var collectible_scene := chunk_data.collectibles[collectible_key].instantiate() as Collectible
+		var collectible_scene = chunk_data.collectibles[collectible_key].instantiate() as Node3D
 		
 		collectible_scene.set_transform(Transform3D(Basis(), Vector3(collectible_key.x * TILE_SIZE, 0, collectible_key.y * TILE_SIZE)))
 		

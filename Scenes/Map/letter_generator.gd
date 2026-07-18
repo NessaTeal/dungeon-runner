@@ -160,7 +160,10 @@ func calculate_chunk_data(tile_terrain_corners: Array[PackedStringArray]) -> New
 				tile_data += PRIO[ter] << (4 + (terrain_index * 6))
 				
 				if ter == "g" and tile_index == 15 and randf() < CurrentRunState.apple_chance:
-					chunk_data.collectibles[Vector2i(x, y)] = preload("res://Units/apple.tscn")
+					if randf() < CurrentRunState.apple_cluster_chance:
+						chunk_data.collectibles[Vector2i(x, y)] = preload("res://Units/apple_cluster.tscn")
+					else:
+						chunk_data.collectibles[Vector2i(x, y)] = preload("res://Units/apple.tscn")
 			
 			packed_byte_array.encode_u32(0, tile_data)
 			

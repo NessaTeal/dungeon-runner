@@ -25,6 +25,7 @@ buses/default_bus_layout="uid://dm7lb87wky23b"
 
 [autoload]
 
+PerformanceUtilsInstance="*uid://dxcc8x7d5yymn"
 Meta="*res://meta.gd"
 HoverBox="*res://Perks/hover_box.tscn"
 Inventory="*res://Inventory/inventory.tscn"
@@ -37,7 +38,6 @@ GlobalControls="*uid://c8knmwcmlirg"
 settings/profiler/max_timestamp_query_elements=2048
 settings/gdscript/max_call_stack=2047
 gdscript/type_inference/infer_type_from_assignment=true
-gdscript/warnings/untyped_declaration=1
 gdscript/warnings/unsafe_property_access=1
 gdscript/warnings/unsafe_method_access=1
 gdscript/warnings/unsafe_cast=1
