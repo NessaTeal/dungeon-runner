@@ -7,12 +7,12 @@ extends CanvasLayer
 @export var apple_count: Label
 @export var grit_count: Label
 @export var souls_count: Label
-@export var vistas_count: Label
+@export var culture_count: Label
 
 @export var apple_row: HBoxContainer
 @export var grit_row: HBoxContainer
 @export var souls_row: HBoxContainer
-@export var vistas_row: HBoxContainer
+@export var culture_row: HBoxContainer
 
 @export var tips: VBoxContainer
 
@@ -52,9 +52,12 @@ func show_perk(perk: Perk) -> void:
 	souls_row.visible = perk_cost.souls > 0
 	souls_count.text = str(perk_cost.souls)
 	
-	vistas_row.visible = perk_cost.culture > 0
-	vistas_count.text = str(perk_cost.culture)
+	culture_row.visible = perk_cost.culture > 0
+	culture_count.text = str(perk_cost.culture)
 	
 	for affix in perk.affixes:
 		add_line(affix.get_description(perk._level != 0 && perk._level != perk.max_level))
 	
+	if Meta.debug:
+		add_line(str(perk))
+		add_line(perk.resource_path)

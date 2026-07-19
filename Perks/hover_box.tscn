@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dhqnxdvhke0yw" path="res://Textures/SpellBook06_60.png" id="5_6cm3c"]
 [ext_resource type="Texture2D" uid="uid://cruiywel5ppyx" path="res://Textures/SGI_15.png" id="6_rf5fx"]
 
-[node name="Control" type="CanvasLayer" unique_id=101803397 node_paths=PackedStringArray("hover_box", "header", "apple_count", "grit_count", "souls_count", "vistas_count", "apple_row", "grit_row", "souls_row", "vistas_row", "tips", "current_level", "max_level")]
+[node name="Control" type="CanvasLayer" unique_id=101803397 node_paths=PackedStringArray("hover_box", "header", "apple_count", "grit_count", "souls_count", "culture_count", "apple_row", "grit_row", "souls_row", "culture_row", "tips", "current_level", "max_level")]
 process_mode = 3
 layer = 10
 script = ExtResource("1_blqyw")
@@ -17,11 +17,11 @@ header = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/HeaderRow/Head
 apple_count = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Costs/AppleRow/AppleCount")
 grit_count = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Costs/GritRow/GritCount")
 souls_count = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Costs/SoulsRow/SoulsCount")
-vistas_count = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Costs/VistasRow/VistasCount")
+culture_count = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Costs/CultureRow/CultureCount")
 apple_row = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Costs/AppleRow")
 grit_row = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Costs/GritRow")
 souls_row = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Costs/SoulsRow")
-vistas_row = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Costs/VistasRow")
+culture_row = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Costs/CultureRow")
 tips = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Affixes")
 current_level = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Footer/CurrentLevel")
 max_level = NodePath("CenterContainer/HoverBox/MarginContainer/Lines/Footer/MaxLevel")
@@ -118,16 +118,16 @@ expand_mode = 2
 layout_mode = 2
 text = "Souls cost"
 
-[node name="VistasRow" type="HBoxContainer" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs" unique_id=152527272]
+[node name="CultureRow" type="HBoxContainer" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs" unique_id=152527272]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Vistas" type="TextureRect" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/VistasRow" unique_id=93457135]
+[node name="Culture" type="TextureRect" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/CultureRow" unique_id=93457135]
 layout_mode = 2
 texture = ExtResource("6_rf5fx")
 expand_mode = 2
 
-[node name="VistasCount" type="Label" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/VistasRow" unique_id=1228606984]
+[node name="CultureCount" type="Label" parent="CenterContainer/HoverBox/MarginContainer/Lines/Costs/CultureRow" unique_id=1228606984]
 layout_mode = 2
 text = "Culture cost"
 

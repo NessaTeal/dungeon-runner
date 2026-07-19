@@ -55,8 +55,9 @@ func _ready() -> void:
 	
 func recalculate_perks() -> void:
 	for perk_box in all_perk_boxes:
-		var is_visible = perk_box.perk.unlocked_by.all(func(lock: Perk) -> bool: return lock._level > 0)
-		perk_box.visible = is_visible
+		var isVisible = perk_box.perk.unlocked_by.all(func(lock: Perk) -> bool: return lock._level > 0)
+		if not Meta.debug:
+			perk_box.visible = isVisible
 		if is_visible:
 			perk_box.perk_button.recalculate()
 			perk_box.update_line_colour()

@@ -1,5 +1,10 @@
 extends Node
 
+## Debug
+# Mark each run as a debug by default
+# If game will be started from main menu it will be set to false
+var debug = true
+
 ## Collectibles
 # All collected stuff
 
@@ -76,6 +81,3 @@ class SaveData:
 		
 		for perk_path in data['perk_levels'].keys():
 			perk_levels[perk_path] = data['perk_levels'][perk_path]
-
-func _ready() -> void:
-	load_game()

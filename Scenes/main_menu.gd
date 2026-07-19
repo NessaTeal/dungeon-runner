@@ -5,6 +5,12 @@ const fight_scene = preload("res://Scenes/fight_scene.tscn")
 const perks_scene = preload("res://Scenes/perks_scene.tscn")
 const item = preload("res://Inventory/item.tscn")
 
+func _enter_tree():
+	Meta.debug = false
+
+func _ready():
+	Meta.load_game()
+
 func _on_button_pressed() -> void:
 	var a := fight_scene.instantiate()
 	add_sibling(a)

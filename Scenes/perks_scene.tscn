@@ -6,6 +6,27 @@
 [ext_resource type="Texture2D" uid="uid://8ldqs0mkym65" path="res://Perks/Milestone/green_14.PNG" id="3_fhm2o"]
 [ext_resource type="Texture2D" uid="uid://dhqnxdvhke0yw" path="res://Textures/SpellBook06_60.png" id="4_n35ff"]
 
+[sub_resource type="GDScript" id="GDScript_n35ff"]
+script/source = "extends Label
+
+func _process(_delta: float):
+	text = str(Collectible.apples)
+"
+
+[sub_resource type="GDScript" id="GDScript_njtba"]
+script/source = "extends Label
+
+func _process(_delta: float):
+	text = str(floori(Collectible.grit))
+"
+
+[sub_resource type="GDScript" id="GDScript_o108o"]
+script/source = "extends Label
+
+func _process(_delta: float):
+	text = str(Collectible.souls)
+"
+
 [node name="PerksScene" type="ColorRect" unique_id=230700610 node_paths=PackedStringArray("apple_count", "grit_count", "souls_count", "perk_tree")]
 process_mode = 3
 custom_minimum_size = Vector2(1920, 1080)
@@ -41,6 +62,7 @@ expand_mode = 2
 [node name="AppleCount" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer" unique_id=1910702163]
 layout_mode = 2
 text = "4"
+script = SubResource("GDScript_n35ff")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=1739176555]
 layout_mode = 2
@@ -54,6 +76,7 @@ expand_mode = 2
 [node name="GritCount" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer2" unique_id=359019162]
 layout_mode = 2
 text = "0"
+script = SubResource("GDScript_njtba")
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=2145690004]
 layout_mode = 2
@@ -67,6 +90,7 @@ expand_mode = 2
 [node name="SoulsCount" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer3" unique_id=1762601768]
 layout_mode = 2
 text = "0"
+script = SubResource("GDScript_o108o")
 
 [node name="Button" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=601795403]
 layout_mode = 2
@@ -77,7 +101,7 @@ offset_left = 1495.0
 offset_top = 134.0
 offset_right = 1908.0
 offset_bottom = 238.0
-text = "Move around with right click"
+text = "Move around with right or mouse wheel"
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1947327130]
 layout_mode = 1
@@ -98,4 +122,3 @@ layout_mode = 2
 mouse_filter = 1
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Button" to="." method="_on_button_pressed"]
-[connection signal="perks_changed" from="CenterContainer/PerkTree" to="." method="_on_perk_tree_perk_changed"]

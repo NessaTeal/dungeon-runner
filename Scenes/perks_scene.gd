@@ -8,37 +8,19 @@ extends ColorRect
 var desired_scale = 1.0
 
 func _enter_tree() -> void:
-	# Debug values
-	# To give resources when ran standalone
-	if get_parent() == get_tree().root:
+	if Meta.debug:
 		Collectible.apples = 10000000
 		Collectible.grit = 10000000
 		Collectible.souls = 10000000
 
-func _ready() -> void:
-	apple_count.text = str(Collectible.apples)
-	grit_count.text = str(floori(Collectible.grit))
-	souls_count.text = str(Collectible.souls)
-
-func _exit_tree() -> void:
-	# Save game only if we are not in debug mode
-	# Could cause troubles as it's very flaky check
-	if get_parent() != get_tree().root:
-		Meta.save_game()
-
 func _on_button_pressed() -> void:
 	queue_free()
-
-func _on_perk_tree_perk_changed() -> void:
-	apple_count.text = str(Collectible.apples)
-	grit_count.text = str(floori(Collectible.grit))
-	souls_count.text = str(Collectible.souls)
 
 var dragging = false
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton click_event:
-		if click_event.button_index == MouseButton.MOUSE_BUTTON_RIGHT:
+		if click_event.button_index == MouseButton.MOUSE_BUTTON_RIGHT or click_event.button_index == MouseButton.MOUSE_BUTTON_MIDDLE:
 			dragging = click_event.pressed
 		elif click_event.button_index == MouseButton.MOUSE_BUTTON_WHEEL_DOWN && click_event.pressed:
 			desired_scale = maxf(0.05, desired_scale / 1.2)

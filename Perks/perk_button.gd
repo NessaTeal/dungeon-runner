@@ -72,6 +72,9 @@ func _on_button_pressed(mouse_button_index: MouseButton) -> void:
 			button.self_modulate = Color.GREEN
 			
 		calculate_tooltip()
+		
+		if not Meta.debug:
+			Meta.save_game()
 	elif mouse_button_index == MOUSE_BUTTON_RIGHT and perk_resource.can_be_downgraded():
 		Perks.downgrade(perk_resource)
 		
@@ -81,6 +84,9 @@ func _on_button_pressed(mouse_button_index: MouseButton) -> void:
 			button.self_modulate = Color.WHITE
 		
 		calculate_tooltip()
+		
+		if not Meta.debug:
+			Meta.save_game()
 
 func change_button_disabled(disabled: bool):
 	button.disabled = disabled

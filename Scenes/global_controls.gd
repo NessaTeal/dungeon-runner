@@ -22,6 +22,10 @@ func _input(event: InputEvent) -> void:
 		print("The apples are falling from dem clouds! Total apples: %d" % Collectible.apples)
 	elif casted_event.keycode == Key.KEY_8:
 		Collectible.grit += 1.0
+		print("You feel more resolved! Total grit: %d" % Collectible.grit)
+	elif casted_event.keycode == Key.KEY_7:
+		Collectible.souls += 1
+		print("Where did that come from? Total souls: %d" % Collectible.souls)
 	elif casted_event.keycode == Key.KEY_1:
 		Player.instance.health_component.receive_damage_no_emit(5.0)
 	elif casted_event.keycode == Key.KEY_2:
