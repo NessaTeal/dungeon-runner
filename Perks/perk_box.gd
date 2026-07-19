@@ -52,20 +52,23 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	max_distance = maxi(distance, max_distance)
 
+var line_trust_me := ColorRect.new()
+
 func update_position() -> void:
 	offset_vector = calculate_offset_vector()
 	if parent:
 		position = get_offset_position()
-		var line_trust_me := ColorRect.new()
 		line_trust_me.size = (position - parent.position).abs() + Vector2(20, 20)
 		if direction == Direction.DOWN or direction == Direction.RIGHT:
 			line_trust_me.position = -line_trust_me.size + Vector2(10, 10)
 		else:
 			line_trust_me.position -= Vector2(10, 10)
-		line_trust_me.color = Color(randf(), randf(), randf(), 1)
+		update_line_colour()
 		line_trust_me.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(line_trust_me)
 	
 	for child in children_boxes:
 		child.update_position()
-	
+
+func update_line_colour():
+	line_trust_me.color = Color.ORANGE if perk._level == perk.max_level else Color.LAWN_GREEN if perk._level > 0 else Color.LIGHT_SLATE_GRAY

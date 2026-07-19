@@ -5,29 +5,27 @@
 [ext_resource type="Texture2D" uid="uid://c3nfce77dbucm" path="res://Textures/ui_icon_empty_white.png" id="3_1ohjb"]
 [ext_resource type="Texture2D" uid="uid://2yillyvclfgh" path="res://Textures/SpellBook02_10.png" id="4_1ohjb"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yd8wl"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.037672453, 0.11729666, 0.11604329, 0.6)
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-corner_detail = 1
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1ohjb"]
 
-[node name="PerkButton" type="Control" unique_id=1276274660 node_paths=PackedStringArray("button", "label", "icon_component")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lfldl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_276w1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2losb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s52nd"]
+
+[node name="PerkButton" type="Control" unique_id=1276274660 node_paths=PackedStringArray("button", "icon_component")]
 z_index = 5
-custom_minimum_size = Vector2(400, 426)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 400.0
-offset_bottom = 426.0
+offset_bottom = 400.0
 scale = Vector2(0.5, 0.5)
 mouse_filter = 1
 script = ExtResource("1_uk0tp")
 perk_resource = ExtResource("2_hcgi3")
 button = NodePath("Button")
-label = NodePath("PanelContainer/Label")
 icon_component = NodePath("Icon")
 
 [node name="Button" type="Button" parent="." unique_id=1778015063]
@@ -37,33 +35,30 @@ anchors_preset = -1
 offset_right = 400.0
 offset_bottom = 400.0
 mouse_filter = 1
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_1ohjb")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_lfldl")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_276w1")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2losb")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_s52nd")
+disabled = true
+button_mask = 3
 icon = ExtResource("3_1ohjb")
 icon_alignment = 1
 expand_icon = true
 
 [node name="Icon" type="TextureRect" parent="." unique_id=787092754]
 layout_mode = 0
-offset_left = 64.0
-offset_top = 64.0
-offset_right = 336.0
-offset_bottom = 336.0
+offset_left = 72.0
+offset_top = 72.0
+offset_right = 328.0
+offset_bottom = 328.0
 mouse_filter = 2
 texture = ExtResource("4_1ohjb")
 expand_mode = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1386253797]
-clip_contents = true
-layout_mode = 0
-offset_right = 400.0
-offset_bottom = 46.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_yd8wl")
-
-[node name="Label" type="Label" parent="PanelContainer" unique_id=1948430434]
-layout_mode = 2
-text = "Untapped Potential"
-horizontal_alignment = 1
-
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
 [connection signal="button_up" from="Button" to="." method="_on_button_button_up"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

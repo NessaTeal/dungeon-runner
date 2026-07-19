@@ -59,5 +59,6 @@ func recalculate_perks() -> void:
 		perk_box.visible = is_visible
 		if is_visible:
 			perk_box.perk_button.recalculate()
+			perk_box.update_line_colour()
 	
 	perks_changed.emit()

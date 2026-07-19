@@ -10,6 +10,5 @@ script = ExtResource("2_5g7c0")
 icon = ExtResource("2_obpma")
 perk_name = "Increase limits"
 hooks_script = ExtResource("2_gppvl")
-upgrade_expression = "Meta.save_data.elemental_limit += 1"
 apples_cost = "1"
 metadata/_custom_type_script = "uid://i4dygb6wswk7"

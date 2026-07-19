@@ -1,5 +1,4 @@
 extends Object
-
 @export var stone_rarities: Array[StoneRarity]
 #[[60, 1, 50, 85], [30, 2, 60, 90], [7, 3, 70, 95], [3, 4, 75, 100]]
 

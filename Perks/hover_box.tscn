@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dopyrxkigntyo"]
 
 [ext_resource type="Script" uid="uid://dhktvqhymn3pm" path="res://Perks/hover_box.gd" id="1_blqyw"]
-[ext_resource type="Texture2D" uid="uid://bc4x1so7x7njw" path="res://Textures/ui_icon_empty_orange.png" id="2_b64bh"]
+[ext_resource type="Texture2D" uid="uid://ds8xpr71gteu" path="res://Textures/ui_icon_empty_orange.png" id="2_b64bh"]
 [ext_resource type="PackedScene" uid="uid://4pxjsoxdwpko" path="res://Perks/perks_tooltip_line.tscn" id="3_omyib"]
 [ext_resource type="Texture2D" uid="uid://5rxo1pm3wge8" path="res://Textures/apple.png" id="3_vlj8w"]
 [ext_resource type="Texture2D" uid="uid://8ldqs0mkym65" path="res://Perks/Milestone/green_14.PNG" id="4_c20b6"]
@@ -33,8 +33,8 @@ mouse_filter = 2
 mouse_behavior_recursive = 1
 
 [node name="HoverBox" type="PanelContainer" parent="CenterContainer" unique_id=358770665]
-custom_maximum_size = Vector2(512, -1)
 custom_minimum_size = Vector2(400, 0)
+custom_maximum_size = Vector2(512, -1)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -49,10 +49,10 @@ layout_mode = 2
 texture = ExtResource("2_b64bh")
 draw_center = false
 region_rect = Rect2(0, 0, 40, 40)
-patch_margin_left = 4
-patch_margin_top = 4
-patch_margin_right = 4
-patch_margin_bottom = 4
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
 
 [node name="MarginContainer" type="MarginContainer" parent="CenterContainer/HoverBox" unique_id=1782722560]
 layout_mode = 2

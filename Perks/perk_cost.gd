@@ -17,6 +17,12 @@ func pay() -> void:
 	Collectible.grit -= grit
 	Collectible.souls -= souls
 	Collectible.culture -= culture
+	
+func refund() -> void:
+	Collectible.apples += apples
+	Collectible.grit += grit
+	Collectible.souls += souls
+	Collectible.culture += culture
 
 func get_save_data() -> Dictionary[String, int]:
 	return {
