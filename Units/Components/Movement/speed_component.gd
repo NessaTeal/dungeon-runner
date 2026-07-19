@@ -1,8 +1,9 @@
 extends BaseComponent
 class_name SpeedComponent
 
+@export var current_speed := 0.0
+
 var distance := 0.0
-var current_speed := 0.0
 var fight_speed := 0.0
 var acceleration := 0.0
 var speed_from_acceleration := 0.0
