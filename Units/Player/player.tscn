@@ -71,6 +71,7 @@ attack_component = NodePath("../AttackComponent")
 speed_component = NodePath("../SpeedComponent")
 
 [node name="SpeedComponent" parent="." unique_id=1805166999 instance=ExtResource("17_vsxer")]
+current_speed = 4.0
 
 [node name="MovementComponent" parent="." unique_id=1686997147 node_paths=PackedStringArray("direction_component", "speed_component", "player") instance=ExtResource("8_pxk32")]
 direction_component = NodePath("../DirectionComponent")

@@ -11,10 +11,10 @@ func get_all_affixes() -> Array[BaseAffix]:
 	for item in Inventory.get_equipment():
 		all_affixes.append_array(item.stone.affixes)
 	
-	for perk_path in Meta.save_data.perk_levels.keys() as Array[String]:
+	for perk_path in SaveData.instance.perk_levels.keys() as Array[String]:
 		var perk_affixes: Array[BaseAffix] = load(perk_path).affixes
 		for perk_affix in perk_affixes:
-			perk_affix._level = Meta.save_data.perk_levels[perk_path]
+			perk_affix._level = SaveData.instance.perk_levels[perk_path]
 		all_affixes.append_array(perk_affixes)
 	
 	return all_affixes

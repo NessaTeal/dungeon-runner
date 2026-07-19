@@ -26,7 +26,6 @@ buses/default_bus_layout="uid://dm7lb87wky23b"
 [autoload]
 
 PerformanceUtilsInstance="*uid://dxcc8x7d5yymn"
-Meta="*res://meta.gd"
 HoverBox="*res://Perks/hover_box.tscn"
 Inventory="*res://Inventory/inventory.tscn"
 StoneGenerator="*res://Affixes/stone_generator.tscn"

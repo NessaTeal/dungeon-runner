@@ -9,3 +9,8 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_shrwa")
 starting_perk = ExtResource("2_f26l0")
+
+[node name="Timer" type="Timer" parent="." unique_id=1030575484]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="recalculate_perks"]

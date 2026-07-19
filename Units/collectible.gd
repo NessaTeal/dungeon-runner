@@ -11,24 +11,24 @@ enum Type {
 
 static var apples: int:
 	set(value):
-		Meta.save_data.collected_resources_data[Type.Apples] = value
+		SaveData.instance.collected_resources_data[Type.Apples] = value
 	get:
-		return Meta.save_data.collected_resources_data[Type.Apples]
+		return SaveData.instance.collected_resources_data[Type.Apples]
 
 static var grit: float:
 	set(value):
-		Meta.save_data.collected_resources_data[Type.Grit] = value
+		SaveData.instance.collected_resources_data[Type.Grit] = value
 	get:
-		return Meta.save_data.collected_resources_data[Type.Grit]
+		return SaveData.instance.collected_resources_data[Type.Grit]
 
 static var souls: int:
 	set(value):
-		Meta.save_data.collected_resources_data[Type.Souls] = value
+		SaveData.instance.collected_resources_data[Type.Souls] = value
 	get:
-		return Meta.save_data.collected_resources_data[Type.Souls]
+		return SaveData.instance.collected_resources_data[Type.Souls]
 
 static var culture: int:
 	set(value):
-		Meta.save_data.collected_resources_data[Type.Culture] = value
+		SaveData.instance.collected_resources_data[Type.Culture] = value
 	get:
-		return Meta.save_data.collected_resources_data[Type.Culture]
+		return SaveData.instance.collected_resources_data[Type.Culture]

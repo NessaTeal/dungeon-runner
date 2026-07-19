@@ -49,7 +49,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 func _on_player_unit_died() -> void:
 	get_tree().paused = true
-	Meta.save_game()
+	SaveData.save_game()
 	
 	var game_over := preload("res://Scenes/game_over.tscn").instantiate() as GameOver
 

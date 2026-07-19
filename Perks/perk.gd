@@ -38,14 +38,22 @@ func set_unlocks() -> void:
 func _can_be_downgraded() -> bool:
 	return _level > 0 and not (_level == 1 and unlocks.any(func(perk): return perk._level > 0))
 
+func can_be_upgraded() -> bool:
+	return get_perk_cost().can_afford() \
+		and (Perks.can_buy_elemental() or not elemental) \
+		and _level != max_level
+
 func can_be_downgraded() -> bool:
 	if script_instance:
 		return script_instance.can_be_downgraded() and _can_be_downgraded()
 	else:
 		return _can_be_downgraded()
+		
+func is_maxed() -> bool:
+	return _level == max_level
 
 func get_description() -> String:
-	return tr(perk_name.to_upper() + "_DESCRIPTION") + ("\nElemental pledge perk, you can only take limited amount.\nYou currently have %d/%d" % [Meta.save_data.get_elemental_perks_count(), Meta.save_data.elemental_limit]  if elemental else "")
+	return tr(perk_name.to_upper() + "_DESCRIPTION") + ("\nElemental pledge perk, you can only take limited amount.\nYou currently have %d/%d" % [SaveData.instance.get_elemental_perks_count(), SaveData.instance.elemental_limit]  if elemental else "")
 
 func get_perk_cost(offset: int = 0) -> PerkCost:
 	var perk_cost := PerkCost.new()

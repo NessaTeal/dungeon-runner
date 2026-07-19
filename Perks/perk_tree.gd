@@ -13,8 +13,8 @@ func _ready() -> void:
 	var first_perk := starting_perk
 	first_perk_box.perk = first_perk
 	
-	if Meta.save_data.perk_levels.has(first_perk.resource_path):
-		first_perk._level = Meta.save_data.perk_levels[first_perk.resource_path]
+	if SaveData.instance.perk_levels.has(first_perk.resource_path):
+		first_perk._level = SaveData.instance.perk_levels[first_perk.resource_path]
 	add_child(first_perk_box)
 	
 	var perk_boxes_to_process := [first_perk_box]
@@ -43,8 +43,8 @@ func _ready() -> void:
 			child_perk_box.name = child_perk.perk_name
 			perk_box.children_boxes.push_back(child_perk_box)
 			perk_boxes_to_process.push_front(child_perk_box)
-			if Meta.save_data.perk_levels.has(child_perk.resource_path):
-				child_perk._level = Meta.save_data.perk_levels[child_perk.resource_path]
+			if SaveData.instance.perk_levels.has(child_perk.resource_path):
+				child_perk._level = SaveData.instance.perk_levels[child_perk.resource_path]
 			add_child(child_perk_box)
 	
 	for perk_box in all_perk_boxes:

@@ -9,7 +9,7 @@ func _enter_tree():
 	Meta.debug = false
 
 func _ready():
-	Meta.load_game()
+	SaveData.load_game()
 
 func _on_button_pressed() -> void:
 	var a := fight_scene.instantiate()
@@ -28,4 +28,4 @@ func _on_button_3_pressed() -> void:
 
 
 func _on_button_4_pressed() -> void:
-	Meta.reset_game()
+	SaveData.reset_game()
