@@ -18,7 +18,16 @@ static func deserialize(dict: Dictionary) -> Object:
 		if not dict.has(name):
 			continue
 		var decoded_value: Variant = _decode_value(dict[name])
-		object.set(name, decoded_value)
+		if decoded_value is Array array:
+			var target_array = object[name] as Array
+			for value in array:
+				target_array.push_back(value)
+		elif decoded_value is Dictionary dictionary:
+			var target_dictionary = object[name] as Dictionary
+			for key in dictionary.keys():
+				target_dictionary[key] = dictionary[key]
+		else:
+			object.set(name, decoded_value)
 	return object
 
 static func get_serializable_properties(object: Object) -> Array[Dictionary[String, Variant]]:

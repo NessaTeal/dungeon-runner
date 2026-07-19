@@ -3,8 +3,8 @@ class_name SaveData
 
 const save_file_path := "user://save.json"
 
-@export var collected_resources_data: Array = []
-@export var perk_levels: Dictionary = {}
+@export var collected_resources_data: Array[float] = []
+@export var perk_levels: Dictionary[String, int] = {}
 @export var elemental_limit: int = 1
 
 func get_all_perks() -> Array[Perk]:
@@ -17,8 +17,10 @@ func get_elemental_perks_count() -> int:
 			result += 1
 	return result
 
-func _init() -> void:
-	collected_resources_data.resize(Collectible.Type.Count)
+static func create_empty() -> SaveData:
+	var empty_save = new()
+	empty_save.collected_resources_data.resize(Collectible.Type.Count)
+	return empty_save
 
 func _to_string() -> String:
 	var string =  "<SaveData"
@@ -53,7 +55,7 @@ static func reset_game() -> void:
 	if FileAccess.file_exists(save_file_path):
 		DirAccess.remove_absolute(save_file_path)
 		
-	instance = new()
+	instance = create_empty()
 	
 	# Resetting resources levels to 0
 	# Assumes single root perk, which probably won't be true forever
@@ -63,4 +65,4 @@ static func reset_game() -> void:
 		perk._level = 0
 		perks.append_array(perk.unlocks)
 
-static var instance = new()
+static var instance = create_empty()
