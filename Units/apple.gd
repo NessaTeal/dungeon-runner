@@ -25,6 +25,7 @@ func _on_body_entered(player: Player) -> void:
 	Collectible.apples += CurrentRunState.apples_per_apples
 	player.health_component.heal_damage(CurrentRunState.apple_healing)
 	picked_up.emit()
+	Player.instance.speed_component.current_speed_boost += Player.instance.speed_component.boost_per_apple
 	queue_free()
 
 func _on_timer_timeout() -> void:

@@ -11,7 +11,7 @@ var movement_buffer := 0.0
 var total_distance := 0.0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float):
 	var speed_multiplier := 2.0 if Input.is_action_pressed("GoUp") else 0.5 if Input.is_action_pressed("GoDown") else 1.0
 	var delta_movement := speed_component.get_current_speed() * speed_multiplier
 	

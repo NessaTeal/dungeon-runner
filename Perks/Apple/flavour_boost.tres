@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Perk" format=3 uid="uid://cmn4anc5h8k5v"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_ndty4"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="2_1v1w1"]
+[ext_resource type="Texture2D" uid="uid://dc2wruye30uml" path="res://Perks/Apple/spices.png" id="2_qa2hm"]
+[ext_resource type="Script" uid="uid://dark5iaulm2r3" path="res://Affixes/PlayerAffixes/Agility/apple_boost.gd" id="2_x2i6g"]
+
+[sub_resource type="Resource" id="Resource_s6s4v"]
+script = ExtResource("2_x2i6g")
+power = 1.0
+power_per_level = 0.2
+metadata/_custom_type_script = "uid://dark5iaulm2r3"
+
+[resource]
+script = ExtResource("2_1v1w1")
+icon = ExtResource("2_qa2hm")
+perk_name = "Flavour boost"
+max_level = 10
+affixes = Array[ExtResource("1_ndty4")]([SubResource("Resource_s6s4v")])
+apples_cost = "1"
+metadata/_custom_type_script = "uid://i4dygb6wswk7"

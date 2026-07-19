@@ -21,3 +21,4 @@ DRESSAGE_TURN_RATE_AFFIX_AFFIX_DESCRIPTION,"Turn %s%% faster"
 DAMAGED_SPEED_AFFIX_DESCRIPTION,"Get up to %s speed as health goes down capping at 40%% HP"
 
 FRUITFUL_HARVEST_AFFIX_DESCRIPTION,"Add a chance for the apples to spawn in a cluster of [color=orange]3[/color]. Chance: %s%%"
+APPLE_BOOST_AFFIX_DESCRIPTION,"Gain %s m/s speed boost when eating apple which is rapidly decays over time"
