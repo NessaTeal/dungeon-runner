@@ -5,17 +5,6 @@ const save_file_path := "user://save.json"
 
 @export var collected_resources_data: Array[float] = []
 @export var perk_levels: Dictionary[String, int] = {}
-@export var elemental_limit: int = 1
-
-func get_all_perks() -> Array[Perk]:
-	return perk_levels.keys().map(func(key): return load(key))
-
-func get_elemental_perks_count() -> int:
-	var result := 0
-	for perk_path in perk_levels.keys():
-		if (load(perk_path) as Perk).elemental:
-			result += 1
-	return result
 
 static func create_empty() -> SaveData:
 	var empty_save = new()

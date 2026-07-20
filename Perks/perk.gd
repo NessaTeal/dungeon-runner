@@ -53,7 +53,7 @@ func is_maxed() -> bool:
 	return _level == max_level
 
 func get_description() -> String:
-	return tr(perk_name.to_upper() + "_DESCRIPTION") + ("\nElemental pledge perk, you can only take limited amount.\nYou currently have %d/%d" % [SaveData.instance.get_elemental_perks_count(), SaveData.instance.elemental_limit]  if elemental else "")
+	return tr(perk_name.to_upper() + "_DESCRIPTION") + ("\nElemental pledge perk, you can only take limited amount.\nYou currently have %d/%d" % [Perks.get_elemental_perks_count(), Perks.get_elemental_limit()]  if elemental else "")
 
 func get_perk_cost(offset: int = 0) -> PerkCost:
 	var perk_cost := PerkCost.new()

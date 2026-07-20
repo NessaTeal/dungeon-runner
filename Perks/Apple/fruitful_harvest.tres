@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="2_f5y82"]
 [ext_resource type="Script" uid="uid://d385i0dfbjml5" path="res://Affixes/RunAffixes/Collectibles/Apple/fruitful_harvest.gd" id="2_kgtsr"]
 [ext_resource type="Resource" uid="uid://cmn4anc5h8k5v" path="res://Perks/Apple/flavour_boost.tres" id="5_kgtsr"]
+[ext_resource type="Resource" uid="uid://odmp10yxe57m" path="res://Perks/Apple/apple_magnet.tres" id="6_neom8"]
+[ext_resource type="Resource" uid="uid://ckik4gd4ycafa" path="res://Perks/Apple/apple_orchard.tres" id="7_rblca"]
 
 [sub_resource type="Resource" id="Resource_ojehl"]
 script = ExtResource("2_kgtsr")
@@ -17,7 +19,12 @@ script = ExtResource("2_f5y82")
 icon = ExtResource("2_6fnw7")
 perk_name = "Fruitful Harvest"
 max_level = 20
+elemental = null
 affixes = Array[ExtResource("1_m0nrl")]([SubResource("Resource_ojehl")])
-unlocks = Array[ExtResource("2_f5y82")]([ExtResource("5_kgtsr")])
+unlocks = Array[ExtResource("2_f5y82")]([ExtResource("5_kgtsr"), ExtResource("6_neom8"), ExtResource("7_rblca")])
+locks = null
 apples_cost = "ceili(2 + 1.5 ** level)"
+grit_cost = null
+souls_cost = null
+culture_cost = null
 metadata/_custom_type_script = "uid://i4dygb6wswk7"

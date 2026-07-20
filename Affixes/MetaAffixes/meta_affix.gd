@@ -1,0 +1,2 @@
+extends BaseAffix
+class_name MetaAffix

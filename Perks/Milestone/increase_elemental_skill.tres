@@ -1,14 +1,28 @@
 [gd_resource type="Resource" script_class="Perk" format=3 uid="uid://c5gq7l7qqnbij"]
 
 [ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_rtfxj"]
+[ext_resource type="Script" uid="uid://dol0hfcsjo4g1" path="res://Affixes/MetaAffixes/elemental_limit.gd" id="2_5g1yx"]
 [ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="2_5g7c0"]
 [ext_resource type="Script" uid="uid://v1n3wvr2yjmm" path="res://Perks/Milestone/increase_elemental_skill_hooks.gd" id="2_gppvl"]
 [ext_resource type="Texture2D" uid="uid://bap233stmlnwk" path="res://Textures/SGI_67.png" id="2_obpma"]
+
+[sub_resource type="Resource" id="Resource_0xm2m"]
+script = ExtResource("2_5g1yx")
+power = 1.0
+metadata/_custom_type_script = "uid://dol0hfcsjo4g1"
 
 [resource]
 script = ExtResource("2_5g7c0")
 icon = ExtResource("2_obpma")
 perk_name = "Increase limits"
+max_level = null
+elemental = null
+affixes = Array[ExtResource("1_rtfxj")]([SubResource("Resource_0xm2m")])
+unlocks = null
+locks = null
 hooks_script = ExtResource("2_gppvl")
 apples_cost = "1"
+grit_cost = null
+souls_cost = null
+culture_cost = null
 metadata/_custom_type_script = "uid://i4dygb6wswk7"

@@ -1,0 +1,2 @@
+extends MetaAffix
+class_name ElementalLimitAffix

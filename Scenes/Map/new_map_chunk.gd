@@ -22,8 +22,13 @@ func _ready() -> void:
 		multimesh.set_instance_transform(tile_index, Transform3D(Basis(), Vector3(tile_data.position.x * TILE_SIZE, 0, tile_data.position.y * TILE_SIZE)))
 		multimesh.set_instance_custom_data(tile_index, tile_data.tile_data)
 	
+	var collectible_count: Dictionary[String, int]
+	
 	for collectible_key: Vector2i in chunk_data.collectibles.keys():
 		var collectible_scene = chunk_data.collectibles[collectible_key].instantiate() as Node3D
+		var collectible_order = collectible_count[collectible_scene.name] if collectible_count.has(collectible_scene.name) else 0
+		collectible_count[collectible_scene.name] = collectible_order + 1
+		collectible_scene.name = "%s %d" % [collectible_scene.name, collectible_order]
 		
 		collectible_scene.set_transform(Transform3D(Basis(), Vector3(collectible_key.x * TILE_SIZE, 0, collectible_key.y * TILE_SIZE)))
 		

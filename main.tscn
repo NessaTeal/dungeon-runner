@@ -1,9 +1,36 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckni5u5c1a0r5"]
+[gd_scene format=3 uid="uid://ckni5u5c1a0r5"]
 
 [ext_resource type="Script" uid="uid://0js272odo2f5" path="res://main.gd" id="1_6ox4s"]
 [ext_resource type="PackedScene" uid="uid://bwdr57hf4tfor" path="res://Scenes/main_menu.tscn" id="3_uviel"]
 
-[node name="Main" type="Node"]
+[sub_resource type="GDScript" id="GDScript_o108o"]
+script/source = "extends Timer
+
+@export var apples_per_tick = 0
+
+func _ready():
+	Perks.affixes_changed.connect(_reset)
+	_reset();
+
+func _reset():
+	var new_value = Perks.get_total_affixes_poweri(AppleOrchardAffix)
+	if new_value != apples_per_tick:
+		apples_per_tick = int(Perks.get_total_affixes_power(AppleOrchardAffix))
+		if apples_per_tick:
+			start(1.0)
+		else:
+			stop()
+
+func _on_timeout() -> void:
+	Collectible.apples += apples_per_tick
+"
+
+[node name="Main" type="Node" unique_id=728035576]
 script = ExtResource("1_6ox4s")
 
-[node name="MainMenu" parent="." instance=ExtResource("3_uviel")]
+[node name="MainMenu" parent="." unique_id=1851202398 instance=ExtResource("3_uviel")]
+
+[node name="AppleOrchardTimer" type="Timer" parent="." unique_id=1963502050]
+script = SubResource("GDScript_o108o")
+
+[connection signal="timeout" from="AppleOrchardTimer" to="AppleOrchardTimer" method="_on_timeout"]

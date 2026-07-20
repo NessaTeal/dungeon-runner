@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cy8kx26eiqrfw" path="res://Units/Components/Movement/direction_component.tscn" id="15_2t20v"]
 [ext_resource type="PackedScene" uid="uid://ces548j7m3qmd" path="res://Units/Components/energy_drain_component.tscn" id="15_s6s4v"]
 [ext_resource type="PackedScene" uid="uid://dyvw3nfsvi107" path="res://Units/Components/Slingshot/slingshot_component.tscn" id="16_cbjcl"]
+[ext_resource type="Script" uid="uid://c5h0vfvi3ob8n" path="res://Units/Player/collectible_magnet_component.gd" id="16_kywcc"]
 [ext_resource type="PackedScene" uid="uid://by12r5p8vqs7i" path="res://Units/Components/Movement/speed_component.tscn" id="17_vsxer"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ucxuk"]
@@ -32,7 +33,10 @@ albedo_texture = ExtResource("14_v6jny")
 material = SubResource("ORMMaterial3D_s6s4v")
 size = Vector2(1.32, 1.32)
 
-[node name="Player" type="CharacterBody3D" unique_id=716859399 node_paths=PackedStringArray("speed_component", "trample_component", "slingshot_component", "immolation_component", "direction_component", "movement_component", "health_component", "attack_component", "dash_component")]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_o108o"]
+radius = 0.001
+
+[node name="Player" type="CharacterBody3D" unique_id=716859399 node_paths=PackedStringArray("speed_component", "trample_component", "slingshot_component", "immolation_component", "direction_component", "movement_component", "health_component", "attack_component", "dash_component", "collectible_magnet_component")]
 collision_mask = 260
 script = ExtResource("1_dwi3t")
 speed_component = NodePath("SpeedComponent")
@@ -44,6 +48,7 @@ movement_component = NodePath("MovementComponent")
 health_component = NodePath("HealthComponent")
 attack_component = NodePath("AttackComponent")
 dash_component = NodePath("DashComponent")
+collectible_magnet_component = NodePath("CollectibleMagnetComponent")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=513692035]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32, 0)
@@ -120,5 +125,20 @@ health_component = NodePath("../HealthComponent")
 energy_drain = 3.0
 energy_drain_acceleration = 0.25
 
+[node name="CollectibleMagnetComponent" type="Area3D" parent="." unique_id=1962948046 node_paths=PackedStringArray("player")]
+collision_layer = 512
+collision_mask = 8
+monitorable = false
+script = ExtResource("16_kywcc")
+cylinder_shape = SubResource("CylinderShape3D_o108o")
+player = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollectibleMagnetComponent" unique_id=1864193248]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_o108o")
+debug_color = Color(0.7261091, 0.47438997, 0.112331726, 0.41960785)
+
 [connection signal="player_turned_a_lot" from="DirectionComponent" to="." method="report_player_position"]
 [connection signal="moved_a_lot" from="MovementComponent" to="." method="report_player_position"]
+[connection signal="area_entered" from="CollectibleMagnetComponent" to="CollectibleMagnetComponent" method="_on_area_entered"]
+[connection signal="area_exited" from="CollectibleMagnetComponent" to="CollectibleMagnetComponent" method="_on_area_exited"]

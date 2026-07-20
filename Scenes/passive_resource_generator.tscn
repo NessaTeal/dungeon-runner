@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cijttjugk30aa"]
+
+[ext_resource type="Script" uid="uid://ddywhlgvi82dn" path="res://Scenes/passive_resource_generator.gd" id="1_ytncc"]
+
+[node name="PassiveResourceGenerator" type="Node" unique_id=1772484466]
+script = ExtResource("1_ytncc")
+
+[node name="AppleTimer" type="Timer" parent="." unique_id=871619823]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="AppleTimer" to="." method="_on_apple_timer_timeout"]

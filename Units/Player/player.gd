@@ -10,6 +10,7 @@ class_name Player
 @export var health_component: HealthComponent
 @export var attack_component: AttackComponent
 @export var dash_component: DashComponent
+@export var collectible_magnet_component: CollectibleMagnetComponent
 
 signal player_position_updated(position: Vector3, direction: Vector2)
 

@@ -20,7 +20,6 @@ radius = 0.6
 
 [node name="Apple" type="Area3D" unique_id=1681493989]
 collision_layer = 8
-monitorable = false
 script = ExtResource("1_3h585")
 metadata/_custom_type_script = "uid://7das1ic7whr6"
 

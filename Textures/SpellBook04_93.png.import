@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b641vt5qb6mta"
-path="res://.godot/imported/atlas.png-d85dd422d1455b79efbd468913d3cf80.ctex"
+uid="uid://duood7x3ka33v"
+path="res://.godot/imported/SpellBook04_93.png-0259b6b4c86e9f941031ec71e2f49de0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Tiles/atlas.png"
-dest_files=["res://.godot/imported/atlas.png-d85dd422d1455b79efbd468913d3cf80.ctex"]
+source_file="res://Textures/SpellBook04_93.png"
+dest_files=["res://.godot/imported/SpellBook04_93.png-0259b6b4c86e9f941031ec71e2f49de0.ctex"]
 
 [params]
 
-compress/mode=3
+compress/mode=0
 compress/high_quality=false
 compress/high_quality_mode=0
 compress/lossy_quality=0.7
@@ -33,9 +33,9 @@ process/channel_remap/green=1
 process/channel_remap/blue=2
 process/channel_remap/alpha=3
 process/fix_alpha_border=true
-process/premult_alpha=true
+process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

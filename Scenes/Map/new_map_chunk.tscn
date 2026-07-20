@@ -87,7 +87,7 @@ void fragment() {
     final = mix(final, slot3, slot3.a);
 
     ALBEDO = final.rgb;
-    ALPHA = final.a;
+    //ALPHA = final.a;
 }
 "
 

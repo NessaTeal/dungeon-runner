@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Perk" format=3 uid="uid://odmp10yxe57m"]
+
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_c8j14"]
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="2_0yvbj"]
+[ext_resource type="Script" uid="uid://chnpmoqnqjchm" path="res://Affixes/PlayerAffixes/Collectible/collectible_magnet_strength.gd" id="2_nawjl"]
+[ext_resource type="Script" uid="uid://cy1pix03eoced" path="res://Affixes/PlayerAffixes/Collectible/collectible_magnet_radius.gd" id="3_mbugo"]
+[ext_resource type="Texture2D" uid="uid://dchjn52ub5t7a" path="res://Perks/Apple/SpellBook01_79.PNG" id="3_o83fw"]
+
+[sub_resource type="Resource" id="Resource_nawjl"]
+script = ExtResource("2_nawjl")
+power = 5.0
+metadata/_custom_type_script = "uid://chnpmoqnqjchm"
+
+[sub_resource type="Resource" id="Resource_kywcc"]
+script = ExtResource("3_mbugo")
+power = 10.0
+power_per_level = 5.0
+metadata/_custom_type_script = "uid://cy1pix03eoced"
+
+[resource]
+script = ExtResource("2_0yvbj")
+icon = ExtResource("3_o83fw")
+perk_name = "Apple Magnet"
+max_level = 5
+affixes = Array[ExtResource("1_c8j14")]([SubResource("Resource_nawjl"), SubResource("Resource_kywcc")])
+souls_cost = "2 + roundi(exp(level))"
+metadata/_custom_type_script = "uid://i4dygb6wswk7"

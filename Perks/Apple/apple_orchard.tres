@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Perk" format=3 uid="uid://ckik4gd4ycafa"]
+
+[ext_resource type="Script" uid="uid://i4dygb6wswk7" path="res://Perks/perk.gd" id="1_043lq"]
+[ext_resource type="Script" uid="uid://djoenb3hbpoh6" path="res://Affixes/base_affix.gd" id="1_iix27"]
+[ext_resource type="Script" uid="uid://dnd3mafoihaxa" path="res://Affixes/MetaAffixes/apple_orchard.gd" id="2_kwvwh"]
+[ext_resource type="Texture2D" uid="uid://cq60hhs3io8mo" path="res://Perks/Apple/apple_orchard.png" id="3_0hghd"]
+
+[sub_resource type="Resource" id="Resource_hwovk"]
+script = ExtResource("2_kwvwh")
+power = 1.0
+power_per_level = 1.0
+metadata/_custom_type_script = "uid://dnd3mafoihaxa"
+
+[resource]
+script = ExtResource("1_043lq")
+icon = ExtResource("3_0hghd")
+perk_name = "Apple Orchard"
+max_level = 5
+affixes = Array[ExtResource("1_iix27")]([SubResource("Resource_hwovk")])
+apples_cost = "20 + exp(level)"
+grit_cost = "2 + level"
+metadata/_custom_type_script = "uid://i4dygb6wswk7"
