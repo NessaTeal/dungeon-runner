@@ -7,9 +7,18 @@ class_name DashComponent
 @onready var dash_cooldown_timer: Timer = $DashCooldown
 
 var dashing := false
-@export var dash_speed := 0.0
+var dash_speed := 0.0
 var dash_duration := 0.5
 var remaining_dash_duration := 0.0
+
+func _ready():
+	Perks.affixes_changed.connect(_reset)
+	_reset()
+	
+func _reset():
+	var new_dash_speed = Perks.get_total_affixes_power(DashSpeedAffix)
+	if dash_speed != new_dash_speed:
+		dash_speed = new_dash_speed
 
 func _process(delta: float) -> void:
 	if dashing:

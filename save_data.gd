@@ -39,6 +39,8 @@ static func load_game() -> void:
 			return
 		
 		instance = ObjectSerializer.deserialize(json.data)
+		
+		Perks.affixes_changed.emit()
 
 static func reset_game() -> void:
 	if FileAccess.file_exists(save_file_path):
@@ -53,5 +55,7 @@ static func reset_game() -> void:
 		var perk = perks.pop_back()
 		perk._level = 0
 		perks.append_array(perk.unlocks)
+	
+	Perks.affixes_changed.emit()
 
 static var instance = create_empty()

@@ -10,6 +10,15 @@ class_name ImmolationComponent
 
 var immolation_emitter: PackedScene = preload("res://Units/Components/Immolation/immolation_emitter.tscn")
 
+func _ready():
+	Perks.affixes_changed.connect(_reset)
+	_reset()
+
+func _reset():
+	var new_immolation_damage = Perks.get_total_affixes_power(ImmolationAffix)
+	if immolation_damage != new_immolation_damage:
+		immolation_damage = new_immolation_damage
+
 func _on_timer_timeout() -> void:
 	if immolation_damage > 0:
 		transformation_component.transform("fire")

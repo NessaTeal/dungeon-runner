@@ -2,7 +2,7 @@ extends Area3D
 class_name CollectibleMagnetComponent
 
 @export var cylinder_shape: CylinderShape3D
-@export var magnet_radius = 0.1:
+@export var magnet_radius = 0.0:
 	set(value):
 		magnet_radius = value
 		cylinder_shape.radius = value
@@ -10,6 +10,19 @@ class_name CollectibleMagnetComponent
 @export var player: Player
 
 var tracked_collectibles: Array[Collectible]
+
+func _ready():
+	Perks.affixes_changed.connect(_reset)
+	_reset()
+
+func _reset():
+	var new_magnet_radius = Perks.get_total_affixes_power(CollectibleMagnetRadiusAffix)
+	if magnet_radius != new_magnet_radius:
+		magnet_radius = new_magnet_radius
+		
+	var new_magnet_strength = Perks.get_total_affixes_power(CollectibleMagnetStrengthAffix)
+	if magnet_strength != new_magnet_strength:
+		magnet_strength = new_magnet_strength
 
 func _process(delta: float) -> void:
 	if not magnet_radius or not magnet_strength:

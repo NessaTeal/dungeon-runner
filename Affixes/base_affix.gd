@@ -21,11 +21,8 @@ func format_value(value):
 	return value
 
 func get_dynamic_value() -> float:
-	assert(false, "To use dynamic value affix must implement get_dynamic_value() which uses get_value() and register itself in apply() to a relevant component")
+	assert(false, "To use dynamic value affix must implement get_dynamic_value() which uses get_value() in its calculations")
 	return -1
-
-func apply() -> void:
-	assert(false, "Affix must implement apply() which uses get_value()")
 
 func get_description(level_up: bool = false) -> String:
 	@warning_ignore("unsafe_cast")

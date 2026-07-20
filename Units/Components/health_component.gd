@@ -1,10 +1,14 @@
 extends MarginContainer
 class_name HealthComponent
 
-var damaged := 0.0
-@export var max_hp := 50.0
-@export var hp_regen := 0.0
-@export var missing_hp_regen := 0.0
+var damaged = 0.0
+@export var base_max_hp = 50.0
+var max_hp = 0.0:
+	set(value):
+		max_hp = value
+		health_bar.max_value = max_hp
+@export var hp_regen = 0.0
+@export var missing_hp_regen = 0.0
 
 @export var health_bar: ProgressBar
 
@@ -12,9 +16,19 @@ signal hp_depleted
 signal damage_received(damage: float)
 
 func _ready() -> void:
-	health_bar.max_value = max_hp
+	Perks.affixes_changed.connect(_reset)
+	_reset()
 	health_bar.value = max_hp
-	
+
+func _reset():
+	var new_max_hp = base_max_hp + Perks.get_total_affixes_power(ToughnessAffix)
+	if max_hp != new_max_hp:
+		max_hp = new_max_hp
+		
+	var new_hp_regen = Perks.get_total_affixes_power(HPRegenAffix)
+	if hp_regen != new_hp_regen:
+		hp_regen = new_hp_regen
+
 func add_max_hp(extra_hp: float) -> void:
 	max_hp += extra_hp
 	health_bar.max_value = max_hp

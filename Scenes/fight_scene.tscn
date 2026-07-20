@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://8ldqs0mkym65" path="res://Perks/Milestone/green_14.PNG" id="3_hx27y"]
 [ext_resource type="PackedScene" uid="uid://dldtmj2d8aq01" path="res://Units/Player/player.tscn" id="3_supv1"]
 [ext_resource type="PackedScene" uid="uid://ctiw0m8k5sub3" path="res://Scenes/Map/map.tscn" id="6_48sw3"]
-[ext_resource type="Script" uid="uid://k77suwqe7wdi" path="res://Scenes/affix_applier.gd" id="8_6leyg"]
 [ext_resource type="PackedScene" uid="uid://v5cl4nhy5imd" path="res://Scenes/enemy_spawner_component.tscn" id="8_mo3wy"]
 [ext_resource type="Script" uid="uid://2m2kiqoplbbk" path="res://Scenes/loading.gd" id="9_lmtoh"]
 [ext_resource type="Texture2D" uid="uid://pxwor5j40s8w" path="res://Textures/deero/0000.png" id="10_gcmlh"]
@@ -436,10 +435,6 @@ position = Vector2(0, 2000)
 position_smoothing_speed = 7.0
 rotation_smoothing_speed = 7.0
 editor_draw_drag_margin = true
-
-[node name="AffixApplier" type="Node" parent="." unique_id=740047598 node_paths=PackedStringArray("player")]
-script = ExtResource("8_6leyg")
-player = NodePath("../GameHolder/Map/Player")
 
 [connection signal="pressed" from="GameHolder/UI/ShowInventoryButton" to="." method="_on_show_inventory_button_pressed"]
 [connection signal="tile_created" from="GameHolder/Map" to="Loading" method="tile_created"]

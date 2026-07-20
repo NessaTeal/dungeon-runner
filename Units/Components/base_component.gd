@@ -1,10 +1,10 @@
 extends Control
 class_name BaseComponent
 
-var dynamic_affixes: Dictionary[String, Array[BaseAffix]] = {}
+var dynamic_affixes: Dictionary[GDScript[BaseAffix], Array[BaseAffix]] = {}
 
 func get_dynamic_value() -> float:
-	var values_per_key: Dictionary[String, float] = get_dynamic_values_per_key()
+	var values_per_key: Dictionary[GDScript[BaseAffix], float] = get_dynamic_values_per_key()
 	
 	return values_per_key.values().reduce(func(acc: float, cur: float) -> float: return acc + cur, 0.0)
 	
@@ -15,10 +15,10 @@ func get_dynamic_value() -> float:
 	
 	#return sources.values().map(func(affixes: Array[BaseAffix]) -> float: return affixes.reduce(func(sum: float, affix: BaseAffix) -> float: return sum + get_dynamic_value(), 0.0))
 
-func get_dynamic_values_per_key() -> Dictionary[String, float]:
-	var values_per_key: Dictionary[String, float] = {}
+func get_dynamic_values_per_key() -> Dictionary[GDScript[BaseAffix], float]:
+	var values_per_key: Dictionary[GDScript[BaseAffix], float] = {}
 	
-	var keys: Array[String] = dynamic_affixes.keys()
+	var keys: Array[GDScript[BaseAffix]] = dynamic_affixes.keys()
 	for key in keys:
 		var affixes = dynamic_affixes[key]
 		var key_sum: float = affixes.reduce(func(acc: float, affix: BaseAffix) -> float: return acc + affix.get_dynamic_value(), 0.0)
@@ -26,7 +26,13 @@ func get_dynamic_values_per_key() -> Dictionary[String, float]:
 		
 	return values_per_key
 
-func add_dynamic_affix(key: String, affix: BaseAffix) -> void:
+func get_base_value_for_affix(affix_class: GDScript[BaseAffix]) -> float:
+	if not dynamic_affixes.has(affix_class):
+		return 0
+	
+	return dynamic_affixes[affix_class].reduce(func(acc: float, affix: BaseAffix) -> float: return acc + affix.get_value(), 0.0)
+
+func add_dynamic_affix(key: GDScript[BaseAffix], affix: BaseAffix) -> void:
 	if dynamic_affixes.has(key):
 		dynamic_affixes[key].push_back(affix)
 	else:
